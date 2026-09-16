@@ -1,0 +1,51 @@
+/* =========================================================
+   HVAC/R FIELD TOOL - Prototype 0.3C
+   ========================================================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; background:#f4f6f8; color:#1f2933; }
+.app-header { background:#14213d; color:white; padding:18px 28px; }
+.app-header h1 { margin:0; font-size:22px; font-weight:700; }
+.subtitle { margin-top:3px; color:#b9c4d5; font-size:13px; }
+.app-main { width:100%; max-width:1400px; margin:0 auto; padding:22px; }
+.system-toolbar { display:flex; align-items:flex-end; gap:18px; margin-bottom:18px; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field label { color:#56616f; font-size:12px; font-weight:600; }
+.field select { min-width:190px; padding:9px 12px; border:1px solid #ccd3da; border-radius:7px; background:white; color:#1f2933; font-size:14px; }
+.workspace { display:grid; grid-template-columns:minmax(0,2fr) minmax(280px,0.8fr); gap:18px; align-items:stretch; }
+.system-panel,.measurement-panel { background:white; border:1px solid #dfe4e8; border-radius:10px; box-shadow:0 2px 7px rgba(0,0,0,0.05); }
+.system-panel { min-width:0; padding:20px; }
+.measurement-panel { padding:20px; }
+.panel-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+.panel-header h2,.measurement-panel h2 { margin:0; font-size:18px; font-weight:700; }
+.panel-description { margin-top:4px; color:#7a8490; font-size:13px; }
+.mode-badge { flex-shrink:0; padding:5px 9px; border-radius:5px; background:#e7f1ff; color:#245a9b; font-size:11px; font-weight:700; }
+.diagram-container { position:relative; width:100%; min-height:480px; margin-top:20px; overflow:hidden; border-radius:8px; background:linear-gradient(180deg,#fafbfc 0%,#f6f8fa 100%); }
+.system-svg { display:block; width:100%; height:480px; overflow:visible; }
+.system-component { cursor:pointer; transition:opacity 0.15s ease; }
+.system-component:hover { opacity:0.82; }
+.measurement-help { margin-top:14px; color:#78838e; font-size:13px; line-height:1.5; }
+.empty-state { margin-top:30px; padding:30px 15px; border:1px dashed #ccd3da; border-radius:8px; color:#8b949e; text-align:center; font-size:13px; }
+.selected-component { margin-top:25px; }
+.selected-component h3 { margin:5px 0 10px; font-size:18px; }
+.selected-component p { margin:0; color:#68737e; font-size:13px; line-height:1.5; }
+.selected-type { color:#3973a5; font-size:10px; font-weight:700; letter-spacing:1px; }
+.component-measurements { margin-top:22px; }
+.measurement-field { margin-bottom:18px; }
+.measurement-field label { display:block; margin-bottom:6px; color:#4c5967; font-size:12px; font-weight:600; }
+.measurement-input-row { display:flex; align-items:center; gap:8px; }
+.measurement-input-row input { width:100%; min-width:0; padding:10px 11px; border:1px solid #cbd4dc; border-radius:6px; background:#fff; color:#1f2933; font-size:15px; }
+.measurement-input-row input:focus { outline:none; border-color:#397db0; box-shadow:0 0 0 2px rgba(57,125,176,0.12); }
+.measurement-unit { min-width:34px; color:#687785; font-size:12px; }
+.measurement-none { padding:18px 0; color:#8a949e; font-size:13px; }
+.measurement-toolbar { display:flex; justify-content:flex-end; margin-top:14px; margin-bottom:12px; }
+.measurement-action-button,.measurement-remove-button { border:1px solid #b9c8d4; border-radius:6px; background:#fff; color:#245f8f; padding:8px 11px; font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
+.measurement-action-button:hover { background:#f2f7fb; }
+.measurement-remove-button { width:100%; margin-top:8px; border-color:#d6b5b5; color:#8b3f3f; }
+.measurement-remove-button:hover { background:#fbf3f3; }
+.measurement-point-available { opacity:0.72; }
+.measurement-point-available:hover { opacity:1; }
+.measurement-point-active { opacity:1; }
+@media (max-width:1000px) { .workspace { grid-template-columns:minmax(0,1.7fr) minmax(240px,0.8fr); } .app-main { padding:16px; } .system-panel,.measurement-panel { padding:16px; } }
+@media (max-width:760px) { .app-header { padding:14px 16px; } .app-header h1 { font-size:19px; } .app-main { padding:12px; } .system-toolbar { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; } .field select { width:100%; min-width:0; } .workspace { display:block; } .measurement-panel { margin-top:12px; } .diagram-container { min-height:360px; } .system-svg { height:360px; } }
+@media (max-width:480px) { .system-toolbar { grid-template-columns:1fr; } .panel-header { gap:8px; } .system-panel,.measurement-panel { padding:12px; } .diagram-container { min-height:330px; } .system-svg { height:330px; } }

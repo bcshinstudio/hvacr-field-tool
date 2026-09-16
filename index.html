@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HVAC/R Field Tool</title>
+
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+
+<body>
+
+<header class="app-header">
+    <div>
+        <h1>HVAC/R Field Tool</h1>
+        <div class="subtitle">System Analysis & Diagnostics</div>
+    </div>
+</header>
+
+<main class="app-main">
+
+    <section class="system-toolbar">
+
+        <div class="field">
+            <label for="system-select">System Type</label>
+
+            <select id="system-select">
+                <option value="walk_in_cooler">
+                    Walk-In Cooler
+                </option>
+
+                <option value="ac_split">
+                    Residential Split AC
+                </option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="refrigerant-select">Refrigerant</label>
+
+            <select id="refrigerant-select">
+                <option>R-448A</option>
+                <option>R-404A</option>
+                <option>R-410A</option>
+                <option>R-32</option>
+            </select>
+        </div>
+
+    </section>
+
+
+    <section class="workspace">
+
+        <div class="system-panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2 id="system-title">Walk-In Cooler</h2>
+                    <div id="system-description" class="panel-description"></div>
+                </div>
+
+                <span class="mode-badge">COOLING</span>
+            </div>
+
+
+            <div id="system-diagram" class="diagram-container">
+            </div>
+
+        </div>
+
+
+        <aside class="measurement-panel">
+
+            <h2>Measurements</h2>
+
+            <p class="measurement-help">
+                Select a component or measurement point on the system.
+            </p>
+
+            <div id="measurement-content">
+
+                <div class="empty-state">
+                    Select something on the diagram.
+                </div>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+</main>
+
+<script type="module" src="src/app.js"></script>
+
+</body>
+</html>
