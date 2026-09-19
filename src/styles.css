@@ -1,51 +1,749 @@
-/* =========================================================
-   HVAC/R FIELD TOOL - Prototype 0.3C
-   ========================================================= */
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-body { font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; background:#f4f6f8; color:#1f2933; }
-.app-header { background:#14213d; color:white; padding:18px 28px; }
-.app-header h1 { margin:0; font-size:22px; font-weight:700; }
-.subtitle { margin-top:3px; color:#b9c4d5; font-size:13px; }
-.app-main { width:100%; max-width:1400px; margin:0 auto; padding:22px; }
-.system-toolbar { display:flex; align-items:flex-end; gap:18px; margin-bottom:18px; }
-.field { display:flex; flex-direction:column; gap:5px; }
-.field label { color:#56616f; font-size:12px; font-weight:600; }
-.field select { min-width:190px; padding:9px 12px; border:1px solid #ccd3da; border-radius:7px; background:white; color:#1f2933; font-size:14px; }
-.workspace { display:grid; grid-template-columns:minmax(0,2fr) minmax(280px,0.8fr); gap:18px; align-items:stretch; }
-.system-panel,.measurement-panel { background:white; border:1px solid #dfe4e8; border-radius:10px; box-shadow:0 2px 7px rgba(0,0,0,0.05); }
-.system-panel { min-width:0; padding:20px; }
-.measurement-panel { padding:20px; }
-.panel-header { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
-.panel-header h2,.measurement-panel h2 { margin:0; font-size:18px; font-weight:700; }
-.panel-description { margin-top:4px; color:#7a8490; font-size:13px; }
-.mode-badge { flex-shrink:0; padding:5px 9px; border-radius:5px; background:#e7f1ff; color:#245a9b; font-size:11px; font-weight:700; }
-.diagram-container { position:relative; width:100%; min-height:480px; margin-top:20px; overflow:hidden; border-radius:8px; background:linear-gradient(180deg,#fafbfc 0%,#f6f8fa 100%); }
-.system-svg { display:block; width:100%; height:480px; overflow:visible; }
-.system-component { cursor:pointer; transition:opacity 0.15s ease; }
-.system-component:hover { opacity:0.82; }
-.measurement-help { margin-top:14px; color:#78838e; font-size:13px; line-height:1.5; }
-.empty-state { margin-top:30px; padding:30px 15px; border:1px dashed #ccd3da; border-radius:8px; color:#8b949e; text-align:center; font-size:13px; }
-.selected-component { margin-top:25px; }
-.selected-component h3 { margin:5px 0 10px; font-size:18px; }
-.selected-component p { margin:0; color:#68737e; font-size:13px; line-height:1.5; }
-.selected-type { color:#3973a5; font-size:10px; font-weight:700; letter-spacing:1px; }
-.component-measurements { margin-top:22px; }
-.measurement-field { margin-bottom:18px; }
-.measurement-field label { display:block; margin-bottom:6px; color:#4c5967; font-size:12px; font-weight:600; }
-.measurement-input-row { display:flex; align-items:center; gap:8px; }
-.measurement-input-row input { width:100%; min-width:0; padding:10px 11px; border:1px solid #cbd4dc; border-radius:6px; background:#fff; color:#1f2933; font-size:15px; }
-.measurement-input-row input:focus { outline:none; border-color:#397db0; box-shadow:0 0 0 2px rgba(57,125,176,0.12); }
-.measurement-unit { min-width:34px; color:#687785; font-size:12px; }
-.measurement-none { padding:18px 0; color:#8a949e; font-size:13px; }
-.measurement-toolbar { display:flex; justify-content:flex-end; margin-top:14px; margin-bottom:12px; }
-.measurement-action-button,.measurement-remove-button { border:1px solid #b9c8d4; border-radius:6px; background:#fff; color:#245f8f; padding:8px 11px; font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
-.measurement-action-button:hover { background:#f2f7fb; }
-.measurement-remove-button { width:100%; margin-top:8px; border-color:#d6b5b5; color:#8b3f3f; }
-.measurement-remove-button:hover { background:#fbf3f3; }
-.measurement-point-available { opacity:0.72; }
-.measurement-point-available:hover { opacity:1; }
-.measurement-point-active { opacity:1; }
-@media (max-width:1000px) { .workspace { grid-template-columns:minmax(0,1.7fr) minmax(240px,0.8fr); } .app-main { padding:16px; } .system-panel,.measurement-panel { padding:16px; } }
-@media (max-width:760px) { .app-header { padding:14px 16px; } .app-header h1 { font-size:19px; } .app-main { padding:12px; } .system-toolbar { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; } .field select { width:100%; min-width:0; } .workspace { display:block; } .measurement-panel { margin-top:12px; } .diagram-container { min-height:360px; } .system-svg { height:360px; } }
-@media (max-width:480px) { .system-toolbar { grid-template-columns:1fr; } .panel-header { gap:8px; } .system-panel,.measurement-panel { padding:12px; } .diagram-container { min-height:330px; } .system-svg { height:330px; } }
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #eef1f3;
+    color: #17212b;
+}
+
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+
+.app-header {
+    padding: 18px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #d8dee4;
+}
+
+
+.app-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+
+.subtitle {
+    margin-top: 4px;
+    color: #6b7785;
+    font-size: 13px;
+}
+
+
+.app-main {
+    padding: 18px;
+}
+
+
+.system-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    margin-bottom: 16px;
+    padding: 14px 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe4e8;
+    border-radius: 10px;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.field label {
+    color: #53606d;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.field select {
+    min-width: 180px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #cbd4dc;
+    border-radius: 6px;
+
+    background: #ffffff;
+}
+
+
+/*
+ * =========================================================
+ * MAIN WORKSPACE
+ * =========================================================
+ */
+
+.workspace {
+    display: grid;
+
+    /*
+     * Keep a stable tool panel while allowing the
+     * system diagram to use the remaining space.
+     */
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        320px;
+
+    gap: 16px;
+
+    align-items: start;
+}
+
+
+.system-panel,
+.measurement-panel {
+    background: #ffffff;
+
+    border: 1px solid #dfe4e8;
+    border-radius: 10px;
+}
+
+
+.system-panel {
+    min-width: 0;
+    overflow: hidden;
+}
+
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 16px;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+
+.panel-description {
+    margin-top: 5px;
+
+    color: #74808c;
+
+    font-size: 12px;
+}
+
+
+.mode-badge {
+    padding: 5px 8px;
+
+    border: 1px solid #c8d5df;
+    border-radius: 5px;
+
+    color: #386c94;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+
+/*
+ * =========================================================
+ * DIAGRAM
+ * =========================================================
+ *
+ * Important:
+ *
+ * Do not force a large minimum diagram height and do not
+ * override the SVG's own aspect-ratio behavior.
+ *
+ * The system_diagram.js viewBox controls the refrigeration
+ * circuit's geometry and scale.
+ */
+
+.diagram-container {
+    width: 100%;
+
+    padding: 8px;
+
+    overflow: hidden;
+}
+
+
+.diagram-container svg {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto;
+}
+
+
+/*
+ * =========================================================
+ * RIGHT TOOL PANEL
+ * =========================================================
+ */
+
+.measurement-panel {
+    min-width: 0;
+
+    padding: 14px;
+
+    align-self: start;
+}
+
+
+/*
+ * =========================================================
+ * TOOL SELECTOR
+ * =========================================================
+ */
+
+.tool-selector {
+    padding-bottom: 14px;
+
+    border-bottom: 1px solid #e4e8ec;
+}
+
+
+.tool-selector-title {
+    margin-bottom: 9px;
+
+    color: #74808c;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+.tool-selector-buttons {
+    display: flex;
+
+    gap: 8px;
+
+    align-items: flex-start;
+}
+
+
+.tool-icon-button {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 72px;
+    min-width: 72px;
+    height: 62px;
+
+    padding: 5px;
+
+    border: 1px solid #d4dce3;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #52616e;
+
+    cursor: pointer;
+
+    transition:
+        background 0.12s ease,
+        border-color 0.12s ease,
+        color 0.12s ease;
+}
+
+
+.tool-icon-button:hover {
+    background: #f6f9fb;
+
+    border-color: #b8c8d5;
+}
+
+
+.tool-icon-button.active {
+    background: #edf5fa;
+
+    border-color: #83acc8;
+
+    color: #1f648f;
+}
+
+
+.tool-icon {
+    display: flex;
+
+    width: 22px;
+    height: 22px;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.tool-icon svg {
+    width: 22px;
+    height: 22px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.tool-icon-label {
+    margin-top: 4px;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/*
+ * =========================================================
+ * ACTIVE TOOL WORKSPACE
+ * =========================================================
+ */
+
+.tool-workspace {
+    padding-top: 16px;
+}
+
+
+.active-tool-panel {
+    min-height: 240px;
+}
+
+
+.active-tool-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+
+.active-tool-header h2 {
+    margin: 3px 0 0;
+
+    font-size: 19px;
+}
+
+
+.active-tool-eyebrow {
+    color: #3478a8;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+
+.tool-empty-state {
+    padding: 16px;
+
+    border: 1px dashed #d4dce3;
+    border-radius: 8px;
+
+    background: #fafbfc;
+
+    color: #6b7785;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+}
+
+
+.tool-empty-state strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #3f4c58;
+}
+
+
+.tool-empty-state p {
+    margin: 0;
+}
+
+
+.selected-tool-item h3 {
+    margin: 5px 0 16px;
+
+    font-size: 18px;
+}
+
+
+.selected-type {
+    color: #2774a7;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+
+/*
+ * =========================================================
+ * MEASUREMENT CONTROLS
+ * =========================================================
+ */
+
+.measurement-action-button {
+    flex: 0 0 auto;
+
+    padding: 8px 11px;
+
+    border: 1px solid #b9cbd8;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #17679c;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.measurement-action-button:hover {
+    background: #f3f8fb;
+}
+
+
+.measurement-field {
+    margin-bottom: 18px;
+}
+
+
+.measurement-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #4c5967;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.measurement-input-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.measurement-input-row input {
+    width: 100%;
+
+    min-width: 0;
+
+    padding: 9px 10px;
+
+    border: 1px solid #cbd4dc;
+    border-radius: 6px;
+
+    background: #ffffff;
+}
+
+
+.measurement-input-row input:focus {
+    outline: none;
+
+    border-color: #397db0;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(57, 125, 176, 0.12);
+}
+
+
+.measurement-unit {
+    flex: 0 0 auto;
+
+    min-width: 24px;
+
+    color: #53606d;
+
+    font-size: 12px;
+}
+
+
+.component-measurements {
+    margin-top: 12px;
+}
+
+
+.measurement-remove-button {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 9px 11px;
+
+    border: 1px solid #e4b7b7;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #b33131;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.measurement-remove-button:hover {
+    background: #fff7f7;
+}
+
+
+/*
+ * =========================================================
+ * SMART MEASUREMENT CAPABILITIES
+ * =========================================================
+ */
+
+.pressure-access-option {
+    margin-bottom: 18px;
+
+    padding: 12px;
+
+    border: 1px dashed #c7d2dc;
+    border-radius: 7px;
+
+    background: #f8fafb;
+}
+
+
+.pressure-access-text {
+    margin-bottom: 9px;
+
+    color: #56616f;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.pressure-access-add,
+.pressure-access-remove {
+    padding: 8px 11px;
+
+    border: 1px solid #b9c8d4;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #245f8f;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.pressure-access-add:hover {
+    background: #f2f7fb;
+}
+
+
+.pressure-access-remove {
+    width: 100%;
+
+    margin-top: -8px;
+    margin-bottom: 18px;
+
+    color: #687785;
+}
+
+
+.pressure-access-remove:hover {
+    background: #f6f8fa;
+}
+
+
+/*
+ * =========================================================
+ * COMPONENT CONFIGURATION
+ * =========================================================
+ */
+
+.component-configuration {
+    margin-top: 16px;
+    margin-bottom: 18px;
+
+    padding: 12px;
+
+    border: 1px solid #dfe4e8;
+    border-radius: 7px;
+
+    background: #f8fafb;
+}
+
+
+.component-config-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #4c5967;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+.component-config-select {
+    width: 100%;
+
+    padding: 9px 11px;
+
+    border: 1px solid #cbd4dc;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #1f2933;
+
+    font-size: 14px;
+}
+
+
+.component-config-select:focus {
+    outline: none;
+
+    border-color: #397db0;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(57, 125, 176, 0.12);
+}
+
+
+.component-config-note {
+    margin-top: 8px;
+
+    color: #78838e;
+
+    font-size: 11px;
+}
+
+
+/*
+ * =========================================================
+ * RESPONSIVE
+ * =========================================================
+ */
+
+@media (max-width: 900px) {
+
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+
+
+    .measurement-panel {
+        width: 100%;
+    }
+
+
+    .tool-selector-buttons {
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .app-main {
+        padding: 10px;
+    }
+
+
+    .system-toolbar {
+        gap: 10px;
+    }
+
+
+    .field {
+        width: 100%;
+    }
+
+
+    .field select {
+        width: 100%;
+    }
+
+
+    .tool-icon-button {
+        width: 68px;
+        min-width: 68px;
+
+        height: 60px;
+    }
+
+
+    .active-tool-header h2 {
+        font-size: 18px;
+    }
+}
