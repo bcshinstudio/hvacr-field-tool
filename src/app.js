@@ -1,34 +1,59 @@
-import { walkInCooler } from "./systems/walk_in_cooler.js";
-import { acSplit } from "./systems/ac_split.js";
-import { renderSystemDiagram } from "./components/system_diagram.js";
+import {
+    walkInCooler
+} from "./systems/walk_in_cooler.js";
+
+import {
+    acSplit
+} from "./systems/ac_split.js";
+
+import {
+    renderSystemDiagram
+} from "./components/system_diagram.js";
 
 
 const systems = {
-    walk_in_cooler: walkInCooler,
-    ac_split: acSplit
+    walk_in_cooler:
+        walkInCooler,
+
+    ac_split:
+        acSplit
 };
 
 
 const systemSelect =
-    document.getElementById("system-select");
+    document.getElementById(
+        "system-select"
+    );
 
 const diagramContainer =
-    document.getElementById("system-diagram");
+    document.getElementById(
+        "system-diagram"
+    );
 
 const systemTitle =
-    document.getElementById("system-title");
+    document.getElementById(
+        "system-title"
+    );
 
 const systemDescription =
-    document.getElementById("system-description");
+    document.getElementById(
+        "system-description"
+    );
 
 const measurementContent =
-    document.getElementById("measurement-content");
+    document.getElementById(
+        "measurement-content"
+    );
 
 const originalPanelTitle =
-    document.querySelector(".measurement-panel h2");
+    document.querySelector(
+        ".measurement-panel h2"
+    );
 
 const originalPanelHelp =
-    document.querySelector(".measurement-help");
+    document.querySelector(
+        ".measurement-help"
+    );
 
 
 /*
@@ -37,32 +62,20 @@ const originalPanelHelp =
  * =========================================================
  */
 
-let currentSystem = null;
+let currentSystem =
+    null;
 
+let activeTool =
+    "measurements";
 
-/*
- * Active tool:
- *
- * measurements
- * component
- */
-let activeTool = "measurements";
+let addMeasurementMode =
+    false;
 
+let selectedComponent =
+    null;
 
-/*
- * Measurement Add Point mode.
- */
-let addMeasurementMode = false;
-
-
-/*
- * Currently displayed objects.
- *
- * These are intentionally cleared when the user manually
- * switches tools so each tool opens at its default screen.
- */
-let selectedComponent = null;
-let selectedMeasurementPoint = null;
+let selectedMeasurementPoint =
+    null;
 
 
 /*
@@ -77,11 +90,6 @@ const activeMeasurementPoints =
 const measurementValues =
     new Map();
 
-
-/*
- * Tracks optional pressure access confirmed
- * by the technician.
- */
 const optionalPressureAccess =
     new Set();
 
@@ -91,7 +99,10 @@ function measurementKey(
     measurementId
 ) {
 
-    return `${pointId}:${measurementId}`;
+    return (
+        `${pointId}:` +
+        `${measurementId}`
+    );
 }
 
 
@@ -101,71 +112,108 @@ function measurementKey(
  * =========================================================
  */
 
-function formatSubtypeLabel(subtype) {
+function formatSubtypeLabel(
+    subtype
+) {
 
     const labels = {
 
-        reciprocating: "Reciprocating",
-        scroll: "Scroll",
-        rotary: "Rotary",
-        screw: "Screw",
+        reciprocating:
+            "Reciprocating",
 
-        air_cooled: "Air-Cooled",
-        water_cooled: "Water-Cooled",
-        evaporative: "Evaporative",
+        scroll:
+            "Scroll",
 
-        txv: "TXV",
-        eev: "EEV",
+        rotary:
+            "Rotary",
+
+        screw:
+            "Screw",
+
+        air_cooled:
+            "Air-Cooled",
+
+        water_cooled:
+            "Water-Cooled",
+
+        evaporative:
+            "Evaporative",
+
+        txv:
+            "TXV",
+
+        eev:
+            "EEV",
+
         fixed_orifice:
             "Fixed Orifice / Piston",
+
         capillary_tube:
             "Capillary Tube",
 
-        forced_air: "Forced-Air",
+        forced_air:
+            "Forced-Air",
+
         natural_convection:
             "Natural-Convection",
-        plate: "Plate",
 
-        standard: "Standard",
-        liquid_line: "Liquid Line",
-        sight_glass: "Sight Glass",
-        moisture_indicator:
-            "Moisture Indicator"
+        plate:
+            "Plate",
+
+        standard:
+            "Standard",
+
+        liquid_line:
+            "Liquid Line",
+
+        sight_glass_moisture_indicator:
+            "Sight Glass / Moisture Indicator"
     };
 
 
     return (
         labels[subtype] ||
         subtype
-            .replaceAll("_", " ")
+            .replaceAll(
+                "_",
+                " "
+            )
             .replace(
                 /\b\w/g,
                 character =>
-                    character.toUpperCase()
+                    character
+                        .toUpperCase()
             )
     );
 }
 
 
-function componentRoleLabel(component) {
+function componentRoleLabel(
+    component
+) {
 
     const labels = {
 
-        compressor: "Compressor",
-        condenser: "Condenser",
+        compressor:
+            "Compressor",
+
+        condenser:
+            "Condenser",
 
         metering_device:
             "Metering Device",
 
-        evaporator: "Evaporator",
+        evaporator:
+            "Evaporator",
 
-        receiver: "Receiver",
+        receiver:
+            "Receiver",
 
         filter_drier:
             "Filter Drier",
 
         sight_glass:
-            "Sight Glass",
+            "Sight Glass / Moisture Indicator",
 
         solenoid_valve:
             "Solenoid Valve"
@@ -173,18 +221,17 @@ function componentRoleLabel(component) {
 
 
     return (
-        labels[component.role] ||
+        labels[
+            component.role
+        ] ||
         component.label
     );
 }
 
 
-function componentDisplayLabel(component) {
-
-    /*
-     * Metering-device subtype is useful
-     * directly on the system diagram.
-     */
+function componentDisplayLabel(
+    component
+) {
 
     if (
         component.role ===
@@ -200,6 +247,288 @@ function componentDisplayLabel(component) {
     return componentRoleLabel(
         component
     );
+}
+
+
+/*
+ * =========================================================
+ * COMPONENT INSTALLATION STATE
+ * =========================================================
+ */
+
+function isComponentInstalled(
+    component
+) {
+
+    return (
+        component.installed !==
+        false
+    );
+}
+
+
+function initializeComponentInstallationState(
+    system
+) {
+
+    (
+        system.components ||
+        []
+    ).forEach(
+        component => {
+
+            if (
+                component.required ||
+                component.removable ===
+                    false
+            ) {
+
+                component.installed =
+                    true;
+
+                return;
+            }
+
+
+            if (
+                typeof component.installed !==
+                "boolean"
+            ) {
+
+                component.installed =
+                    true;
+            }
+        }
+    );
+}
+
+
+/*
+ * =========================================================
+ * TOPOLOGY / CONNECTION BUILDER
+ * =========================================================
+ */
+
+function buildConnectionsFromTopology(
+    system
+) {
+
+    const paths =
+        system.topology?.paths ||
+        [];
+
+
+    if (
+        paths.length === 0
+    ) {
+
+        return (
+            system.connections ||
+            []
+        );
+    }
+
+
+    const componentMap =
+        Object.fromEntries(
+
+            (
+                system.components ||
+                []
+            ).map(
+                component => [
+                    component.id,
+                    component
+                ]
+            )
+        );
+
+
+    const generatedConnections =
+        [];
+
+
+    paths.forEach(
+        path => {
+
+            const pathComponentIds =
+                path.components ||
+                [];
+
+            const sections =
+                path.sections ||
+                [];
+
+
+            if (
+                pathComponentIds.length <
+                2
+            ) {
+
+                return;
+            }
+
+
+            const sectionStartMap =
+                new Map(
+
+                    sections.map(
+                        section => [
+                            section.from,
+                            section.id
+                        ]
+                    )
+                );
+
+
+            let activeSection =
+                null;
+
+
+            const sectionByComponentId =
+                new Map();
+
+
+            pathComponentIds
+                .forEach(
+                    componentId => {
+
+                        if (
+                            sectionStartMap
+                                .has(
+                                    componentId
+                                )
+                        ) {
+
+                            activeSection =
+                                sectionStartMap
+                                    .get(
+                                        componentId
+                                    );
+                        }
+
+
+                        sectionByComponentId
+                            .set(
+                                componentId,
+                                activeSection
+                            );
+                    }
+                );
+
+
+            const installedComponentIds =
+                pathComponentIds
+                    .filter(
+                        componentId => {
+
+                            const component =
+                                componentMap[
+                                    componentId
+                                ];
+
+
+                            return (
+                                component &&
+                                isComponentInstalled(
+                                    component
+                                )
+                            );
+                        }
+                    );
+
+
+            if (
+                installedComponentIds
+                    .length <
+                2
+            ) {
+
+                return;
+            }
+
+
+            for (
+                let index = 0;
+                index <
+                installedComponentIds.length -
+                    1;
+                index += 1
+            ) {
+
+                const from =
+                    installedComponentIds[
+                        index
+                    ];
+
+                const to =
+                    installedComponentIds[
+                        index + 1
+                    ];
+
+
+                generatedConnections.push({
+                    from,
+                    to,
+
+                    section:
+                        sectionByComponentId
+                            .get(
+                                from
+                            ) ||
+                        null
+                });
+            }
+
+
+            if (
+                path.closedLoop
+            ) {
+
+                const from =
+                    installedComponentIds[
+                        installedComponentIds
+                            .length -
+                        1
+                    ];
+
+                const to =
+                    installedComponentIds[
+                        0
+                    ];
+
+
+                generatedConnections.push({
+                    from,
+                    to,
+
+                    section:
+                        sectionByComponentId
+                            .get(
+                                from
+                            ) ||
+                        null
+                });
+            }
+        }
+    );
+
+
+    return generatedConnections;
+}
+
+
+function rebuildSystemConnections() {
+
+    if (!currentSystem) {
+        return;
+    }
+
+
+    currentSystem.connections =
+        buildConnectionsFromTopology(
+            currentSystem
+        );
 }
 
 
@@ -223,7 +552,8 @@ function renderCurrentSystem() {
 
             activeMeasurementPointIds:
                 new Set(
-                    activeMeasurementPoints.keys()
+                    activeMeasurementPoints
+                        .keys()
                 ),
 
             addMeasurementMode
@@ -236,11 +566,6 @@ function renderCurrentSystem() {
  * =========================================================
  * TOOL ICONS
  * =========================================================
- *
- * These are intentionally simple placeholder SVG icons.
- *
- * Later we can replace only these graphics with a polished
- * icon library without changing the tool architecture.
  */
 
 function measurementsIconSvg() {
@@ -369,20 +694,18 @@ function buildToolBar() {
             <div class="tool-selector-buttons">
 
                 <button
-                    class="tool-icon-button
+                    class="
+                        tool-icon-button
                         ${
                             activeTool ===
                             "measurements"
                                 ? "active"
                                 : ""
-                        }"
-
+                        }
+                    "
                     type="button"
-
                     data-tool="measurements"
-
                     aria-label="Measurements"
-
                     title="Measurements"
                 >
 
@@ -398,20 +721,18 @@ function buildToolBar() {
 
 
                 <button
-                    class="tool-icon-button
+                    class="
+                        tool-icon-button
                         ${
                             activeTool ===
                             "component"
                                 ? "active"
                                 : ""
-                        }"
-
+                        }
+                    "
                     type="button"
-
                     data-tool="component"
-
                     aria-label="Component"
-
                     title="Component"
                 >
 
@@ -443,82 +764,85 @@ function buildComponentConfiguration(
 ) {
 
     const allowedSubtypes =
-        component.allowedSubtypes || [];
+        component.allowedSubtypes ||
+        [];
 
 
-    if (allowedSubtypes.length <= 1) {
+    let subtypeHtml =
+        "";
 
-        if (component.required) {
 
-            return `
+    if (
+        allowedSubtypes.length >
+        1
+    ) {
+
+        const options =
+            allowedSubtypes
+                .map(
+                    subtype => `
+                        <option
+                            value="${subtype}"
+                            ${
+                                subtype ===
+                                component.subtype
+                                    ? "selected"
+                                    : ""
+                            }
+                        >
+                            ${
+                                formatSubtypeLabel(
+                                    subtype
+                                )
+                            }
+                        </option>
+                    `
+                )
+                .join("");
+
+
+        subtypeHtml = `
+            <div class="component-configuration">
+
+                <label
+                    class="component-config-label"
+                    for="component-subtype-select"
+                >
+                    Type
+                </label>
+
+                <select
+                    id="component-subtype-select"
+                    class="component-config-select"
+                >
+                    ${options}
+                </select>
+
+            </div>
+        `;
+    }
+
+
+    const installationHtml =
+        component.removable
+            ? `
+                <div
+                    class="component-config-note"
+                    style="margin-top: 12px;"
+                >
+                    Optional system component
+                </div>
+            `
+            : `
                 <div class="component-config-note">
                     Required system component
                 </div>
             `;
-        }
-
-
-        return "";
-    }
-
-
-    const options =
-        allowedSubtypes
-            .map(
-                subtype => `
-                    <option
-                        value="${subtype}"
-
-                        ${
-                            subtype ===
-                            component.subtype
-                                ? "selected"
-                                : ""
-                        }
-                    >
-                        ${
-                            formatSubtypeLabel(
-                                subtype
-                            )
-                        }
-                    </option>
-                `
-            )
-            .join("");
 
 
     return `
-        <div class="component-configuration">
-
-            <label
-                class="component-config-label"
-                for="component-subtype-select"
-            >
-                Type
-            </label>
-
-
-            <select
-                id="component-subtype-select"
-                class="component-config-select"
-            >
-                ${options}
-            </select>
-
-
-            ${
-                component.required
-                    ? `
-                        <div
-                            class="component-config-note"
-                        >
-                            Required system component
-                        </div>
-                    `
-                    : ""
-            }
-
-        </div>
+        ${subtypeHtml}
+        ${installationHtml}
     `;
 }
 
@@ -548,7 +872,8 @@ function bindComponentConfiguration(
 
             if (
                 !(
-                    component.allowedSubtypes ||
+                    component
+                        .allowedSubtypes ||
                     []
                 ).includes(
                     selectedSubtype
@@ -563,11 +888,6 @@ function bindComponentConfiguration(
                 selectedSubtype;
 
 
-            /*
-             * Keep component ID and functional role
-             * unchanged.
-             */
-
             component.label =
                 componentDisplayLabel(
                     component
@@ -579,6 +899,261 @@ function bindComponentConfiguration(
             renderSidePanel();
         }
     );
+}
+
+
+/*
+ * =========================================================
+ * COMPONENT LIST
+ * =========================================================
+ */
+
+function buildRequiredComponentRow(
+    component
+) {
+
+    return `
+        <div
+            style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                min-height: 30px;
+            "
+        >
+
+            <span
+                aria-hidden="true"
+                style="
+                    width: 18px;
+                    text-align: center;
+                    font-weight: 600;
+                "
+            >
+                ✓
+            </span>
+
+            <span>
+                ${
+                    componentRoleLabel(
+                        component
+                    )
+                }
+            </span>
+
+        </div>
+    `;
+}
+
+
+function buildOptionalComponentRow(
+    component
+) {
+
+    return `
+        <label
+            style="
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                min-height: 30px;
+                cursor: pointer;
+            "
+        >
+
+            <input
+                type="checkbox"
+
+                data-component-installed="${component.id}"
+
+                ${
+                    isComponentInstalled(
+                        component
+                    )
+                        ? "checked"
+                        : ""
+                }
+            >
+
+            <span>
+                ${
+                    componentRoleLabel(
+                        component
+                    )
+                }
+            </span>
+
+        </label>
+    `;
+}
+
+
+function buildSystemComponentConfiguration() {
+
+    if (!currentSystem) {
+        return "";
+    }
+
+
+    const requiredComponents =
+        currentSystem.components
+            .filter(
+                component =>
+                    !component.removable
+            );
+
+
+    const optionalComponents =
+        currentSystem.components
+            .filter(
+                component =>
+                    component.removable
+            );
+
+
+    return `
+        <div class="selected-tool-item">
+
+            <div class="selected-type">
+                SYSTEM COMPONENTS
+            </div>
+
+            <h3>
+                Installed Components
+            </h3>
+
+
+            <div
+                class="component-config-note"
+                style="
+                    margin-top: 14px;
+                    margin-bottom: 5px;
+                    font-weight: 600;
+                "
+            >
+                Required
+            </div>
+
+
+            <div>
+                ${
+                    requiredComponents
+                        .map(
+                            component =>
+                                buildRequiredComponentRow(
+                                    component
+                                )
+                        )
+                        .join("")
+                }
+            </div>
+
+
+            ${
+                optionalComponents.length
+                    ? `
+                        <div
+                            class="component-config-note"
+                            style="
+                                margin-top: 16px;
+                                margin-bottom: 5px;
+                                font-weight: 600;
+                            "
+                        >
+                            Optional
+                        </div>
+
+                        <div>
+                            ${
+                                optionalComponents
+                                    .map(
+                                        component =>
+                                            buildOptionalComponentRow(
+                                                component
+                                            )
+                                    )
+                                    .join("")
+                            }
+                        </div>
+                    `
+                    : ""
+            }
+
+        </div>
+    `;
+}
+
+
+/*
+ * =========================================================
+ * COMPONENT INSTALLATION
+ * =========================================================
+ */
+
+function setComponentInstalled(
+    componentId,
+    installed
+) {
+
+    if (!currentSystem) {
+        return;
+    }
+
+
+    const component =
+        currentSystem.components
+            .find(
+                item =>
+                    item.id ===
+                    componentId
+            );
+
+
+    if (!component) {
+        return;
+    }
+
+
+    if (
+        !component.removable
+    ) {
+
+        component.installed =
+            true;
+
+        return;
+    }
+
+
+    component.installed =
+        installed;
+
+
+    /*
+     * If we just removed the component currently
+     * selected in the detail area, remove only its
+     * detail panel.
+     *
+     * The system component checklist remains visible.
+     */
+
+    if (
+        selectedComponent &&
+        selectedComponent.id ===
+            component.id &&
+        !installed
+    ) {
+
+        selectedComponent =
+            null;
+    }
+
+
+    rebuildSystemConnections();
+
+    renderCurrentSystem();
+
+    renderSidePanel();
 }
 
 
@@ -601,8 +1176,9 @@ function buildMeasurementField(
 
 
     const savedValue =
-        measurementValues.get(key) ??
-        "";
+        measurementValues.get(
+            key
+        ) ?? "";
 
 
     return `
@@ -655,25 +1231,27 @@ function buildMeasurementField(
  * =========================================================
  */
 
-function buildMeasurementFields(item) {
+function buildMeasurementFields(
+    item
+) {
 
     const measurements =
-        item.measurements || [];
-
+        item.measurements ||
+        [];
 
     const capabilities =
-        item.capabilities || null;
+        item.capabilities ||
+        null;
 
 
-    if (measurements.length === 0) {
+    if (
+        measurements.length ===
+        0
+    ) {
+
         return "";
     }
 
-
-    /*
-     * Backward compatibility for older
-     * system definitions.
-     */
 
     if (!capabilities) {
 
@@ -689,17 +1267,12 @@ function buildMeasurementFields(item) {
     }
 
 
-    const fields = [];
+    const fields =
+        [];
 
 
     measurements.forEach(
         measurement => {
-
-            /*
-             * -------------------------
-             * PRESSURE
-             * -------------------------
-             */
 
             if (
                 measurement.id ===
@@ -710,10 +1283,6 @@ function buildMeasurementFields(item) {
                     capabilities.pressure ||
                     "none";
 
-
-                /*
-                 * Known pressure access.
-                 */
 
                 if (
                     pressureCapability ===
@@ -727,14 +1296,9 @@ function buildMeasurementFields(item) {
                         )
                     );
 
-
                     return;
                 }
 
-
-                /*
-                 * Optional pressure access.
-                 */
 
                 if (
                     pressureCapability ===
@@ -743,10 +1307,14 @@ function buildMeasurementFields(item) {
 
                     const hasPressureAccess =
                         optionalPressureAccess
-                            .has(item.id);
+                            .has(
+                                item.id
+                            );
 
 
-                    if (hasPressureAccess) {
+                    if (
+                        hasPressureAccess
+                    ) {
 
                         fields.push(
                             buildMeasurementField(
@@ -759,9 +1327,7 @@ function buildMeasurementFields(item) {
                         fields.push(`
                             <button
                                 class="pressure-access-remove"
-
                                 type="button"
-
                                 data-remove-pressure-access="${item.id}"
                             >
                                 Remove Pressure Access
@@ -771,22 +1337,15 @@ function buildMeasurementFields(item) {
                     } else {
 
                         fields.push(`
-                            <div
-                                class="pressure-access-option"
-                            >
+                            <div class="pressure-access-option">
 
-                                <div
-                                    class="pressure-access-text"
-                                >
+                                <div class="pressure-access-text">
                                     Pressure access at this location?
                                 </div>
 
-
                                 <button
                                     class="pressure-access-add"
-
                                     type="button"
-
                                     data-add-pressure-access="${item.id}"
                                 >
                                     + Add Pressure
@@ -804,12 +1363,6 @@ function buildMeasurementFields(item) {
                 return;
             }
 
-
-            /*
-             * -------------------------
-             * TEMPERATURE
-             * -------------------------
-             */
 
             if (
                 measurement.id ===
@@ -834,10 +1387,6 @@ function buildMeasurementFields(item) {
             }
 
 
-            /*
-             * Future measurement types.
-             */
-
             fields.push(
                 buildMeasurementField(
                     item,
@@ -860,11 +1409,9 @@ function buildMeasurementFields(item) {
 
 function buildMeasurementsTool() {
 
-    /*
-     * ADD POINT MODE
-     */
-
-    if (addMeasurementMode) {
+    if (
+        addMeasurementMode
+    ) {
 
         let pointContent = `
             <div class="tool-empty-state">
@@ -882,13 +1429,9 @@ function buildMeasurementsTool() {
         `;
 
 
-        /*
-         * After the user selects a new point,
-         * immediately show its data-entry fields
-         * while Add Point mode remains active.
-         */
-
-        if (selectedMeasurementPoint) {
+        if (
+            selectedMeasurementPoint
+        ) {
 
             pointContent =
                 buildMeasurementPointContent(
@@ -903,6 +1446,7 @@ function buildMeasurementsTool() {
                 <div class="active-tool-header">
 
                     <div>
+
                         <div class="active-tool-eyebrow">
                             MEASUREMENTS
                         </div>
@@ -910,6 +1454,7 @@ function buildMeasurementsTool() {
                         <h2>
                             Measurements
                         </h2>
+
                     </div>
 
 
@@ -931,11 +1476,9 @@ function buildMeasurementsTool() {
     }
 
 
-    /*
-     * SELECTED ACTIVE POINT
-     */
-
-    if (selectedMeasurementPoint) {
+    if (
+        selectedMeasurementPoint
+    ) {
 
         return `
             <div class="active-tool-panel">
@@ -943,6 +1486,7 @@ function buildMeasurementsTool() {
                 <div class="active-tool-header">
 
                     <div>
+
                         <div class="active-tool-eyebrow">
                             MEASUREMENTS
                         </div>
@@ -950,6 +1494,7 @@ function buildMeasurementsTool() {
                         <h2>
                             Measurements
                         </h2>
+
                     </div>
 
 
@@ -975,16 +1520,13 @@ function buildMeasurementsTool() {
     }
 
 
-    /*
-     * DEFAULT MEASUREMENTS SCREEN
-     */
-
     return `
         <div class="active-tool-panel">
 
             <div class="active-tool-header">
 
                 <div>
+
                     <div class="active-tool-eyebrow">
                         MEASUREMENTS
                     </div>
@@ -992,6 +1534,7 @@ function buildMeasurementsTool() {
                     <h2>
                         Measurements
                     </h2>
+
                 </div>
 
 
@@ -1025,7 +1568,9 @@ function buildMeasurementsTool() {
 }
 
 
-function buildMeasurementPointContent(point) {
+function buildMeasurementPointContent(
+    point
+) {
 
     return `
         <div class="selected-tool-item">
@@ -1073,77 +1618,36 @@ function buildMeasurementPointContent(point) {
 function buildComponentTool() {
 
     /*
-     * DEFAULT COMPONENT SCREEN
+     * IMPORTANT:
      *
-     * This is deliberately shown whenever the user
-     * manually clicks the Component tool icon.
+     * System component configuration is always present.
+     *
+     * Selecting a diagram component adds its detail
+     * underneath rather than replacing the checklist.
      */
 
-    if (!selectedComponent) {
-
-        return `
-            <div class="active-tool-panel">
-
-                <div class="active-tool-header">
-
-                    <div>
-                        <div class="active-tool-eyebrow">
-                            COMPONENT
-                        </div>
-
-                        <h2>
-                            Component
-                        </h2>
-                    </div>
-
-                </div>
+    let selectedComponentHtml =
+        "";
 
 
-                <div class="tool-empty-state">
+    if (
+        selectedComponent
+    ) {
 
-                    <strong>
-                        No component selected
-                    </strong>
+        selectedComponentHtml = `
 
-                    <p>
-                        Select a component on the
-                        system diagram to view or
-                        configure it.
-                    </p>
-
-                </div>
-
-            </div>
-        `;
-    }
-
-
-    /*
-     * SELECTED COMPONENT
-     */
-
-    return `
-        <div class="active-tool-panel">
-
-            <div class="active-tool-header">
-
-                <div>
-                    <div class="active-tool-eyebrow">
-                        COMPONENT
-                    </div>
-
-                    <h2>
-                        Component
-                    </h2>
-                </div>
-
-            </div>
+            <div
+                style="
+                    margin: 18px 0;
+                    border-top: 1px solid rgba(100, 120, 140, 0.22);
+                "
+            ></div>
 
 
             <div class="selected-tool-item">
 
                 <div class="selected-type">
-                    COMPONENT
+                    SELECTED COMPONENT
                 </div>
 
 
@@ -1163,6 +1667,36 @@ function buildComponentTool() {
                 }
 
             </div>
+        `;
+    }
+
+
+    return `
+        <div class="active-tool-panel">
+
+            <div class="active-tool-header">
+
+                <div>
+
+                    <div class="active-tool-eyebrow">
+                        COMPONENT
+                    </div>
+
+                    <h2>
+                        Component
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            ${
+                buildSystemComponentConfiguration()
+            }
+
+
+            ${selectedComponentHtml}
 
         </div>
     `;
@@ -1177,7 +1711,10 @@ function buildComponentTool() {
 
 function buildActiveToolContent() {
 
-    if (activeTool === "component") {
+    if (
+        activeTool ===
+        "component"
+    ) {
 
         return buildComponentTool();
     }
@@ -1195,22 +1732,24 @@ function buildActiveToolContent() {
 
 function renderSidePanel() {
 
-    /*
-     * Hide the old static Measurements heading/help
-     * from index.html.
-     *
-     * The new tool workspace owns the complete
-     * right-side interface.
-     */
+    if (
+        originalPanelTitle
+    ) {
 
-    if (originalPanelTitle) {
-        originalPanelTitle.style.display =
+        originalPanelTitle
+            .style
+            .display =
             "none";
     }
 
 
-    if (originalPanelHelp) {
-        originalPanelHelp.style.display =
+    if (
+        originalPanelHelp
+    ) {
+
+        originalPanelHelp
+            .style
+            .display =
             "none";
     }
 
@@ -1238,82 +1777,38 @@ function renderSidePanel() {
  * =========================================================
  */
 
-function switchTool(toolName) {
+function switchTool(
+    toolName
+) {
 
     if (
-        toolName !== "measurements" &&
-        toolName !== "component"
+        toolName !==
+            "measurements" &&
+        toolName !==
+            "component"
     ) {
 
         return;
     }
 
 
-    /*
-     * Tool icon selection always opens that tool's
-     * DEFAULT screen.
-     *
-     * We deliberately do not preserve the previous
-     * selected object in the visible panel.
-     */
-
-
-    /*
-     * Leaving measurement work always exits
-     * Add Point mode.
-     */
-
     addMeasurementMode =
         false;
 
 
-    if (toolName === "measurements") {
-
-        activeTool =
-            "measurements";
+    activeTool =
+        toolName;
 
 
-        /*
-         * Default Measurements screen.
-         */
+    /*
+     * Clicking a tool icon opens its default state.
+     */
 
-        selectedMeasurementPoint =
-            null;
+    selectedComponent =
+        null;
 
-
-        /*
-         * Component selection is also cleared so
-         * returning later to Component via its icon
-         * gives the default Component screen.
-         */
-
-        selectedComponent =
-            null;
-    }
-
-
-    else if (toolName === "component") {
-
-        activeTool =
-            "component";
-
-
-        /*
-         * Default Component screen.
-         */
-
-        selectedComponent =
-            null;
-
-
-        /*
-         * Measurement selection is not part of the
-         * Component workspace.
-         */
-
-        selectedMeasurementPoint =
-            null;
-    }
+    selectedMeasurementPoint =
+        null;
 
 
     renderCurrentSystem();
@@ -1331,7 +1826,7 @@ function switchTool(toolName) {
 function bindSidePanelControls() {
 
     /*
-     * TOOL ICONS
+     * Tool buttons.
      */
 
     measurementContent
@@ -1355,7 +1850,37 @@ function bindSidePanelControls() {
 
 
     /*
-     * ADD POINT / DONE
+     * Optional component checkboxes.
+     */
+
+    measurementContent
+        .querySelectorAll(
+            "[data-component-installed]"
+        )
+        .forEach(
+            input => {
+
+                input.addEventListener(
+                    "change",
+                    event => {
+
+                        setComponentInstalled(
+
+                            event.target
+                                .dataset
+                                .componentInstalled,
+
+                            event.target
+                                .checked
+                        );
+                    }
+                );
+            }
+        );
+
+
+    /*
+     * Add Point / Done.
      */
 
     const addPointButton =
@@ -1364,17 +1889,17 @@ function bindSidePanelControls() {
         );
 
 
-    if (addPointButton) {
+    if (
+        addPointButton
+    ) {
 
         addPointButton.addEventListener(
             "click",
             () => {
 
-                /*
-                 * ENTER ADD POINT MODE
-                 */
-
-                if (!addMeasurementMode) {
+                if (
+                    !addMeasurementMode
+                ) {
 
                     activeTool =
                         "measurements";
@@ -1387,23 +1912,11 @@ function bindSidePanelControls() {
 
                     selectedComponent =
                         null;
-                }
 
-
-                /*
-                 * DONE ADDING
-                 */
-
-                else {
+                } else {
 
                     addMeasurementMode =
                         false;
-
-
-                    /*
-                     * Return to the default
-                     * Measurements screen.
-                     */
 
                     selectedMeasurementPoint =
                         null;
@@ -1419,7 +1932,7 @@ function bindSidePanelControls() {
 
 
     /*
-     * MEASUREMENT INPUTS
+     * Measurement inputs.
      */
 
     measurementContent
@@ -1437,7 +1950,6 @@ function bindSidePanelControls() {
                             event.target
                                 .dataset
                                 .pointId;
-
 
                         const measurementId =
                             event.target
@@ -1461,7 +1973,7 @@ function bindSidePanelControls() {
 
 
     /*
-     * ADD OPTIONAL PRESSURE ACCESS
+     * Add optional pressure access.
      */
 
     measurementContent
@@ -1478,13 +1990,16 @@ function bindSidePanelControls() {
                         if (
                             !selectedMeasurementPoint
                         ) {
+
                             return;
                         }
 
 
-                        optionalPressureAccess.add(
-                            selectedMeasurementPoint.id
-                        );
+                        optionalPressureAccess
+                            .add(
+                                selectedMeasurementPoint
+                                    .id
+                            );
 
 
                         renderSidePanel();
@@ -1495,7 +2010,7 @@ function bindSidePanelControls() {
 
 
     /*
-     * REMOVE OPTIONAL PRESSURE ACCESS
+     * Remove optional pressure access.
      */
 
     measurementContent
@@ -1512,22 +2027,28 @@ function bindSidePanelControls() {
                         if (
                             !selectedMeasurementPoint
                         ) {
+
                             return;
                         }
 
 
-                        optionalPressureAccess.delete(
-                            selectedMeasurementPoint.id
-                        );
+                        optionalPressureAccess
+                            .delete(
+                                selectedMeasurementPoint
+                                    .id
+                            );
 
 
-                        measurementValues.delete(
+                        measurementValues
+                            .delete(
 
-                            measurementKey(
-                                selectedMeasurementPoint.id,
-                                "pressure"
-                            )
-                        );
+                                measurementKey(
+                                    selectedMeasurementPoint
+                                        .id,
+
+                                    "pressure"
+                                )
+                            );
 
 
                         renderSidePanel();
@@ -1538,7 +2059,7 @@ function bindSidePanelControls() {
 
 
     /*
-     * REMOVE MEASUREMENT POINT
+     * Remove measurement point.
      */
 
     const removeButton =
@@ -1560,34 +2081,34 @@ function bindSidePanelControls() {
                     selectedMeasurementPoint;
 
 
-                activeMeasurementPoints.delete(
-                    point.id
-                );
+                activeMeasurementPoints
+                    .delete(
+                        point.id
+                    );
 
 
-                optionalPressureAccess.delete(
-                    point.id
-                );
+                optionalPressureAccess
+                    .delete(
+                        point.id
+                    );
 
 
-                /*
-                 * Remove all readings associated
-                 * with this point.
-                 */
+                (
+                    point.measurements ||
+                    []
+                ).forEach(
+                    measurement => {
 
-                (point.measurements || [])
-                    .forEach(
-                        measurement => {
-
-                            measurementValues.delete(
+                        measurementValues
+                            .delete(
 
                                 measurementKey(
                                     point.id,
                                     measurement.id
                                 )
                             );
-                        }
-                    );
+                    }
+                );
 
 
                 selectedMeasurementPoint =
@@ -1603,11 +2124,12 @@ function bindSidePanelControls() {
 
 
     /*
-     * COMPONENT SUBTYPE
+     * Component subtype.
      */
 
     if (
-        activeTool === "component" &&
+        activeTool ===
+            "component" &&
         selectedComponent
     ) {
 
@@ -1624,21 +2146,23 @@ function bindSidePanelControls() {
  * =========================================================
  */
 
-function loadSystem(systemId) {
+function loadSystem(
+    systemId
+) {
 
     const systemDefinition =
-        systems[systemId];
+        systems[
+            systemId
+        ];
 
 
-    if (!systemDefinition) {
+    if (
+        !systemDefinition
+    ) {
+
         return;
     }
 
-
-    /*
-     * Never modify the imported master
-     * system definition.
-     */
 
     currentSystem =
         structuredClone(
@@ -1646,10 +2170,13 @@ function loadSystem(systemId) {
         );
 
 
-    /*
-     * New system starts at the default
-     * Measurements tool.
-     */
+    initializeComponentInstallationState(
+        currentSystem
+    );
+
+
+    rebuildSystemConnections();
+
 
     activeTool =
         "measurements";
@@ -1664,11 +2191,14 @@ function loadSystem(systemId) {
         null;
 
 
-    activeMeasurementPoints.clear();
+    activeMeasurementPoints
+        .clear();
 
-    measurementValues.clear();
+    measurementValues
+        .clear();
 
-    optionalPressureAccess.clear();
+    optionalPressureAccess
+        .clear();
 
 
     systemTitle.textContent =
@@ -1708,22 +2238,9 @@ systemSelect.addEventListener(
  * =========================================================
  */
 
-
-/*
- * COMPONENT CLICK
- *
- * Diagram interaction automatically opens
- * the Component tool.
- */
-
 document.addEventListener(
     "system-component-selected",
     event => {
-
-        /*
-         * Component selection takes priority over
-         * Add Point mode.
-         */
 
         addMeasurementMode =
             false;
@@ -1748,17 +2265,14 @@ document.addEventListener(
 );
 
 
-/*
- * NEW MEASUREMENT POINT
- *
- * Only available while Add Point mode is active.
- */
-
 document.addEventListener(
     "system-measurement-point-toggle",
     event => {
 
-        if (!addMeasurementMode) {
+        if (
+            !addMeasurementMode
+        ) {
+
             return;
         }
 
@@ -1775,16 +2289,12 @@ document.addEventListener(
             null;
 
 
-        activeMeasurementPoints.set(
-            point.id,
-            point
-        );
+        activeMeasurementPoints
+            .set(
+                point.id,
+                point
+            );
 
-
-        /*
-         * Immediately display the newly added
-         * point so readings can be entered.
-         */
 
         selectedMeasurementPoint =
             point;
@@ -1797,13 +2307,6 @@ document.addEventListener(
 );
 
 
-/*
- * EXISTING ACTIVE MEASUREMENT POINT
- *
- * Diagram interaction automatically opens
- * the Measurements tool.
- */
-
 document.addEventListener(
     "system-measurement-point-selected",
     event => {
@@ -1813,9 +2316,10 @@ document.addEventListener(
 
 
         if (
-            !activeMeasurementPoints.has(
-                point.id
-            )
+            !activeMeasurementPoints
+                .has(
+                    point.id
+                )
         ) {
 
             return;
