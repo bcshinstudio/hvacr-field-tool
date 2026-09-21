@@ -1,0 +1,109 @@
+{
+  "dataset_version": "2026-09-04-complete-34",
+  "pressure_units": "PSIG",
+  "temperature_units": "degF",
+  "sources": [
+    {
+      "group": "verified_core",
+      "publisher": "Copeland",
+      "document": "Copeland scroll ZX condensing unit product catalog, September 2024",
+      "section": "Pressure temperature chart at sea level, pages 42-43",
+      "url": "https://media.copeland.com/f9a08f4b-6b9f-4e2a-bf3b-b16b01088b8c/For%20Deletion%20-%20ZX%20NextGen%20Catalog_27052517.pdf",
+      "source_pressure_units": "bar gauge",
+      "conversion_bar_to_psi": 14.503773773,
+      "refrigerants": [
+        "R134a",
+        "R22",
+        "R404A",
+        "R407A",
+        "R407C",
+        "R407F",
+        "R448A",
+        "R449A",
+        "R507A"
+      ],
+      "range_f": [
+        -50,
+        150
+      ],
+      "interval_f": 2
+    },
+    {
+      "group": "arkema_batch",
+      "publisher": "Arkema",
+      "document": "Arkema Forane Refrigerants Pressure Temperature Chart",
+      "document_id": "PPC/SDC 05-2025",
+      "basis": "Source states data generated using NIST REFPROP Database Version 10.0.",
+      "vacuum_conversion": "Green source values are inches Hg below 1 ATM; converted to negative PSIG using 1 inHg = 0.491154344 psi.",
+      "refrigerants": [
+        "R452A",
+        "R454B",
+        "R513A",
+        "R1233zdE"
+      ]
+    },
+    {
+      "group": "danfoss_formula_batch",
+      "publisher": "Danfoss",
+      "document": "Danfoss Fact Sheet: Refrigerant constants, Antoine equation, 2025.05",
+      "method": "Published Antoine coefficients, stated by Danfoss to be based on NIST REFPROP 10.0; formula algebraically rearranged to calculate saturation pressure.",
+      "note": "R23, R170 and R744 stop below their critical temperatures instead of extrapolating.",
+      "refrigerants": [
+        "R12",
+        "R23",
+        "R123",
+        "R125",
+        "R152a",
+        "R170",
+        "R227ea",
+        "R236fa",
+        "R245fa",
+        "R290",
+        "R502",
+        "R600a",
+        "R717",
+        "R744",
+        "R1234yf",
+        "R1234zeE"
+      ]
+    },
+    {
+      "group": "R143a",
+      "source": "HVAC PT Charts R143a table, CoolProp 7.2.0 / manufacturer-datasheet basis",
+      "method": "Every fifth row selected from published 1\u00b0F saturation table.",
+      "refrigerants": [
+        "R143a"
+      ]
+    },
+    {
+      "group": "R422D",
+      "source": "Honeywell Genetron R-422D Temperature-Pressure Chart",
+      "method": "Manufacturer bubble/dew table transcribed at 5\u00b0F increments.",
+      "note": "-40\u00b0F dew is explicitly marked as 2.3 inHg vacuum and converted to negative PSIG.",
+      "refrigerants": [
+        "R422D"
+      ]
+    },
+    {
+      "group": "R454C",
+      "source": "Chemours Opteon Refrigerant Piping Handbook",
+      "method": "Manufacturer bubble/dew table transcribed at 5\u00b0F increments; published table ends at 140\u00b0F.",
+      "refrigerants": [
+        "R454C"
+      ]
+    }
+  ],
+  "validation": {
+    "monotonic_pressure": true,
+    "no_missing_values": true,
+    "anchors": {
+      "R290_40F": 64.253,
+      "R717_70F": 113.998,
+      "R143a_70F": 150.4,
+      "R422D_70F_bubble": 132.6,
+      "R422D_70F_dew": 120.7,
+      "R454C_40F_bubble": 82.4,
+      "R454C_40F_dew": 61.5
+    }
+  }
+}

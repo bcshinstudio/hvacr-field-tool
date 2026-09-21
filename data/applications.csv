@@ -1,0 +1,8 @@
+application_id,name,system_family,notes
+APP_AC_SPLIT,Residential split AC,AIR_CONDITIONING,DX cooling system; equipment-specific charging targets take priority.
+APP_HP,Heat pump,HEAT_PUMP,Operating mode changes which coil is evaporator/condenser.
+APP_WIC,Walk-in cooler,COMMERCIAL_REFRIGERATION,Medium-temperature walk-in refrigeration.
+APP_WIF,Walk-in freezer,COMMERCIAL_REFRIGERATION,Low-temperature walk-in refrigeration.
+APP_RIC,Reach-in cooler,COMMERCIAL_REFRIGERATION,Equipment-specific reference values preferred.
+APP_RIF,Reach-in freezer,COMMERCIAL_REFRIGERATION,Equipment-specific reference values preferred.
+APP_ICE,Ice machine,ICE_MACHINE,Cycle/sequence and manufacturer service data are primary.

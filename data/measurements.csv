@@ -1,0 +1,17 @@
+measurement_id,name,quantity_type,canonical_unit,measurement_location
+MEAS_BOX_T,Box / refrigerated-space temperature,temperature,degF,Representative refrigerated-space temperature; use where the application defines evaporator TD from box temperature.
+MEAS_EVAP_OUT_P,Evaporator outlet pressure,pressure,psig,At or near the evaporator outlet / TXV bulb region when a pressure access point is available.
+MEAS_EVAP_OUT_T,Evaporator outlet suction-line temperature,temperature,degF,At or near the evaporator outlet / TXV bulb location.
+MEAS_COMP_SUCTION_P,Compressor suction pressure,pressure,psig,At the compressor suction service point.
+MEAS_COMP_SUCTION_T,Compressor inlet suction temperature,temperature,degF,Near the compressor suction inlet.
+MEAS_COMP_DISCHARGE_P,Compressor discharge pressure,pressure,psig,At the compressor discharge / high-side service point.
+MEAS_COMP_DISCHARGE_T,Compressor discharge-line temperature,temperature,degF,On the discharge line near the compressor outlet when required.
+MEAS_COND_OUT_P,Condenser outlet pressure,pressure,psig,At or representative of the condenser outlet / liquid-line high-side pressure when an access point is available.
+MEAS_COND_OUT_T,Condenser outlet liquid-line temperature,temperature,degF,On the liquid line at the condenser outlet.
+MEAS_METERING_IN_P,Metering-device inlet pressure,pressure,psig,Immediately upstream of the metering device when a pressure access point is available.
+MEAS_METERING_IN_T,Metering-device inlet liquid temperature,temperature,degF,Immediately upstream of the metering device.
+MEAS_EVAP_IN_AIR_T,Evaporator entering-air temperature,temperature,degF,Representative air entering the evaporator.
+MEAS_EVAP_OUT_AIR_T,Evaporator leaving-air temperature,temperature,degF,Representative air leaving the evaporator.
+MEAS_COND_IN_AIR_T,Condenser entering-air temperature,temperature,degF,Air actually entering the condenser coil.
+MEAS_COND_OUT_AIR_T,Condenser leaving-air temperature,temperature,degF,Air leaving the condenser coil.
+MEAS_CFM,Airflow,airflow,cfm,Measured or established airflow through the relevant coil.

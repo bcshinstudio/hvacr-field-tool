@@ -1,0 +1,12 @@
+parameter_id,name,quantity_type,canonical_unit,definition
+PAR_SST,Evaporating saturation temperature,temperature,degF,Calculated from low-side pressure and refrigerant P-T data; use dew reference for superheat on zeotropic blends.
+PAR_SCT,Condensing saturation temperature,temperature,degF,Calculated from high-side pressure and refrigerant P-T data; use bubble reference for subcooling on zeotropic blends.
+PAR_EVAP_SH,Evaporator superheat,temperature_difference,delta_degF,Suction-line temperature at evaporator outlet/bulb location minus corresponding saturation temperature.
+PAR_TOTAL_SH,Total superheat,temperature_difference,delta_degF,Compressor-inlet suction temperature minus corresponding evaporating saturation temperature.
+PAR_SC,Subcooling,temperature_difference,delta_degF,Condensing saturation temperature minus liquid-line temperature.
+PAR_EVAP_TD,Evaporator TD,temperature_difference,delta_degF,Entering-air/box temperature minus evaporating saturation temperature.
+PAR_COND_TD,Condenser TD / CTOA,temperature_difference,delta_degF,Condensing saturation temperature minus condenser entering-air temperature; also called CTOA or condensing split for an air-cooled condenser.
+PAR_AIR_DT,Evaporator air delta-T,temperature_difference,delta_degF,Entering-air dry-bulb minus leaving-air dry-bulb in cooling.
+PAR_COND_AIR_DT,Condenser air delta-T,temperature_difference,delta_degF,Leaving-air dry-bulb minus entering-air dry-bulb.
+PAR_CR,Compression ratio,ratio,ratio,Discharge absolute pressure divided by suction absolute pressure.
+PAR_SENSIBLE_CAP,Air-side sensible capacity,capacity,Btu_per_h,"At standard dry-air conditions, approximately 1.08 × CFM × dry-bulb delta-T; coefficient varies with air properties."

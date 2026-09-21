@@ -1601,6 +1601,16 @@ export const walkInCooler = {
 
         electrical: [
 
+            /*
+             * =====================================================
+             * COMPRESSOR ELECTRICAL
+             * =====================================================
+             *
+             * Basic operating measurements are separated from
+             * nameplate/reference information and advanced
+             * power-off troubleshooting measurements.
+             */
+
             {
                 id:
                     "compressor_electrical",
@@ -1608,38 +1618,686 @@ export const walkInCooler = {
                 component:
                     "compressor",
 
-                measurements: [
+                sections: [
 
                     {
                         id:
-                            "supply_voltage",
+                            "operating",
 
                         label:
-                            "Supply Voltage",
+                            "Operating",
 
-                        unit:
-                            "V",
+                        category:
+                            "operating",
 
-                        inputType:
-                            "number"
+                        fields: [
+
+                            {
+                                id:
+                                    "operating_state",
+
+                                label:
+                                    "Operating State",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "running",
+                                    "off",
+                                    "cycling",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "observation"
+                            },
+
+
+                            {
+                                id:
+                                    "phase",
+
+                                label:
+                                    "Power / Phase",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "single_phase",
+                                    "three_phase",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "supply_voltage",
+
+                                label:
+                                    "Supply Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true,
+
+                                appliesWhen: {
+                                    phase: [
+                                        "single_phase",
+                                        "unknown"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "running_amps",
+
+                                label:
+                                    "Running Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true,
+
+                                appliesWhen: {
+                                    phase: [
+                                        "single_phase",
+                                        "unknown"
+                                    ]
+                                }
+                            },
+
+
+                            /*
+                             * Three-phase voltage measurements.
+                             */
+
+                            {
+                                id:
+                                    "voltage_l1_l2",
+
+                                label:
+                                    "L1-L2 Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "voltage_l2_l3",
+
+                                label:
+                                    "L2-L3 Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "voltage_l1_l3",
+
+                                label:
+                                    "L1-L3 Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            /*
+                             * Three-phase current measurements.
+                             */
+
+                            {
+                                id:
+                                    "current_l1",
+
+                                label:
+                                    "L1 Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "current_l2",
+
+                                label:
+                                    "L2 Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "current_l3",
+
+                                label:
+                                    "L3 Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            }
+                        ]
                     },
 
+
+                    /*
+                     * Nameplate values are reference information,
+                     * not measurements made by the technician.
+                     */
+
                     {
                         id:
-                            "running_amps",
+                            "nameplate",
 
                         label:
-                            "Running Amps",
+                            "Nameplate",
 
-                        unit:
-                            "A",
+                        category:
+                            "reference",
 
-                        inputType:
-                            "number"
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        fields: [
+
+                            {
+                                id:
+                                    "rated_voltage",
+
+                                label:
+                                    "Rated Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "nameplate_rla",
+
+                                label:
+                                    "RLA",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "nameplate_lra",
+
+                                label:
+                                    "LRA",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            }
+                        ]
+                    },
+
+
+                    /*
+                     * These tests normally require the equipment
+                     * to be de-energized.
+                     */
+
+                    {
+                        id:
+                            "advanced_tests",
+
+                        label:
+                            "Advanced Tests",
+
+                        category:
+                            "advanced",
+
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        fields: [
+
+                            /*
+                             * Single-phase winding tests.
+                             */
+
+                            {
+                                id:
+                                    "winding_c_r",
+
+                                label:
+                                    "C-R Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "single_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "winding_c_s",
+
+                                label:
+                                    "C-S Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "single_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "winding_r_s",
+
+                                label:
+                                    "R-S Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "single_phase"
+                                    ]
+                                }
+                            },
+
+
+                            /*
+                             * Three-phase winding tests.
+                             */
+
+                            {
+                                id:
+                                    "winding_t1_t2",
+
+                                label:
+                                    "T1-T2 Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "winding_t2_t3",
+
+                                label:
+                                    "T2-T3 Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "winding_t1_t3",
+
+                                label:
+                                    "T1-T3 Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured",
+
+                                appliesWhen: {
+                                    phase: [
+                                        "three_phase"
+                                    ]
+                                }
+                            },
+
+
+                            {
+                                id:
+                                    "insulation_to_ground",
+
+                                label:
+                                    "Insulation to Ground",
+
+                                unit:
+                                    "MΩ",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured"
+                            },
+
+
+                            {
+                                id:
+                                    "ground_test",
+
+                                label:
+                                    "Ground Test",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "pass",
+                                    "fail",
+                                    "not_tested"
+                                ],
+
+                                measurementCondition:
+                                    "power_off",
+
+                                valueType:
+                                    "measured"
+                            }
+                        ]
                     }
                 ]
             },
 
+
+            /*
+             * =====================================================
+             * CONDENSER FAN MOTOR
+             * =====================================================
+             */
 
             {
                 id:
@@ -1648,38 +2306,275 @@ export const walkInCooler = {
                 component:
                     "condenser",
 
-                measurements: [
+                appliesToSubtypes: [
+                    "air_cooled"
+                ],
+
+                sections: [
 
                     {
                         id:
-                            "fan_voltage",
+                            "operating",
 
                         label:
-                            "Fan Voltage",
+                            "Fan Motor",
 
-                        unit:
-                            "V",
+                        category:
+                            "operating",
 
-                        inputType:
-                            "number"
+                        fields: [
+
+                            {
+                                id:
+                                    "operating_state",
+
+                                label:
+                                    "Operating State",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "running",
+                                    "off",
+                                    "cycling",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "observation"
+                            },
+
+
+                            {
+                                id:
+                                    "motor_type",
+
+                                label:
+                                    "Motor Type",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "psc",
+                                    "ecm_ec",
+                                    "shaded_pole",
+                                    "three_phase",
+                                    "other",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "fan_voltage",
+
+                                label:
+                                    "Supply Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true
+                            },
+
+
+                            {
+                                id:
+                                    "fan_running_amps",
+
+                                label:
+                                    "Running Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true
+                            }
+                        ]
                     },
 
+
                     {
                         id:
-                            "fan_running_amps",
+                            "nameplate",
 
                         label:
-                            "Fan Running Amps",
+                            "Nameplate",
 
-                        unit:
-                            "A",
+                        category:
+                            "reference",
 
-                        inputType:
-                            "number"
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        fields: [
+
+                            {
+                                id:
+                                    "rated_voltage",
+
+                                label:
+                                    "Rated Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "nameplate_fla",
+
+                                label:
+                                    "FLA",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            }
+                        ]
+                    },
+
+
+                    {
+                        id:
+                            "capacitor",
+
+                        label:
+                            "Run Capacitor",
+
+                        category:
+                            "advanced",
+
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        appliesWhen: {
+                            motor_type: [
+                                "psc"
+                            ]
+                        },
+
+                        fields: [
+
+                            {
+                                id:
+                                    "capacitor_rated",
+
+                                label:
+                                    "Rated Capacitance",
+
+                                unit:
+                                    "µF",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "power_off"
+                            },
+
+
+                            {
+                                id:
+                                    "capacitor_measured",
+
+                                label:
+                                    "Measured Capacitance",
+
+                                unit:
+                                    "µF",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "power_off"
+                            }
+                        ]
                     }
                 ]
             },
 
+
+            /*
+             * =====================================================
+             * EVAPORATOR FAN MOTOR
+             * =====================================================
+             */
 
             {
                 id:
@@ -1688,38 +2583,275 @@ export const walkInCooler = {
                 component:
                     "evaporator",
 
-                measurements: [
+                appliesToSubtypes: [
+                    "forced_air"
+                ],
+
+                sections: [
 
                     {
                         id:
-                            "fan_voltage",
+                            "operating",
 
                         label:
-                            "Fan Voltage",
+                            "Fan Motor",
 
-                        unit:
-                            "V",
+                        category:
+                            "operating",
 
-                        inputType:
-                            "number"
+                        fields: [
+
+                            {
+                                id:
+                                    "operating_state",
+
+                                label:
+                                    "Operating State",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "running",
+                                    "off",
+                                    "cycling",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "observation"
+                            },
+
+
+                            {
+                                id:
+                                    "motor_type",
+
+                                label:
+                                    "Motor Type",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "psc",
+                                    "ecm_ec",
+                                    "shaded_pole",
+                                    "three_phase",
+                                    "other",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "fan_voltage",
+
+                                label:
+                                    "Supply Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true
+                            },
+
+
+                            {
+                                id:
+                                    "fan_running_amps",
+
+                                label:
+                                    "Running Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                measurementCondition:
+                                    "energized",
+
+                                valueType:
+                                    "measured",
+
+                                requiredForBasicCheck:
+                                    true
+                            }
+                        ]
                     },
 
+
                     {
                         id:
-                            "fan_running_amps",
+                            "nameplate",
 
                         label:
-                            "Fan Running Amps",
+                            "Nameplate",
 
-                        unit:
-                            "A",
+                        category:
+                            "reference",
 
-                        inputType:
-                            "number"
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        fields: [
+
+                            {
+                                id:
+                                    "rated_voltage",
+
+                                label:
+                                    "Rated Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "nameplate_fla",
+
+                                label:
+                                    "FLA",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            }
+                        ]
+                    },
+
+
+                    {
+                        id:
+                            "capacitor",
+
+                        label:
+                            "Run Capacitor",
+
+                        category:
+                            "advanced",
+
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        appliesWhen: {
+                            motor_type: [
+                                "psc"
+                            ]
+                        },
+
+                        fields: [
+
+                            {
+                                id:
+                                    "capacitor_rated",
+
+                                label:
+                                    "Rated Capacitance",
+
+                                unit:
+                                    "µF",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "power_off"
+                            },
+
+
+                            {
+                                id:
+                                    "capacitor_measured",
+
+                                label:
+                                    "Measured Capacitance",
+
+                                unit:
+                                    "µF",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "power_off"
+                            }
+                        ]
                     }
                 ]
             },
 
+
+            /*
+             * =====================================================
+             * LIQUID-LINE SOLENOID
+             * =====================================================
+             */
 
             {
                 id:
@@ -1731,34 +2863,204 @@ export const walkInCooler = {
                 requiresComponent:
                     "solenoid",
 
-                measurements: [
+                sections: [
 
                     {
                         id:
-                            "coil_voltage",
+                            "operating",
 
                         label:
-                            "Coil Voltage",
+                            "Solenoid Coil",
 
-                        unit:
-                            "V",
+                        category:
+                            "operating",
 
-                        inputType:
-                            "number"
+                        fields: [
+
+                            {
+                                id:
+                                    "coil_state",
+
+                                label:
+                                    "Coil State",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "energized",
+                                    "de_energized",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "observation"
+                            },
+
+
+                            {
+                                id:
+                                    "coil_type",
+
+                                label:
+                                    "Coil Type",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "ac",
+                                    "dc",
+                                    "unknown"
+                                ],
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "rated_voltage",
+
+                                label:
+                                    "Coil Rated Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "nameplate",
+
+                                measurementCondition:
+                                    "reference"
+                            },
+
+
+                            {
+                                id:
+                                    "coil_voltage",
+
+                                label:
+                                    "Measured Coil Voltage",
+
+                                unit:
+                                    "V",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "energized",
+
+                                requiredForBasicCheck:
+                                    true
+                            }
+                        ]
                     },
 
+
                     {
                         id:
-                            "coil_resistance",
+                            "advanced_tests",
 
                         label:
-                            "Coil Resistance",
+                            "Advanced Coil Tests",
 
-                        unit:
-                            "Ω",
+                        category:
+                            "advanced",
 
-                        inputType:
-                            "number"
+                        collapsible:
+                            true,
+
+                        defaultExpanded:
+                            false,
+
+                        fields: [
+
+                            {
+                                id:
+                                    "coil_resistance",
+
+                                label:
+                                    "Coil Resistance",
+
+                                unit:
+                                    "Ω",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "power_off"
+                            },
+
+
+                            {
+                                id:
+                                    "coil_current",
+
+                                label:
+                                    "Coil Current",
+
+                                unit:
+                                    "A",
+
+                                type:
+                                    "number",
+
+                                inputType:
+                                    "number",
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "energized"
+                            },
+
+
+                            {
+                                id:
+                                    "magnetic_field",
+
+                                label:
+                                    "Magnetic Field",
+
+                                type:
+                                    "select",
+
+                                options: [
+                                    "present",
+                                    "not_present",
+                                    "not_tested"
+                                ],
+
+                                valueType:
+                                    "measured",
+
+                                measurementCondition:
+                                    "energized"
+                            }
+                        ]
                     }
                 ]
             }

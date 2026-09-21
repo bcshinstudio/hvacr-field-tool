@@ -1,0 +1,12 @@
+calculation_id,output_parameter_id,required_inputs,formula_key,conditions_notes,confidence_class
+CALC_SST,PAR_SST,MEAS_EVAP_OUT_P + refrigerant PT data,PT_LOOKUP_DEW,Evaporator saturation temperature from evaporator-outlet pressure. For zeotropic blends use dew reference for superheat/evaporating saturation.,DEFINED
+CALC_SCT,PAR_SCT,MEAS_COND_OUT_P + refrigerant PT data,PT_LOOKUP_BUBBLE,Condensing saturation temperature from condenser-outlet/high-side pressure. For zeotropic blends use bubble reference for subcooling.,DEFINED
+CALC_EVAP_SH,PAR_EVAP_SH,PAR_SST + MEAS_EVAP_OUT_T,MEAS_EVAP_OUT_T - PAR_SST,Pressure and temperature should represent the same evaporator-outlet region.,DEFINED
+CALC_TOTAL_SH,PAR_TOTAL_SH,MEAS_COMP_SUCTION_P + MEAS_COMP_SUCTION_T + refrigerant PT data,TOTAL_SH_PT,Use saturation temperature derived from compressor-suction pressure; distinguish from evaporator superheat when suction-line pressure drop exists.,DEFINED
+CALC_SC,PAR_SC,PAR_SCT + MEAS_COND_OUT_T,PAR_SCT - MEAS_COND_OUT_T,Condenser-outlet subcooling. Use bubble saturation reference for zeotropic blends.,DEFINED
+CALC_EVAP_TD,PAR_EVAP_TD,MEAS_EVAP_IN_AIR_T + PAR_SST,MEAS_EVAP_IN_AIR_T - PAR_SST,"Use representative evaporator entering/return air. For applications that define TD from box temperature, MEAS_BOX_T may be substituted by the application rule.",DEFINED
+CALC_COND_TD,PAR_COND_TD,PAR_SCT + MEAS_COND_IN_AIR_T,PAR_SCT - MEAS_COND_IN_AIR_T,Air-cooled condenser CTOA/condensing split relationship.,DEFINED
+CALC_AIR_DT,PAR_AIR_DT,MEAS_EVAP_IN_AIR_T + MEAS_EVAP_OUT_AIR_T,MEAS_EVAP_IN_AIR_T - MEAS_EVAP_OUT_AIR_T,Dry-bulb delta-T alone is not a complete charge/airflow diagnosis.,DEFINED
+CALC_COND_AIR_DT,PAR_COND_AIR_DT,MEAS_COND_IN_AIR_T + MEAS_COND_OUT_AIR_T,MEAS_COND_OUT_AIR_T - MEAS_COND_IN_AIR_T,Air-cooled condenser.,DEFINED
+CALC_CR,PAR_CR,MEAS_COMP_SUCTION_P + MEAS_COMP_DISCHARGE_P,(DISCHARGE_PSIG + ATM_PSI) / (SUCTION_PSIG + ATM_PSI),Use compressor service-point pressures and absolute pressure. ATM_PSI should be configurable if elevation compensation is added.,DEFINED
+CALC_SENSIBLE,PAR_SENSIBLE_CAP,MEAS_CFM + PAR_AIR_DT,1.08 * CFM * AIR_DT,1.08 is the traditional standard dry-air coefficient; actual coefficient varies with humidity/density.,GUIDELINE

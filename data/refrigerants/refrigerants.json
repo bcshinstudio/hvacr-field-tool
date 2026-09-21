@@ -1,0 +1,217 @@
+[
+  {
+    "id": "R12",
+    "label": "R-12",
+    "file": "R12.csv",
+    "available": true
+  },
+  {
+    "id": "R22",
+    "label": "R-22",
+    "file": "R22.csv",
+    "available": true
+  },
+  {
+    "id": "R23",
+    "label": "R-23",
+    "file": "R23.csv",
+    "available": true
+  },
+  {
+    "id": "R32",
+    "label": "R-32",
+    "file": "R32.csv",
+    "available": true
+  },
+  {
+    "id": "R123",
+    "label": "R-123",
+    "file": "R123.csv",
+    "available": true
+  },
+  {
+    "id": "R1233zdE",
+    "label": "R-1233zd(E)",
+    "file": "R1233zdE.csv",
+    "available": true
+  },
+  {
+    "id": "R1234yf",
+    "label": "R-1234yf",
+    "file": "R1234yf.csv",
+    "available": true
+  },
+  {
+    "id": "R1234zeE",
+    "label": "R-1234ze(E)",
+    "file": "R1234zeE.csv",
+    "available": true
+  },
+  {
+    "id": "R125",
+    "label": "R-125",
+    "file": "R125.csv",
+    "available": true
+  },
+  {
+    "id": "R134a",
+    "label": "R-134a",
+    "file": "R134a.csv",
+    "available": true
+  },
+  {
+    "id": "R143a",
+    "label": "R-143a",
+    "file": "R143a.csv",
+    "available": true
+  },
+  {
+    "id": "R152a",
+    "label": "R-152a",
+    "file": "R152a.csv",
+    "available": true
+  },
+  {
+    "id": "R170",
+    "label": "R-170 (Ethane)",
+    "file": "R170.csv",
+    "available": true
+  },
+  {
+    "id": "R227ea",
+    "label": "R-227ea",
+    "file": "R227ea.csv",
+    "available": true
+  },
+  {
+    "id": "R236fa",
+    "label": "R-236fa",
+    "file": "R236fa.csv",
+    "available": true
+  },
+  {
+    "id": "R245fa",
+    "label": "R-245fa",
+    "file": "R245fa.csv",
+    "available": true
+  },
+  {
+    "id": "R290",
+    "label": "R-290 (Propane)",
+    "file": "R290.csv",
+    "available": true
+  },
+  {
+    "id": "R404A",
+    "label": "R-404A",
+    "file": "R404A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R407A",
+    "label": "R-407A",
+    "file": "R407A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R407C",
+    "label": "R-407C",
+    "file": "R407C.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R407F",
+    "label": "R-407F",
+    "file": "R407F.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R410A",
+    "label": "R-410A",
+    "file": "R410A.csv",
+    "available": true
+  },
+  {
+    "id": "R422D",
+    "label": "R-422D",
+    "file": "R422D.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R448A",
+    "label": "R-448A",
+    "file": "R448A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R449A",
+    "label": "R-449A",
+    "file": "R449A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R452A",
+    "label": "R-452A",
+    "file": "R452A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R454B",
+    "label": "R-454B",
+    "file": "R454B.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R454C",
+    "label": "R-454C",
+    "file": "R454C.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R502",
+    "label": "R-502",
+    "file": "R502.csv",
+    "available": true
+  },
+  {
+    "id": "R507A",
+    "label": "R-507A",
+    "file": "R507A.csv",
+    "available": true
+  },
+  {
+    "id": "R513A",
+    "label": "R-513A",
+    "file": "R513A.csv",
+    "available": true,
+    "glide": true
+  },
+  {
+    "id": "R600a",
+    "label": "R-600a (Isobutane)",
+    "file": "R600a.csv",
+    "available": true
+  },
+  {
+    "id": "R717",
+    "label": "R-717 (Ammonia)",
+    "file": "R717.csv",
+    "available": true
+  },
+  {
+    "id": "R744",
+    "label": "R-744 (CO₂)",
+    "file": "R744.csv",
+    "available": true
+  }
+]

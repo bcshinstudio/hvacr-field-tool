@@ -1,0 +1,7 @@
+reference_id,application_id,parameter_id,value,unit,value_role,interpretation,conditions,source_id
+REF_WIC_HEATCRAFT_RATING,APP_WIC,PAR_EVAP_TD,10.0,delta_degF,RATING_POINT,"Manufacturer rating point, not universal normal range.",R-448A; model CEL0310BS6EMAB0000; cooler rating point; SST 25°F,SRC_HEATCRAFT_COOLER
+REF_WIC_HEATCRAFT_SST,APP_WIC,PAR_SST,25.0,degF,RATING_POINT,"Manufacturer rating point, not universal normal range.",R-448A; model CEL0310BS6EMAB0000; cooler rating point; TD 10°F,SRC_HEATCRAFT_COOLER
+REF_WIF_HEATCRAFT_RATING,APP_WIF,PAR_EVAP_TD,10.0,delta_degF,RATING_POINT,"Manufacturer rating point, not universal normal range.",R-448A; model CEL0040CS6ECAB0000; freezer rating point; SST -20°F,SRC_HEATCRAFT_FREEZER
+REF_WIF_HEATCRAFT_SST,APP_WIF,PAR_SST,-20.0,degF,RATING_POINT,"Manufacturer rating point, not universal normal range.",R-448A; model CEL0040CS6ECAB0000; freezer rating point; TD 10°F,SRC_HEATCRAFT_FREEZER
+REF_COND_TD_DESIGN_LOW,,PAR_COND_TD,10.0,delta_degF,DESIGN_RANGE_MIN,Copeland states air-cooled condensers are commonly selected over a 10–30°F TD range; not a universal operating limit.,Air-cooled condenser selection/design context,SRC_COPELAND_LOAD
+REF_COND_TD_DESIGN_HIGH,,PAR_COND_TD,30.0,delta_degF,DESIGN_RANGE_MAX,Copeland states air-cooled condensers are commonly selected over a 10–30°F TD range; not a universal operating limit.,Air-cooled condenser selection/design context,SRC_COPELAND_LOAD

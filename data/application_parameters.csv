@@ -1,0 +1,68 @@
+application_id,parameter_id,applicable,notes
+APP_AC_SPLIT,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_AC_SPLIT,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_HP,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIC,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_WIF,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIC,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_SST,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_SCT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_EVAP_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_TOTAL_SH,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_SC,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_EVAP_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_COND_TD,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_AIR_DT,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_RIF,PAR_CR,YES,Target/reference values must be resolved by equipment/application conditions; do not assume a universal normal range.
+APP_ICE,PAR_SST,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_ICE,PAR_SCT,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_ICE,PAR_EVAP_SH,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_ICE,PAR_TOTAL_SH,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_ICE,PAR_SC,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_ICE,PAR_CR,CONDITIONAL,Use manufacturer cycle/sequence data; values vary by freeze/harvest and model.
+APP_AC_SPLIT,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_HP,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_WIC,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_WIF,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_RIC,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_RIF,PAR_COND_AIR_DT,YES,Applicable when using an air-cooled condenser; interpret against equipment/application conditions rather than a universal normal range.
+APP_ICE,PAR_COND_AIR_DT,CONDITIONAL,Applicable to air-cooled ice-machine condensers; use manufacturer cycle/sequence data and model-specific conditions.

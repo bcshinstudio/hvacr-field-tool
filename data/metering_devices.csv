@@ -1,0 +1,5 @@
+metering_device_id,name,control_behavior,v2_rule,source_id
+MD_TXV,Thermostatic expansion valve (TXV),Modulates refrigerant flow to control evaporator superheat.,"For residential AC, manufacturer procedures commonly use subcooling; use equipment target/nameplate.",SRC_TRANE_PISTON_TXV
+MD_EEV,Electronic expansion valve (EEV),Electronically modulates refrigerant flow/superheat.,Use manufacturer/control-specific procedure.,SRC_TRANE_SC
+MD_PISTON,Fixed orifice / piston,Fixed restriction; superheat varies with load and operating conditions.,"For residential AC, manufacturer procedures commonly use target superheat tables.",SRC_TRANE_PISTON_TXV
+MD_CAPTUBE,Capillary tube,Fixed restriction used in critically charged small systems.,Use equipment-specific charge/service data; do not apply TXV charging logic.,
