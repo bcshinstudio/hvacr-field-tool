@@ -1,0 +1,142 @@
+{
+  "suite": "Independent WIC condenser/high-side/compressor scenarios",
+  "version": "0.3.0",
+  "runtime_status": "NOT_YET_WIRED",
+  "cases": [
+    {
+      "id": "V3-01",
+      "input": [
+        "high condensing pressure",
+        "dirty condenser",
+        "fans normal"
+      ],
+      "expected": "localize dirty condenser/heat rejection"
+    },
+    {
+      "id": "V3-02",
+      "input": [
+        "high condensing pressure",
+        "clean condenser",
+        "condenser fan stopped"
+      ],
+      "expected": "localize fan/airflow failure"
+    },
+    {
+      "id": "V3-03",
+      "input": [
+        "high condensing pressure",
+        "clean coil",
+        "fans running correct direction",
+        "air recirculation observed"
+      ],
+      "expected": "localize recirculation/installation airflow issue"
+    },
+    {
+      "id": "V3-04",
+      "input": [
+        "high condensing pressure",
+        "airflow normal",
+        "excess charge evidence"
+      ],
+      "expected": "retain overcharge/inventory cause; do not call dirty condenser"
+    },
+    {
+      "id": "V3-05",
+      "input": [
+        "high condensing pressure",
+        "airflow normal",
+        "recent service/evacuation concern",
+        "noncondensable evidence"
+      ],
+      "expected": "support noncondensables; distinguish from airflow"
+    },
+    {
+      "id": "V3-06",
+      "configuration": [
+        "low-ambient head-pressure control installed"
+      ],
+      "input": [
+        "low ambient",
+        "low head",
+        "insufficient flood charge/control evidence"
+      ],
+      "expected": "evaluate head-pressure-control system, not generic low-charge conclusion"
+    },
+    {
+      "id": "V3-07",
+      "configuration": [
+        "ORI/OROA/ORD-style control installed"
+      ],
+      "input": [
+        "high head",
+        "clean coil",
+        "fans normal",
+        "control setting/restriction evidence"
+      ],
+      "expected": "localize head-pressure-control branch"
+    },
+    {
+      "id": "V3-08",
+      "input": [
+        "low condensing pressure",
+        "low evaporator load",
+        "low suction"
+      ],
+      "expected": "retain load/feed interaction; do not condemn compressor"
+    },
+    {
+      "id": "V3-09",
+      "input": [
+        "low head",
+        "abnormally high suction for load",
+        "weak pressure differential",
+        "valve leakage evidence"
+      ],
+      "expected": "support compressor pumping/capacity fault"
+    },
+    {
+      "id": "V3-10",
+      "input": [
+        "compressor hot",
+        "high head",
+        "normal-ish suction"
+      ],
+      "expected": "high compression/high-head system cause before compressor replacement"
+    },
+    {
+      "id": "V3-11",
+      "input": [
+        "compressor hot",
+        "very low suction",
+        "high superheat",
+        "normal head"
+      ],
+      "expected": "starvation/high compression-ratio path; do not call condenser fault"
+    },
+    {
+      "id": "V3-12",
+      "input": [
+        "high head",
+        "dirty condenser",
+        "overcharge evidence"
+      ],
+      "expected": "preserve multiple contributors"
+    },
+    {
+      "id": "V3-13",
+      "input": [
+        "high-pressure safety open",
+        "high head"
+      ],
+      "expected": "locate/rectify high-head cause before restart; safety trip is consequence"
+    },
+    {
+      "id": "V3-14",
+      "input": [
+        "compressor running",
+        "poor capacity"
+      ],
+      "expected": "require pressures/electrical/model context before mechanical compressor diagnosis"
+    }
+  ]
+}

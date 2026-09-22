@@ -1,0 +1,119 @@
+{
+  "version": "0.4.0",
+  "status": "research_validation_not_runtime",
+  "scope": "Generic WIC controls, electrical, pump-down, room/load/infiltration. Exact wiring, settings and motor/compressor limits remain equipment-specific.",
+  "principles": [
+    "Electrical troubleshooting follows the control path: demand -> controller/thermostat -> safeties -> contactor/relay -> load, using the actual wiring diagram.",
+    "No-voltage-at-load and correct-voltage-but-load-will-not-run are different diagnostic branches.",
+    "A safety control opening is evidence of a condition or control fault, not automatically a defective safety.",
+    "Pump-down is a sequence; low suction is expected after the liquid solenoid closes until the LP control stops the compressor.",
+    "Room temperature failure must be separated into load/infiltration, airflow, refrigeration capacity/feed, controls/sensors, and sizing.",
+    "Sensor location/calibration and controller settings can mimic refrigeration faults.",
+    "Do not invent universal voltage/current, LP/HP, thermostat differential, anti-short-cycle, or pump-down settings."
+  ],
+  "domains": [
+    {
+      "id": "COMPRESSOR_WILL_NOT_RUN",
+      "condition": "Cooling is expected but compressor is not operating.",
+      "branches": [
+        "no voltage at compressor: trace upstream through disconnect/fuse/wiring/contactor/safeties/controller",
+        "voltage present at compressor but no start: verify voltage under start attempt, motor/start components/protection/model requirements",
+        "control circuit not calling: thermostat/controller/sensor/state/settings",
+        "safety open: determine whether pressure/oil/overload condition is real before condemning control"
+      ],
+      "diagnosis_policy": "Use wiring diagram and voltage/state evidence to localize interruption; do not jump directly to compressor failure."
+    },
+    {
+      "id": "CONTACTOR_RELAY_CONTROL",
+      "condition": "Commanded load does not match controller/relay/contactor output.",
+      "discriminators": [
+        "control command",
+        "coil voltage",
+        "contact state/voltage drop",
+        "line/load voltage",
+        "wiring/loose connection",
+        "load current where applicable"
+      ],
+      "diagnosis_policy": "Separate missing command, failed coil, failed contacts and downstream load fault."
+    },
+    {
+      "id": "SENSOR_CONTROLLER",
+      "condition": "Controller action is inconsistent with actual room/system condition.",
+      "causes": [
+        "wrong setpoint/differential",
+        "sensor mislocation",
+        "sensor calibration/failure",
+        "defrost/fan/compressor logic setting",
+        "alarm/control parameter mismatch",
+        "wiring/input fault"
+      ],
+      "discriminators": [
+        "independent temperature comparison",
+        "sensor location",
+        "displayed vs measured value",
+        "controller outputs/state",
+        "parameter review",
+        "alarm/history"
+      ],
+      "diagnosis_policy": "A bad room temperature does not by itself prove refrigeration-circuit failure."
+    },
+    {
+      "id": "PUMP_DOWN_SEQUENCE",
+      "condition": "Thermostat/controller satisfies and liquid solenoid closes; compressor continues until LP control cut-out, then restarts when demand/pressure logic permits.",
+      "expected_sequence": [
+        "demand removed",
+        "liquid solenoid de-energizes/closes",
+        "evaporator/suction pressure falls",
+        "LP control opens at configured cut-out",
+        "compressor stops",
+        "on new demand solenoid opens and suction rises",
+        "LP control closes at configured cut-in and compressor starts, subject to delays/safeties"
+      ],
+      "faults": [
+        "solenoid does not close/leaks",
+        "solenoid does not open",
+        "LP control setting/sensing/control fault",
+        "compressor cannot pump down adequately",
+        "refrigerant migration/pressure rise causing unwanted cycling",
+        "controller/anti-short-cycle interaction"
+      ],
+      "diagnosis_policy": "Compare actual sequence with equipment wiring/control design; do not infer low charge merely from intentional low suction during pump-down."
+    },
+    {
+      "id": "ROOM_LOAD_INFILTRATION",
+      "condition": "Heat/moisture load exceeds expected operating load or repeatedly enters room.",
+      "causes": [
+        "frequent/prolonged door openings",
+        "damaged/misaligned gasket/door",
+        "warm product loading",
+        "high product load",
+        "air infiltration",
+        "blocked air path/product placement",
+        "ambient/environment above design"
+      ],
+      "discriminators": [
+        "door/gasket/closer inspection",
+        "traffic/open-door history",
+        "product load and entering product temperature",
+        "frost/ice near infiltration points",
+        "room recovery pattern",
+        "evap/condenser airflow",
+        "refrigeration system performance under known load"
+      ],
+      "diagnosis_policy": "Do not call system undersized until correct operation and actual/design load are compared."
+    },
+    {
+      "id": "SYSTEM_CAPACITY_SIZING",
+      "condition": "System operates correctly but cannot meet actual/design room load.",
+      "prerequisites": [
+        "airflow verified",
+        "coils clean",
+        "refrigerant feed/charge reasonably verified",
+        "controls/settings verified",
+        "doors/infiltration/load characterized",
+        "ambient/design conditions known"
+      ],
+      "diagnosis_policy": "Sizing is a late-stage conclusion requiring load/equipment data, not a fallback diagnosis."
+    }
+  ]
+}

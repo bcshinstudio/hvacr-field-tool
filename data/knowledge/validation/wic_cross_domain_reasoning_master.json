@@ -1,0 +1,136 @@
+{
+  "version": "0.5.0",
+  "status": "research_validation_not_runtime",
+  "scope": "Cross-domain WIC reasoning, contradictory evidence, multiple simultaneous faults, evidence precedence, next-check selection and confidence boundaries.",
+  "principles": [
+    "Start from conditions/symptoms, not component replacement.",
+    "One symptom may support several causes; one cause may produce symptoms across several domains.",
+    "Direct/localized evidence outranks broad pattern evidence for naming a root cause.",
+    "Contradictory evidence reduces or blocks a hypothesis; it must never be silently discarded.",
+    "Multiple independently localized faults may coexist and must not be collapsed into one diagnosis.",
+    "Operating-state invalidity can veto otherwise plausible steady-state interpretations.",
+    "A completed check is evidence and must not be recommended again.",
+    "Choose the next check for discrimination: prefer a practical check that best separates the remaining plausible causes.",
+    "Specific diagnosis requires sufficient positive/localized evidence and no unresolved contradiction that materially undermines it.",
+    "When evidence is insufficient, report the supported system condition and the best next check rather than invent specificity."
+  ],
+  "evidence_precedence": [
+    {
+      "rank": 1,
+      "type": "equipment/model-specific direct test or manufacturer diagnostic result"
+    },
+    {
+      "rank": 2,
+      "type": "localized physical/electrical evidence at suspected component"
+    },
+    {
+      "rank": 3,
+      "type": "cross-domain measurement pattern with applicable references"
+    },
+    {
+      "rank": 4,
+      "type": "single broad symptom/observation"
+    },
+    {
+      "rank": 5,
+      "type": "generic possibility without supporting evidence"
+    }
+  ],
+  "cross_domain_families": [
+    {
+      "symptom": "room too warm",
+      "candidate_domains": [
+        "load/infiltration",
+        "evaporator airflow/icing",
+        "refrigerant feed/charge",
+        "condenser heat rejection",
+        "compressor capacity",
+        "controls/sensors",
+        "system sizing"
+      ],
+      "policy": "walk from room/load and airflow through refrigeration/feed, high side, compressor and controls before sizing unless direct evidence localizes sooner"
+    },
+    {
+      "symptom": "low suction",
+      "candidate_domains": [
+        "pump-down/operating state",
+        "low load",
+        "evaporator airflow/icing",
+        "low charge",
+        "liquid restriction",
+        "TXV underfeed",
+        "control/regulator setting"
+      ],
+      "policy": "state gate first; low suction alone cannot diagnose low charge"
+    },
+    {
+      "symptom": "high superheat",
+      "candidate_domains": [
+        "low charge",
+        "liquid-line restriction",
+        "flash gas/lack of liquid at TXV",
+        "TXV underfeed/bulb/equalizer",
+        "load/airflow interactions"
+      ],
+      "policy": "establish starvation condition, then discriminate root cause with liquid condition, localized restriction and TXV evidence"
+    },
+    {
+      "symptom": "high head / HP trip",
+      "candidate_domains": [
+        "condenser airflow/recirculation",
+        "ambient/load",
+        "overcharge",
+        "noncondensables",
+        "head-pressure controls",
+        "liquid-line/control interactions"
+      ],
+      "policy": "safety trip is consequence; localize heat-rejection/charge/control cause"
+    },
+    {
+      "symptom": "evaporator icing",
+      "candidate_domains": [
+        "defrost sequence",
+        "airflow/fan",
+        "infiltration/moisture",
+        "drain/refreeze",
+        "low evaporating temperature",
+        "refrigerant feed"
+      ],
+      "policy": "ice is a condition; identify pattern and failed sequence/local evidence"
+    },
+    {
+      "symptom": "compressor hot / protection open",
+      "candidate_domains": [
+        "high head",
+        "very low suction/high compression ratio",
+        "high suction/load",
+        "high suction-gas superheat/starvation",
+        "compressor valve/capacity",
+        "electrical/protection"
+      ],
+      "policy": "do not condemn compressor from temperature/protection alone"
+    },
+    {
+      "symptom": "compressor short cycling",
+      "candidate_domains": [
+        "normal pump-down/control sequence",
+        "LP/HP settings",
+        "high-head safety",
+        "anti-short-cycle/controller",
+        "load/thermostat differential",
+        "solenoid leakage",
+        "electrical/protection"
+      ],
+      "policy": "establish commanded sequence and reason for each stop/start before assigning fault"
+    }
+  ],
+  "decision_policy": {
+    "specific_root_cause": "requires direct/localized or equipment-specific evidence; broad correlated symptoms alone are insufficient",
+    "system_condition": "may be reported from a coherent pattern even when root cause remains unresolved",
+    "possible_causes": "retain only causes compatible with known configuration/state and not materially contradicted",
+    "multiple_faults": "report each independently supported localized fault; also report interaction when one fault can amplify another",
+    "next_check": "exclude completed checks; prefer safe/practical high-discrimination check among unresolved hypotheses; respect physical access and system state",
+    "unknown_reference": "show measured value but do not classify low/normal/high",
+    "conflict": "surface conflict and request resolving check; do not average contradictory evidence into false certainty"
+  }
+}

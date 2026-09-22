@@ -1,0 +1,26 @@
+import fs from "fs";
+import {evaluateHypotheses} from "../src/knowledge/hypothesis_engine.js";
+const J=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url)));
+const rules=J("../data/knowledge/core/evidence_rules.json").items, relationships=J("../data/knowledge/core/relationships.json").items;
+const discriminators=J("../data/knowledge/core/discriminators.json").items, checks=J("../data/knowledge/core/checks.json").items;
+const run=(facts,state="STABLE_COOLING")=>evaluateHypotheses({facts,rules,relationships,discriminators,checks,application:"APP_WIC",operatingState:state});
+let n=0;const has=(r,c)=>r.diagnoses.some(x=>x.candidate===c);const ok=(x,m)=>{if(!x)throw Error(m);n++};
+
+let r=run(["FACT_EVAP_COIL_ICED","FACT_DEFROST_HEATER_NOT_HEATING","FACT_DEFROST_INCOMPLETE"],"DEFROST");
+ok(has(r,"CAUSE_DEFROST_HEATER_FAILURE"),"defrost heater localized");
+r=run(["FACT_EVAP_COIL_ICED","FACT_DEFROST_TERMINATION_ERROR","FACT_DEFROST_INCOMPLETE"],"DEFROST");
+ok(has(r,"CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"),"termination localized");
+r=run(["FACT_DRAIN_REFREEZE"],"POST_DEFROST");ok(has(r,"CAUSE_DRAIN_REFREEZE"),"drain refreeze localized");
+r=run(["FACT_CONTACTOR_COIL_ENERGIZED","FACT_CONTACTOR_NOT_PASSING_VOLTAGE"]);ok(has(r,"CAUSE_CONTACTOR_FAILURE"),"contactor localized");
+r=run(["FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT","FACT_START_COMPONENT_FAULT"],"STARTUP");ok(has(r,"CAUSE_COMPRESSOR_START_COMPONENT_FAULT"),"start component localized");
+r=run(["FACT_COMPRESSOR_NOT_RUNNING","FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT"]);ok(has(r,"CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"),"upstream power/control path");
+r=run(["FACT_SOLENOID_COMMAND_CLOSED","FACT_SOLENOID_FLOW_CONTINUES_CLOSED"],"PUMP_DOWN");ok(has(r,"CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"),"pumpdown solenoid leakage");
+r=run(["FACT_SENSOR_DISAGREES_REFERENCE","FACT_BOX_TEMP_HIGH"]);ok(has(r,"CAUSE_SENSOR_LOCATION_OR_CALIBRATION"),"sensor conflict localized");
+r=run(["FACT_WARM_PRODUCT_LOAD_CONFIRMED","FACT_BOX_TEMP_HIGH"],"PULLDOWN");ok(has(r,"CAUSE_PRODUCT_LOAD_PULLDOWN"),"product pull-down localized");
+r=run(["FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"]);
+ok(!has(r,"CAUSE_SYSTEM_UNDERSIZED"),"single sizing fact must not bypass late-stage prerequisites");
+r=run(["FACT_NONCONDENSABLE_EVIDENCE","FACT_COND_SAT_HIGH"]);ok(has(r,"CAUSE_NONCONDENSABLES"),"noncondensables localized");
+r=run(["FACT_OVERCHARGE_EVIDENCE","FACT_COND_SAT_HIGH"]);ok(has(r,"CAUSE_OVERCHARGE"),"overcharge localized");
+r=run(["FACT_CONTACTOR_COIL_ENERGIZED","FACT_CONTACTOR_NOT_PASSING_VOLTAGE","FACT_SENSOR_DISAGREES_REFERENCE","FACT_BOX_TEMP_HIGH"]);
+ok(r.resolution==="MULTIPLE_SUPPORTED_CAUSES","cross-domain multiple faults preserved");
+console.log(`BRAIN 2.0 PHASE 2-4 RUNTIME: ${n} assertions PASS`);

@@ -1,0 +1,125 @@
+{
+  "suite": "Independent WIC operating/evaporator/defrost scenarios",
+  "version": "0.2.0",
+  "runtime_status": "NOT_YET_WIRED",
+  "cases": [
+    {
+      "id": "V2-01",
+      "state": "DEFROST",
+      "input": [
+        "low suction-like reading",
+        "fans off"
+      ],
+      "expected": "do not diagnose starvation/failed fan from cooling-mode rules; evaluate defrost sequence"
+    },
+    {
+      "id": "V2-02",
+      "state": "PUMP_DOWN",
+      "input": [
+        "falling/low suction",
+        "liquid solenoid closed",
+        "compressor running"
+      ],
+      "expected": "recognize expected pump-down sequence; do not call low charge from suction alone"
+    },
+    {
+      "id": "V2-03",
+      "state": "POST_DEFROST",
+      "input": [
+        "fans off",
+        "refrigeration resumed"
+      ],
+      "expected": "check fan-delay temperature/time before diagnosing fan motor failure"
+    },
+    {
+      "id": "V2-04",
+      "state": "STABLE_COOLING",
+      "input": [
+        "room warm",
+        "weak airflow",
+        "evaporator fan failed"
+      ],
+      "expected": "localize evaporator fan/airflow problem"
+    },
+    {
+      "id": "V2-05",
+      "state": "STABLE_COOLING",
+      "input": [
+        "room warm",
+        "coil blocked with ice",
+        "door/gasket air infiltration evidence",
+        "defrost otherwise completes"
+      ],
+      "expected": "icing condition with infiltration/moisture cause; do not replace heater"
+    },
+    {
+      "id": "V2-06",
+      "state": "DEFROST",
+      "input": [
+        "scheduled defrost initiated",
+        "electric heater not energized",
+        "coil remains iced"
+      ],
+      "expected": "localize electric-defrost heating circuit/command failure"
+    },
+    {
+      "id": "V2-07",
+      "state": "DEFROST",
+      "input": [
+        "heater works",
+        "defrost terminates too early",
+        "coil remains iced"
+      ],
+      "expected": "investigate termination sensor/setpoint/logic rather than heater"
+    },
+    {
+      "id": "V2-08",
+      "state": "POST_DEFROST",
+      "input": [
+        "defrost clears coil",
+        "water accumulates/refreezes in pan/drain"
+      ],
+      "expected": "localize drain/drain-heater/slope/blockage family"
+    },
+    {
+      "id": "V2-09",
+      "state": "STABLE_COOLING",
+      "input": [
+        "iced evaporator",
+        "low evaporating temperature",
+        "refrigerant-feed abnormality"
+      ],
+      "expected": "retain feed/evap-temperature cause; do not assume timer/heater failure"
+    },
+    {
+      "id": "V2-10",
+      "state": "UNKNOWN",
+      "input": [
+        "high SH",
+        "iced coil"
+      ],
+      "expected": "request/establish operating state and clear/assess airflow/ice before high-confidence root cause"
+    },
+    {
+      "id": "V2-11",
+      "state": "STABLE_COOLING",
+      "input": [
+        "room warm",
+        "clean clear coil",
+        "fans normal",
+        "door closed"
+      ],
+      "expected": "airflow/icing causes disfavored; continue refrigerant/load/control diagnosis"
+    },
+    {
+      "id": "V2-12",
+      "state": "STABLE_COOLING",
+      "input": [
+        "ice blocked coil",
+        "fan failure",
+        "door infiltration"
+      ],
+      "expected": "preserve multiple contributing faults rather than force one cause"
+    }
+  ]
+}

@@ -1,13 +1,13 @@
 diagnostic_domain,status,current_scope
-Operating state / validity,PARTIAL,Stable cooling/pulldown context exists; full transient validity gate still needs implementation.
-Refrigerant charge / inventory,PARTIAL,Undercharge/overcharge patterns exist; receiver and system-specific charging interpretation need deeper validation.
-Liquid-line restriction,VALIDATED_CORE,Filter-drier/local restriction evidence and discrimination are implemented and regression-tested.
-TXV underfeed / installation,VALIDATED_CORE,"Bulb, equalizer, inlet restriction, response/load and underfeed branches are represented and tested."
-Evaporator airflow / icing,PARTIAL,Fan/coil/airflow evidence exists; complete icing/defrost interaction matrix still needs expansion.
-Condenser / high head,PARTIAL,"Dirty coil, fan, airflow, ambient/head-pressure causes represented; full look-alike matrix still needs expansion."
-Compressor capacity / pumping,PARTIAL,Cause family exists; electrical/mechanical discrimination requires more field scenarios.
-Defrost / drain / fan delay,PARTIAL,Major causes represented; sequence/state validation needs expansion.
-Controls / sensors / pump-down,PARTIAL,Cause families represented; controller/pressure-control sequences need deeper validation.
-Load / infiltration / sizing,PARTIAL,Represented as causes; needs stronger discriminating evidence and scenario coverage.
-Multiple simultaneous faults,PARTIAL,Engine supports multiple localized faults; broader multi-fault library still needed.
+Operating state / validity,RESEARCHED_PHASE2,"State gate specified for stable cooling, pull-down, satisfied, pump-down, defrost, post-defrost, startup/off/unknown; runtime mapping pending."
+Refrigerant charge / inventory,RESEARCHED_PHASE1,Charge/starvation patterns and receiver/subcooling caveat documented; independent scenarios created; runtime mapping still pending.
+Liquid-line restriction,RESEARCHED_PHASE1,Manufacturer-backed restriction/flash-gas discrimination documented; independent scenarios created.
+TXV underfeed / installation,RESEARCHED_PHASE1,Manufacturer-backed TXV/feed discriminators documented; independent scenarios created.
+Evaporator airflow / icing,RESEARCHED_PHASE2,Airflow/icing causal model and independent look-alike/multi-fault scenarios documented; runtime mapping pending.
+Condenser / high head,RESEARCHED_PHASE3,"High/low condensing, airflow/recirculation, charge/noncondensables and head-pressure-control differential documented; runtime mapping pending."
+Compressor capacity / pumping,RESEARCHED_PHASE3,"Overheating, compression-ratio context and capacity/pumping differential documented; model-specific operating envelope/pump-down remains equipment data."
+Defrost / drain / fan delay,RESEARCHED_PHASE2,"Sequence model covers initiation, refrigeration interruption, defrost action, termination/failsafe, drain/drip, restart and fan delay; runtime mapping pending."
+Controls / sensors / pump-down,RESEARCHED_PHASE4,"Controller/sensor, electrical control path, safety consequence logic and pump-down sequence specified; equipment wiring/settings remain model-specific."
+Load / infiltration / sizing,RESEARCHED_PHASE4,Door/infiltration/product-load and late-stage sizing differential documented with independent scenarios; runtime mapping pending.
+Multiple simultaneous faults,RESEARCHED_PHASE5,"36 cross-domain/conflict/multiple-fault scenarios define coexistence, contradiction, state veto and next-check behavior; runtime integration pending."
 Model-specific equipment behavior,REQUIRES_EQUIPMENT_DATA,Must use manufacturer/model data; generic Brain should not invent targets.

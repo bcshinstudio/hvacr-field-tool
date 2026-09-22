@@ -1,0 +1,108 @@
+{
+  "version": "0.1.0",
+  "status": "research_validation_not_runtime",
+  "scope": "Generic TXV walk-in cooler; receiver configuration explicitly changes subcooling interpretation.",
+  "reference_policy": [
+    "Use model/equipment manufacturer targets first.",
+    "Use component-manufacturer diagnostic patterns only within their stated system/configuration context.",
+    "Preserve measured values when no applicable classification target exists.",
+    "Do not use a packaged-system subcooling target as a universal receiver-system charging target."
+  ],
+  "domains": [
+    {
+      "id": "STARVED_EVAPORATOR",
+      "condition": "Evaporator receives less refrigerant than load requires.",
+      "supporting_patterns": [
+        "high evaporator superheat",
+        "low suction/low evaporating temperature when context supports it"
+      ],
+      "look_alikes": [
+        "low system charge/leak",
+        "liquid-line restriction",
+        "flash gas/lack of liquid at TXV inlet",
+        "TXV undersized or restricted",
+        "TXV bulb/equalizer/power-element problem",
+        "iced/restricted evaporator or load/airflow interaction"
+      ],
+      "discriminators": [
+        "subcooling/liquid condition interpreted at the correct physical location",
+        "filter-drier/liquid-line temperature or pressure evidence",
+        "sight-glass/liquid condition",
+        "TXV bulb/equalizer/inlet/response",
+        "leak evidence",
+        "receiver/system configuration"
+      ],
+      "diagnosis_policy": "High SH can establish starvation but does not identify root cause by itself."
+    },
+    {
+      "id": "LOW_CHARGE_PATTERN",
+      "condition": "Insufficient refrigerant inventory.",
+      "supporting_patterns": [
+        "high superheat",
+        "low subcooling when an applicable target/location exists",
+        "low evaporator pressure",
+        "bubbles/flash gas may occur",
+        "long run/poor capacity"
+      ],
+      "look_alikes": [
+        "upstream liquid-line restriction can produce flash gas/starvation",
+        "receiver-system liquid inventory can make condenser-outlet SC misleading if interpreted like a packaged condenser"
+      ],
+      "discriminators": [
+        "leak evidence/service history",
+        "receiver level/configuration where applicable",
+        "SC/liquid condition at applicable location",
+        "localized restriction checks before adding refrigerant"
+      ],
+      "diagnosis_policy": "Do not diagnose/add refrigerant from high SH alone. Low-SC evidence is useful only when the reference and measurement location apply."
+    },
+    {
+      "id": "LIQUID_LINE_RESTRICTION",
+      "condition": "Pressure/temperature change or obstruction reduces liquid supply downstream.",
+      "supporting_patterns": [
+        "starved evaporator/high SH",
+        "flash gas downstream",
+        "localized temperature or pressure change across drier/component"
+      ],
+      "look_alikes": [
+        "low charge",
+        "TXV underfeed"
+      ],
+      "discriminators": [
+        "compare upstream/downstream component temperatures; pressure where access exists",
+        "check liquid condition/subcooling at condenser outlet and TXV inlet when applicable",
+        "inspect drier, solenoid, valves, tubing"
+      ],
+      "diagnosis_policy": "Localized evidence is required before naming a specific restriction."
+    },
+    {
+      "id": "TXV_UNDERFEED",
+      "condition": "TXV does not supply required refrigerant flow.",
+      "supporting_patterns": [
+        "high SH",
+        "low suction/evaporating pressure",
+        "starvation"
+      ],
+      "look_alikes": [
+        "low charge",
+        "upstream restriction",
+        "insufficient liquid/subcooling at valve inlet",
+        "evaporator icing/load issues"
+      ],
+      "discriminators": [
+        "bulb contact/location",
+        "external equalizer",
+        "valve sizing/orifice/strainer",
+        "response to bulb/load",
+        "liquid condition at inlet",
+        "refrigerant compatibility"
+      ],
+      "diagnosis_policy": "Local TXV evidence is required before calling the valve faulty."
+    }
+  ],
+  "receiver_caveat": {
+    "rule": "A receiver changes how subcooling is interpreted.",
+    "reason": "At the liquid/vapor surface in a receiver refrigerant is saturated. Subcooling can occur after a solid liquid column forms and is cooled downstream. Therefore a generic condenser-outlet SC target must not automatically be treated as a universal receiver-system charging target.",
+    "source_id": "SRC_SPORLAN_FORM_10_135"
+  }
+}

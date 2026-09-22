@@ -13,3 +13,11 @@ export function interpretMeasurement({id,value,unit,reference=null,referenceSour
   else if(low!==null||high!==null)out.classification="WITHIN_REFERENCE";
   return out;
 }
+
+// Reference precedence is explicit so generic fallbacks cannot override equipment data.
+// A reference marked applicable:false is never used for classification.
+export function selectApplicableReference(references=[]){
+  const rank={MODEL_SPECIFIC:5,EQUIPMENT_MANUFACTURER:4,COMPONENT_MANUFACTURER:3,APPLICATION_DIAGNOSTIC:2,GENERIC_FIELD:1};
+  return [...references].filter(r=>r && r.applicable!==false && Number.isFinite(r.low) && Number.isFinite(r.high))
+    .sort((a,b)=>(rank[b.level]||0)-(rank[a.level]||0))[0]||null;
+}

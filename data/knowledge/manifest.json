@@ -1,7 +1,7 @@
 {
-  "knowledge_version": "1.0.1",
+  "knowledge_version": "2.0.1",
   "schema_version": "1.0.0",
-  "status": "professor_preview_validation_checkpoint",
+  "status": "consolidated_user_test_release_ui_hotfix",
   "counts": {
     "concepts": 108,
     "rules": 34,

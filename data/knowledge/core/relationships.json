@@ -470,6 +470,15 @@
       "sources": [
         "SRC_DANFOSS_PRESSURE_CONTROLS"
       ]
+    },
+    {
+      "id": "REL_CONTACTOR_COIL_MISSING_CONTROL_SEQUENCE",
+      "from": "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+      "to": "COND_CONTROL_SEQUENCE_FAULT",
+      "relation": "INDICATES",
+      "sources": [
+        "SRC_COPELAND_AE105_ELECTRICAL"
+      ]
     }
   ]
 }

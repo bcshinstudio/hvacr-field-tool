@@ -1,0 +1,10 @@
+import {walkInCooler} from "../src/systems/walk_in_cooler.js";
+import {acSplit} from "../src/systems/ac_split.js";
+const ok=(v,m)=>{if(!v)throw Error(m)};
+ok(walkInCooler?.components?.length>0,"WIC components import");
+ok(walkInCooler?.connections?.length>0,"WIC connections import");
+ok(walkInCooler?.fieldData?.observations?.length>0,"WIC observations import");
+ok(walkInCooler.fieldData.observations.some(x=>x.id==="room_case_observations"),"room evidence group import");
+ok(walkInCooler.fieldData.observations.some(x=>x.id==="control_case_observations"),"control evidence group import");
+ok(acSplit?.components?.length>0,"split AC module still imports");
+console.log("BROWSER MODULE IMPORT SMOKE: 6 assertions PASS");

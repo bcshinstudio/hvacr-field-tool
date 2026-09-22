@@ -1,0 +1,332 @@
+{
+  "suite": "Independent WIC cross-domain/conflict/multiple-fault scenarios",
+  "version": "0.5.0",
+  "runtime_status": "NOT_YET_WIRED",
+  "design_note": "Cases intentionally cross Phase 1-4 boundaries and include conflicts, state vetoes, completed checks and simultaneous faults.",
+  "cases": [
+    {
+      "id": "V5-01",
+      "input": [
+        "stable cooling",
+        "high SH"
+      ],
+      "expected": "starvation condition only; retain charge/restriction/TXV/feed candidates"
+    },
+    {
+      "id": "V5-02",
+      "input": [
+        "stable cooling",
+        "high SH",
+        "applicable low SC",
+        "no localized restriction",
+        "no TXV fault evidence",
+        "leak confirmed"
+      ],
+      "expected": "low-charge/leak diagnosis supported"
+    },
+    {
+      "id": "V5-03",
+      "input": [
+        "high SH",
+        "low-SC-like value",
+        "receiver present",
+        "SC reference not applicable"
+      ],
+      "expected": "do not classify SC or force low charge; continue discrimination"
+    },
+    {
+      "id": "V5-04",
+      "input": [
+        "high SH",
+        "localized filter-drier temperature/pressure drop",
+        "low SC downstream"
+      ],
+      "expected": "specific liquid-line/filter-drier restriction; low charge not primary merely from starvation"
+    },
+    {
+      "id": "V5-05",
+      "input": [
+        "high SH",
+        "proper liquid at TXV inlet",
+        "bulb loose/mislocated"
+      ],
+      "expected": "specific TXV bulb installation fault"
+    },
+    {
+      "id": "V5-06",
+      "input": [
+        "low suction",
+        "pump-down active",
+        "solenoid closed"
+      ],
+      "expected": "expected state; suppress low-charge/starvation diagnosis from suction alone"
+    },
+    {
+      "id": "V5-07",
+      "input": [
+        "room warm",
+        "evap iced",
+        "door infiltration evidence",
+        "defrost completes fully"
+      ],
+      "expected": "infiltration/moisture cause supported; do not call defrost heater failure"
+    },
+    {
+      "id": "V5-08",
+      "input": [
+        "room warm",
+        "evap iced",
+        "heater does not energize during commanded electric defrost"
+      ],
+      "expected": "localize defrost heating/control circuit"
+    },
+    {
+      "id": "V5-09",
+      "input": [
+        "high head",
+        "dirty condenser",
+        "fan failed"
+      ],
+      "expected": "retain both localized heat-rejection faults"
+    },
+    {
+      "id": "V5-10",
+      "input": [
+        "high head",
+        "clean coil",
+        "fans normal",
+        "overcharge evidence"
+      ],
+      "expected": "overcharge/inventory branch supported; airflow disfavored"
+    },
+    {
+      "id": "V5-11",
+      "input": [
+        "high head",
+        "clean coil",
+        "fans normal",
+        "recent service",
+        "noncondensable evidence"
+      ],
+      "expected": "noncondensables supported; avoid condenser-cleaning recommendation"
+    },
+    {
+      "id": "V5-12",
+      "input": [
+        "compressor hot",
+        "very low suction",
+        "high SH",
+        "head not excessive"
+      ],
+      "expected": "starvation/low-suction high-compression path before compressor condemnation"
+    },
+    {
+      "id": "V5-13",
+      "input": [
+        "compressor hot",
+        "high head",
+        "dirty condenser"
+      ],
+      "expected": "heat-rejection/high-compression path before compressor condemnation"
+    },
+    {
+      "id": "V5-14",
+      "input": [
+        "compressor running",
+        "weak differential",
+        "suction/discharge valve leakage evidence",
+        "airflow/feed/load normal"
+      ],
+      "expected": "compressor capacity/pumping fault supported"
+    },
+    {
+      "id": "V5-15",
+      "input": [
+        "room warm",
+        "controller reads colder than independent thermometer",
+        "sensor badly located"
+      ],
+      "expected": "sensor/control cause supported before refrigerant work"
+    },
+    {
+      "id": "V5-16",
+      "input": [
+        "room warm",
+        "large warm product load",
+        "otherwise normal system"
+      ],
+      "expected": "pull-down/load condition; suppress sizing diagnosis"
+    },
+    {
+      "id": "V5-17",
+      "input": [
+        "room persistently warm",
+        "airflow/feed/charge/controls/infiltration verified",
+        "load calculation exceeds equipment capacity"
+      ],
+      "expected": "system sizing/capacity conclusion supported"
+    },
+    {
+      "id": "V5-18",
+      "input": [
+        "HP safety open",
+        "high head",
+        "condenser fan stopped"
+      ],
+      "expected": "fan/high-head cause; HP control is protective consequence"
+    },
+    {
+      "id": "V5-19",
+      "input": [
+        "compressor off",
+        "no terminal voltage",
+        "controller demand present",
+        "contactor coil not energized"
+      ],
+      "expected": "trace safety/control circuit; do not diagnose compressor"
+    },
+    {
+      "id": "V5-20",
+      "input": [
+        "compressor off",
+        "correct terminal voltage during start attempt",
+        "start component fault localized"
+      ],
+      "expected": "electrical start-component diagnosis"
+    },
+    {
+      "id": "V5-21",
+      "input": [
+        "high SH",
+        "drier restriction localized",
+        "TXV bulb loose"
+      ],
+      "expected": "report both localized faults; do not collapse"
+    },
+    {
+      "id": "V5-22",
+      "input": [
+        "evap iced",
+        "fan failed",
+        "door infiltration"
+      ],
+      "expected": "report multiple contributors and sequence corrective checks"
+    },
+    {
+      "id": "V5-23",
+      "input": [
+        "high head",
+        "dirty condenser",
+        "overcharge independently supported"
+      ],
+      "expected": "retain both contributors"
+    },
+    {
+      "id": "V5-24",
+      "input": [
+        "contradictory sensors",
+        "room sensor says 32F",
+        "independent calibrated thermometer says 45F"
+      ],
+      "expected": "surface sensor conflict; resolve sensor/input before refrigeration diagnosis"
+    },
+    {
+      "id": "V5-25",
+      "input": [
+        "high SH measured",
+        "evaporator outlet pressure measurement suspect/inconsistent"
+      ],
+      "expected": "degrade SH evidence; verify measurement rather than use calculated result as fact"
+    },
+    {
+      "id": "V5-26",
+      "input": [
+        "SC measured",
+        "no applicable target"
+      ],
+      "expected": "preserve numeric SC; no low/normal/high classification"
+    },
+    {
+      "id": "V5-27",
+      "input": [
+        "unknown operating state",
+        "low suction",
+        "high SH"
+      ],
+      "expected": "establish state before high-confidence steady-state diagnosis"
+    },
+    {
+      "id": "V5-28",
+      "input": [
+        "post-defrost",
+        "fans off",
+        "fan-delay active"
+      ],
+      "expected": "normal control state; suppress fan-failure diagnosis"
+    },
+    {
+      "id": "V5-29",
+      "input": [
+        "short cycling",
+        "pump-down sequence normal"
+      ],
+      "expected": "do not call control failure solely from cycling"
+    },
+    {
+      "id": "V5-30",
+      "input": [
+        "short cycling",
+        "HP trips",
+        "dirty condenser"
+      ],
+      "expected": "high-head/dirty-condenser cause supported"
+    },
+    {
+      "id": "V5-31",
+      "input": [
+        "completed drier delta-T check normal",
+        "starvation unresolved"
+      ],
+      "expected": "do not recommend drier delta-T again; choose different discriminator"
+    },
+    {
+      "id": "V5-32",
+      "input": [
+        "high SH",
+        "charge vs TXV unresolved",
+        "SC already measured but unclassified"
+      ],
+      "expected": "do not ask for same SC measurement again; choose leak/liquid/TXV discriminator"
+    },
+    {
+      "id": "V5-33",
+      "input": [
+        "two hypotheses equally plausible",
+        "one check distinguishes both and is practical"
+      ],
+      "expected": "recommend discriminating check rather than arbitrary winner"
+    },
+    {
+      "id": "V5-34",
+      "input": [
+        "direct localized evidence contradicts broad pattern"
+      ],
+      "expected": "localized evidence controls specific diagnosis; explain broad pattern as condition, not competing certainty"
+    },
+    {
+      "id": "V5-35",
+      "input": [
+        "model-specific target conflicts with generic application fallback"
+      ],
+      "expected": "model-specific target wins"
+    },
+    {
+      "id": "V5-36",
+      "input": [
+        "manufacturer target unavailable",
+        "generic range questionable for receiver system"
+      ],
+      "expected": "remain unclassified rather than invent target"
+    }
+  ]
+}

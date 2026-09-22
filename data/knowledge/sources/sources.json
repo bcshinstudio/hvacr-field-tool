@@ -176,6 +176,146 @@
         "refrigeration"
       ],
       "notes": "Manufacturer troubleshooting guidance for underfeeding, sensing-bulb installation, valve response and inlet restrictions."
+    },
+    {
+      "id": "SRC_DANFOSS_TXV_TROUBLESHOOTING",
+      "title": "Thermostatic Expansion Valve Troubleshooting",
+      "publisher": "Danfoss",
+      "url": "https://assets.danfoss.com/documents/latest/90976/AC307572949567en-010101.pdf",
+      "use": "TXV low-charge vs low-airflow vs upstream-obstruction diagnostic patterns; Figure 2 illustrates high SH + low SC for poor charge."
+    },
+    {
+      "id": "SRC_SPORLAN_FORM_10_135",
+      "title": "Form 10-135 Refrigeration System Analysis",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-Miscellanous/Form-10-135_52013.pdf",
+      "use": "Receiver/subcooling physical interpretation; receiver liquid-vapor surface is saturated and downstream liquid may become subcooled."
+    },
+    {
+      "id": "SRC_SPORLAN_BULLETIN_10_11",
+      "title": "Bulletin 10-11 Thermostatic Expansion Valves",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/literature/Sporlan/Sporlan%20pdf%20files/Sporlan%20pdf%20010/10-11.pdf",
+      "use": "Liquid-line pressure drop, flash gas, vertical lift and subcooling relationships."
+    },
+    {
+      "id": "SRC_DANFOSS_COLDROOM_ICE",
+      "title": "Troubleshoot common cold room faults",
+      "publisher": "Danfoss",
+      "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/",
+      "use": "Evaporator icing causes/checks; airflow, infiltration, defrost, drain, evaporating temperature and refrigerant-feed interactions."
+    },
+    {
+      "id": "SRC_DANFOSS_EVAP_FROST",
+      "title": "Evaporator blocked by frost",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/evaporator/air-coolers/evaporator-blocked-by-frost/",
+      "use": "Poor defrost, moisture from product, and air ingress as frost causes."
+    },
+    {
+      "id": "SRC_SPORLAN_S3C_DEFROST",
+      "title": "S3C Case Controller Bulletin 100-50-9.1",
+      "publisher": "Parker Sporlan",
+      "url": "https://test.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-9.1-S3C-Case-Control.pdf",
+      "use": "Defrost schedule, electric/air/hot-gas sequence, termination, drain/drip cycle and fan delay behavior."
+    },
+    {
+      "id": "SRC_DANFOSS_HIGH_CONDENSING",
+      "title": "Condensing pressure too high",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/high-pressure/system/condensing-pressure-too-high/",
+      "use": "High-head causes including noncondensables, excessive charge, condenser sizing/air-side and pressure regulation."
+    },
+    {
+      "id": "SRC_DANFOSS_LOW_CONDENSING",
+      "title": "Condensing pressure too low",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/high-pressure/system/condensing-pressure-too-low/",
+      "use": "Low-head causes including low load/feed, compressor valve leakage, regulator setting and cold receiver effects."
+    },
+    {
+      "id": "SRC_DANFOSS_COMPRESSOR_HOT",
+      "title": "Compressor too hot",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/compressor/compressor/compressor-too-hot/",
+      "use": "Compressor overheating differential: load/suction, insufficient evaporator liquid, valve leakage, severe superheat, high condensing pressure."
+    },
+    {
+      "id": "SRC_SPORLAN_HEAD_PRESSURE_90_31",
+      "title": "Bulletin 90-31 Head Pressure Control",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-090/90-31-Head-Pressure-Control--OROA--ORI--ORD-Installation.pdf",
+      "use": "Low/high head troubleshooting for refrigerant-side head-pressure controls; flood charge, settings, restrictions, receiver and bypass behavior."
+    },
+    {
+      "id": "SRC_COPELAND_TROUBLESHOOTING_FUNDAMENTALS",
+      "title": "Refrigeration Basics: Troubleshooting Fundamentals",
+      "publisher": "Copeland",
+      "url": "https://e360blog.copeland.com/refrigeration-basics-troubleshooting-fundamentals/",
+      "use": "High compression ratio from high head and/or very low suction; discharge temperature monitoring; model/application-specific pump-down limits."
+    },
+    {
+      "id": "SRC_HEATCRAFT_PM_CONDENSING",
+      "title": "Preventive Maintenance",
+      "publisher": "Heatcraft Refrigeration Products",
+      "url": "https://www.heatcraftrpd.com/support/preventive-maintenance",
+      "use": "Condenser cleanliness, fan condition/operation, compressor oil/noise/vibration, electrical and pressure/safety-control inspection."
+    },
+    {
+      "id": "SRC_COPELAND_AE105_ELECTRICAL",
+      "title": "AE105 Installation and Service \u2014 Refrigeration Manual",
+      "publisher": "Copeland",
+      "url": "https://media.copeland.com/331829a2-8a7f-4c91-af27-b1aa0118eaa3/AE105-Installation%20and%20Service.pdf",
+      "use": "Compressor will-not-run troubleshooting: trace no-voltage condition upstream through controls/contactors/fuses; if voltage is present, check voltage under start attempt and start components."
+    },
+    {
+      "id": "SRC_DANFOSS_COLDROOM_CONTROLS_LOAD",
+      "title": "Troubleshoot common cold room faults",
+      "publisher": "Danfoss",
+      "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/",
+      "use": "Room-temperature/load diagnosis; controller setpoint/differential, sensor location, defrost/fan/compressor control, door/load pattern, compressor cut-in/out and pump-down logic."
+    },
+    {
+      "id": "SRC_DANFOSS_ROOM_TOO_HIGH",
+      "title": "Air temperature in cold room too high",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/room-conditions/air-temperature-in-cold-room-too-high/",
+      "use": "Warm-room differential includes thermostat, insufficient evaporator feed, pressure-control settings, compressor/evaporator capacity and excessive room load."
+    },
+    {
+      "id": "SRC_PARKER_PUMPDOWN_CONTROL",
+      "title": "Bulletin 100-50-5.6 Chiller Control",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.6.pdf",
+      "use": "Controller pump-down/off behavior: EEV and upstream solenoid close to stop flow; illustrates state-aware control behavior."
+    },
+    {
+      "id": "SRC_PARKER_SOLENOID_30_40",
+      "title": "Bulletin 30-40 Solenoid and Check Shut-Off Valves",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-030/30-40-Solenoid-and-Check-Shut-Off-Valves.pdf",
+      "use": "Normally closed solenoid/shut-off behavior and isolation role; supports separating electrical command from valve flow behavior."
+    },
+    {
+      "id": "SRC_DANFOSS_WIC_STRUCTURED_DIAG",
+      "title": "Troubleshoot Cold Room Faults | Diagnosis Guide",
+      "publisher": "Danfoss",
+      "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/",
+      "use": "Cross-domain cold-room fault families and structured diagnostic order; supports retaining airflow, charge, valve, controller, compressor, defrost, load and sizing as competing branches."
+    },
+    {
+      "id": "SRC_DANFOSS_SHORT_CYCLE",
+      "title": "Compressor running time too short",
+      "publisher": "Danfoss Ref Tools",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/compressor/compressor-running-time-too-short/",
+      "use": "Short cycling can arise from LP/HP control settings or high condensing pressure with several distinct causes."
+    },
+    {
+      "id": "SRC_PARKER_CONTROLLER_TROUBLESHOOT",
+      "title": "Bulletin 100-50-4.1 Appendix B Troubleshooting Chart",
+      "publisher": "Parker Sporlan",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-4.1.pdf",
+      "use": "One symptom such as high/erratic superheat maps to multiple checks including sensor location/wiring, refrigerant charge, valve function and refrigerant selection."
     }
   ]
 }

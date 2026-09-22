@@ -18,7 +18,7 @@
 // application/manufacturer reference is supplied, or when the caller supplies
 // an already-established derived boolean. Missing data remains unknown.
 
-export const WIC_FACT_ADAPTER_VERSION = "0.4.0";
+export const WIC_FACT_ADAPTER_VERSION = "0.5.0";
 
 const finite = v => typeof v === "number" && Number.isFinite(v);
 
@@ -63,6 +63,10 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   if (finite(c.condenserSat) && finite(c.condenserReferenceHigh) &&
       c.condenserSat > c.condenserReferenceHigh)
     addFact(result,"FACT_COND_SAT_HIGH","calculated.condenserSat",c.condenserSat,"Above explicit condenser reference range.");
+
+  if (finite(c.evaporatorSuperheat))
+    addFact(result,"FACT_EVAP_SH_MEASURED","calculated.evaporatorSuperheat",
+      c.evaporatorSuperheat,"Evaporator superheat has been measured/calculated.");
 
   classifyAgainstRange(c.evaporatorSuperheat,r.evaporatorSuperheat,
     "FACT_EVAP_SH_LOW","FACT_EVAP_SH_HIGH",null,result,"calculated.evaporatorSuperheat");
@@ -178,6 +182,37 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   for (const component of ["compressor","condenser","filter_drier","sight_glass","solenoid","txv","evaporator"]) {
     if (obs(o,component,"oil_evidence")==="present")
       addFact(result,"FACT_OIL_STAIN_OR_LEAK_EVIDENCE",`observation.${component}.oil_evidence`,"present","Oil/leak evidence directly observed.");
+  }
+
+  // Case-wide operating/control observations exposed by Brain 2.0 UI.
+  const room=o.room||{}, ctl=o.controls||{}, comp=o.compressor||{};
+  if(room.door_infiltration==="confirmed_infiltration") addFact(result,"FACT_DOOR_OPEN_OR_LEAKING","observations.room.door_infiltration",room.door_infiltration);
+  if(room.warm_product_load==="large_warm_load") addFact(result,"FACT_WARM_PRODUCT_LOAD_CONFIRMED","observations.room.warm_product_load",room.warm_product_load);
+  if(room.sensor_reference==="disagrees") addFact(result,"FACT_SENSOR_DISAGREES_REFERENCE","observations.room.sensor_reference",room.sensor_reference);
+  if(ctl.cooling_demand==="calling") addFact(result,"FACT_COOLING_DEMAND_PRESENT","observations.controls.cooling_demand",ctl.cooling_demand);
+  if(ctl.anti_short_cycle==="active") addFact(result,"FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE","observations.controls.anti_short_cycle",ctl.anti_short_cycle);
+  if(ctl.wiring_scheme==="unknown") addFact(result,"FACT_WIRING_SCHEME_UNKNOWN","observations.controls.wiring_scheme",ctl.wiring_scheme);
+  if(ctl.hp_safety==="open_tripped") addFact(result,"FACT_HP_SAFETY_OPEN","observations.controls.hp_safety",ctl.hp_safety);
+  if(ctl.lp_control==="open") addFact(result,"FACT_LP_CONTROL_OPEN","observations.controls.lp_control",ctl.lp_control);
+  if(ctl.contactor_coil==="energized") addFact(result,"FACT_CONTACTOR_COIL_ENERGIZED","observations.controls.contactor_coil",ctl.contactor_coil);
+  if(ctl.contactor_coil==="not_energized") addFact(result,"FACT_CONTACTOR_COIL_NOT_ENERGIZED","observations.controls.contactor_coil",ctl.contactor_coil);
+  if(ctl.contactor_output==="not_passing_voltage") addFact(result,"FACT_CONTACTOR_NOT_PASSING_VOLTAGE","observations.controls.contactor_output",ctl.contactor_output);
+  if(ctl.fuse_state==="open_blown") addFact(result,"FACT_FUSE_OPEN","observations.controls.fuse_state",ctl.fuse_state);
+  if(ctl.solenoid_command==="closed") addFact(result,"FACT_SOLENOID_COMMAND_CLOSED","observations.controls.solenoid_command",ctl.solenoid_command);
+  if(ctl.solenoid_command==="open") addFact(result,"FACT_SOLENOID_COMMAND_OPEN","observations.controls.solenoid_command",ctl.solenoid_command);
+  if(ctl.solenoid_command==="closed"&&ctl.solenoid_flow==="flowing") addFact(result,"FACT_SOLENOID_FLOW_CONTINUES_CLOSED","observations.controls.solenoid_flow",ctl.solenoid_flow);
+  if(ctl.solenoid_command==="open"&&ctl.solenoid_flow==="not_flowing") addFact(result,"FACT_SOLENOID_NO_FLOW_WHEN_OPEN","observations.controls.solenoid_flow",ctl.solenoid_flow);
+  if(comp.running_state==="off") addFact(result,"FACT_COMPRESSOR_NOT_RUNNING","observations.compressor.running_state",comp.running_state);
+  if(comp.running_state==="running") addFact(result,"FACT_COMPRESSOR_RUNNING","observations.compressor.running_state",comp.running_state);
+  if(comp.temperature_condition==="hot") addFact(result,"FACT_COMPRESSOR_HOT","observations.compressor.temperature_condition",comp.temperature_condition);
+  if(comp.overload_state==="open_tripped") addFact(result,"FACT_OVERLOAD_PROTECTION_OPEN","observations.compressor.overload_state",comp.overload_state);
+
+  // Measurement quality is not a diagnosis. Suspect/invalid pressure makes
+  // pressure-derived evidence non-authoritative in the hypothesis engine.
+  result.factRecords=result.factRecords||[];
+  const eq=snapshot.context?.evaporatorPressureQuality;
+  if((eq==="suspect"||eq==="invalid") && result.facts.includes("FACT_EVAP_SH_HIGH")){
+    result.factRecords.push({id:"FACT_EVAP_SH_HIGH",quality:eq.toUpperCase()});
   }
 
   delete result._set;

@@ -1,0 +1,91 @@
+{
+  "version": "2.0.0",
+  "independent_scenario_inventory": [
+    {
+      "file": "wic_independent_scenarios_phase1.json",
+      "cases": 8,
+      "status": "SPECIFICATION_READY",
+      "runtime_execution": "Requires semantic input mapping; not falsely counted as passed."
+    },
+    {
+      "file": "wic_independent_scenarios_phase2.json",
+      "cases": 12,
+      "status": "SPECIFICATION_READY",
+      "runtime_execution": "Requires semantic input mapping; not falsely counted as passed."
+    },
+    {
+      "file": "wic_independent_scenarios_phase3.json",
+      "cases": 14,
+      "status": "SPECIFICATION_READY",
+      "runtime_execution": "Requires semantic input mapping; not falsely counted as passed."
+    },
+    {
+      "file": "wic_independent_scenarios_phase4.json",
+      "cases": 18,
+      "status": "SPECIFICATION_READY",
+      "runtime_execution": "Requires semantic input mapping; not falsely counted as passed."
+    },
+    {
+      "file": "wic_independent_scenarios_phase5.json",
+      "cases": 36,
+      "status": "SPECIFICATION_READY",
+      "runtime_execution": "Requires semantic input mapping; not falsely counted as passed."
+    }
+  ],
+  "total_independent_scenarios": 88,
+  "implemented_now": [
+    "operating-state scope gating in hypothesis rules",
+    "suspect/invalid measurement evidence states",
+    "explicit completed-check suppression",
+    "measured-superheat completion semantics",
+    "contradiction surfacing",
+    "multiple localized-fault preservation",
+    "application context passed from WIC UI",
+    "runtime rules for localized defrost heater/termination/drain branches",
+    "runtime electrical path branches for compressor terminal voltage, contactor and start components",
+    "runtime pump-down solenoid leakage branch",
+    "runtime direct evidence branches for noncondensables and overcharge",
+    "cross-domain discriminators for compressor-off, warm-room, defrost and pump-down",
+    "runtime sensor-reference and product-load branches; sizing remains deliberately late-stage"
+  ],
+  "not_yet_complete": [
+    "browser-level interactive smoke test beyond static/UI-boundary checks",
+    "final technician-facing wording/output audit",
+    "equipment/model-specific reference modules remain future extensibility, not required for generic WIC release",
+    "consolidated user-test release package"
+  ],
+  "honesty_note": "Existing regressions and Brain 2.0 architecture tests pass. The independent Phase 1-5 scenario files are inventoried but are not claimed as runtime-passing until their semantic inputs are mapped to actual UI/fact paths.",
+  "scenario_execution": {
+    "total_research_scenarios": 88,
+    "mapped_executable": 88,
+    "passed": 88,
+    "failed": 0
+  },
+  "ui_integration": {
+    "operating_state": "wired into System Check and passed to hypothesis engine",
+    "measurement_quality": "evaporator/suction and condenser/high-side selectors exposed; suspect SH evidence is degraded",
+    "room_control_evidence": "System Check exposes infiltration, warm load, sensor disagreement, demand, anti-short-cycle, wiring state, HP/LP, contactor, fuse, solenoid command/flow",
+    "presentation": "state gating and suspect/invalid evidence are visible to technician"
+  },
+  "ui_to_brain_workflows": {
+    "assertions": 11,
+    "passed": 11,
+    "failed": 0,
+    "coverage": [
+      "high-SH+drier restriction",
+      "TXV bulb fault",
+      "sensor disagreement",
+      "pump-down solenoid leakage",
+      "suspect pressure/SH",
+      "pump-down state gate",
+      "contactor failure",
+      "infiltration + warm product load"
+    ]
+  },
+  "release_status": "consolidated_user_test_build",
+  "remaining_after_release": [
+    "User representative UI sanity testing",
+    "Equipment/model-specific reference modules as future expansion",
+    "Additional system types beyond WIC"
+  ]
+}

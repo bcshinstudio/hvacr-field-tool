@@ -1,0 +1,177 @@
+{
+  "version": "0.2.0",
+  "status": "research_validation_not_runtime",
+  "scope": "Generic WIC operating-state validity, evaporator airflow/icing, defrost/drain/fan-delay.",
+  "principles": [
+    "Interpret refrigeration readings in operating-state context; do not treat defrost, post-defrost, pump-down or satisfied-state readings as stable-cooling evidence.",
+    "An iced evaporator is a condition, not automatically a failed defrost heater.",
+    "Icing can arise from defrost setup/function, airflow/fan problems, infiltration/moisture, drain/refreeze, low evaporating temperature, or refrigerant-feed problems.",
+    "Defrost diagnosis is sequence-based: initiation -> refrigeration off -> heat/air/hot-gas action -> termination/failsafe -> drain/drip -> refrigeration restart -> fan delay/restart."
+  ],
+  "operating_states": [
+    {
+      "id": "STABLE_COOLING",
+      "diagnostic_use": "Primary state for SH/SC and steady refrigeration-pattern interpretation after stabilization.",
+      "validity": "usable when load/control state is reasonably steady"
+    },
+    {
+      "id": "PULLDOWN",
+      "diagnostic_use": "High load/transient; some measurements useful but generic steady targets may not apply.",
+      "validity": "label explicitly; avoid normal-steady conclusions"
+    },
+    {
+      "id": "SATISFIED",
+      "diagnostic_use": "Cooling demand satisfied; solenoid/compressor may be off or pumping down.",
+      "validity": "do not diagnose active refrigeration performance from off-cycle readings"
+    },
+    {
+      "id": "PUMP_DOWN",
+      "diagnostic_use": "Liquid feed intentionally stopped while compressor lowers suction.",
+      "validity": "low suction is expected sequence behavior, not starvation evidence by itself"
+    },
+    {
+      "id": "DEFROST",
+      "diagnostic_use": "Refrigeration intentionally interrupted/altered; heaters/hot gas/air defrost may operate.",
+      "validity": "SH/SC fault diagnosis generally suspended; validate defrost sequence instead"
+    },
+    {
+      "id": "POST_DEFROST",
+      "diagnostic_use": "Drain/drip and fan delay/recovery can intentionally alter airflow and temperatures.",
+      "validity": "do not treat temporary fan-off/warm coil behavior as normal cooling fault"
+    },
+    {
+      "id": "STARTUP",
+      "diagnostic_use": "Transient.",
+      "validity": "wait for appropriate stabilization before steady-state interpretation"
+    },
+    {
+      "id": "OFF",
+      "diagnostic_use": "No active refrigeration performance diagnosis.",
+      "validity": "use electrical/control/state checks"
+    },
+    {
+      "id": "UNKNOWN",
+      "diagnostic_use": "State must be established before high-confidence interpretation.",
+      "validity": "degrade diagnostic confidence and ask state/sequence check"
+    }
+  ],
+  "domains": [
+    {
+      "id": "EVAP_AIRFLOW_RESTRICTED",
+      "condition": "Insufficient heat transfer because evaporator air movement is reduced.",
+      "supporting": [
+        "weak/no airflow",
+        "fan not operating",
+        "dirty/blocked coil",
+        "ice blocks coil/air path",
+        "product blocks air path"
+      ],
+      "look_alikes": [
+        "refrigerant starvation",
+        "excessive load",
+        "undersized evaporator/system",
+        "control/setpoint issue"
+      ],
+      "discriminators": [
+        "fan operation",
+        "coil cleanliness/ice pattern",
+        "air path/product clearance",
+        "entering/leaving air temperatures in proper state",
+        "refrigerant feed evidence"
+      ],
+      "diagnosis_policy": "Local fan/coil/air-path evidence is required before naming airflow root cause."
+    },
+    {
+      "id": "EVAP_ICING",
+      "condition": "Evaporator partly/completely blocked by frost or ice.",
+      "supporting": [
+        "visible ice/frost",
+        "reduced airflow",
+        "unstable/high room temperature"
+      ],
+      "look_alikes": [
+        "poor defrost",
+        "air infiltration/high moisture",
+        "fan/airflow problem",
+        "drain/refreeze",
+        "low evaporating temperature",
+        "refrigerant-feed issue"
+      ],
+      "discriminators": [
+        "ice location/pattern",
+        "door/gasket/infiltration",
+        "defrost schedule/duration/termination",
+        "heater/hot-gas operation",
+        "fan operation/delay",
+        "drain/pan/heater",
+        "suction/evap temperature/feed after coil is clear"
+      ],
+      "diagnosis_policy": "Icing is a condition; localize cause before replacing defrost parts."
+    },
+    {
+      "id": "DEFROST_FAILURE",
+      "condition": "Defrost sequence does not remove accumulated frost/ice as designed.",
+      "supporting": [
+        "coil remains iced after scheduled defrost",
+        "termination/failsafe behavior abnormal",
+        "heater/hot-gas/air-defrost action absent or inadequate"
+      ],
+      "look_alikes": [
+        "excess moisture/infiltration overwhelms otherwise functional defrost",
+        "drain/refreeze",
+        "fan delay issue",
+        "incorrect schedule/settings",
+        "sensor/termination fault"
+      ],
+      "discriminators": [
+        "confirm defrost initiation",
+        "confirm refrigeration stops/changes correctly",
+        "verify heat/air/hot-gas action",
+        "verify termination sensor/setpoint/failsafe",
+        "verify drain/drip",
+        "verify fan delay and restart"
+      ],
+      "diagnosis_policy": "Diagnose failed sequence step, not generic 'defrost problem' when evidence localizes it."
+    },
+    {
+      "id": "DRAIN_REFREEZE",
+      "condition": "Defrost water does not leave correctly and refreezes.",
+      "supporting": [
+        "ice in drain pan/drain",
+        "water/ice after defrost",
+        "coil/pan refreezing"
+      ],
+      "look_alikes": [
+        "incomplete defrost",
+        "air infiltration"
+      ],
+      "discriminators": [
+        "drain blockage/slope",
+        "drain heater operation where used",
+        "drip/drain time",
+        "pan condition"
+      ],
+      "diagnosis_policy": "Requires localized drain/refreeze evidence."
+    },
+    {
+      "id": "FAN_DELAY_SEQUENCE",
+      "condition": "Evaporator fans resume at an incorrect point after defrost.",
+      "supporting": [
+        "fans remain off too long",
+        "fans start before coil/fan-delay condition",
+        "water droplets/high humidity after defrost"
+      ],
+      "look_alikes": [
+        "fan motor/electrical failure",
+        "controller/sensor problem"
+      ],
+      "discriminators": [
+        "fan-delay temperature/time configuration",
+        "coil outlet/termination sensor",
+        "fan output/relay",
+        "motor power/current"
+      ],
+      "diagnosis_policy": "Separate intentional fan delay from fan failure."
+    }
+  ]
+}

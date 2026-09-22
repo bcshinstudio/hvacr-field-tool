@@ -1,0 +1,137 @@
+{
+  "version": "0.3.0",
+  "status": "research_validation_not_runtime",
+  "scope": "Generic WIC air-cooled condenser/high-side and compressor behavior; model-specific operating envelope remains equipment data.",
+  "principles": [
+    "High condensing pressure is a system condition, not a diagnosis.",
+    "Condenser airflow/heat-rejection faults, charge/noncondensables, head-pressure controls and ambient/load must be discriminated before naming a root cause.",
+    "Low condensing pressure can be caused by low load/low suction, compressor valve leakage/capacity loss, excessive effective condenser capacity, or head-pressure-control issues.",
+    "Low-ambient head-pressure controls intentionally alter condenser/receiver behavior; interpret pressures and refrigerant inventory with that configuration known.",
+    "A hot compressor is an effect with several possible system causes; do not condemn the compressor from temperature alone.",
+    "Compressor capacity/pumping diagnosis requires system pressures plus operating/electrical/model context; model operating-envelope limits are not generic."
+  ],
+  "domains": [
+    {
+      "id": "HIGH_CONDENSING_PRESSURE",
+      "condition": "Condensing pressure/temperature is above the applicable operating expectation.",
+      "causes": [
+        "dirty/clogged condenser",
+        "condenser fan stopped/defective",
+        "restricted/incorrect airflow or recirculation",
+        "high ambient",
+        "excess refrigerant/liquid backed into condenser",
+        "noncondensables",
+        "head-pressure regulator set too high/restricted/malfunctioning",
+        "undersized heat-rejection surface where applicable"
+      ],
+      "discriminators": [
+        "condenser entering ambient and leaving air",
+        "coil cleanliness",
+        "fan operation/direction/speed",
+        "air recirculation/clearance",
+        "charge/inventory evidence",
+        "noncondensable evidence/service history",
+        "head-pressure-control type/setting/operation"
+      ],
+      "diagnosis_policy": "Require localized heat-rejection/control/charge evidence; high head alone does not identify dirty coil or overcharge."
+    },
+    {
+      "id": "LOW_CONDENSING_PRESSURE",
+      "condition": "Condensing pressure is below the applicable system/control expectation.",
+      "causes": [
+        "low evaporator load",
+        "low suction/insufficient evaporator feed",
+        "excessive effective condenser capacity/low ambient",
+        "head-pressure regulator set too low or malfunctioning",
+        "cold receiver acting as condenser",
+        "compressor suction/discharge valve leakage or capacity loss"
+      ],
+      "discriminators": [
+        "ambient/load",
+        "suction/evap condition",
+        "head-pressure-control configuration/setting",
+        "receiver location/temperature",
+        "compressor pumping/capacity evidence"
+      ],
+      "diagnosis_policy": "Low head in low ambient may be a control/configuration problem, not refrigerant charge."
+    },
+    {
+      "id": "CONDENSER_AIRFLOW_FAULT",
+      "condition": "Air-cooled condenser cannot reject heat normally because airflow is inadequate or recirculated.",
+      "supporting": [
+        "dirty coil",
+        "fan stopped/defective",
+        "incorrect airflow direction",
+        "blocked clearance",
+        "hot discharge air recirculates to inlet"
+      ],
+      "look_alikes": [
+        "high ambient",
+        "overcharge",
+        "noncondensables",
+        "head-pressure-control fault"
+      ],
+      "diagnosis_policy": "Use local visual/airflow/fan evidence before localizing."
+    },
+    {
+      "id": "HEAD_PRESSURE_CONTROL_FAULT",
+      "condition": "Low-ambient/head-pressure control does not maintain intended condensing/receiver pressure.",
+      "causes": [
+        "insufficient flood charge for control design",
+        "wrong/low/high setting",
+        "ORI/OROA restriction or foreign material",
+        "ORD/bypass malfunction",
+        "excess pressure drop/piping issue",
+        "incorrect valve selection"
+      ],
+      "discriminators": [
+        "identify control type",
+        "ambient condition",
+        "condenser/receiver/discharge pressures",
+        "valve setting",
+        "flooding charge requirement",
+        "piping pressure drop"
+      ],
+      "diagnosis_policy": "Only apply when such controls are actually installed; do not treat their deliberate condenser flooding as ordinary overcharge."
+    },
+    {
+      "id": "COMPRESSOR_OVERHEATING",
+      "condition": "Compressor/discharge temperature is excessive for the applicable model/application.",
+      "causes": [
+        "high compression ratio from high head and/or very low suction",
+        "insufficient evaporator feed/high suction-gas superheat",
+        "low evaporator load",
+        "high evaporator load/high suction causing overload",
+        "leaking suction/discharge valves",
+        "system-specific cooling/oil problems"
+      ],
+      "discriminators": [
+        "compression ratio",
+        "head and suction separately",
+        "discharge-line temperature",
+        "superheat/suction-gas condition",
+        "amperage/voltage where applicable",
+        "model operating envelope"
+      ],
+      "diagnosis_policy": "Temperature alone is not proof of compressor mechanical failure."
+    },
+    {
+      "id": "COMPRESSOR_CAPACITY_PUMPING",
+      "condition": "Running compressor does not create expected pressure differential/capacity.",
+      "causes": [
+        "internal suction/discharge valve leakage or mechanical wear",
+        "incorrect/unloaded operating state where applicable",
+        "system load/controls masking capacity",
+        "electrical/supply problem causing abnormal operation"
+      ],
+      "discriminators": [
+        "suction/discharge pressures and compression ratio",
+        "response to load/pump-down where manufacturer permits",
+        "current/voltage",
+        "discharge temperature",
+        "model/application specifications"
+      ],
+      "diagnosis_policy": "Do not use a universal pump-down pressure or compression-ratio limit; use compressor model/application/refrigerant data."
+    }
+  ]
+}

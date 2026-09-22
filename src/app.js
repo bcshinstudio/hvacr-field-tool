@@ -113,6 +113,17 @@ const componentObservationValues =
 const componentElectricalValues =
     new Map();
 
+/*
+ * WIC diagnostic context is separate from component observations.
+ * It captures case-wide operating state and evidence-quality context that
+ * determines whether steady-state measurements are diagnostically valid.
+ */
+const wicDiagnosticContext = {
+    operatingState: "unknown",
+    evaporatorPressureQuality: "valid",
+    condenserPressureQuality: "valid"
+};
+
 /* Refrigerant / P-T state */
 let refrigerants = [];
 let selectedRefrigerant = null;
@@ -194,6 +205,9 @@ function resetDiagnosticSession() {
     optionalPressureAccess.clear();
     componentObservationValues.clear();
     componentElectricalValues.clear();
+    wicDiagnosticContext.operatingState = "unknown";
+    wicDiagnosticContext.evaporatorPressureQuality = "valid";
+    wicDiagnosticContext.condenserPressureQuality = "valid";
 
     addMeasurementMode = false;
     selectedMeasurementPoint = null;
@@ -4285,6 +4299,93 @@ function buildCalculationsTool() {
 
 
 
+
+function normalizeWicOperatingState(value) {
+    const map = {
+        stable_cooling: "STABLE_COOLING",
+        pulldown: "PULLDOWN",
+        satisfied: "SATISFIED",
+        pump_down: "PUMP_DOWN",
+        defrost: "DEFROST",
+        post_defrost: "POST_DEFROST",
+        startup: "STARTUP",
+        off: "OFF",
+        unknown: "UNKNOWN"
+    };
+    return map[value] || "UNKNOWN";
+}
+
+function buildWicDiagnosticContextControls() {
+    const stateOptions = [
+        ["unknown","Unknown / establish state"],
+        ["stable_cooling","Stable cooling"],
+        ["pulldown","Pull-down"],
+        ["satisfied","Satisfied / temperature reached"],
+        ["pump_down","Pump-down"],
+        ["defrost","Defrost"],
+        ["post_defrost","Post-defrost / fan delay"],
+        ["startup","Startup"],
+        ["off","Off"]
+    ];
+    const qualityOptions = [
+        ["valid","Valid / trusted"],
+        ["suspect","Suspect / inconsistent"],
+        ["invalid","Invalid / do not use"]
+    ];
+    const options=(items,current)=>items.map(([value,label]) =>
+        `<option value="${value}" ${value===current?"selected":""}>${label}</option>`).join("");
+    return `
+        <div style="margin-top:14px;padding:12px;border:1px solid #d8e1e7;border-radius:8px;background:#fafcfd;">
+            <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">DIAGNOSTIC CONTEXT</div>
+            <label class="component-config-label" style="display:block;margin-top:10px;">Operating State</label>
+            <select class="component-config-select" data-wic-context="operatingState">
+                ${options(stateOptions,wicDiagnosticContext.operatingState)}
+            </select>
+            <div style="margin-top:8px;color:#5f7180;font-size:0.88em;line-height:1.4;">
+                State matters: defrost, pump-down, satisfied and post-defrost readings are not interpreted as ordinary stable-cooling evidence.
+            </div>
+            <label class="component-config-label" style="display:block;margin-top:12px;">Evaporator / Suction Pressure Reading</label>
+            <select class="component-config-select" data-wic-context="evaporatorPressureQuality">
+                ${options(qualityOptions,wicDiagnosticContext.evaporatorPressureQuality)}
+            </select>
+            <label class="component-config-label" style="display:block;margin-top:12px;">Condenser / High-Side Pressure Reading</label>
+            <select class="component-config-select" data-wic-context="condenserPressureQuality">
+                ${options(qualityOptions,wicDiagnosticContext.condenserPressureQuality)}
+            </select>
+        </div>
+        ${buildWicCaseEvidenceControls()}
+        `;
+}
+
+function buildWicCaseEvidenceControls() {
+    const value=(component,field)=>componentObservationValues.get(observationKey(component,field))||"";
+    const select=(component,field,label,items)=>`
+        <label class="component-config-label" style="display:block;margin-top:10px;">${label}</label>
+        <select class="component-config-select" data-observation-component="${component}" data-observation-field="${field}">
+            <option value="">Select...</option>
+            ${items.map(([v,l])=>`<option value="${v}" ${value(component,field)===v?"selected":""}>${l}</option>`).join("")}
+        </select>`;
+    return `
+      <details style="margin-top:10px;padding:10px 12px;border:1px solid #d8e1e7;border-radius:8px;">
+        <summary style="cursor:pointer;font-weight:600;color:#277fb5;">Room / control evidence</summary>
+        <div style="padding-top:6px;">
+          ${select("room","door_infiltration","Door / Air Infiltration",[["normal_sealed","Normal / sealed"],["confirmed_infiltration","Confirmed infiltration"],["unknown","Unknown"]])}
+          ${select("room","warm_product_load","Warm Product / Load",[["normal","Normal"],["large_warm_load","Large warm load"],["unknown","Unknown"]])}
+          ${select("room","sensor_reference","Controller Sensor vs Independent Temperature",[["agrees","Agrees"],["disagrees","Disagrees"],["unknown","Unknown"]])}
+          ${select("controls","cooling_demand","Cooling Demand",[["calling","Calling"],["not_calling","Not calling"],["unknown","Unknown"]])}
+          ${select("controls","anti_short_cycle","Anti-Short-Cycle Delay",[["inactive","Inactive"],["active","Active"],["unknown","Unknown"]])}
+          ${select("controls","wiring_scheme","Actual Wiring / Control Scheme",[["known","Known"],["unknown","Unknown"]])}
+          ${select("controls","hp_safety","High-Pressure Safety",[["closed_normal","Closed / normal"],["open_tripped","Open / tripped"],["unknown","Unknown"]])}
+          ${select("controls","lp_control","Low-Pressure Control",[["closed","Closed"],["open","Open"],["unknown","Unknown"]])}
+          ${select("controls","contactor_coil","Contactor Coil",[["energized","Energized"],["not_energized","Not energized"],["unknown","Unknown"]])}
+          ${select("controls","contactor_output","Contactor Output",[["passes_voltage","Passes voltage"],["not_passing_voltage","Not passing voltage"],["unknown","Unknown"]])}
+          ${select("controls","fuse_state","Fuse",[["normal","Normal"],["open_blown","Open / blown"],["unknown","Unknown"]])}
+          ${select("controls","solenoid_command","Liquid Solenoid Command",[["open","Open"],["closed","Closed"],["unknown","Unknown"]])}
+          ${select("controls","solenoid_flow","Liquid Solenoid Actual Flow",[["flowing","Flowing"],["not_flowing","Not flowing"],["unknown","Unknown"]])}
+        </div>
+      </details>`;
+}
+
 function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
 
     /*
@@ -4308,6 +4409,9 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
     };
 
     [
+        ["compressor", "running_state"],
+        ["compressor", "temperature_condition"],
+        ["compressor", "overload_state"],
         ["compressor", "oil_evidence"],
 
         ["condenser", "airflow"],
@@ -4338,7 +4442,21 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         ["evaporator", "airflow"],
         ["evaporator", "coil_condition"],
         ["evaporator", "fan_operation"],
-        ["evaporator", "oil_evidence"]
+        ["evaporator", "oil_evidence"],
+
+        ["room", "door_infiltration"],
+        ["room", "warm_product_load"],
+        ["room", "sensor_reference"],
+        ["controls", "cooling_demand"],
+        ["controls", "anti_short_cycle"],
+        ["controls", "wiring_scheme"],
+        ["controls", "hp_safety"],
+        ["controls", "lp_control"],
+        ["controls", "contactor_coil"],
+        ["controls", "contactor_output"],
+        ["controls", "fuse_state"],
+        ["controls", "solenoid_command"],
+        ["controls", "solenoid_flow"]
     ].forEach(([componentId, fieldId]) => {
         setObservation(componentId, fieldId);
     });
@@ -4365,6 +4483,11 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         },
 
         observations,
+        context: {
+            operatingState: normalizeWicOperatingState(wicDiagnosticContext.operatingState),
+            evaporatorPressureQuality: wicDiagnosticContext.evaporatorPressureQuality,
+            condenserPressureQuality: wicDiagnosticContext.condenserPressureQuality
+        },
         derived: {}
     };
 }
@@ -4379,7 +4502,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
     if (knowledgeHubLoadError) {
         return `
             <div style="margin-top:14px;padding:12px;border:1px solid #e2c7c7;border-radius:8px;color:#7a3e3e;background:#fffafa;">
-                Knowledge Hub could not be loaded. The existing System Check remains available.
+                System Check knowledge could not be loaded. Refresh the page before relying on diagnostic guidance.
             </div>
         `;
     }
@@ -4400,7 +4523,10 @@ function buildKnowledgeHubComparison(state, observationValue) {
         rules: knowledgeHub.rules.items,
         relationships: knowledgeHub.relationships.items,
         discriminators: knowledgeHub.discriminators.items,
-        checks: knowledgeHub.checks.items
+        checks: knowledgeHub.checks.items,
+        application: knowledgeHub.application?.id || "APP_WIC",
+        operatingState: snapshot.context.operatingState,
+        factRecords: adapted.factRecords || []
     });
 
     // Measurement state is independent from diagnostic classification.
@@ -4527,7 +4653,20 @@ function buildKnowledgeHubComparison(state, observationValue) {
     let meaning =
         "The available evidence does not yet establish a specific system condition.";
 
-    if (hasCondAirProblem && hasEvapAirProblem) {
+    if (result.stateGate?.steadyInterpretationAllowed === false &&
+        ["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","STARTUP","OFF","UNKNOWN"].includes(snapshot.context.operatingState)) {
+        heading = snapshot.context.operatingState === "UNKNOWN"
+            ? "Establish the operating state first"
+            : `${formatObservationOptionLabel(snapshot.context.operatingState)} — state-specific interpretation`;
+        meaning =
+            "Steady-cooling conclusions are limited in this operating state. The Brain will use only evidence that is valid for the selected state.";
+    }
+    else if (result.suspectFacts?.length || result.invalidFacts?.length) {
+        heading = "Verify a questionable measurement first";
+        meaning =
+            "One or more measurements are marked suspect or invalid. Pressure-derived conclusions are intentionally reduced until that measurement is verified.";
+    }
+    else if (hasCondAirProblem && hasEvapAirProblem) {
         heading = "Condenser and evaporator airflow problems";
         meaning =
             "Confirmed problems exist on both heat exchangers. Correct the directly observed airflow restrictions, then recheck operating measurements before evaluating remaining refrigerant-side causes.";
@@ -4650,7 +4789,14 @@ function buildKnowledgeHubComparison(state, observationValue) {
      * Directly correct obvious physical faults before asking for unrelated
      * diagnostic measurements. Then recheck the operating state.
      */
-    if (facts.has("FACT_COND_FAN_NOT_RUNNING") || facts.has("FACT_COND_COIL_DIRTY")) {
+    if (result.nextCheck && (
+        result.stateGate?.steadyInterpretationAllowed === false ||
+        result.suspectFacts?.length ||
+        result.invalidFacts?.length
+    )) {
+        nextAction = checkLabels.get(result.nextCheck) || result.nextCheck;
+    }
+    else if (facts.has("FACT_COND_FAN_NOT_RUNNING") || facts.has("FACT_COND_COIL_DIRTY")) {
         nextAction =
             "Restore condenser airflow first, then recheck operating pressures and temperatures.";
     }
@@ -4686,7 +4832,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
     return `
         <div style="margin-top:16px;padding:16px;border:1px solid #b9d7e8;border-radius:8px;background:#f7fbfd;">
             <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">
-                KNOWLEDGE HUB PREVIEW
+                SYSTEM CHECK RESULT
             </div>
 
             <div style="margin-top:8px;font-size:1.08em;font-weight:700;color:#263746;">
@@ -4984,6 +5130,8 @@ function buildSystemCheckTool() {
                     </h2>
                 </div>
             </div>
+
+            ${currentSystem?.id === "walk_in_cooler" ? buildWicDiagnosticContextControls() : ""}
 
             ${currentSystem?.id === "walk_in_cooler" && knowledgeHub
                 ? buildKnowledgeHubComparison(state, observationValue)
@@ -5668,6 +5816,10 @@ function bindSidePanelControls() {
 
                             event.target.value
                         );
+
+                        if (activeTool === "system_check" && event.type === "change") {
+                            renderSidePanel();
+                        }
                     };
 
 
@@ -5745,6 +5897,24 @@ function bindSidePanelControls() {
             }
         );
 
+
+
+    /*
+     * WIC diagnostic context.
+     * A change immediately re-renders System Check so state/quality gating
+     * is visible to the technician.
+     */
+    measurementContent
+        .querySelectorAll("[data-wic-context]")
+        .forEach(input => {
+            input.addEventListener("change", event => {
+                const key = event.target.dataset.wicContext;
+                if (Object.prototype.hasOwnProperty.call(wicDiagnosticContext,key)) {
+                    wicDiagnosticContext[key] = event.target.value;
+                    renderSidePanel();
+                }
+            });
+        });
 
     /*
      * Component subtype
@@ -5826,6 +5996,9 @@ function loadSystem(
     componentObservationValues.clear();
 
     componentElectricalValues.clear();
+    wicDiagnosticContext.operatingState = "unknown";
+    wicDiagnosticContext.evaporatorPressureQuality = "valid";
+    wicDiagnosticContext.condenserPressureQuality = "valid";
 
 
     systemTitle.textContent =

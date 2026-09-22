@@ -812,6 +812,15 @@
         {
           "fact": "FACT_COMPRESSOR_LONG_RUNTIME",
           "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
         }
       ],
       "sources": [
@@ -984,8 +993,9 @@
           "APP_WIC"
         ],
         "operating_states": [
-          "STABLE_COOLING",
-          "PULLDOWN"
+          "DEFROST",
+          "POST_DEFROST",
+          "STABLE_COOLING"
         ]
       }
     },
@@ -1015,8 +1025,9 @@
           "APP_WIC"
         ],
         "operating_states": [
-          "STABLE_COOLING",
-          "PULLDOWN"
+          "DEFROST",
+          "POST_DEFROST",
+          "STABLE_COOLING"
         ]
       }
     },
@@ -1046,8 +1057,8 @@
           "APP_WIC"
         ],
         "operating_states": [
-          "STABLE_COOLING",
-          "PULLDOWN"
+          "POST_DEFROST",
+          "STABLE_COOLING"
         ]
       }
     },
@@ -1067,6 +1078,11 @@
         {
           "fact": "FACT_HIGH_PRESSURE_CONTROL_TRIP",
           "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
+          "role": "STRONG_SUPPORT",
+          "direct": true
         }
       ],
       "sources": [
@@ -1155,6 +1171,408 @@
       "sources": [
         "SRC_DANFOSS_LOW_SUCTION",
         "SRC_SPORLAN_TEV_PROBLEMS"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_DRAIN_REFREEZE_LOCALIZED",
+      "candidate": "CAUSE_DRAIN_REFREEZE",
+      "evidence": [
+        {
+          "fact": "FACT_DRAIN_REFREEZE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "DEFROST",
+          "POST_DEFROST",
+          "STABLE_COOLING"
+        ]
+      }
+    },
+    {
+      "id": "RULE_CONTACTOR_FAILURE",
+      "candidate": "CAUSE_CONTACTOR_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_CONTACTOR_COIL_ENERGIZED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_CONTACTOR_NOT_PASSING_VOLTAGE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      }
+    },
+    {
+      "id": "RULE_START_COMPONENT_FAULT",
+      "candidate": "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_START_COMPONENT_FAULT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      }
+    },
+    {
+      "id": "RULE_CONTROL_POWER_CHAIN",
+      "candidate": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_NOT_RUNNING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      }
+    },
+    {
+      "id": "RULE_SOLENOID_LEAKING",
+      "candidate": "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "evidence": [
+        {
+          "fact": "FACT_SOLENOID_COMMAND_CLOSED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SOLENOID_FLOW_CONTINUES_CLOSED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "PUMP_DOWN",
+          "SATISFIED"
+        ]
+      }
+    },
+    {
+      "id": "RULE_SENSOR_REFERENCE_CONFLICT",
+      "candidate": "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "evidence": [
+        {
+          "fact": "FACT_SENSOR_DISAGREES_REFERENCE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
+    },
+    {
+      "id": "RULE_PRODUCT_LOAD_PULLDOWN",
+      "candidate": "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "evidence": [
+        {
+          "fact": "FACT_WARM_PRODUCT_LOAD_CONFIRMED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "PULLDOWN",
+          "STABLE_COOLING"
+        ]
+      }
+    },
+    {
+      "id": "RULE_NONCONDENSABLE_DIRECT",
+      "candidate": "CAUSE_NONCONDENSABLES",
+      "evidence": [
+        {
+          "fact": "FACT_NONCONDENSABLE_EVIDENCE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_OVERCHARGE_DIRECT",
+      "candidate": "CAUSE_OVERCHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_OVERCHARGE_EVIDENCE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COND_RECIRCULATION_DIRECT",
+      "candidate": "CAUSE_CONDENSER_RECIRCULATION",
+      "evidence": [
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_RECIRCULATION_CONFIRMED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_HEADCTRL_FLOOD_CHARGE",
+      "candidate": "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_HEAD_CONTROL_INSTALLED",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_LOW_AMBIENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_SOLENOID_NOT_OPENING_DIRECT",
+      "candidate": "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "evidence": [
+        {
+          "fact": "FACT_SOLENOID_COMMAND_OPEN",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SOLENOID_NO_FLOW_WHEN_OPEN",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      }
+    },
+    {
+      "id": "RULE_ANTI_SHORT_CYCLE_DELAY",
+      "candidate": "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "evidence": [
+        {
+          "fact": "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STARTUP",
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_FUSE_OPEN",
+      "candidate": "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "evidence": [
+        {
+          "fact": "FACT_FUSE_OPEN",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COMPRESSOR_NOT_RUNNING",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
+    },
+    {
+      "id": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+      "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SUCTION_PRESSURE_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_LEAK_CONFIRMED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DRIER_TEMP_DROP",
+          "role": "STRONG_CONTRADICT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_NO_RESPONSE_LOCALIZED",
+      "candidate": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_NO_RESPONSE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
       ],
       "scope": {
         "applications": [

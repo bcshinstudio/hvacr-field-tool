@@ -1,0 +1,1107 @@
+{
+  "version": "0.3.0",
+  "status": "all_88_semantically_mapped",
+  "note": "Only scenarios with a faithful existing runtime fact representation are mapped. Unmapped cases remain gaps, not failures or passes.",
+  "cases": [
+    {
+      "id": "VF01",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ]
+    },
+    {
+      "id": "VF03",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "VF04",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ]
+    },
+    {
+      "id": "VF07",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_DRIER_TEMPERATURES_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "forbid_next_checks": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP"
+      ]
+    },
+    {
+      "id": "VF08",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ]
+    },
+    {
+      "id": "V2-01",
+      "facts": [],
+      "state": "DEFROST",
+      "must_gate_steady": false
+    },
+    {
+      "id": "V2-02",
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE"
+      ],
+      "state": "PUMP_DOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V2-03",
+      "facts": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ACTIVE"
+      ],
+      "state": "POST_DEFROST",
+      "must_gate_steady": false
+    },
+    {
+      "id": "V2-06",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_HEATER_NOT_HEATING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "DEFROST",
+      "must_diagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V2-07",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_TERMINATION_ERROR",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "DEFROST",
+      "must_diagnose": [
+        "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"
+      ]
+    },
+    {
+      "id": "V2-08",
+      "facts": [
+        "FACT_DRAIN_REFREEZE"
+      ],
+      "state": "POST_DEFROST",
+      "must_diagnose": [
+        "CAUSE_DRAIN_REFREEZE"
+      ]
+    },
+    {
+      "id": "V3-04",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "V3-05",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_NONCONDENSABLE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_NONCONDENSABLES"
+      ]
+    },
+    {
+      "id": "V4-01",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V4-02",
+      "facts": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_START_COMPONENT_FAULT"
+      ],
+      "state": "STARTUP",
+      "must_diagnose": [
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ]
+    },
+    {
+      "id": "V4-03",
+      "facts": [
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ]
+    },
+    {
+      "id": "V4-07",
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_LP_CONTROL_OPEN"
+      ],
+      "state": "PUMP_DOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V4-08",
+      "facts": [
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "state": "PUMP_DOWN",
+      "must_diagnose": [
+        "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
+      ]
+    },
+    {
+      "id": "V4-10",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ]
+    },
+    {
+      "id": "V4-12",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "state": "PULLDOWN",
+      "must_diagnose": [
+        "CAUSE_PRODUCT_LOAD_PULLDOWN"
+      ]
+    },
+    {
+      "id": "V5-01",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-04",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "V5-05",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ]
+    },
+    {
+      "id": "V5-06",
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED"
+      ],
+      "state": "PUMP_DOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-08",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_HEATER_NOT_HEATING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "DEFROST",
+      "must_diagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V5-10",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "V5-11",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_NONCONDENSABLE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_NONCONDENSABLES"
+      ]
+    },
+    {
+      "id": "V5-15",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ]
+    },
+    {
+      "id": "V5-16",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "state": "PULLDOWN",
+      "must_diagnose": [
+        "CAUSE_PRODUCT_LOAD_PULLDOWN"
+      ]
+    },
+    {
+      "id": "V5-19",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V5-20",
+      "facts": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_START_COMPONENT_FAULT"
+      ],
+      "state": "STARTUP",
+      "must_diagnose": [
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ]
+    },
+    {
+      "id": "V5-21",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ]
+    },
+    {
+      "id": "V5-26",
+      "facts": [
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-27",
+      "facts": [
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "UNKNOWN",
+      "must_gate_steady": false
+    },
+    {
+      "id": "V5-28",
+      "facts": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ACTIVE"
+      ],
+      "state": "POST_DEFROST",
+      "must_gate_steady": false
+    },
+    {
+      "id": "V5-31",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_DRIER_TEMPERATURES_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "forbid_next_checks": [
+        "CHECK_MEASURE_SH",
+        "CHECK_DRIER_DROP"
+      ]
+    },
+    {
+      "id": "V5-32",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "forbid_next_checks": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC"
+      ]
+    },
+    {
+      "id": "V2-04",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "V2-05",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_DEFROST_COMPLETES"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_AIR_INFILTRATION"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V2-09",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V2-12",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_DOOR_OPEN_OR_LEAKING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_AIR_INFILTRATION"
+      ]
+    },
+    {
+      "id": "V3-01",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_FAN_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "V3-02",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "V3-03",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_COND_FAN_RUNNING",
+        "FACT_COND_RECIRCULATION_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ]
+    },
+    {
+      "id": "V3-06",
+      "facts": [
+        "FACT_LOW_AMBIENT",
+        "FACT_COND_SAT_LOW",
+        "FACT_HEAD_CONTROL_INSTALLED",
+        "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_HEAD_CONTROL_FLOOD_CHARGE"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V3-07",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_COND_FAN_RUNNING",
+        "FACT_HEAD_CONTROL_INSTALLED",
+        "FACT_HEAD_CONTROL_SETTING_RESTRICTION"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ]
+    },
+    {
+      "id": "V3-09",
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V3-12",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "V3-13",
+      "facts": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V4-04",
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "require_next_check": "CHECK_WIRING_DIAGRAM_CONTROL_STATE"
+    },
+    {
+      "id": "V4-05",
+      "facts": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V4-06",
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_LP_CONTROL_OPEN"
+      ],
+      "state": "PUMP_DOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V4-09",
+      "facts": [
+        "FACT_SOLENOID_COMMAND_OPEN",
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
+      ]
+    },
+    {
+      "id": "V4-11",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_AIR_INFILTRATION"
+      ]
+    },
+    {
+      "id": "V4-14",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE"
+      ],
+      "state": "STARTUP",
+      "must_diagnose": [
+        "CAUSE_ANTI_SHORT_CYCLE_DELAY"
+      ]
+    },
+    {
+      "id": "V4-16",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE",
+        "FACT_DOOR_OPEN_OR_LEAKING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+        "CAUSE_AIR_INFILTRATION"
+      ]
+    },
+    {
+      "id": "V4-17",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_FUSE_OPEN"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FUSE_OPEN_REQUIRES_CAUSE"
+      ]
+    },
+    {
+      "id": "V5-07",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_DEFROST_COMPLETES"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_AIR_INFILTRATION"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V5-09",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "V5-14",
+      "facts": [
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_FEED_CHARGE_VERIFIED_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V5-18",
+      "facts": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V5-22",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_DOOR_OPEN_OR_LEAKING"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_AIR_INFILTRATION"
+      ]
+    },
+    {
+      "id": "V5-23",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "V5-24",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ]
+    },
+    {
+      "id": "V5-29",
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE"
+      ],
+      "state": "PUMP_DOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ]
+    },
+    {
+      "id": "V5-30",
+      "facts": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "VF02",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_LEAK_CONFIRMED",
+        "FACT_NO_LOCALIZED_RESTRICTION"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ]
+    },
+    {
+      "id": "VF05",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+        "FACT_TXV_NO_RESPONSE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ]
+    },
+    {
+      "id": "VF06",
+      "facts": [
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ]
+    },
+    {
+      "id": "V2-10",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "state": "UNKNOWN",
+      "must_gate_steady": false,
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V2-11",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_EVAP_COIL_CLEAR",
+        "FACT_EVAP_FAN_RUNNING",
+        "FACT_DOOR_CLOSED_SEALED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "V3-08",
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_LOW_EVAP_LOAD",
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V3-10",
+      "facts": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUCTION_NORMAL_FOR_STATE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V3-11",
+      "facts": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_HEAD_NORMAL_FOR_STATE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "V3-14",
+      "facts": [
+        "FACT_COMPRESSOR_RUNNING",
+        "FACT_CAPACITY_POOR"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "require_next_check": "CHECK_COMPRESSOR_CONTEXT"
+    },
+    {
+      "id": "V4-13",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+        "FACT_CONTROLS_VERIFIED_NORMAL",
+        "FACT_INFILTRATION_LOAD_CHARACTERIZED",
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V4-15",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_OVERLOAD_PROTECTION_OPEN",
+        "FACT_COMPRESSOR_HOT",
+        "FACT_OVERHEAT_CAUSE_UNRESOLVED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "require_next_check": "CHECK_OVERHEAT_CAUSE"
+    },
+    {
+      "id": "V4-18",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_WIRING_SCHEME_UNKNOWN"
+      ],
+      "state": "UNKNOWN",
+      "must_gate_steady": false,
+      "require_next_check": "CHECK_WIRING_DIAGRAM_CONTROL_STATE"
+    },
+    {
+      "id": "V5-02",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_NO_LOCALIZED_RESTRICTION",
+        "FACT_LEAK_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-03",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-12",
+      "facts": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_HEAD_NOT_EXCESSIVE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V5-13",
+      "facts": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "V5-17",
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+        "FACT_CONTROLS_VERIFIED_NORMAL",
+        "FACT_INFILTRATION_LOAD_CHARACTERIZED",
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "V5-25",
+      "facts": [],
+      "factRecords": [
+        {
+          "id": "FACT_EVAP_SH_HIGH",
+          "quality": "SUSPECT"
+        },
+        {
+          "id": "FACT_EVAP_OUTLET_PRESSURE_SUSPECT",
+          "quality": "VALID"
+        }
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "require_next_check": "CHECK_VERIFY_EVAP_PRESSURE_MEASUREMENT"
+    },
+    {
+      "id": "V5-33",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "must_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "V5-34",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "state": "STABLE_COOLING",
+      "must_diagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "V5-35",
+      "facts": [
+        "FACT_MODEL_SPECIFIC_TARGET_AVAILABLE",
+        "FACT_GENERIC_REFERENCE_CONFLICTS_MODEL"
+      ],
+      "state": "STABLE_COOLING",
+      "reference_test": "MODEL_WINS"
+    },
+    {
+      "id": "V5-36",
+      "facts": [
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE"
+      ],
+      "state": "STABLE_COOLING",
+      "must_not_diagnose": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    }
+  ]
+}

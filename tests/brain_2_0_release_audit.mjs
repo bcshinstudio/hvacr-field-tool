@@ -1,0 +1,16 @@
+import fs from "fs";
+const app=fs.readFileSync(new URL("../src/app.js",import.meta.url),"utf8");
+const manifest=JSON.parse(fs.readFileSync(new URL("../data/knowledge/manifest.json",import.meta.url)));
+let n=0; const ok=(v,m)=>{if(!v) throw Error(m); n++};
+ok(manifest.knowledge_version==="2.0.0","release version");
+ok(manifest.status==="consolidated_user_test_release","release status");
+ok(app.includes("SYSTEM CHECK RESULT"),"production result label");
+ok(!app.includes("KNOWLEDGE HUB PREVIEW"),"preview label removed");
+ok(app.includes('data-wic-context="operatingState"'),"operating state exposed");
+ok(app.includes('data-wic-context="evaporatorPressureQuality"'),"measurement quality exposed");
+ok(app.includes("buildWicCaseEvidenceControls()"),"room/control evidence exposed");
+ok(app.includes("factRecords: adapted.factRecords || []"),"quality records reach Brain");
+ok(app.includes("operatingState: snapshot.context.operatingState"),"operating state reaches Brain");
+ok(app.includes("RECOMMENDED ACTION"),"cause-specific action presentation");
+ok(app.includes("NEXT ACTION / CHECK"),"unresolved next-check presentation");
+console.log(`BRAIN 2.0 RELEASE AUDIT: ${n} assertions PASS`);

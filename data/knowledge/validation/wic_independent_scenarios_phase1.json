@@ -1,0 +1,84 @@
+{
+  "suite": "Independent WIC charge/feed research scenarios",
+  "version": "0.1.0",
+  "purpose": "Validation cases derived from manufacturer troubleshooting patterns, not from current engine rules.",
+  "runtime_status": "NOT_YET_WIRED",
+  "cases": [
+    {
+      "id": "VF01",
+      "input_pattern": [
+        "high SH"
+      ],
+      "expected": "starvation condition only",
+      "must_not": "force low charge/restriction/TXV root cause"
+    },
+    {
+      "id": "VF02",
+      "input_pattern": [
+        "high SH",
+        "low SC against applicable target",
+        "low evaporating pressure"
+      ],
+      "expected": "low-charge pattern strongly supported",
+      "must_check": [
+        "restriction/flash-gas look-alike",
+        "leak evidence"
+      ],
+      "configuration": "SC reference must apply"
+    },
+    {
+      "id": "VF03",
+      "input_pattern": [
+        "high SH",
+        "flash gas at TXV inlet",
+        "localized drier restriction evidence"
+      ],
+      "expected": "liquid-line restriction localized",
+      "must_not": "add refrigerant merely because flash gas is present"
+    },
+    {
+      "id": "VF04",
+      "input_pattern": [
+        "high SH",
+        "proper liquid condition at TXV inlet",
+        "bad bulb contact"
+      ],
+      "expected": "TXV bulb installation fault localized"
+    },
+    {
+      "id": "VF05",
+      "input_pattern": [
+        "high SH",
+        "proper upstream liquid condition",
+        "TXV does not respond to bulb warming/load"
+      ],
+      "expected": "TXV power-element/valve fault localized"
+    },
+    {
+      "id": "VF06",
+      "input_pattern": [
+        "receiver present",
+        "condenser outlet SC low/near zero"
+      ],
+      "expected": "do not apply packaged-system low-SC charging conclusion without receiver/location context"
+    },
+    {
+      "id": "VF07",
+      "input_pattern": [
+        "high SH",
+        "drier inlet/outlet temperatures equal",
+        "SC measured but no applicable target"
+      ],
+      "expected": "starvation remains unresolved; completed checks not repeated"
+    },
+    {
+      "id": "VF08",
+      "input_pattern": [
+        "high SH",
+        "localized drier restriction evidence",
+        "bad TXV bulb contact"
+      ],
+      "expected": "preserve multiple localized faults rather than collapse to one"
+    }
+  ]
+}

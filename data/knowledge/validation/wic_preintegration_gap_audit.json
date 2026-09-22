@@ -1,0 +1,79 @@
+{
+  "version": "0.1.0",
+  "basis": "Phases 1-5 research specifications vs current Brain 1.0 runtime architecture",
+  "status": "pre_integration_gap_audit",
+  "gaps": [
+    {
+      "capability": "operating-state gate",
+      "current": "partial/context metadata",
+      "needed": "explicit state validity/veto layer before steady-state fact classification",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "reference applicability",
+      "current": "supports reference/no-reference interpretation",
+      "needed": "configuration/location/state applicability and model>manufacturer>application precedence throughout",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "cross-domain hypotheses",
+      "current": "hypothesis engine supports evidence/direct support",
+      "needed": "expand WIC cause graph across airflow, defrost, high-side, compressor, controls, load",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "contradictory evidence",
+      "current": "limited",
+      "needed": "explicit contradicts/invalidates weights and presentation of unresolved conflict",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "measurement quality",
+      "current": "basic measured/calculated facts",
+      "needed": "suspect/invalid measurement state so bad input cannot create confident derived diagnosis",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "completed-check semantics",
+      "current": "implemented in part",
+      "needed": "global semantic check IDs and equivalence so same measurement/check is never re-requested",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "next-check discrimination",
+      "current": "scored unresolved evidence/preferred order",
+      "needed": "information-gain-like scoring across remaining hypotheses plus practicality/state/access constraints",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "multiple simultaneous faults",
+      "current": "supports multiple localized faults",
+      "needed": "extend cross-domain and interaction presentation",
+      "priority": "MEDIUM"
+    },
+    {
+      "capability": "control/electrical sequence",
+      "current": "minimal",
+      "needed": "state-machine facts for demand/safeties/relay/contactor/load and pump-down",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "defrost sequence",
+      "current": "cause rules",
+      "needed": "state-machine facts for initiation/action/termination/drain/fan delay",
+      "priority": "HIGH"
+    },
+    {
+      "capability": "equipment-specific modules",
+      "current": "generic WIC profile",
+      "needed": "pluggable model targets/wiring/settings/operating envelope without contaminating generic rules",
+      "priority": "MEDIUM"
+    },
+    {
+      "capability": "blind validation harness",
+      "current": "regressions largely implementation-derived",
+      "needed": "execute independent Phase 1-5 scenarios against runtime after mapping",
+      "priority": "HIGH"
+    }
+  ]
+}

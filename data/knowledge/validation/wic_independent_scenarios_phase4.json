@@ -1,0 +1,169 @@
+{
+  "suite": "Independent WIC controls/electrical/pump-down/load scenarios",
+  "version": "0.4.0",
+  "runtime_status": "NOT_YET_WIRED",
+  "cases": [
+    {
+      "id": "V4-01",
+      "input": [
+        "cooling demand",
+        "compressor off",
+        "no voltage at compressor terminals"
+      ],
+      "expected": "trace upstream control/power circuit; do not condemn compressor"
+    },
+    {
+      "id": "V4-02",
+      "input": [
+        "cooling demand",
+        "correct line voltage at compressor",
+        "compressor hums/does not start"
+      ],
+      "expected": "branch to start components/protection/voltage-under-load/model checks"
+    },
+    {
+      "id": "V4-03",
+      "input": [
+        "controller calls for cooling",
+        "contactor coil energized",
+        "contacts do not pass line voltage"
+      ],
+      "expected": "localize contactor contact fault"
+    },
+    {
+      "id": "V4-04",
+      "input": [
+        "controller calls for cooling",
+        "contactor coil not energized"
+      ],
+      "expected": "trace control circuit/safeties/output; do not call contactor contacts bad"
+    },
+    {
+      "id": "V4-05",
+      "input": [
+        "HP safety open",
+        "high condensing pressure confirmed"
+      ],
+      "expected": "safety trip treated as consequence; diagnose high-head cause before reset/replacement"
+    },
+    {
+      "id": "V4-06",
+      "input": [
+        "LP safety/control open",
+        "system intentionally in pump-down"
+      ],
+      "expected": "recognize expected sequence if configured cut-out reached"
+    },
+    {
+      "id": "V4-07",
+      "input": [
+        "demand satisfied",
+        "liquid solenoid closes",
+        "suction falls",
+        "LP opens",
+        "compressor stops"
+      ],
+      "expected": "normal pump-down sequence"
+    },
+    {
+      "id": "V4-08",
+      "input": [
+        "demand satisfied",
+        "solenoid commanded closed",
+        "liquid continues feeding",
+        "compressor cycles repeatedly"
+      ],
+      "expected": "investigate leaking/non-closing solenoid and sequence, not low charge"
+    },
+    {
+      "id": "V4-09",
+      "input": [
+        "new cooling demand",
+        "solenoid commanded open",
+        "no liquid flow",
+        "coil has correct voltage"
+      ],
+      "expected": "localize valve/mechanical/differential issue after wiring confirmation"
+    },
+    {
+      "id": "V4-10",
+      "input": [
+        "room warm",
+        "controller display colder than independent thermometer",
+        "sensor near evaporator discharge"
+      ],
+      "expected": "sensor location/calibration/controller-input branch before refrigeration repair"
+    },
+    {
+      "id": "V4-11",
+      "input": [
+        "room warm",
+        "doors frequently open",
+        "frost concentrated near entry",
+        "refrigeration otherwise performs"
+      ],
+      "expected": "localize infiltration/load contributor"
+    },
+    {
+      "id": "V4-12",
+      "input": [
+        "room warm after large warm product load",
+        "system otherwise normal"
+      ],
+      "expected": "recognize transient product load/pulldown; do not diagnose capacity fault prematurely"
+    },
+    {
+      "id": "V4-13",
+      "input": [
+        "room never reaches setpoint",
+        "airflow/feed/controls verified",
+        "door/load characterized",
+        "equipment capacity below calculated design load"
+      ],
+      "expected": "support sizing/capacity conclusion"
+    },
+    {
+      "id": "V4-14",
+      "input": [
+        "room warm",
+        "compressor short cycles",
+        "anti-short-cycle/controller delay active"
+      ],
+      "expected": "identify intentional control delay/state before electrical fault"
+    },
+    {
+      "id": "V4-15",
+      "input": [
+        "compressor off",
+        "overload/protection open",
+        "compressor hot"
+      ],
+      "expected": "determine overheating/system cause before replacing protection or compressor"
+    },
+    {
+      "id": "V4-16",
+      "input": [
+        "room warm",
+        "bad sensor location",
+        "door infiltration"
+      ],
+      "expected": "preserve multiple contributing non-refrigerant faults"
+    },
+    {
+      "id": "V4-17",
+      "input": [
+        "compressor off",
+        "blown fuse"
+      ],
+      "expected": "do not stop at fuse replacement; inspect downstream electrical fault/overload cause per equipment data"
+    },
+    {
+      "id": "V4-18",
+      "input": [
+        "unknown wiring/control scheme",
+        "compressor off"
+      ],
+      "expected": "request actual wiring diagram/control state rather than invent control sequence"
+    }
+  ]
+}

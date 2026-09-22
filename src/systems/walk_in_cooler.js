@@ -3145,6 +3145,40 @@ export const walkInCooler = {
 
                     {
                         id:
+                            "temperature_condition",
+
+                        label:
+                            "Compressor Temperature",
+
+                        type:
+                            "select",
+
+                        options: [
+                            "normal",
+                            "hot",
+                            "unknown"
+                        ]
+                    },
+
+                    {
+                        id:
+                            "overload_state",
+
+                        label:
+                            "Overload / Protection",
+
+                        type:
+                            "select",
+
+                        options: [
+                            "closed_normal",
+                            "open_tripped",
+                            "unknown"
+                        ]
+                    },
+
+                    {
+                        id:
                             "oil_evidence",
 
                         label:
@@ -3782,6 +3816,36 @@ export const walkInCooler = {
                         type:
                             "textarea"
                     }
+                ]
+            },
+
+            {
+                id: "room_case_observations",
+                component: "room",
+                fields: [
+                    { id:"door_infiltration", label:"Door / Air Infiltration", type:"select",
+                      options:["normal_sealed","confirmed_infiltration","unknown"] },
+                    { id:"warm_product_load", label:"Warm Product / Load", type:"select",
+                      options:["normal","large_warm_load","unknown"] },
+                    { id:"sensor_reference", label:"Controller Sensor vs Independent Temperature", type:"select",
+                      options:["agrees","disagrees","unknown"] }
+                ]
+            },
+
+            {
+                id: "control_case_observations",
+                component: "controls",
+                fields: [
+                    { id:"cooling_demand", label:"Cooling Demand", type:"select", options:["calling","not_calling","unknown"] },
+                    { id:"anti_short_cycle", label:"Anti-Short-Cycle Delay", type:"select", options:["inactive","active","unknown"] },
+                    { id:"wiring_scheme", label:"Actual Wiring / Control Scheme", type:"select", options:["known","unknown"] },
+                    { id:"hp_safety", label:"High-Pressure Safety", type:"select", options:["closed_normal","open_tripped","unknown"] },
+                    { id:"lp_control", label:"Low-Pressure Control", type:"select", options:["closed","open","unknown"] },
+                    { id:"contactor_coil", label:"Contactor Coil", type:"select", options:["energized","not_energized","unknown"] },
+                    { id:"contactor_output", label:"Contactor Output", type:"select", options:["passes_voltage","not_passing_voltage","unknown"] },
+                    { id:"fuse_state", label:"Fuse", type:"select", options:["normal","open_blown","unknown"] },
+                    { id:"solenoid_command", label:"Liquid Solenoid Command", type:"select", options:["open","closed","unknown"] },
+                    { id:"solenoid_flow", label:"Liquid Solenoid Actual Flow", type:"select", options:["flowing","not_flowing","unknown"] }
                 ]
             }
         ],

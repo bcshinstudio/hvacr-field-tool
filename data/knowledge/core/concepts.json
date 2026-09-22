@@ -561,6 +561,451 @@
       "id": "FACT_DRIER_TEMPERATURES_MEASURED",
       "type": "fact",
       "label": "Filter-drier inlet and outlet temperatures measured"
+    },
+    {
+      "id": "FACT_EVAP_SH_MEASURED",
+      "type": "fact",
+      "label": "Evaporator superheat has been measured/calculated"
+    },
+    {
+      "id": "FACT_OPERATING_STATE_CONFIRMED",
+      "type": "fact",
+      "label": "Operating state has been confirmed"
+    },
+    {
+      "id": "FACT_DEFROST_ACTIVE",
+      "type": "fact",
+      "label": "System is in defrost"
+    },
+    {
+      "id": "FACT_POST_DEFROST_ACTIVE",
+      "type": "fact",
+      "label": "System is in post-defrost/fan-delay recovery"
+    },
+    {
+      "id": "FACT_PUMPDOWN_ACTIVE",
+      "type": "fact",
+      "label": "System is in pump-down"
+    },
+    {
+      "id": "FACT_DEFROST_COMMAND_PRESENT",
+      "type": "fact",
+      "label": "Defrost command is present"
+    },
+    {
+      "id": "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+      "type": "fact",
+      "label": "Voltage is present at the defrost heater circuit"
+    },
+    {
+      "id": "FACT_DEFROST_HEATER_CURRENT_ABSENT",
+      "type": "fact",
+      "label": "Defrost heater current/heat output is absent"
+    },
+    {
+      "id": "FACT_DEFROST_COMPLETES",
+      "type": "fact",
+      "label": "Defrost completes and clears the evaporator"
+    },
+    {
+      "id": "FACT_DRAIN_REFREEZE",
+      "type": "fact",
+      "label": "Defrost water is accumulating/refreezing at drain or pan"
+    },
+    {
+      "id": "FACT_FAN_DELAY_ACTIVE",
+      "type": "fact",
+      "label": "Evaporator fan delay is intentionally active"
+    },
+    {
+      "id": "FACT_COND_COIL_CLEAN",
+      "type": "fact",
+      "label": "Condenser coil is clean"
+    },
+    {
+      "id": "FACT_COND_FAN_RUNNING",
+      "type": "fact",
+      "label": "Condenser fan is running"
+    },
+    {
+      "id": "FACT_COND_AIRFLOW_NORMAL",
+      "type": "fact",
+      "label": "Condenser airflow is verified normal"
+    },
+    {
+      "id": "FACT_NONCONDENSABLE_EVIDENCE",
+      "type": "fact",
+      "label": "Service/pressure-temperature evidence supports noncondensables"
+    },
+    {
+      "id": "FACT_OVERCHARGE_EVIDENCE",
+      "type": "fact",
+      "label": "Charge/inventory evidence supports excess refrigerant"
+    },
+    {
+      "id": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+      "type": "fact",
+      "label": "Voltage is absent at compressor terminals during a cooling call"
+    },
+    {
+      "id": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+      "type": "fact",
+      "label": "Correct line voltage is present at compressor terminals during a start attempt"
+    },
+    {
+      "id": "FACT_CONTACTOR_COIL_ENERGIZED",
+      "type": "fact",
+      "label": "Contactor coil is energized"
+    },
+    {
+      "id": "FACT_CONTACTOR_NOT_PASSING_VOLTAGE",
+      "type": "fact",
+      "label": "Energized contactor is not passing line voltage"
+    },
+    {
+      "id": "FACT_START_COMPONENT_FAULT",
+      "type": "fact",
+      "label": "Compressor start component fault is localized"
+    },
+    {
+      "id": "FACT_HP_SAFETY_OPEN",
+      "type": "fact",
+      "label": "High-pressure safety is open/tripped"
+    },
+    {
+      "id": "FACT_LP_CONTROL_OPEN",
+      "type": "fact",
+      "label": "Low-pressure control is open"
+    },
+    {
+      "id": "FACT_SOLENOID_COMMAND_CLOSED",
+      "type": "fact",
+      "label": "Liquid solenoid is commanded closed"
+    },
+    {
+      "id": "FACT_SOLENOID_COMMAND_OPEN",
+      "type": "fact",
+      "label": "Liquid solenoid is commanded open"
+    },
+    {
+      "id": "FACT_SOLENOID_FLOW_CONTINUES_CLOSED",
+      "type": "fact",
+      "label": "Liquid continues to feed with solenoid commanded closed"
+    },
+    {
+      "id": "FACT_SENSOR_DISAGREES_REFERENCE",
+      "type": "fact",
+      "label": "Controller sensor disagrees with an independent reference measurement"
+    },
+    {
+      "id": "FACT_DOOR_INFILTRATION_CONFIRMED",
+      "type": "fact",
+      "label": "Door/gasket/infiltration source is confirmed"
+    },
+    {
+      "id": "FACT_WARM_PRODUCT_LOAD_CONFIRMED",
+      "type": "fact",
+      "label": "Large warm-product load is confirmed"
+    },
+    {
+      "id": "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+      "type": "fact",
+      "label": "Verified design/actual load exceeds equipment capacity"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_FAILURE",
+      "type": "cause",
+      "label": "Contactor/relay contact failure"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "type": "cause",
+      "label": "Compressor start component fault"
+    },
+    {
+      "id": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "type": "cause",
+      "label": "Control-power or safety-chain interruption"
+    },
+    {
+      "id": "CAUSE_DRAIN_REFREEZE",
+      "type": "cause",
+      "label": "Drain/drain-heater/refreeze fault"
+    },
+    {
+      "id": "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "type": "cause",
+      "label": "Liquid solenoid leaking or not closing"
+    },
+    {
+      "id": "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "type": "cause",
+      "label": "Sensor location/calibration/input fault"
+    },
+    {
+      "id": "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "type": "cause",
+      "label": "Transient warm-product load / pull-down"
+    },
+    {
+      "id": "FACT_EVAP_COIL_CLEAR",
+      "type": "fact",
+      "label": "Evaporator coil is clear of blocking ice/debris"
+    },
+    {
+      "id": "FACT_EVAP_FAN_RUNNING",
+      "type": "fact",
+      "label": "Evaporator fan is running normally"
+    },
+    {
+      "id": "FACT_DOOR_CLOSED_SEALED",
+      "type": "fact",
+      "label": "Door/gasket is closed and sealing normally"
+    },
+    {
+      "id": "FACT_LOW_EVAP_LOAD",
+      "type": "fact",
+      "label": "Evaporator/room load is verified low"
+    },
+    {
+      "id": "FACT_COND_SAT_LOW",
+      "type": "fact",
+      "label": "Condensing saturation temperature/pressure is low against an applicable reference"
+    },
+    {
+      "id": "FACT_SUCTION_PRESSURE_LOW",
+      "type": "fact",
+      "label": "Suction pressure is low against an applicable reference"
+    },
+    {
+      "id": "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+      "type": "fact",
+      "label": "Suction pressure is high for the verified load/state"
+    },
+    {
+      "id": "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+      "type": "fact",
+      "label": "Compressor pressure differential/pumping is weak"
+    },
+    {
+      "id": "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE",
+      "type": "fact",
+      "label": "Evidence localizes compressor valve/internal leakage"
+    },
+    {
+      "id": "FACT_COMPRESSOR_HOT",
+      "type": "fact",
+      "label": "Compressor temperature is abnormally high against applicable equipment guidance"
+    },
+    {
+      "id": "FACT_HEAD_NOT_EXCESSIVE",
+      "type": "fact",
+      "label": "Head/condensing pressure is not excessive for current state"
+    },
+    {
+      "id": "FACT_LOW_AMBIENT",
+      "type": "fact",
+      "label": "Outdoor/condenser entering ambient is low"
+    },
+    {
+      "id": "FACT_HEAD_CONTROL_INSTALLED",
+      "type": "fact",
+      "label": "Low-ambient/head-pressure control is installed"
+    },
+    {
+      "id": "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT",
+      "type": "fact",
+      "label": "Head-pressure-control flood charge/inventory is insufficient for its design"
+    },
+    {
+      "id": "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
+      "type": "fact",
+      "label": "Head-pressure-control setting/restriction evidence is localized"
+    },
+    {
+      "id": "FACT_COND_FAN_FAILED",
+      "type": "fact",
+      "label": "Condenser fan failure is localized"
+    },
+    {
+      "id": "FACT_COND_RECIRCULATION_CONFIRMED",
+      "type": "fact",
+      "label": "Condenser discharge air recirculation is confirmed"
+    },
+    {
+      "id": "FACT_HP_TRIP_DUE_HIGH_HEAD",
+      "type": "fact",
+      "label": "HP safety trip occurred with confirmed high condensing pressure"
+    },
+    {
+      "id": "FACT_COOLING_DEMAND_PRESENT",
+      "type": "fact",
+      "label": "Controller/thermostat has an active cooling demand"
+    },
+    {
+      "id": "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+      "type": "fact",
+      "label": "Contactor coil is not energized during an active cooling demand"
+    },
+    {
+      "id": "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+      "type": "fact",
+      "label": "Correct voltage is present at the liquid-solenoid coil"
+    },
+    {
+      "id": "FACT_SOLENOID_NO_FLOW_WHEN_OPEN",
+      "type": "fact",
+      "label": "Liquid solenoid is commanded open but refrigerant does not flow"
+    },
+    {
+      "id": "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE",
+      "type": "fact",
+      "label": "Configured anti-short-cycle/controller delay is active"
+    },
+    {
+      "id": "FACT_OVERLOAD_PROTECTION_OPEN",
+      "type": "fact",
+      "label": "Compressor overload/protection is open"
+    },
+    {
+      "id": "FACT_FUSE_OPEN",
+      "type": "fact",
+      "label": "Fuse is open/blown"
+    },
+    {
+      "id": "FACT_WIRING_SCHEME_UNKNOWN",
+      "type": "fact",
+      "label": "Actual equipment wiring/control scheme is not yet known"
+    },
+    {
+      "id": "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+      "type": "fact",
+      "label": "Refrigeration performance is otherwise verified normal"
+    },
+    {
+      "id": "FACT_AIRFLOW_VERIFIED_NORMAL",
+      "type": "fact",
+      "label": "Evaporator/condenser airflow relevant to the diagnosis is verified normal"
+    },
+    {
+      "id": "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+      "type": "fact",
+      "label": "Refrigerant feed/charge is reasonably verified normal for the equipment/state"
+    },
+    {
+      "id": "FACT_CONTROLS_VERIFIED_NORMAL",
+      "type": "fact",
+      "label": "Controls/settings are verified normal"
+    },
+    {
+      "id": "FACT_INFILTRATION_LOAD_CHARACTERIZED",
+      "type": "fact",
+      "label": "Door/infiltration/product load has been characterized"
+    },
+    {
+      "id": "CAUSE_CONDENSER_RECIRCULATION",
+      "type": "cause",
+      "label": "Condenser discharge-air recirculation / installation airflow fault"
+    },
+    {
+      "id": "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "type": "cause",
+      "label": "Liquid solenoid commanded open but not opening/flowing"
+    },
+    {
+      "id": "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "type": "cause",
+      "label": "Intentional anti-short-cycle/controller delay"
+    },
+    {
+      "id": "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "type": "cause",
+      "label": "Insufficient refrigerant inventory for configured head-pressure-control flooding"
+    },
+    {
+      "id": "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "type": "cause",
+      "label": "Open fuse requiring downstream fault/overload investigation"
+    },
+    {
+      "id": "FACT_LEAK_CONFIRMED",
+      "type": "fact",
+      "label": "Refrigerant leak is confirmed"
+    },
+    {
+      "id": "FACT_NO_LOCALIZED_RESTRICTION",
+      "type": "fact",
+      "label": "No localized liquid-line restriction evidence found"
+    },
+    {
+      "id": "FACT_TXV_NO_RESPONSE",
+      "type": "fact",
+      "label": "TXV does not respond appropriately to bulb/load test"
+    },
+    {
+      "id": "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+      "type": "fact",
+      "label": "Proper liquid condition is verified at TXV inlet"
+    },
+    {
+      "id": "FACT_RECEIVER_PRESENT",
+      "type": "fact",
+      "label": "Liquid receiver is present"
+    },
+    {
+      "id": "FACT_SC_REFERENCE_NOT_APPLICABLE",
+      "type": "fact",
+      "label": "Available subcooling reference is not applicable to this configuration/location"
+    },
+    {
+      "id": "FACT_COMPRESSOR_RUNNING",
+      "type": "fact",
+      "label": "Compressor is running"
+    },
+    {
+      "id": "FACT_CAPACITY_POOR",
+      "type": "fact",
+      "label": "System/refrigeration capacity is poor"
+    },
+    {
+      "id": "FACT_SUCTION_NORMAL_FOR_STATE",
+      "type": "fact",
+      "label": "Suction pressure is reasonable for current state/load"
+    },
+    {
+      "id": "FACT_HEAD_NORMAL_FOR_STATE",
+      "type": "fact",
+      "label": "Head/condensing pressure is reasonable for current state/load"
+    },
+    {
+      "id": "FACT_EVAP_OUTLET_PRESSURE_SUSPECT",
+      "type": "fact",
+      "label": "Evaporator outlet pressure measurement is suspect/inconsistent"
+    },
+    {
+      "id": "FACT_OVERHEAT_CAUSE_UNRESOLVED",
+      "type": "fact",
+      "label": "Compressor overheat/protection cause remains unresolved"
+    },
+    {
+      "id": "FACT_MODEL_SPECIFIC_TARGET_AVAILABLE",
+      "type": "fact",
+      "label": "Applicable model-specific target is available"
+    },
+    {
+      "id": "FACT_GENERIC_REFERENCE_CONFLICTS_MODEL",
+      "type": "fact",
+      "label": "Generic application reference conflicts with applicable model target"
+    },
+    {
+      "id": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "type": "cause",
+      "label": "Confirmed refrigerant leak / low-charge condition"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "type": "cause",
+      "label": "TXV power-element or valve fault"
     }
   ]
 }

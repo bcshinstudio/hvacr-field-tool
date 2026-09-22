@@ -103,6 +103,126 @@
         "SRC_SPORLAN_SUPERHEAT_CONTROL",
         "SRC_SPORLAN_TEV_PROBLEMS"
       ]
+    },
+    {
+      "id": "DISC_COMPRESSOR_OFF",
+      "trigger_conditions": [],
+      "candidates": [],
+      "preferred_checks": [
+        "CHECK_WIRING_DIAGRAM_CONTROL_STATE",
+        "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+        "CHECK_CONTACTOR_PATH",
+        "CHECK_CONTROLLER_SENSOR",
+        "CHECK_PRESSURE_CONTROLS"
+      ],
+      "priority": "MANDATORY",
+      "trigger_facts": [
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+      ]
+    },
+    {
+      "id": "DISC_WARM_ROOM_NONREFRIG",
+      "trigger_conditions": [],
+      "candidates": [
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_PRODUCT_LOAD_PULLDOWN",
+        "CAUSE_SYSTEM_UNDERSIZED"
+      ],
+      "preferred_checks": [
+        "CHECK_SENSOR_REFERENCE",
+        "CHECK_DOOR_LOAD",
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_CAPACITY_VS_LOAD"
+      ]
+    },
+    {
+      "id": "DISC_DEFROST_ICE",
+      "trigger_conditions": [
+        "COND_DEFROST_INADEQUATE"
+      ],
+      "candidates": [
+        "CAUSE_DEFROST_HEATER_FAILURE",
+        "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+        "CAUSE_DRAIN_REFREEZE",
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "preferred_checks": [
+        "CHECK_DEFROST_HEAT",
+        "CHECK_DEFROST_TERMINATION",
+        "CHECK_DRAIN_REFREEZE",
+        "CHECK_LOAD_INFILTRATION",
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ]
+    },
+    {
+      "id": "DISC_PUMPDOWN",
+      "trigger_conditions": [
+        "COND_PUMPDOWN_SEQUENCE_FAULT"
+      ],
+      "candidates": [
+        "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+        "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+        "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "preferred_checks": [
+        "CHECK_SOLENOID_SEQUENCE",
+        "CHECK_PRESSURE_CONTROLS",
+        "CHECK_COMPRESSOR_PUMPING"
+      ]
+    },
+    {
+      "id": "DISC_COMPRESSOR_POOR_CAPACITY",
+      "trigger_conditions": [],
+      "candidates": [],
+      "trigger_facts": [
+        "FACT_COMPRESSOR_RUNNING",
+        "FACT_CAPACITY_POOR"
+      ],
+      "preferred_checks": [
+        "CHECK_COMPRESSOR_CONTEXT"
+      ],
+      "priority": "MANDATORY"
+    },
+    {
+      "id": "DISC_COMPRESSOR_OVERLOAD_HOT",
+      "trigger_conditions": [],
+      "candidates": [],
+      "trigger_facts": [
+        "FACT_OVERLOAD_PROTECTION_OPEN",
+        "FACT_COMPRESSOR_HOT"
+      ],
+      "preferred_checks": [
+        "CHECK_OVERHEAT_CAUSE"
+      ],
+      "priority": "MANDATORY"
+    },
+    {
+      "id": "DISC_SUSPECT_EVAP_PRESSURE",
+      "trigger_conditions": [],
+      "candidates": [],
+      "trigger_facts": [
+        "FACT_EVAP_OUTLET_PRESSURE_SUSPECT"
+      ],
+      "preferred_checks": [
+        "CHECK_VERIFY_EVAP_PRESSURE_MEASUREMENT"
+      ],
+      "priority": "MANDATORY"
+    },
+    {
+      "id": "DISC_UNKNOWN_WIRING",
+      "trigger_conditions": [],
+      "candidates": [],
+      "trigger_facts": [
+        "FACT_WIRING_SCHEME_UNKNOWN"
+      ],
+      "preferred_checks": [
+        "CHECK_WIRING_DIAGRAM_CONTROL_STATE"
+      ],
+      "priority": "MANDATORY"
     }
   ]
 }

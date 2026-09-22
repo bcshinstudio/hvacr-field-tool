@@ -42,7 +42,13 @@
       "sources": [
         "SRC_DANFOSS_COLDROOM",
         "SRC_SPORLAN_LIBRARY"
-      ]
+      ],
+      "satisfied_if_any": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "why": "Do not repeat this check when superheat is already measured, even if no classification target is available."
     },
     {
       "id": "CHECK_MEASURE_SC",
@@ -248,6 +254,158 @@
       "sources": [
         "SRC_DANFOSS_COLDROOM"
       ]
+    },
+    {
+      "id": "CHECK_ESTABLISH_OPERATING_STATE",
+      "label": "Confirm operating state",
+      "produces": [
+        "FACT_OPERATING_STATE_CONFIRMED"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_DRAIN_REFREEZE",
+      "label": "Inspect drain, pan and drain heat for blockage/refreeze",
+      "produces": [
+        "FACT_DRAIN_REFREEZE"
+      ],
+      "operating_states": [
+        "DEFROST",
+        "POST_DEFROST",
+        "STABLE_COOLING"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "label": "Measure compressor terminal voltage during a cooling/start call",
+      "produces": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT"
+      ],
+      "operating_states": [
+        "STABLE_COOLING",
+        "PULLDOWN",
+        "STARTUP"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_CONTACTOR_PATH",
+      "label": "Check contactor coil command and line/load voltage",
+      "produces": [
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "operating_states": [
+        "STABLE_COOLING",
+        "PULLDOWN",
+        "STARTUP"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_SENSOR_REFERENCE",
+      "label": "Compare controller sensor to an independent temperature measurement and verify location",
+      "produces": [
+        "FACT_SENSOR_DISAGREES_REFERENCE"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_DOOR_LOAD",
+      "label": "Inspect door/gasket/infiltration and characterize product load",
+      "produces": [
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_SOLENOID_SEQUENCE",
+      "label": "Verify liquid-solenoid command and actual refrigerant flow during pump-down",
+      "produces": [
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "operating_states": [
+        "PUMP_DOWN",
+        "SATISFIED"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_CAPACITY_VS_LOAD",
+      "label": "Compare verified equipment capacity with actual/design room load",
+      "produces": [
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+      ],
+      "operating_states": [
+        "STABLE_COOLING"
+      ],
+      "practicality": "MEDIUM"
+    },
+    {
+      "id": "CHECK_WIRING_DIAGRAM_CONTROL_STATE",
+      "label": "Obtain the actual wiring diagram and confirm the controller/safety state",
+      "produces": [
+        "FACT_OPERATING_STATE_CONFIRMED"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_FUSE_DOWNSTREAM_CAUSE",
+      "label": "After finding an open fuse, inspect downstream wiring/load and determine the overcurrent cause before replacement/restart",
+      "produces": [],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_HEAD_CONTROL_CONFIGURATION",
+      "label": "Identify head-pressure-control type, setting and required flood-charge configuration",
+      "produces": [
+        "FACT_HEAD_CONTROL_INSTALLED",
+        "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
+        "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT"
+      ],
+      "practicality": "MEDIUM"
+    },
+    {
+      "id": "CHECK_COMPRESSOR_DIFFERENTIAL",
+      "label": "Verify compressor suction/discharge pressures and pumping differential under a valid operating state",
+      "produces": [
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+      ],
+      "practicality": "MEDIUM"
+    },
+    {
+      "id": "CHECK_SOLENOID_OPENING",
+      "label": "Verify solenoid coil voltage, pressure differential and actual opening/flow",
+      "produces": [
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_VERIFY_EVAP_PRESSURE_MEASUREMENT",
+      "label": "Verify evaporator outlet pressure measurement, connection and stability before using calculated superheat",
+      "produces": [],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_COMPRESSOR_CONTEXT",
+      "label": "Measure suction/discharge pressures and electrical values, then compare with model-specific operating data",
+      "produces": [
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK"
+      ],
+      "practicality": "HIGH"
+    },
+    {
+      "id": "CHECK_OVERHEAT_CAUSE",
+      "label": "Determine whether high head, low suction/high superheat, load or electrical conditions caused compressor overheating before replacing protection/compressor",
+      "produces": [],
+      "practicality": "HIGH"
     }
   ]
 }
