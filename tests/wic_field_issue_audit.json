@@ -1,0 +1,473 @@
+{
+  "suite_version": "2.0.0",
+  "cases": [
+    {
+      "id": "AUDIT_LOW_REFRIGERANT_CHARGE",
+      "facts": [
+        "FACT_SUBCOOLING_LOW",
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "AUDIT_OVERCHARGE",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP"
+      ],
+      "mustPossible": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "purpose": "This evidence pattern must keep the cause in consideration without overclaiming a specific diagnosis."
+    },
+    {
+      "id": "AUDIT_NONCONDENSABLES",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP"
+      ],
+      "mustPossible": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "purpose": "This evidence pattern must keep the cause in consideration without overclaiming a specific diagnosis."
+    },
+    {
+      "id": "AUDIT_FILTER_DRIER_RESTRICTION",
+      "facts": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_LIQUID_LINE_PRESSURE_DROP",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "mustSupport": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_LIQUID_LINE_RESTRICTION",
+      "facts": [
+        "FACT_LIQUID_LINE_PRESSURE_DROP",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "mustSupport": [
+        "CAUSE_LIQUID_LINE_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_TXV_UNDERFEED",
+      "facts": [
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_TXV_EQUALIZER_PROBLEM",
+        "FACT_TXV_HUNTING",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_TXV_UNDERFEED"
+      ]
+    },
+    {
+      "id": "AUDIT_TXV_OVERFEED",
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_HUNTING"
+      ],
+      "mustSupport": [
+        "CAUSE_TXV_OVERFEED"
+      ]
+    },
+    {
+      "id": "AUDIT_EVAP_AIRFLOW_RESTRICTION",
+      "facts": [
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "mustSupport": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_EVAP_FAN_FAILURE",
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "mustSupport": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "AUDIT_EVAP_COIL_DIRTY",
+      "facts": [
+        "FACT_EVAP_COIL_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "mustSupport": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "AUDIT_EVAP_ICING",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "mustSupport": [
+        "CAUSE_EVAP_ICING"
+      ]
+    },
+    {
+      "id": "AUDIT_COND_AIRFLOW_RESTRICTION",
+      "facts": [
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_COND_FAN_FAILURE",
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_COND_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "AUDIT_COND_COIL_DIRTY",
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "AUDIT_HOT_AIR_RECIRCULATION",
+      "facts": [
+        "FACT_HOT_AIR_RECIRCULATION",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ]
+    },
+    {
+      "id": "AUDIT_HIGH_AMBIENT",
+      "facts": [
+        "FACT_HIGH_AMBIENT",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_HIGH_AMBIENT"
+      ]
+    },
+    {
+      "id": "AUDIT_EXCESSIVE_LOAD",
+      "facts": [
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_SLOW_PULLDOWN",
+        "FACT_COMPRESSOR_LONG_RUNTIME"
+      ],
+      "mustSupport": [
+        "CAUSE_EXCESSIVE_LOAD"
+      ]
+    },
+    {
+      "id": "AUDIT_AIR_INFILTRATION",
+      "facts": [
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_AIR_INFILTRATION"
+      ]
+    },
+    {
+      "id": "AUDIT_DEFROST_INADEQUATE",
+      "facts": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DRAIN_ICE"
+      ],
+      "mustSupport": [
+        "CAUSE_DEFROST_INADEQUATE"
+      ]
+    },
+    {
+      "id": "AUDIT_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "facts": [
+        "FACT_DRAIN_ICE",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "mustSupport": [
+        "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_WET_SYSTEM_TXV_ICE",
+      "facts": [
+        "FACT_MOISTURE_INDICATED",
+        "FACT_TXV_HUNTING",
+        "FACT_EVAP_FEED_UNEVEN"
+      ],
+      "mustSupport": [
+        "CAUSE_WET_SYSTEM_TXV_ICE"
+      ]
+    },
+    {
+      "id": "AUDIT_LP_CONTROL_SETTING_OR_FAULT",
+      "facts": [
+        "FACT_LOW_PRESSURE_CONTROL_TRIP"
+      ],
+      "mustSupport": [
+        "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "facts": [
+        "FACT_SOLENOID_NOT_OPENING",
+        "FACT_SOLENOID_NOT_CLOSING"
+      ],
+      "mustSupport": [
+        "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "facts": [
+        "FACT_CONTROLLER_SETPOINT_WRONG",
+        "FACT_SENSOR_ERROR",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_COMPRESSOR_INEFFICIENCY",
+      "facts": [
+        "FACT_COMPRESSOR_LOW_CAPACITY",
+        "FACT_SLOW_PULLDOWN",
+        "FACT_COMPRESSOR_LONG_RUNTIME"
+      ],
+      "mustSupport": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ]
+    },
+    {
+      "id": "AUDIT_SYSTEM_UNDERSIZED",
+      "facts": [
+        "FACT_SLOW_PULLDOWN",
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_HIGH_PRODUCT_LOAD"
+      ],
+      "mustPossible": [
+        "CAUSE_SYSTEM_UNDERSIZED"
+      ],
+      "purpose": "This evidence pattern must keep the cause in consideration without overclaiming a specific diagnosis."
+    },
+    {
+      "id": "AUDIT_TXV_INLET_RESTRICTION",
+      "facts": [
+        "FACT_TXV_INLET_RESTRICTION",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_LIQUID_AT_TXV_FLASHING",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "mustSupport": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "facts": [
+        "FACT_TXV_NOT_RESPONDING",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_FEED_UNEVEN"
+      ],
+      "mustSupport": [
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "facts": [
+        "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH",
+        "FACT_TXV_HUNTING",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH"
+      ]
+    },
+    {
+      "id": "AUDIT_DEFROST_HEATER_FAILURE",
+      "facts": [
+        "FACT_DEFROST_HEATER_NOT_HEATING",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "mustSupport": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "AUDIT_DEFROST_TERMINATION_SENSOR_FAULT",
+      "facts": [
+        "FACT_DEFROST_TERMINATION_ERROR",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "mustSupport": [
+        "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "facts": [
+        "FACT_FAN_DELAY_ERROR",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "mustSupport": [
+        "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_HEAD_PRESSURE_CONTROL_FAULT",
+      "facts": [
+        "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL",
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP"
+      ],
+      "mustSupport": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ]
+    },
+    {
+      "id": "AUDIT_COMPRESSOR_NOT_RUNNING",
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "mustSupport": [
+        "CAUSE_COMPRESSOR_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "AUDIT_HIGH_SH_ONLY",
+      "facts": [
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "mustPossible": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ]
+    },
+    {
+      "id": "AUDIT_HIGH_HEAD_ONLY",
+      "facts": [
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustNotDiagnose": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_FAN_FAILURE"
+      ]
+    },
+    {
+      "id": "AUDIT_DRIER_TEMP_NO_PRESSURE",
+      "facts": [
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "mustSupport": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_STARVATION_DRIER_TEMP",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "mustDiagnose": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_DUAL_AIRFLOW",
+      "facts": [
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "mustDiagnose": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ]
+    },
+    {
+      "id": "AUDIT_COND_FAN_AND_DIRTY",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "mustDiagnose": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "AUDIT_DEFROST_HEATER",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DEFROST_HEATER_NOT_HEATING"
+      ],
+      "mustDiagnose": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ]
+    },
+    {
+      "id": "AUDIT_TXV_INLET",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "mustDiagnose": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ]
+    }
+  ]
+}

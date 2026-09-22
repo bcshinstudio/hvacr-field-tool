@@ -1,0 +1,13 @@
+diagnostic_domain,status,current_scope
+Operating state / validity,PARTIAL,Stable cooling/pulldown context exists; full transient validity gate still needs implementation.
+Refrigerant charge / inventory,PARTIAL,Undercharge/overcharge patterns exist; receiver and system-specific charging interpretation need deeper validation.
+Liquid-line restriction,VALIDATED_CORE,Filter-drier/local restriction evidence and discrimination are implemented and regression-tested.
+TXV underfeed / installation,VALIDATED_CORE,"Bulb, equalizer, inlet restriction, response/load and underfeed branches are represented and tested."
+Evaporator airflow / icing,PARTIAL,Fan/coil/airflow evidence exists; complete icing/defrost interaction matrix still needs expansion.
+Condenser / high head,PARTIAL,"Dirty coil, fan, airflow, ambient/head-pressure causes represented; full look-alike matrix still needs expansion."
+Compressor capacity / pumping,PARTIAL,Cause family exists; electrical/mechanical discrimination requires more field scenarios.
+Defrost / drain / fan delay,PARTIAL,Major causes represented; sequence/state validation needs expansion.
+Controls / sensors / pump-down,PARTIAL,Cause families represented; controller/pressure-control sequences need deeper validation.
+Load / infiltration / sizing,PARTIAL,Represented as causes; needs stronger discriminating evidence and scenario coverage.
+Multiple simultaneous faults,PARTIAL,Engine supports multiple localized faults; broader multi-fault library still needed.
+Model-specific equipment behavior,REQUIRES_EQUIPMENT_DATA,Must use manufacturer/model data; generic Brain should not invent targets.

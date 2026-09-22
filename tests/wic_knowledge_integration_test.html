@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>WIC Knowledge Integration Smoke Test</title>
+<style>body{font-family:system-ui,Arial;margin:24px;max-width:1100px}.sum{font-size:22px;font-weight:700;padding:14px;border:1px solid #bbb;border-radius:8px;margin:16px 0}table{border-collapse:collapse;width:100%}th,td{padding:7px;border-bottom:1px solid #ddd;text-align:left}.pass,.fail{font-weight:700}</style></head>
+<body><h1>WIC Live Knowledge Path — Smoke Test</h1><div id="sum" class="sum">Loading…</div>
+<table><thead><tr><th>Result</th><th>Scenario</th><th>Diagnosis</th></tr></thead><tbody id="rows"></tbody></table>
+<script type="module">
+import {buildWicKnowledgeFacts} from "../src/knowledge/wic_fact_adapter.js";
+import {evaluateKnowledge} from "../src/knowledge/knowledge_engine.js";
+import {loadKnowledge} from "../src/knowledge/knowledge_loader.js";
+const k=await loadKnowledge("../data/knowledge");
+const cases=[
+ {id:"dirty condenser",snapshot:{observations:{condenser:{airflow:"low",coil_condition:"dirty"}}},want:["CAUSE_COND_COIL_DIRTY"]},
+ {id:"evaporator fan",snapshot:{observations:{evaporator:{airflow:"low",fan_operation:"not_running"}}},want:["CAUSE_EVAP_FAN_FAILURE"]},
+ {id:"TXV bulb",snapshot:{observations:{txv:{bulb_contact:"poor"}}},want:["CAUSE_TXV_UNDERFEED"]},
+ {id:"unknown only",snapshot:{observations:{condenser:{airflow:"unknown"}}},want:[]}
+];
+let pass=0,fail=0;
+for(const tc of cases){
+ const a=buildWicKnowledgeFacts(tc.snapshot);
+ const r=evaluateKnowledge({facts:a.facts,rules:k.rules.items,relationships:k.relationships.items,checks:k.checks.items,discriminators:k.discriminators.items});
+ const got=r.diagnoses.map(x=>x.candidate).sort(), want=[...tc.want].sort();
+ const ok=JSON.stringify(got)===JSON.stringify(want); ok?pass++:fail++;
+ document.querySelector("#rows").insertAdjacentHTML("beforeend",`<tr><td class="${ok?"pass":"fail"}">${ok?"PASS":"FAIL"}</td><td>${tc.id}</td><td>${got.join(", ")||"—"}</td></tr>`);
+}
+document.querySelector("#sum").textContent=`${pass} passed / ${fail} failed`;
+</script></body></html>

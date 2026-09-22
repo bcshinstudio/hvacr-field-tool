@@ -1,0 +1,29 @@
+{
+  "knowledge_version": "1.0.1",
+  "schema_version": "1.0.0",
+  "status": "professor_preview_validation_checkpoint",
+  "counts": {
+    "concepts": 108,
+    "rules": 34,
+    "relationships": 51,
+    "checks": 20,
+    "discriminators": 5,
+    "sources": 20
+  },
+  "entry_files": {
+    "concepts": "core/concepts.json",
+    "rules": "core/evidence_rules.json",
+    "relationships": "core/relationships.json",
+    "checks": "core/checks.json",
+    "discriminators": "core/discriminators.json",
+    "sources": "sources/sources.json",
+    "application": "applications/walk_in_cooler.json"
+  },
+  "design_notes": [
+    "References resolved outside generic reasoning engine.",
+    "Direct evidence declared in evidence_rules.json via direct=true.",
+    "Cause hierarchy declared in relationships.json via SUBTYPE_OF.",
+    "System conditions inferred via INDICATES.",
+    "Missing evidence remains unknown."
+  ]
+}

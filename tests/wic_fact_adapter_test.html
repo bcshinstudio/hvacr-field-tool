@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>WIC Fact Adapter Test</title>
+<style>body{font-family:system-ui,Arial;margin:24px;max-width:1200px}.sum{font-size:22px;font-weight:700;padding:14px;border:1px solid #bbb;border-radius:8px;margin:16px 0}table{border-collapse:collapse;width:100%}th,td{padding:7px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}.pass,.fail{font-weight:700}code{font-size:11px}</style></head><body>
+<h1>WIC → Knowledge Fact Adapter</h1><div id="meta"></div><div id="sum" class="sum">Loading…</div>
+<table><thead><tr><th>Result</th><th>Case</th><th>Facts</th></tr></thead><tbody id="rows"></tbody></table>
+<script type="module">
+import {buildWicKnowledgeFacts,WIC_FACT_ADAPTER_VERSION} from "../src/knowledge/wic_fact_adapter.js";
+const suite=await (await fetch("./wic_fact_adapter_cases.json")).json();
+let p=0,f=0;const rows=document.querySelector("#rows");
+for(const tc of suite.cases){
+ const a=buildWicKnowledgeFacts(tc.snapshot);
+ const actual=[...a.facts].sort(), expected=[...tc.facts].sort();
+ const ok=JSON.stringify(actual)===JSON.stringify(expected);
+ const tr=document.createElement("tr");tr.innerHTML=`<td class="${ok?'pass':'fail'}">${ok?'PASS':'FAIL'}</td><td>${tc.id}</td><td><code>${actual.join(", ")||"—"}</code>${ok?"":`<br>Expected: <code>${expected.join(", ")}</code>`}</td>`;
+ rows.appendChild(tr);ok?p++:f++;
+}
+document.querySelector("#meta").textContent=`Adapter ${WIC_FACT_ADAPTER_VERSION} | Suite ${suite.version}`;
+document.querySelector("#sum").textContent=`${p} passed / ${f} failed`;
+</script></body></html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HVAC/R Diagnostic Automated Tests</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:980px;margin:30px auto;padding:0 20px;color:#17212b}
+table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid #ddd;padding:9px;text-align:left}
+.pass{color:#167c3a;font-weight:700}.fail{color:#b42318;font-weight:700}
+code{background:#f3f5f7;padding:2px 4px;border-radius:3px}
+</style>
+</head>
+<body>
+<h1>HVAC/R Diagnostic Automated Tests</h1>
+<p id="summary">Running…</p>
+<table><thead><tr><th>Status</th><th>Case</th><th>Expected</th><th>Actual</th></tr></thead><tbody id="results"></tbody></table>
+<script type="module">
+import { diagnoseSystem } from "../src/diagnostics/diagnostic_engine.js";
+
+function parseCsv(text){
+  const lines=text.trim().split(/\r?\n/);
+  const headers=lines[0].replace(/^\uFEFF/, "").split(",").map(x=>x.trim());
+  return lines.slice(1).filter(Boolean).map(line=>{
+    const vals=line.split(",").map(x=>x.trim());
+    return Object.fromEntries(headers.map((h,i)=>[h,vals[i]]));
+  });
+}
+function interpolate(x,x1,y1,x2,y2){return y1+(x-x1)*(y2-y1)/(x2-x1);}
+function makePtLookup(rows){
+  const data=rows.map(r=>Object.fromEntries(
+    Object.entries(r).map(([k,v])=>[
+      k,
+      String(v ?? "").trim() === "" ? NaN : Number(v)
+    ])
+  ))
+  .filter(r=>Number.isFinite(r.temperature_f))
+  .sort((a,b)=>a.temperature_f-b.temperature_f);
+  return (pressure, phase)=>{
+    const col=phase==="bubble"?"bubble_psig":"dew_psig";
+    const useCol=(col in data[0])?col:"pressure_psig";
+    const byP=data
+      .filter(r=>Number.isFinite(r[useCol]))
+      .sort((a,b)=>a[useCol]-b[useCol]);
+    if(byP.length<2) throw new Error(`Not enough valid ${useCol} P-T points`);
+    if(pressure<byP[0][useCol]||pressure>byP.at(-1)[useCol]) throw new RangeError("P-T pressure outside table");
+    for(let i=0;i<byP.length-1;i++){
+      const a=byP[i],b=byP[i+1];
+      if(pressure>=a[useCol]&&pressure<=b[useCol])
+        return interpolate(pressure,a[useCol],a.temperature_f,b[useCol],b.temperature_f);
+    }
+    return byP.at(-1).temperature_f;
+  };
+}
+const near=(a,b,t=0.15)=>Math.abs(a-b)<=t;
+try {
+const cases=await fetch("./diagnostic_cases.json").then(r=>{
+  if(!r.ok) throw new Error(`Could not load diagnostic_cases.json (${r.status})`);
+  return r.json();
+});
+// Resolve the CSV from the project's refrigerant manifest instead of
+// guessing that the filename is "R-448A.csv".
+const normalizeRefrigerantId = value =>
+  String(value ?? "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+const manifestResponse = await fetch("../data/refrigerants/refrigerants.json", {
+  cache: "no-store"
+});
+if (!manifestResponse.ok) {
+  throw new Error(
+    `Could not load ../data/refrigerants/refrigerants.json (${manifestResponse.status})`
+  );
+}
+
+const manifestRaw = await manifestResponse.json();
+const manifest = Array.isArray(manifestRaw)
+  ? manifestRaw
+  : (manifestRaw.refrigerants || manifestRaw.items || []);
+
+const refrigerantEntry = manifest.find(item => {
+  const candidates = [
+    item.id,
+    item.name,
+    item.label,
+    item.refrigerant
+  ];
+  return candidates.some(
+    value => normalizeRefrigerantId(value) === "R448A"
+  );
+});
+
+if (!refrigerantEntry) {
+  throw new Error("R-448A was not found in refrigerants.json");
+}
+
+const csvName =
+  refrigerantEntry.file ||
+  refrigerantEntry.filename ||
+  refrigerantEntry.csv ||
+  refrigerantEntry.path;
+
+if (!csvName) {
+  throw new Error(
+    "R-448A exists in refrigerants.json but has no CSV filename/path field"
+  );
+}
+
+const csvUrl = String(csvName).includes("/")
+  ? `../data/refrigerants/${String(csvName).split("/").pop()}`
+  : `../data/refrigerants/${csvName}`;
+
+const csvResponse = await fetch(csvUrl, { cache: "no-store" });
+if (!csvResponse.ok) {
+  throw new Error(`Could not load ${csvUrl} (${csvResponse.status})`);
+}
+
+const ptRows = parseCsv(await csvResponse.text());
+if (!ptRows.length) {
+  throw new Error(`No P-T rows were parsed from ${csvUrl}`);
+}
+
+const pt=makePtLookup(ptRows);
+let passed=0;
+const tbody=document.getElementById("results");
+
+for(const tc of cases.cases){
+  const result=diagnoseSystem({
+    measurements:tc.measurements,
+    references:tc.references,
+    observations:tc.observations || {},
+    saturationTemperatureFromPressure:pt
+  });
+  let ok=result.id===tc.expected.resultId;
+  const s=result.state;
+  for(const [key,val] of Object.entries(tc.expected)){
+    if(key==="resultId") continue;
+    if(s[key]==null || !near(s[key],val)) ok=false;
+  }
+  if(ok) passed++;
+  tbody.insertAdjacentHTML("beforeend",
+    `<tr><td class="${ok?"pass":"fail"}">${ok?"PASS":"FAIL"}</td><td>${tc.name}</td><td><code>${tc.expected.resultId}</code></td><td><code>${result.id}</code></td></tr>`);
+}
+document.getElementById("summary").innerHTML=`<strong>${passed} passed / ${cases.cases.length-passed} failed</strong>`;
+} catch(error) {
+  console.error(error);
+  document.getElementById("summary").innerHTML =
+    `<strong class="fail">TEST ERROR</strong><br><code>${String(error.message || error)}</code>`;
+}
+</script>
+</body>
+</html>

@@ -142,7 +142,8 @@ export const walkInCooler = {
             x: 77,
             y: 30,
 
-            labelPosition: "right"
+            labelPosition: "right",
+            labelOffset: 5.8
         },
 
 
@@ -673,7 +674,7 @@ export const walkInCooler = {
 
                 capabilities: {
                     pressure:
-                        "optional",
+                        "available",
 
                     temperature:
                         "available"
@@ -1331,7 +1332,7 @@ export const walkInCooler = {
 
                 capabilities: {
                     pressure:
-                        "optional",
+                        "available",
 
                     temperature:
                         "available"
@@ -3633,6 +3634,48 @@ export const walkInCooler = {
 
                     {
                         id:
+                            "inlet_condition",
+
+                        label:
+                            "TXV Inlet / Strainer",
+
+                        type:
+                            "select",
+
+                        appliesToSubtypes: [
+                            "txv"
+                        ],
+
+                        options: [
+                            "appears_clear",
+                            "restriction_observed",
+                            "unknown"
+                        ]
+                    },
+
+                    {
+                        id:
+                            "response_to_load",
+
+                        label:
+                            "TXV Response to Bulb / Load Change",
+
+                        type:
+                            "select",
+
+                        appliesToSubtypes: [
+                            "txv"
+                        ],
+
+                        options: [
+                            "responds",
+                            "does_not_respond",
+                            "unknown"
+                        ]
+                    },
+
+                    {
+                        id:
                             "notes",
 
                         label:
@@ -4500,7 +4543,7 @@ export const walkInCooler = {
 
             capabilities: {
                 pressure:
-                    "optional",
+                    "available",
 
                 temperature:
                     "available"
@@ -4860,7 +4903,7 @@ export const walkInCooler = {
 
             capabilities: {
                 pressure:
-                    "optional",
+                    "available",
 
                 temperature:
                     "available"

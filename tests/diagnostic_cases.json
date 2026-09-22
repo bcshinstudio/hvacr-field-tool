@@ -1,0 +1,718 @@
+{
+  "version": 7,
+  "description": "v27 evidence-first regression suite: all available fault evidence is evaluated before missing-data guidance, with conflict, minimal-data, omission, and anti-overdiagnosis coverage.",
+  "cases": [
+    {
+      "id": "R448A_REFERENCE_MATCH",
+      "name": "R-448A reference-aligned walk-in",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 89,
+        "evaporatorOutletTemperature": 60,
+        "compressorSuctionPressure": 89,
+        "compressorSuctionTemperature": 70,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 80
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "expected": {
+        "resultId": "REFERENCE_SAT_MATCH",
+        "evaporatorSuperheat": 10,
+        "totalSuperheat": 20,
+        "compressionRatio": 2.18,
+        "subcooling": 10.2,
+        "evaporatorAirDeltaT": 10,
+        "condenserAirDeltaT": 15
+      }
+    },
+    {
+      "id": "MISSING_CONDENSER_OUTLET_TEMP",
+      "name": "Guided next check - missing condenser outlet temperature",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 89,
+        "evaporatorOutletTemperature": 60,
+        "compressorSuctionPressure": 89,
+        "compressorSuctionTemperature": 70,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "expected": {
+        "resultId": "NEED_CONDENSEROUTLETTEMPERATURE"
+      }
+    },
+    {
+      "id": "REFERENCE_DEVIATION",
+      "name": "Bad-condition regression - saturation references differ",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 260,
+        "compressorDischargeTemperature": 175,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 90
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "expected": {
+        "resultId": "REFERENCE_CONDITION_DEVIATION"
+      }
+    },
+    {
+      "id": "LOW_CHARGE",
+      "name": "Low charge pattern - high SH and low SC",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 88
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "no",
+        "condenserAirflow": "normal",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "LOW_REFRIGERANT_CHARGE"
+      }
+    },
+    {
+      "id": "LIQUID_LINE_RESTRICTION",
+      "name": "Liquid-line restriction - starved evaporator with drier evidence",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 80
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "yes",
+        "condenserAirflow": "normal",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "LIQUID_LINE_RESTRICTION"
+      }
+    },
+    {
+      "id": "CONDENSER_HEAT_REJECTION",
+      "name": "Condenser heat-rejection problem - high condensing condition plus low airflow",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "evaporatorOutletPressure": 89,
+        "evaporatorOutletTemperature": 60,
+        "compressorSuctionPressure": 89,
+        "compressorSuctionTemperature": 70,
+        "compressorDischargePressure": 260,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "EVAPORATOR_AIRFLOW",
+      "name": "Evaporator airflow problem - low evaporating condition plus blocked airflow",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 54,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 40,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 50,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 80
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "iced",
+        "condenserAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    },
+    {
+      "id": "OVERLAP_LOW_CHARGE_DIRTY_CONDENSER",
+      "name": "Conflict - low-charge pattern plus condenser heat-rejection evidence",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 260,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 110
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "no",
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "CONFLICTING_FAULT_EVIDENCE"
+      }
+    },
+    {
+      "id": "OVERLAP_RESTRICTION_VS_LOW_CHARGE",
+      "name": "Restriction evidence prevents false low-charge conclusion",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 80
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "yes",
+        "condenserAirflow": "normal",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "LIQUID_LINE_RESTRICTION"
+      }
+    },
+    {
+      "id": "OVERLAP_EVAP_AIRFLOW_LOW_CHARGE",
+      "name": "Conflict - evaporator airflow evidence plus low-charge pattern",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 54,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 85,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 211,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 88
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "no",
+        "condenserAirflow": "normal",
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "iced"
+      },
+      "expected": {
+        "resultId": "CONFLICTING_FAULT_EVIDENCE"
+      }
+    },
+    {
+      "id": "HIGH_CONDENSING_NO_AIRFLOW_EVIDENCE",
+      "name": "High condensing condition alone does not prove condenser airflow fault",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "evaporatorOutletPressure": 89,
+        "evaporatorOutletTemperature": 60,
+        "compressorSuctionPressure": 89,
+        "compressorSuctionTemperature": 70,
+        "compressorDischargePressure": 260,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "condenserAirflow": "normal",
+        "condenserCoilCondition": "clean",
+        "condenserFanOperation": "normal",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "REFERENCE_CONDITION_DEVIATION"
+      }
+    },
+    {
+      "id": "PARTIAL_DATA_CONDENSER_HEAT_REJECTION",
+      "name": "Partial data - condenser fault does not require unrelated evaporator measurements",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "compressorDischargePressure": 260,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "condenserFanOperation": "normal",
+        "hotAirRecirculation": "no"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "FULL_DATA_CONFLICT_NOT_OVERRIDDEN_BY_EARLY_CONDENSER",
+      "name": "Full data - partial-data condenser rule must not override conflict detection",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorEnteringAir": 60,
+        "evaporatorLeavingAir": 50,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 65,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 75,
+        "compressorDischargePressure": 260,
+        "compressorDischargeTemperature": 150,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 110
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30,
+        "evaporatorSuperheatMax": 16,
+        "subcoolingMin": 8,
+        "subcoolingMax": 16
+      },
+      "observations": {
+        "filterDrierOutletSweating": "no",
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "evaporatorAirflow": "normal"
+      },
+      "expected": {
+        "resultId": "CONFLICTING_FAULT_EVIDENCE"
+      }
+    },
+    {
+      "id": "PARTIAL_DATA_EVAPORATOR_AIRFLOW",
+      "name": "Partial data - evaporator airflow fault does not require unrelated condenser measurements",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 40,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 50
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "fully_iced",
+        "evaporatorFanOperation": "normal"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    },
+    {
+      "id": "PARTIAL_DATA_EVAP_AND_CONDENSER_CONFLICT",
+      "name": "Partial data - evaporator and condenser faults conflict without compressor discharge temperature",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 40,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 50,
+        "compressorDischargePressure": 260,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95,
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "partially_iced",
+        "evaporatorFanOperation": "normal",
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "condenserFanOperation": "normal",
+        "hotAirRecirculation": "no"
+      },
+      "expected": {
+        "resultId": "CONFLICTING_FAULT_EVIDENCE"
+      }
+    },
+    {
+      "id": "REFERENCE_MATCH_WITHOUT_SECONDARY_MEASUREMENTS",
+      "name": "Reference match does not require compressor or leaving-air measurements",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 89,
+        "evaporatorOutletTemperature": 60,
+        "condenserEnteringAir": 70,
+        "condenserOutletPressure": 211,
+        "condenserOutletTemperature": 80
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "expected": {
+        "resultId": "REFERENCE_SAT_MATCH"
+      }
+    },
+    {
+      "id": "MINIMAL_CONDENSER_FAULT",
+      "name": "Minimal condenser evidence is sufficient",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "condenserEnteringAir": 70,
+        "condenserOutletPressure": 260
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "MINIMAL_EVAPORATOR_FAULT",
+      "name": "Minimal evaporator evidence is sufficient",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "partially_iced"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    },
+    {
+      "id": "COND_FAULT_WITHOUT_CONDENSERLEAVINGAIR",
+      "name": "Condenser fault survives omission - condenserLeavingAir",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "condenserEnteringAir": 70,
+        "compressorDischargePressure": 260,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "condenserFanOperation": "normal",
+        "hotAirRecirculation": "no"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "COND_FAULT_WITHOUT_COMPRESSORDISCHARGEPRESSURE",
+      "name": "Condenser fault survives omission - compressorDischargePressure",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "condenserOutletPressure": 260,
+        "condenserOutletTemperature": 95
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "condenserFanOperation": "normal",
+        "hotAirRecirculation": "no"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "COND_FAULT_WITHOUT_CONDENSEROUTLETTEMPERATURE",
+      "name": "Condenser fault survives omission - condenserOutletTemperature",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "condenserEnteringAir": 70,
+        "condenserLeavingAir": 100,
+        "compressorDischargePressure": 260,
+        "condenserOutletPressure": 260
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "condenserAirflow": "low",
+        "condenserCoilCondition": "dirty",
+        "condenserFanOperation": "normal",
+        "hotAirRecirculation": "no"
+      },
+      "expected": {
+        "resultId": "CONDENSER_HEAT_REJECTION_PROBLEM"
+      }
+    },
+    {
+      "id": "EVAP_FAULT_WITHOUT_EVAPORATOROUTLETTEMPERATURE",
+      "name": "Evaporator fault survives omission - evaporatorOutletTemperature",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60,
+        "compressorSuctionPressure": 60,
+        "compressorSuctionTemperature": 50
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "fully_iced",
+        "evaporatorFanOperation": "normal"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    },
+    {
+      "id": "EVAP_FAULT_WITHOUT_COMPRESSORSUCTIONPRESSURE",
+      "name": "Evaporator fault survives omission - compressorSuctionPressure",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 40,
+        "compressorSuctionTemperature": 50
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "fully_iced",
+        "evaporatorFanOperation": "normal"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    },
+    {
+      "id": "EVAP_FAULT_WITHOUT_COMPRESSORSUCTIONTEMPERATURE",
+      "name": "Evaporator fault survives omission - compressorSuctionTemperature",
+      "refrigerant": "R-448A",
+      "measurements": {
+        "boxTemperature": 60,
+        "evaporatorOutletPressure": 60,
+        "evaporatorOutletTemperature": 40,
+        "compressorSuctionPressure": 60
+      },
+      "references": {
+        "evaporatorTd": 10,
+        "condenserCtoaLow": 10,
+        "condenserCtoaHigh": 30
+      },
+      "observations": {
+        "evaporatorAirflow": "blocked",
+        "evaporatorCoilCondition": "fully_iced",
+        "evaporatorFanOperation": "normal"
+      },
+      "expected": {
+        "resultId": "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+      }
+    }
+  ]
+}

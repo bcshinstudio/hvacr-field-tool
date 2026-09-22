@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "principles": [
+    "Direct technician observations are confirmed findings, not discoveries.",
+    "Headline describes the system condition rather than raw observation count.",
+    "Possible underlying causes exclude direct restatements.",
+    "A fan explicitly observed Normal is not listed as a fan-failure possibility.",
+    "Obvious physical faults are corrected before unrelated measurements are requested."
+  ],
+  "cases": [
+    {
+      "id": "COND_DIRTY_FAN_OFF_LOW_AIR",
+      "expectedHeadline": "Condenser heat-rejection / airflow problem",
+      "confirmed": [
+        "Condenser fan is not operating.",
+        "Condenser coil is dirty/restricted.",
+        "Condenser airflow is low/restricted."
+      ],
+      "expectedAction": "Restore condenser airflow first, then recheck operating pressures and temperatures."
+    },
+    {
+      "id": "EVAP_ICED_LOW_AIR_FAN_NORMAL",
+      "expectedHeadline": "Evaporator icing / airflow problem",
+      "confirmed": [
+        "Evaporator coil is iced.",
+        "Evaporator airflow is low/restricted."
+      ],
+      "mustNotSuggest": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "meaning": "Icing is restricting evaporator airflow, but the reason the coil iced has not yet been established."
+    }
+  ]
+}

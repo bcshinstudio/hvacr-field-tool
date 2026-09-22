@@ -1,0 +1,109 @@
+{
+  "knowledge_version": "0.2.0",
+  "cases": [
+    {
+      "id": "WIC_LOW_CHARGE",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE"
+      ],
+      "expect_supported": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "WIC_DRIER_RESTRICTION",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_RETAINED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_LIQUID_LINE_PRESSURE_DROP"
+      ],
+      "expect_supported": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_LIQUID_LINE_RESTRICTION"
+      ]
+    },
+    {
+      "id": "WIC_DIRTY_CONDENSER",
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "expect_supported": [
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "WIC_EVAP_AIRFLOW_ICE",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "expect_supported": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES"
+    },
+    {
+      "id": "WIC_DUAL_COIL_FAULT",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "expect_supported": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES"
+    },
+    {
+      "id": "WIC_ICE_DEFROST",
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DRAIN_ICE"
+      ],
+      "expect_supported": [
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DEFROST_INADEQUATE",
+        "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT"
+      ]
+    },
+    {
+      "id": "WIC_TXV_UNDERFEED",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "expect_supported": [
+        "CAUSE_TXV_UNDERFEED"
+      ]
+    },
+    {
+      "id": "WIC_EXCESSIVE_LOAD",
+      "facts": [
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_SLOW_PULLDOWN",
+        "FACT_COMPRESSOR_LONG_RUNTIME"
+      ],
+      "expect_supported": [
+        "CAUSE_EXCESSIVE_LOAD"
+      ]
+    }
+  ]
+}

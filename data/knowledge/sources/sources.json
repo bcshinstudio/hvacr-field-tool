@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "SRC_DANFOSS_COLDROOM",
+      "organization": "Danfoss",
+      "title": "Troubleshoot Cold Room Faults | Diagnosis Guide",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_DANFOSS_LOW_SUCTION",
+      "organization": "Danfoss Ref Tools",
+      "title": "Suction pressure too low",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/system/suction-pressure-too-low/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_DANFOSS_HIGH_COND",
+      "organization": "Danfoss Ref Tools",
+      "title": "Condensing pressure too high",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/high-pressure/system/condensing-pressure-too-high/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_DANFOSS_HEAD_HIGH",
+      "organization": "Danfoss Ref Tools",
+      "title": "Head pressure too high",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_DANFOSS_PRESSURE_CONTROLS",
+      "organization": "Danfoss",
+      "title": "Walk-in coolers: pressure switches, ball valves, and fan speed controllers",
+      "type": "manufacturer_application_guidance",
+      "url": "https://www.danfoss.com/en-us/service-and-support/case-stories/dcs/walk-in-coolers-pressure-switches-ball-valves-and-fan-speed-controllers/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_DANFOSS_SOLENOID",
+      "organization": "Danfoss",
+      "title": "Solenoid valves for refrigeration systems",
+      "type": "manufacturer_application_guidance",
+      "url": "https://www.danfoss.com/en/service-and-support/case-stories/dcs/solenoid-valves-for-refrigeration-systems/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_COPELAND_AE105",
+      "organization": "Copeland",
+      "title": "Refrigeration Manual Part 5 - Installation and Service",
+      "type": "manufacturer_engineering_manual",
+      "url": "https://media.copeland.com/ff6556eb-dbad-4757-8ef4-b16d00377e59/AE105-Installation%20and%20Service.pdf",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_COPELAND_SYSTEM_DESIGN",
+      "organization": "Copeland",
+      "title": "Refrigeration Manual - System Design",
+      "type": "manufacturer_engineering_manual",
+      "url": "https://www.copeland.com/documents/system-design-en-us-5400002.pdf",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_COPELAND_TROUBLESHOOT",
+      "organization": "Copeland E360",
+      "title": "Refrigeration Basics: Troubleshooting Fundamentals",
+      "type": "manufacturer_training",
+      "url": "https://e360blog.copeland.com/refrigeration-basics-troubleshooting-fundamentals/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_SPORLAN_LIBRARY",
+      "organization": "Parker Sporlan",
+      "title": "Educational Literature Library",
+      "type": "component_manufacturer_library",
+      "url": "https://discover.parker.com/literature-educational",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_SPORLAN_DRIER",
+      "organization": "Parker Sporlan",
+      "title": "Bulletin 40-10 Catch-All Liquid & Suction Line Filter-Driers",
+      "type": "component_manufacturer_bulletin",
+      "url": "https://www.parker.com/literature/Sporlan/Sporlan%20pdf%20files/Sporlan%20pdf%20040/40-10.pdf",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_HEATCRAFT_PM",
+      "organization": "Heatcraft Refrigeration Products",
+      "title": "Preventive Maintenance",
+      "type": "equipment_manufacturer_service_guidance",
+      "url": "https://www.heatcraftrpd.com/support/preventive-maintenance",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_HEATCRAFT_FAQ",
+      "organization": "Heatcraft Refrigeration Products",
+      "title": "Technical FAQs",
+      "type": "equipment_manufacturer_service_guidance",
+      "url": "https://www.heatcraftrpd.com/support/faqs/",
+      "verified": "2026-09-21"
+    },
+    {
+      "id": "SRC_SPORLAN_TEV_SUPERHEAT",
+      "organization": "Parker Sporlan",
+      "title": "What's Your Superheat? / Recommended TEV Superheat Settings",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-Miscellanous/5-268_032009.pdf",
+      "verified": "2026-09-22",
+      "scope_note": "Refrigeration examples include 8\u201310\u00b0F for fresh meats and 10\u201312\u00b0F for dairy/deli/produce; equipment targets override this fallback."
+    },
+    {
+      "id": "SRC_SPORLAN_TEV_SERVICE",
+      "organization": "Parker Sporlan",
+      "title": "Bulletin 10-11 Thermostatic Expansion Valves \u2014 Installation, Field Service, and Assembly",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf",
+      "verified": "2026-09-22",
+      "scope_note": "Correct superheat depends on application/TD; equipment manufacturer guidance has priority."
+    },
+    {
+      "id": "SRC_SPORLAN_SUPERHEAT_CONTROL",
+      "organization": "Parker Sporlan",
+      "title": "Bulletin 100-50-5.1 Superheat Control",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf",
+      "verified": "2026-09-22",
+      "scope_note": "High-superheat troubleshooting includes liquid condition, charge, filter pressure drop, sensor/controller and valve sizing."
+    },
+    {
+      "id": "SRC_DANFOSS_SUCTION_TEMP_HIGH",
+      "organization": "Danfoss Ref Tools",
+      "title": "Suction gas temperature too high",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/compressor/compressor/suction-gas-temperature-too-high/",
+      "verified": "2026-09-22",
+      "scope_note": "Lists low charge, liquid-line/component defects and excessive TXV superheat/bulb-charge loss."
+    },
+    {
+      "id": "SRC_DANFOSS_EVAP_TXV_FROST",
+      "organization": "Danfoss Ref Tools",
+      "title": "Evaporator inlet frosted and TXV covered by frost or ice",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/evaporator/air-coolers/evaporator-inlet-frosted-and-txv-covered-by-frost-or-ice/",
+      "verified": "2026-09-22",
+      "scope_note": "Underfeeding causes include small/blocked orifice, excessive superheat, bulb charge loss, blocked strainer, ice restriction and defective TXV."
+    },
+    {
+      "id": "SRC_SPORLAN_TEV_COMMON_PROBLEMS",
+      "publisher": "Parker Sporlan",
+      "title": "12 Solutions for Fixing Common TEV Problems (Form 10-143)",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-143.pdf",
+      "type": "manufacturer_service"
+    },
+    {
+      "id": "SRC_SPORLAN_CONTAMINATION",
+      "publisher": "Parker Sporlan",
+      "title": "Contamination Control Best Practices",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-040/Form-40-544-ContControlBestPrac.pdf",
+      "type": "manufacturer_service"
+    },
+    {
+      "id": "SRC_SPORLAN_TEV_PROBLEMS",
+      "publisher": "Parker Sporlan",
+      "title": "12 Solutions for Fixing Common TEV Problems",
+      "document": "Form 10-143",
+      "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-143.pdf",
+      "applies_to": [
+        "TXV",
+        "TEV",
+        "refrigeration"
+      ],
+      "notes": "Manufacturer troubleshooting guidance for underfeeding, sensing-bulb installation, valve response and inlet restrictions."
+    }
+  ]
+}

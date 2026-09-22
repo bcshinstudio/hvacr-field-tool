@@ -1,0 +1,42 @@
+{
+  "cases": [
+    {
+      "id": "KB_MULTI_AIRFLOW",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "expect": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES"
+    },
+    {
+      "id": "KB_LOW_CHARGE",
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expect": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "KB_RESTRICTION",
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_RETAINED",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "expect": [
+        "CAUSE_LIQUID_LINE_RESTRICTION"
+      ]
+    }
+  ]
+}

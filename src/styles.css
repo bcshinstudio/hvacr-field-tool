@@ -747,3 +747,88 @@ select {
         font-size: 18px;
     }
 }
+
+/* =========================================================
+   GLOBAL APPLICATION UTILITIES
+   ========================================================= */
+
+.system-global-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.global-reset-button {
+    border: 1px solid #c9d8e2;
+    background: #ffffff;
+    color: #245f8f;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.global-reset-button:hover {
+    background: #f3f8fb;
+}
+
+/* SESSION TOOLBAR */
+.session-toolbar { padding-bottom:12px; margin-bottom:12px; border-bottom:1px solid #e4e8ec; }
+.session-toolbar-title { margin-bottom:8px; color:#74808c; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.session-toolbar-buttons { display:flex; gap:7px; align-items:flex-start; flex-wrap:wrap; }
+.session-icon-button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; width:52px; min-width:52px; height:50px; padding:4px; border:1px solid #d4dce3; border-radius:7px; background:#fff; color:#52616e; font:inherit; font-size:9px; cursor:pointer; }
+.session-icon-button:hover:not(:disabled) { border-color:#9bc7df; background:#f5fbfe; color:#277fb5; }
+.session-icon-button:disabled { opacity:.38; cursor:default; }
+.session-icon { width:18px; height:18px; display:inline-flex; }
+.session-icon svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+@media print { .session-toolbar,.tool-selector { display:none!important; } }
+
+.session-toolbar-row{display:flex;justify-content:flex-end;margin:10px 0 8px}
+#session-toolbar-host{width:320px}
+#session-toolbar-host .session-toolbar{margin:0;padding:10px 12px;border:1px solid #dfe4e8;border-radius:10px;background:#fff}
+@media(max-width:760px){.session-toolbar-row{justify-content:stretch}#session-toolbar-host{width:100%}}
+
+
+/* =========================================================
+   SESSION TOOLBAR — integrated with System Type/Refrigerant
+   ========================================================= */
+.session-toolbar-row {
+    display: none !important;
+}
+
+.system-toolbar {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+}
+
+.system-session-toolbar {
+    margin-left: auto;
+    align-self: center;
+}
+
+.system-session-toolbar .session-toolbar {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.system-session-toolbar .session-toolbar-title {
+    margin-bottom: 5px;
+}
+
+.system-session-toolbar .session-toolbar-buttons {
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 900px) {
+    .system-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .system-session-toolbar {
+        width: 100%;
+        margin-left: 0;
+    }
+}

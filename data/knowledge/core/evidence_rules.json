@@ -1,0 +1,1170 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "RULE_LOW_CHARGE",
+      "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "STRONG_SUPPORT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_OIL_STAIN_OR_LEAK_EVIDENCE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DRIER_TEMP_DROP",
+          "role": "CONTRADICT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_OVERCHARGE",
+      "candidate": "CAUSE_OVERCHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_COIL_DIRTY",
+          "role": "CONTRADICT"
+        },
+        {
+          "fact": "FACT_COND_FAN_NOT_RUNNING",
+          "role": "CONTRADICT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HIGH_COND"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_NONCONDENSABLES",
+      "candidate": "CAUSE_NONCONDENSABLES",
+      "evidence": [
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_COIL_DIRTY",
+          "role": "CONTRADICT"
+        },
+        {
+          "fact": "FACT_COND_FAN_NOT_RUNNING",
+          "role": "CONTRADICT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_HIGH_COND",
+        "SRC_COPELAND_AE105"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Requires service-history/pressure-temperature context; do not infer from high head alone."
+    },
+    {
+      "id": "RULE_FILTER_DRIER_RESTRICTION",
+      "candidate": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DRIER_TEMP_DROP",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_LIQUID_LINE_PRESSURE_DROP",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_SUBCOOLING_RETAINED",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_COPELAND_AE105",
+        "SRC_SPORLAN_DRIER",
+        "SRC_SPORLAN_CONTAMINATION"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_LIQUID_LINE_RESTRICTION",
+      "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_LIQUID_LINE_PRESSURE_DROP",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DRIER_TEMP_DROP",
+          "role": "SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_SUBCOOLING_RETAINED",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_AE105"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_UNDERFEED",
+      "candidate": "CAUSE_TXV_UNDERFEED",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "STRONG_SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_BULB_BAD_CONTACT",
+          "role": "SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TXV_EQUALIZER_PROBLEM",
+          "role": "SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TXV_HUNTING",
+          "role": "SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_LOW_SUCTION",
+        "SRC_COPELAND_SYSTEM_DESIGN"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_OVERFEED",
+      "candidate": "CAUSE_TXV_OVERFEED",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TXV_HUNTING",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_TROUBLESHOOT"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EVAP_AIRFLOW",
+      "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_BLOCKED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_LOW_SUCTION",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EVAP_FAN",
+      "candidate": "CAUSE_EVAP_FAN_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_FAN_NOT_RUNNING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EVAP_DIRTY",
+      "candidate": "CAUSE_EVAP_COIL_DIRTY",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_COIL_DIRTY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_HEATCRAFT_PM",
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EVAP_ICING",
+      "candidate": "CAUSE_EVAP_ICING",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DEFROST_INCOMPLETE",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DOOR_OPEN_OR_LEAKING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COND_AIRFLOW",
+      "candidate": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_COND_AIRFLOW_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_COIL_DIRTY",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COND_FAN",
+      "candidate": "CAUSE_COND_FAN_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_COND_FAN_NOT_RUNNING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COND_DIRTY",
+      "candidate": "CAUSE_COND_COIL_DIRTY",
+      "evidence": [
+        {
+          "fact": "FACT_COND_COIL_DIRTY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_HOT_RECIRC",
+      "candidate": "CAUSE_HOT_AIR_RECIRCULATION",
+      "evidence": [
+        {
+          "fact": "FACT_HOT_AIR_RECIRCULATION",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_HIGH_AMBIENT",
+      "candidate": "CAUSE_HIGH_AMBIENT",
+      "evidence": [
+        {
+          "fact": "FACT_HIGH_AMBIENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EXCESSIVE_LOAD",
+      "candidate": "CAUSE_EXCESSIVE_LOAD",
+      "evidence": [
+        {
+          "fact": "FACT_HIGH_PRODUCT_LOAD",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DOOR_OPEN_OR_LEAKING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SLOW_PULLDOWN",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_LONG_RUNTIME",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HEAD_HIGH"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AIR_INFILTRATION",
+      "candidate": "CAUSE_AIR_INFILTRATION",
+      "evidence": [
+        {
+          "fact": "FACT_DOOR_OPEN_OR_LEAKING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_DEFROST",
+      "candidate": "CAUSE_DEFROST_INADEQUATE",
+      "evidence": [
+        {
+          "fact": "FACT_DEFROST_INCOMPLETE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DRAIN_ICE",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "DEFROST",
+          "POST_DEFROST",
+          "STABLE_COOLING"
+        ]
+      }
+    },
+    {
+      "id": "RULE_DRAIN",
+      "candidate": "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_DRAIN_ICE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DEFROST_INCOMPLETE",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "DEFROST",
+          "POST_DEFROST"
+        ]
+      }
+    },
+    {
+      "id": "RULE_WET_TXV",
+      "candidate": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "evidence": [
+        {
+          "fact": "FACT_TXV_HUNTING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_FEED_UNEVEN",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_MOISTURE_INDICATED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_HEATCRAFT_FAQ",
+        "SRC_SPORLAN_DRIER"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_LP_CONTROL",
+      "candidate": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_LOW_PRESSURE_CONTROL_TRIP",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
+    },
+    {
+      "id": "RULE_LLSV",
+      "candidate": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_SOLENOID_NOT_OPENING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_SOLENOID_NOT_CLOSING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_SOLENOID"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
+    },
+    {
+      "id": "RULE_CONTROLLER",
+      "candidate": "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_CONTROLLER_SETPOINT_WRONG",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_SENSOR_ERROR",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COMPRESSOR_INEFFICIENT",
+      "candidate": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_LOW_CAPACITY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_SLOW_PULLDOWN",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_LONG_RUNTIME",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_TROUBLESHOOT"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_UNDERSIZED",
+      "candidate": "CAUSE_SYSTEM_UNDERSIZED",
+      "evidence": [
+        {
+          "fact": "FACT_SLOW_PULLDOWN",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_LONG_RUNTIME",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HIGH_PRODUCT_LOAD",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Only after airflow, feed, controls and compressor condition are checked."
+    },
+    {
+      "id": "RULE_TXV_INLET_RESTRICTION",
+      "candidate": "CAUSE_TXV_INLET_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_INLET_RESTRICTION",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_LIQUID_AT_TXV_FLASHING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_RETAINED",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST",
+        "SRC_SPORLAN_SUPERHEAT_CONTROL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_POWER_ELEMENT",
+      "candidate": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_NOT_RESPONDING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_FEED_UNEVEN",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST",
+        "SRC_DANFOSS_SUCTION_TEMP_HIGH"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_WRONG_REFRIGERANT_TXV",
+      "candidate": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "evidence": [
+        {
+          "fact": "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TXV_HUNTING",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_DEFROST_HEATER_FAILURE",
+      "candidate": "CAUSE_DEFROST_HEATER_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DEFROST_HEATER_NOT_HEATING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DEFROST_INCOMPLETE",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_DEFROST_TERMINATION",
+      "candidate": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DEFROST_TERMINATION_ERROR",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_DEFROST_INCOMPLETE",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_EVAP_FAN_DELAY",
+      "candidate": "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_FAN_DELAY_ERROR",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_COIL_ICED",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_HEAD_PRESSURE_CONTROL",
+      "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS",
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_COMPRESSOR_NOT_RUNNING",
+      "candidate": "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_NOT_RUNNING",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_BULB_INSTALLATION",
+      "candidate": "CAUSE_TXV_BULB_INSTALLATION",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_BULB_BAD_CONTACT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_TEV_PROBLEMS"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    },
+    {
+      "id": "RULE_TXV_EQUALIZER_FAULT",
+      "candidate": "CAUSE_TXV_EQUALIZER_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_TXV_EQUALIZER_PROBLEM",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_LOW_SUCTION",
+        "SRC_SPORLAN_TEV_PROBLEMS"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      }
+    }
+  ]
+}

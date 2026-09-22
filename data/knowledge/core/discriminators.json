@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "DISC_LOWCHARGE_RESTRICTION",
+      "candidates": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION"
+      ],
+      "preferred_checks": [
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP",
+        "CHECK_LEAK"
+      ],
+      "reason": "Both may starve the evaporator; retained liquid-side refrigerant plus a localized drier/line drop supports restriction, while low charge is strengthened by charge/leak evidence and applicable SH/SC pattern.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "DISC_LOWCHARGE_TXV",
+      "candidates": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "preferred_checks": [
+        "CHECK_MEASURE_SC",
+        "CHECK_TXV_INSTALL",
+        "CHECK_LEAK"
+      ],
+      "reason": "High SH/low suction alone does not distinguish charge loss from feed-control problems.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_LOW_SUCTION"
+      ]
+    },
+    {
+      "id": "DISC_HIGH_HEAD",
+      "candidates": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "preferred_checks": [
+        "CHECK_VERIFY_COND_AIRFLOW",
+        "CHECK_MEASURE_SC"
+      ],
+      "reason": "High condensing pressure has multiple causes; verify heat rejection before attributing it to charge or non-condensables.",
+      "sources": [
+        "SRC_DANFOSS_HIGH_COND",
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "DISC_EVAP_ICE",
+      "candidates": [
+        "CAUSE_DEFROST_INADEQUATE",
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "preferred_checks": [
+        "CHECK_DEFROST",
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_LOAD_INFILTRATION",
+        "CHECK_MEASURE_SH"
+      ],
+      "reason": "Icing is a system condition with several possible origins; inspect defrost, airflow/infiltration, evaporating condition and feed.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "DISC_STARVED_EVAPORATOR",
+      "trigger_conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "candidates": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT"
+      ],
+      "preferred_checks": [
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP",
+        "CHECK_TXV_LIQUID_CONDITION",
+        "CHECK_TXV_INSTALL",
+        "CHECK_TXV_INLET",
+        "CHECK_TXV_RESPONSE",
+        "CHECK_LEAK"
+      ],
+      "reason": "High SH establishes starvation more readily than a specific cause. Use applicable subcooling plus localized liquid-line and TXV checks to separate charge loss, upstream restriction, and metering-device underfeed.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_SUPERHEAT_CONTROL",
+        "SRC_SPORLAN_TEV_PROBLEMS"
+      ]
+    }
+  ]
+}

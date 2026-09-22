@@ -1,0 +1,111 @@
+{
+  "id": "APP_WIC",
+  "label": "Walk-In Cooler",
+  "knowledge_version": "1.0.0",
+  "operating_states": [
+    "OFF",
+    "STARTUP",
+    "STABLE_COOLING",
+    "PULLDOWN",
+    "SATISFIED",
+    "PUMP_DOWN",
+    "DEFROST",
+    "POST_DEFROST",
+    "UNKNOWN"
+  ],
+  "common_fault_families": [
+    "refrigerant_charge",
+    "liquid_feed_restriction",
+    "TXV_feed",
+    "evaporator_airflow_and_icing",
+    "condenser_heat_rejection",
+    "load_and_infiltration",
+    "defrost_and_drain",
+    "pump_down_and_pressure_controls",
+    "controller_and_sensor",
+    "compressor_capacity"
+  ],
+  "reference_policy": {
+    "priority": [
+      "model_specific",
+      "equipment_manufacturer",
+      "component_manufacturer",
+      "application_fallback"
+    ],
+    "rule": "Use the most specific applicable reference. Never replace a known manufacturer/model target with a generic fallback.",
+    "missing": "If no defensible reference applies, leave the parameter unclassified rather than inventing a threshold."
+  },
+  "reference_profiles": {
+    "evaporatorSuperheat": {
+      "parameter": "evaporator_superheat",
+      "scope": {
+        "application": "APP_WIC",
+        "metering_devices": [
+          "TXV"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "fallback": {
+        "low": 8.0,
+        "high": 12.0,
+        "unit": "delta_degF"
+      },
+      "basis": "Commercial-refrigeration TEV service fallback spanning Sporlan fresh-meat (8\u201310\u00b0F) and dairy/deli/produce (10\u201312\u00b0F) guidance. Not a universal equipment target.",
+      "sources": [
+        "SRC_SPORLAN_TEV_SUPERHEAT",
+        "SRC_SPORLAN_TEV_SERVICE"
+      ],
+      "override_required_when": "Equipment/model/valve manufacturer target is known."
+    },
+    "condenserSubcooling": {
+      "parameter": "condenser_subcooling",
+      "fallback": null,
+      "basis": "No universal WIC subcooling target encoded; use manufacturer/model/system design data.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    "evaporatorTD": {
+      "parameter": "evaporator_td",
+      "fallback": null,
+      "basis": "Do not treat a rating TD as a universal operating target.",
+      "sources": [
+        "SRC_HEATCRAFT_FAQ"
+      ]
+    },
+    "condenserCTOA": {
+      "parameter": "condenser_ctoa",
+      "fallback": null,
+      "basis": "No universal live-operating CTOA target encoded.",
+      "sources": [
+        "SRC_COPELAND_SYSTEM_DESIGN"
+      ]
+    }
+  },
+  "diagnostic_domains": [
+    "refrigerant_charge_and_leaks",
+    "evaporator_feed_and_superheat",
+    "liquid_line_and_restrictions",
+    "evaporator_airflow_load_and_icing",
+    "defrost_drain_and_infiltration",
+    "condenser_heat_rejection",
+    "compressor_capacity_and_protection",
+    "controls_sensors_and_pumpdown",
+    "multiple_faults_and_conflicting_evidence"
+  ],
+  "diagnostic_architecture": {
+    "measurement_layer": "preserve value; classify only against applicable reference",
+    "reasoning_layer": "causal evidence hypotheses",
+    "diagnosis_policy": "specific diagnosis requires localized/direct evidence",
+    "next_check_policy": "select unresolved check by discrimination value, using manufacturer-curated check order as tie-break/context",
+    "reference_priority": [
+      "model_specific",
+      "equipment_manufacturer",
+      "component_manufacturer",
+      "application_fallback"
+    ]
+  }
+}

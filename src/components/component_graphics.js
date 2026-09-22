@@ -18,8 +18,10 @@ function el(name, attrs = {}) {
 const geometry = {
 
     compressor: {
-        inlet:  { x: -2.8, y: 1.4 },
-        outlet: { x:  2.8, y: -1.4 }
+        // Vertical service/refrigerant connection layout:
+        // suction enters at the bottom; discharge leaves at the top.
+        inlet:  { x: 0, y:  3.2 },
+        outlet: { x: 0, y: -3.2 }
     },
 
     condenser: {
@@ -79,8 +81,11 @@ function addLabel(group, component, defaultOffset) {
     const position =
         component.labelPosition || "bottom";
 
+    const offset =
+        component.labelOffset ?? defaultOffset;
+
     let x = component.x;
-    let y = component.y + defaultOffset;
+    let y = component.y + offset;
 
     let anchor = "middle";
 
@@ -89,27 +94,27 @@ function addLabel(group, component, defaultOffset) {
 
         case "top":
             x = component.x;
-            y = component.y - defaultOffset;
+            y = component.y - offset;
             anchor = "middle";
             break;
 
 
         case "bottom":
             x = component.x;
-            y = component.y + defaultOffset;
+            y = component.y + offset;
             anchor = "middle";
             break;
 
 
         case "left":
-            x = component.x - defaultOffset;
+            x = component.x - offset;
             y = component.y + 0.5;
             anchor = "end";
             break;
 
 
         case "right":
-            x = component.x + defaultOffset;
+            x = component.x + offset;
             y = component.y + 0.5;
             anchor = "start";
             break;

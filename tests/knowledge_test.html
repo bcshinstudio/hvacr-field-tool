@@ -1,0 +1,120 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>HVAC/R Knowledge Regression Tests</title>
+<style>
+body{font-family:system-ui,Arial;margin:24px;max-width:1350px}
+.summary{font-size:22px;font-weight:700;padding:14px;border:1px solid #bbb;border-radius:8px;margin:16px 0}
+.small{font-size:13px}.pass,.fail{font-weight:700}
+table{border-collapse:collapse;width:100%;margin:12px 0 28px}
+th,td{border-bottom:1px solid #ddd;padding:7px;text-align:left;vertical-align:top}
+code{font-size:11px;white-space:normal}
+details{margin:10px 0}
+</style></head><body>
+<h1>HVAC/R Knowledge Hub — Permanent Regression Suite</h1>
+<div id="meta" class="small"></div>
+<div id="summary" class="summary">Loading…</div>
+<div id="breakdown" class="small"></div>
+
+<h2>Core semantic cases</h2>
+<table><thead><tr><th>Result</th><th>Case</th><th>Resolution</th><th>Classification</th></tr></thead>
+<tbody id="core"></tbody></table>
+
+<details>
+<summary><b>Robustness tests</b> — automatically generated from every core case</summary>
+<table><thead><tr><th>Result</th><th>Test</th><th>Purpose</th></tr></thead><tbody id="robust"></tbody></table>
+</details>
+
+<script type="module">
+import {loadKnowledge,loadJson} from "../src/knowledge/knowledge_loader.js";
+import {validateKnowledge} from "../src/knowledge/knowledge_validator.js";
+import {evaluateKnowledge,ENGINE_VERSION} from "../src/knowledge/knowledge_engine.js";
+
+const $=s=>document.querySelector(s);
+let corePass=0,coreFail=0,robustPass=0,robustFail=0;
+const names=a=>a.map(x=>x.candidate).sort();
+const same=(a,b)=>JSON.stringify([...a].sort())===JSON.stringify([...b].sort());
+
+function snapshot(r){
+ return {
+   resolution:r.resolution,
+   diagnoses:names(r.diagnoses||[]),
+   supported:names(r.supported),
+   possible:names(r.possible),
+   contradicted:names(r.contradicted),
+   excluded:names(r.excluded)
+ };
+}
+function identical(a,b){return JSON.stringify(a)===JSON.stringify(b)}
+function addCore(ok,id,res,msg){
+ const tr=document.createElement("tr");
+ tr.innerHTML=`<td class="${ok?'pass':'fail'}">${ok?'PASS':'FAIL'}</td><td>${id}</td><td>${res||''}</td><td>${msg}</td>`;
+ $("#core").appendChild(tr); ok?corePass++:coreFail++;
+}
+function addRobust(ok,id,purpose){
+ const tr=document.createElement("tr");
+ tr.innerHTML=`<td class="${ok?'pass':'fail'}">${ok?'PASS':'FAIL'}</td><td>${id}</td><td>${purpose}</td>`;
+ $("#robust").appendChild(tr); ok?robustPass++:robustFail++;
+}
+function run(k,facts){
+ return evaluateKnowledge({facts,rules:k.rules.items,relationships:k.relationships.items,discriminators:k.discriminators.items,checks:k.checks.items});
+}
+
+try{
+ const k=await loadKnowledge("../data/knowledge");
+ const suite=await loadJson("./knowledge_cases.json");
+ const integrity=validateKnowledge(k);
+ addCore(integrity.ok,"Knowledge integrity","",integrity.ok?"All references valid":integrity.errors.join("; "));
+
+ for(const tc of suite.cases){
+   const r=run(k,tc.facts), d=names(r.diagnoses||[]), s=names(r.supported), po=names(r.possible), co=names(r.contradicted);
+   const missing=(tc.supported||[]).filter(x=>!s.includes(x));
+   const wrong=(tc.notSupported||[]).filter(x=>s.includes(x));
+   const missingPossible=(tc.possible||[]).filter(x=>!po.includes(x));
+   const missingContr=(tc.contradicted||[]).filter(x=>!co.includes(x));
+   const missingDx=(tc.diagnoses||[]).filter(x=>!d.includes(x));
+   const extraDx=tc.diagnoses ? d.filter(x=>!tc.diagnoses.includes(x)) : [];
+   const badNext=("nextCheck" in tc) && tc.nextCheck!==r.nextCheck;
+   const badRes=tc.resolution&&tc.resolution!==r.resolution;
+   const ok=!missing.length&&!wrong.length&&!missingPossible.length&&!missingContr.length&&!missingDx.length&&!extraDx.length&&!badNext&&!badRes;
+   const msg=`<b>DIAGNOSIS:</b> <code>${d.join(", ")||"—"}</code><br><b>SUPPORTED:</b> <code>${s.join(", ")||"—"}</code><br>`+
+     `<b>POSSIBLE:</b> <code>${po.join(", ")||"—"}</code><br>`+
+     `<b>CONTRADICTED:</b> <code>${co.join(", ")||"—"}</code>`+
+     (r.nextCheck?`<br><b>NEXT:</b> <code>${r.nextCheck}</code>`:"")+
+     (ok?"":`<br><b>ERROR:</b> missing=${missing}; wrong=${wrong}; missingPossible=${missingPossible}; missingContr=${missingContr}; expectedResolution=${tc.resolution||"any"}`);
+   addCore(ok,tc.id,r.resolution,msg);
+
+   // Robustness 1: fact order must never change reasoning.
+   const baseline=snapshot(r);
+   const reversed=snapshot(run(k,[...tc.facts].reverse()));
+   addRobust(identical(baseline,reversed),`${tc.id} / order`,
+             "Reordering identical evidence must not change classification.");
+
+   // Robustness 2: duplicate evidence must not increase confidence.
+   const dupFacts=tc.facts.length?[...tc.facts,tc.facts[0],tc.facts[0]]:[];
+   const duplicated=snapshot(run(k,dupFacts));
+   addRobust(identical(baseline,duplicated),`${tc.id} / duplicate`,
+             "Entering the same fact twice must not double-count evidence.");
+
+   // Robustness 3: an unrelated unknown fact must be ignored safely.
+   const extra=snapshot(run(k,[...tc.facts,"FACT_TEST_UNKNOWN_IRRELEVANT"]));
+   addRobust(identical(baseline,extra),`${tc.id} / unrelated`,
+             "Unknown/unrelated evidence must not create or remove a diagnosis.");
+ }
+
+ // Additional single-fact safety sweep over every evidence fact in the knowledge base.
+ const uniqueFacts=[...new Set(k.rules.items.flatMap(r=>(r.evidence||[]).map(e=>e.fact)))].sort();
+ for(const fact of uniqueFacts){
+   const a=snapshot(run(k,[fact]));
+   const b=snapshot(run(k,[fact,fact]));
+   addRobust(identical(a,b),`single fact / ${fact}`,
+             "Every known fact can be evaluated alone and duplicate input is idempotent.");
+ }
+
+ const totalPass=corePass+robustPass,totalFail=coreFail+robustFail;
+ $("#meta").textContent=`Knowledge ${k.manifest.knowledge_version} | Schema ${k.manifest.schema_version} | Engine ${ENGINE_VERSION} | Suite ${suite.suite_version}`;
+ $("#summary").textContent=`${totalPass} passed / ${totalFail} failed`;
+ $("#breakdown").textContent=`Core: ${corePass} passed / ${coreFail} failed • Robustness: ${robustPass} passed / ${robustFail} failed`;
+}catch(e){
+ $("#summary").textContent="HARNESS ERROR";
+ addCore(false,"Runtime","",`<pre>${String(e.stack||e)}</pre>`);
+}
+</script></body></html>

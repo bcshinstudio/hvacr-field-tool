@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "label": "Verify evaporator fan operation, coil cleanliness/ice, air path and product obstruction",
+      "produces": [
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_COIL_DIRTY",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ]
+    },
+    {
+      "id": "CHECK_VERIFY_COND_AIRFLOW",
+      "label": "Verify condenser fan operation, coil cleanliness, airflow, ambient and hot-air recirculation",
+      "produces": [
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_HIGH_AMBIENT",
+        "FACT_HOT_AIR_RECIRCULATION"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_AE105",
+        "SRC_HEATCRAFT_PM"
+      ]
+    },
+    {
+      "id": "CHECK_MEASURE_SH",
+      "label": "Measure evaporator superheat using the applicable refrigerant and target/reference",
+      "produces": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_LOW"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_LIBRARY"
+      ]
+    },
+    {
+      "id": "CHECK_MEASURE_SC",
+      "label": "Measure subcooling using the applicable refrigerant and target/reference",
+      "produces": [
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "satisfied_if_any": [
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "why": "Measures liquid-side condition. Low/high/retained classification still requires an applicable reference."
+    },
+    {
+      "id": "CHECK_DRIER_DROP",
+      "label": "Measure inlet and outlet temperature across the liquid-line filter drier under stable flow; pressure drop is optional corroboration when service access exists",
+      "produces": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_LIQUID_LINE_PRESSURE_DROP"
+      ],
+      "sources": [
+        "SRC_COPELAND_AE105",
+        "SRC_SPORLAN_DRIER",
+        "SRC_SPORLAN_CONTAMINATION"
+      ],
+      "satisfied_if_any": [
+        "FACT_DRIER_TEMPERATURES_MEASURED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_LIQUID_LINE_PRESSURE_DROP"
+      ]
+    },
+    {
+      "id": "CHECK_LEAK",
+      "label": "Inspect suspected leak locations and confirm with an appropriate leak-detection method",
+      "produces": [
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE"
+      ],
+      "sources": [
+        "SRC_HEATCRAFT_PM"
+      ]
+    },
+    {
+      "id": "CHECK_TXV_INSTALL",
+      "label": "Verify TXV bulb contact/location, equalizer, sizing, refrigerant compatibility and inlet conditions",
+      "produces": [
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_TXV_EQUALIZER_PROBLEM",
+        "FACT_TXV_HUNTING",
+        "FACT_EVAP_FEED_UNEVEN"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_SYSTEM_DESIGN"
+      ]
+    },
+    {
+      "id": "CHECK_DEFROST",
+      "label": "Observe a complete defrost and verify schedule, duration, termination, heaters/fan delay and coil clearing",
+      "produces": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DRAIN_ICE"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ]
+    },
+    {
+      "id": "CHECK_LOAD_INFILTRATION",
+      "label": "Check doors/gaskets, traffic, warm product load and airflow obstruction",
+      "produces": [
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_HIGH_PRODUCT_LOAD"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "CHECK_SOLENOID",
+      "label": "Verify liquid-line solenoid command, coil, opening/closing and pressure/flow condition",
+      "produces": [
+        "FACT_SOLENOID_NOT_OPENING",
+        "FACT_SOLENOID_NOT_CLOSING"
+      ],
+      "sources": [
+        "SRC_DANFOSS_SOLENOID"
+      ]
+    },
+    {
+      "id": "CHECK_PRESSURE_CONTROLS",
+      "label": "Verify LP/HP control state and settings against application requirements",
+      "produces": [
+        "FACT_LOW_PRESSURE_CONTROL_TRIP",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP"
+      ],
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ]
+    },
+    {
+      "id": "CHECK_CONTROLLER_SENSOR",
+      "label": "Verify setpoint, differential, sensor placement/calibration and alarm history",
+      "produces": [
+        "FACT_CONTROLLER_SETPOINT_WRONG",
+        "FACT_SENSOR_ERROR"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "CHECK_COMPRESSOR_PERFORMANCE",
+      "label": "Check suction/discharge pressures, current, discharge temperature and model operating envelope",
+      "produces": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_COMPRESSOR_LOW_CAPACITY"
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "CHECK_TXV_LIQUID_CONDITION",
+      "label": "Verify solid liquid / no flash gas at TXV inlet",
+      "produces": [
+        "FACT_LIQUID_AT_TXV_FLASHING"
+      ],
+      "why": "Separates inadequate liquid supply/pressure loss from a metering-device problem.",
+      "sources": [
+        "SRC_SPORLAN_SUPERHEAT_CONTROL"
+      ]
+    },
+    {
+      "id": "CHECK_TXV_RESPONSE",
+      "label": "Check TXV response to bulb/load change and inspect power element",
+      "produces": [
+        "FACT_TXV_NOT_RESPONDING"
+      ],
+      "why": "Helps distinguish valve/power-element fault from low charge or upstream restriction.",
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST"
+      ]
+    },
+    {
+      "id": "CHECK_TXV_INLET",
+      "label": "Inspect TXV inlet screen/orifice for restriction/ice/debris",
+      "produces": [
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "why": "Localizes a feed restriction at the expansion-valve inlet.",
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST"
+      ]
+    },
+    {
+      "id": "CHECK_DEFROST_HEAT",
+      "label": "Verify defrost heater voltage/current and actual heat",
+      "produces": [
+        "FACT_DEFROST_HEATER_NOT_HEATING"
+      ],
+      "why": "Separates heater/power failure from schedule/termination/infiltration causes.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "CHECK_DEFROST_TERMINATION",
+      "label": "Verify defrost termination sensor/control against actual coil temperature",
+      "produces": [
+        "FACT_DEFROST_TERMINATION_ERROR"
+      ],
+      "why": "Determines whether defrost ends incorrectly.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "CHECK_HEAD_PRESSURE_CONTROL",
+      "label": "Verify head-pressure control/fan cycling for current ambient",
+      "produces": [
+        "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL"
+      ],
+      "why": "Separates control-related high-side behavior from airflow/ambient/charge causes.",
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ]
+    },
+    {
+      "id": "CHECK_COMPRESSOR_PUMPING",
+      "label": "Verify compressor runs and compare suction/discharge pressure separation",
+      "produces": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COMPRESSOR_PRESSURES_NOT_SEPARATING"
+      ],
+      "why": "Separates compressor/power/pumping problems from load/feed problems.",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    }
+  ]
+}

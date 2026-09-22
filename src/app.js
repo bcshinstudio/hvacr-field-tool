@@ -1,3 +1,11 @@
+
+
+import { diagnoseSystem } from "./diagnostics/diagnostic_engine.js";
+import { buildWicKnowledgeFacts } from "./knowledge/wic_fact_adapter.js";
+import { evaluateKnowledge } from "./knowledge/knowledge_engine.js";
+import { evaluateHypotheses } from "./knowledge/hypothesis_engine.js";
+import { interpretMeasurement } from "./knowledge/measurement_state.js";
+import { loadKnowledge } from "./knowledge/knowledge_loader.js";
 import {
     walkInCooler
 } from "./systems/walk_in_cooler.js";
@@ -22,6 +30,13 @@ const systemSelect =
 
 const refrigerantSelect =
     document.getElementById("refrigerant-select");
+
+
+const initialSystemId =
+    systemSelect?.value || "walk_in_cooler";
+
+const initialRefrigerantValue =
+    refrigerantSelect?.value || "";
 
 const diagramContainer =
     document.getElementById("system-diagram");
@@ -107,6 +122,29 @@ const refrigerantDataCache = new Map();
 /* Reference / design data loaded from data/reference_values.csv */
 let referenceValues = [];
 
+/*
+ * Knowledge Hub runtime state.
+ * Loaded once; the legacy diagnostic engine remains active during this
+ * comparison checkpoint so we can validate the new path safely.
+ */
+let knowledgeHub = null;
+let knowledgeHubLoadError = null;
+
+loadKnowledge("./data/knowledge")
+    .then(knowledge => {
+        knowledgeHub = knowledge;
+        if (activeTool === "system_check") {
+            renderSidePanel();
+        }
+    })
+    .catch(error => {
+        knowledgeHubLoadError = error;
+        console.error("Knowledge Hub failed to load:", error);
+        if (activeTool === "system_check") {
+            renderSidePanel();
+        }
+    });
+
 
 function electricalKey(
     componentId,
@@ -141,6 +179,29 @@ function measurementKey(
         `${pointId}:` +
         `${measurementId}`
     );
+}
+
+
+function resetDiagnosticSession() {
+
+    /*
+     * Clear only case/session evidence.
+     * Preserve the selected system, refrigerant, installed components,
+     * and component subtypes/configuration.
+     */
+    activeMeasurementPoints.clear();
+    measurementValues.clear();
+    optionalPressureAccess.clear();
+    componentObservationValues.clear();
+    componentElectricalValues.clear();
+
+    addMeasurementMode = false;
+    selectedMeasurementPoint = null;
+    selectedComponent = null;
+    activeComponentTab = "overview";
+
+    renderCurrentSystem();
+    renderSidePanel();
 }
 
 
@@ -764,6 +825,21 @@ function calculationsIconSvg() {
 }
 
 
+function systemCheckIconSvg() {
+
+    return `
+        <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+        >
+            <path d="M12 3l7 3v5c0 4.6-2.8 8-7 10-4.2-2-7-5.4-7-10V6l7-3z"></path>
+            <polyline points="8.5,12 11,14.5 15.8,9.5"></polyline>
+        </svg>
+    `;
+}
+
+
 function componentIconSvg() {
 
     return `
@@ -836,6 +912,49 @@ function componentIconSvg() {
                 y2="15"
             ></line>
         </svg>
+    `;
+}
+
+
+/*
+ * =========================================================
+ * SESSION TOOLBAR
+ * =========================================================
+ */
+
+function sessionIconSvg(type) {
+    const icons = {
+        new: `<path d="M12 5v14M5 12h14"></path>`,
+        save: `<path d="M5 4h12l2 2v14H5z"></path><path d="M8 4v6h8V4M8 20v-6h8v6"></path>`,
+        open: `<path d="M3 7h7l2 2h9v10H3z"></path><path d="M3 11h18"></path>`,
+        print: `<path d="M7 8V4h10v4M7 17v3h10v-3"></path><path d="M5 9h14a2 2 0 0 1 2 2v5h-4v-3H7v3H3v-5a2 2 0 0 1 2-2z"></path>`,
+        help: `<circle cx="12" cy="12" r="9"></circle><path d="M9.8 9a2.4 2.4 0 1 1 3.6 2.1c-.9.5-1.4 1-1.4 2M12 17h.01"></path>`
+    };
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[type]}</svg>`;
+}
+
+function buildSessionToolbar() {
+    return `
+        <div class="session-toolbar">
+            <div class="session-toolbar-title">Session</div>
+            <div class="session-toolbar-buttons">
+                <button class="session-icon-button" id="new-session-button" type="button" title="Start a new session">
+                    <span class="session-icon">${sessionIconSvg("new")}</span><span>New</span>
+                </button>
+                <button class="session-icon-button" type="button" disabled title="Save session — planned">
+                    <span class="session-icon">${sessionIconSvg("save")}</span><span>Save</span>
+                </button>
+                <button class="session-icon-button" type="button" disabled title="Open session — planned">
+                    <span class="session-icon">${sessionIconSvg("open")}</span><span>Open</span>
+                </button>
+                <button class="session-icon-button" id="print-session-button" type="button" title="Print current page">
+                    <span class="session-icon">${sessionIconSvg("print")}</span><span>Print</span>
+                </button>
+                <button class="session-icon-button" id="help-session-button" type="button" title="Quick help">
+                    <span class="session-icon">${sessionIconSvg("help")}</span><span>Help</span>
+                </button>
+            </div>
+        </div>
     `;
 }
 
@@ -934,6 +1053,33 @@ function buildToolBar() {
 
                     <span class="tool-icon-label">
                         Calculations
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="
+                        tool-icon-button
+                        ${
+                            activeTool ===
+                            "system_check"
+                                ? "active"
+                                : ""
+                        }
+                    "
+                    type="button"
+                    data-tool="system_check"
+                    aria-label="System Check"
+                    title="System Check"
+                >
+
+                    <span class="tool-icon">
+                        ${systemCheckIconSvg()}
+                    </span>
+
+                    <span class="tool-icon-label">
+                        System Check
                     </span>
 
                 </button>
@@ -1892,12 +2038,12 @@ function buildMeasurementsTool() {
 
 
                     <button
-                        id="add-point-button"
-                        class="measurement-action-button"
-                        type="button"
-                    >
-                        Done
-                    </button>
+                            id="add-point-button"
+                            class="measurement-action-button"
+                            type="button"
+                        >
+                            Done
+                        </button>
 
                 </div>
 
@@ -1932,12 +2078,12 @@ function buildMeasurementsTool() {
 
 
                     <button
-                        id="add-point-button"
-                        class="measurement-action-button"
-                        type="button"
-                    >
-                        Add Point
-                    </button>
+                            id="add-point-button"
+                            class="measurement-action-button"
+                            type="button"
+                        >
+                            Add Point
+                        </button>
 
                 </div>
 
@@ -1981,12 +2127,12 @@ function buildMeasurementsTool() {
 
 
                 <button
-                    id="add-point-button"
-                    class="measurement-action-button"
-                    type="button"
-                >
-                    Add Point
-                </button>
+                            id="add-point-button"
+                            class="measurement-action-button"
+                            type="button"
+                        >
+                            Add Point
+                        </button>
 
             </div>
 
@@ -4138,6 +4284,730 @@ function buildCalculationsTool() {
 }
 
 
+
+function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
+
+    /*
+     * This is the live boundary between app state and the validated
+     * WIC Fact Adapter. It intentionally does not diagnose anything.
+     */
+    const observations = {};
+
+    const setObservation = (componentId, fieldId) => {
+        const value = observationValue(componentId, fieldId);
+
+        if (value === null) {
+            return;
+        }
+
+        if (!observations[componentId]) {
+            observations[componentId] = {};
+        }
+
+        observations[componentId][fieldId] = value;
+    };
+
+    [
+        ["compressor", "oil_evidence"],
+
+        ["condenser", "airflow"],
+        ["condenser", "coil_condition"],
+        ["condenser", "fan_operation"],
+        ["condenser", "air_recirculation"],
+        ["condenser", "oil_evidence"],
+
+        ["filter_drier", "outlet_sweating"],
+        ["filter_drier", "oil_evidence"],
+
+        ["sight_glass", "refrigerant_appearance"],
+        ["sight_glass", "moisture_indicator"],
+        ["sight_glass", "oil_evidence"],
+
+        ["solenoid", "valve_operation"],
+        ["solenoid", "oil_evidence"],
+
+        ["txv", "hunting"],
+        ["txv", "bulb_contact"],
+        ["txv", "bulb_position"],
+        ["txv", "bulb_insulation"],
+        ["txv", "equalizer_condition"],
+        ["txv", "inlet_condition"],
+        ["txv", "response_to_load"],
+        ["txv", "oil_evidence"],
+
+        ["evaporator", "airflow"],
+        ["evaporator", "coil_condition"],
+        ["evaporator", "fan_operation"],
+        ["evaporator", "oil_evidence"]
+    ].forEach(([componentId, fieldId]) => {
+        setObservation(componentId, fieldId);
+    });
+
+    return {
+        measurements: {
+            filterDrierInletTemperature: getNumericMeasurementValue("filter_drier_inlet","temperature"),
+            filterDrierOutletTemperature: getNumericMeasurementValue("filter_drier_outlet","temperature")
+        },
+        calculated: {
+            evaporatorSat: state.evaporatorSat,
+            evaporatorReferenceSat: state.evaporatorReferenceSat,
+            evaporatorSuperheat: state.evaporatorSuperheat,
+            condenserSat: state.condenserSat,
+            condenserReferenceHigh: state.condenserReferenceHigh,
+            condenserSubcooling: state.subcooling
+        },
+
+        references: {
+            evaporatorSuperheat:
+                knowledgeHub?.application?.reference_profiles?.evaporatorSuperheat?.fallback || null,
+            condenserSubcooling:
+                knowledgeHub?.application?.reference_profiles?.condenserSubcooling?.fallback || null
+        },
+
+        observations,
+        derived: {}
+    };
+}
+
+
+function buildKnowledgeHubComparison(state, observationValue) {
+
+    if (currentSystem?.id !== "walk_in_cooler") {
+        return "";
+    }
+
+    if (knowledgeHubLoadError) {
+        return `
+            <div style="margin-top:14px;padding:12px;border:1px solid #e2c7c7;border-radius:8px;color:#7a3e3e;background:#fffafa;">
+                Knowledge Hub could not be loaded. The existing System Check remains available.
+            </div>
+        `;
+    }
+
+    if (!knowledgeHub) {
+        return `
+            <div style="margin-top:14px;padding:12px;border:1px solid #d8e1e7;border-radius:8px;color:#5f7180;background:#fafcfd;">
+                Loading Knowledge Hub…
+            </div>
+        `;
+    }
+
+    const snapshot = buildCurrentWicKnowledgeSnapshot(state, observationValue);
+    const adapted = buildWicKnowledgeFacts(snapshot);
+
+    const result = evaluateHypotheses({
+        facts: adapted.facts,
+        rules: knowledgeHub.rules.items,
+        relationships: knowledgeHub.relationships.items,
+        discriminators: knowledgeHub.discriminators.items,
+        checks: knowledgeHub.checks.items
+    });
+
+    // Measurement state is independent from diagnostic classification.
+    // A technician always sees the value; "low/high/normal" is shown only
+    // when an applicable reference exists.
+    const measurementStates = {
+        evaporatorSuperheat: interpretMeasurement({
+            id: "evaporator_superheat",
+            value: snapshot.calculated.evaporatorSuperheat,
+            unit: "delta_degF",
+            reference: snapshot.references.evaporatorSuperheat,
+            referenceSource: snapshot.references.evaporatorSuperheat ? "application_or_more_specific" : null
+        }),
+        condenserSubcooling: interpretMeasurement({
+            id: "condenser_subcooling",
+            value: snapshot.calculated.condenserSubcooling,
+            unit: "delta_degF",
+            reference: snapshot.references.condenserSubcooling,
+            referenceSource: snapshot.references.condenserSubcooling ? "application_or_more_specific" : null
+        })
+    };
+
+    // Presentation compatibility: "possible" now means unresolved hypotheses,
+    // not diagnoses. This keeps the UI vocabulary while the Brain uses the
+    // new causal evidence model.
+    result.possible = result.hypotheses.filter(item =>
+        !result.diagnoses.some(d => d.candidate === item.candidate)
+    );
+
+    const facts = new Set(adapted.facts);
+
+    const conceptLabels = new Map(
+        knowledgeHub.concepts.items.map(item => [item.id, item.label])
+    );
+
+    const checkLabels = new Map(
+        knowledgeHub.checks.items.map(item => [item.id, item.label])
+    );
+
+    const labelFor = id => conceptLabels.get(id) || id;
+
+    /*
+     * Presentation layer:
+     * Do not present a technician-entered observation as if the software
+     * discovered it. Direct observations become CONFIRMED FINDINGS.
+     * The headline describes the system condition; root-cause candidates
+     * remain separate until evidence actually establishes them.
+     */
+    const confirmed = [];
+    const pushConfirmed = text => {
+        if (!confirmed.includes(text)) confirmed.push(text);
+    };
+
+    if (facts.has("FACT_COND_FAN_NOT_RUNNING"))
+        pushConfirmed("Condenser fan is not operating.");
+    if (facts.has("FACT_COND_COIL_DIRTY"))
+        pushConfirmed("Condenser coil is dirty/restricted.");
+    if (facts.has("FACT_COND_AIRFLOW_LOW"))
+        pushConfirmed("Condenser airflow is low/restricted.");
+    if (facts.has("FACT_HOT_AIR_RECIRCULATION"))
+        pushConfirmed("Hot condenser discharge air is recirculating.");
+
+    if (facts.has("FACT_EVAP_FAN_NOT_RUNNING"))
+        pushConfirmed("Evaporator fan is not operating.");
+    if (facts.has("FACT_EVAP_COIL_DIRTY"))
+        pushConfirmed("Evaporator coil is dirty/restricted.");
+    if (facts.has("FACT_EVAP_COIL_ICED"))
+        pushConfirmed("Evaporator coil is iced.");
+    if (facts.has("FACT_EVAP_AIRFLOW_LOW") || facts.has("FACT_EVAP_AIRFLOW_BLOCKED"))
+        pushConfirmed("Evaporator airflow is low/restricted.");
+
+    if (facts.has("FACT_SIGHT_GLASS_FLASHING"))
+        pushConfirmed("Sight glass shows flashing/bubbles.");
+    if (facts.has("FACT_MOISTURE_INDICATED"))
+        pushConfirmed("Moisture is indicated in the liquid line.");
+    if (facts.has("FACT_EVAP_SH_HIGH")) {
+        const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_HIGH")?.value;
+        pushConfirmed(Number.isFinite(sh)?`Evaporator superheat is high at ${Number(sh).toFixed(1)}°F.`:"Evaporator superheat is above the applicable target/reference.");
+    }
+    if (facts.has("FACT_EVAP_SH_LOW")) {
+        const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_LOW")?.value;
+        pushConfirmed(Number.isFinite(sh)?`Evaporator superheat is low at ${Number(sh).toFixed(1)}°F.`:"Evaporator superheat is below the applicable target/reference.");
+    }
+    if (measurementStates.condenserSubcooling.classification !== "MISSING") {
+        const sc = measurementStates.condenserSubcooling;
+        if (Number.isFinite(sc.value)) {
+            if (sc.classification === "LOW")
+                pushConfirmed(`Condenser subcooling is low at ${Number(sc.value).toFixed(1)}°F against the applicable reference.`);
+            else if (sc.classification === "HIGH")
+                pushConfirmed(`Condenser subcooling is high at ${Number(sc.value).toFixed(1)}°F against the applicable reference.`);
+            else if (sc.classification === "WITHIN_REFERENCE")
+                pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F and is within the applicable reference.`);
+            else
+                pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment/application target is available, so it is not classified as low, normal, or high.`);
+        }
+    }
+    if (facts.has("FACT_DRIER_TEMP_DROP")) {
+        const dt=adapted.trace.find(item=>item.fact==="FACT_DRIER_TEMP_DROP")?.value;
+        pushConfirmed(Number.isFinite(dt)?`Temperature decreases ${Number(dt).toFixed(1)}°F across the liquid-line filter drier.`:"A temperature drop is present across the liquid-line filter drier.");
+    }
+    if (facts.has("FACT_TXV_BULB_BAD_CONTACT"))
+        pushConfirmed("TXV sensing-bulb mounting/contact/location is incorrect.");
+    if (facts.has("FACT_TXV_EQUALIZER_PROBLEM"))
+        pushConfirmed("A TXV external-equalizer problem is present.");
+    if (facts.has("FACT_TXV_INLET_RESTRICTION"))
+        pushConfirmed("A restriction is identified at the TXV inlet/strainer.");
+    if (facts.has("FACT_TXV_NOT_RESPONDING"))
+        pushConfirmed("TXV does not respond appropriately to bulb/load change.");
+
+    const hasCondAirProblem =
+        facts.has("FACT_COND_AIRFLOW_LOW") ||
+        facts.has("FACT_COND_FAN_NOT_RUNNING") ||
+        facts.has("FACT_COND_COIL_DIRTY") ||
+        facts.has("FACT_HOT_AIR_RECIRCULATION");
+
+    const hasEvapAirProblem =
+        facts.has("FACT_EVAP_AIRFLOW_LOW") ||
+        facts.has("FACT_EVAP_AIRFLOW_BLOCKED") ||
+        facts.has("FACT_EVAP_FAN_NOT_RUNNING") ||
+        facts.has("FACT_EVAP_COIL_DIRTY") ||
+        facts.has("FACT_EVAP_COIL_ICED");
+
+    let heading = "More information needed";
+    let meaning =
+        "The available evidence does not yet establish a specific system condition.";
+
+    if (hasCondAirProblem && hasEvapAirProblem) {
+        heading = "Condenser and evaporator airflow problems";
+        meaning =
+            "Confirmed problems exist on both heat exchangers. Correct the directly observed airflow restrictions, then recheck operating measurements before evaluating remaining refrigerant-side causes.";
+    }
+    else if (hasCondAirProblem) {
+        heading = "Condenser heat-rejection / airflow problem";
+
+        if (facts.has("FACT_COND_FAN_NOT_RUNNING") && facts.has("FACT_COND_COIL_DIRTY")) {
+            meaning =
+                "Both the non-operating condenser fan and the dirty/restricted coil can impair condenser airflow and heat rejection.";
+        }
+        else if (facts.has("FACT_COND_FAN_NOT_RUNNING")) {
+            meaning =
+                "The non-operating condenser fan directly impairs condenser airflow and heat rejection.";
+        }
+        else if (facts.has("FACT_COND_COIL_DIRTY")) {
+            meaning =
+                "The dirty/restricted condenser coil can reduce airflow and condenser heat rejection.";
+        }
+        else {
+            meaning =
+                "The current evidence confirms impaired condenser airflow or heat rejection, but the exact cause is not yet fully localized.";
+        }
+    }
+    else if (hasEvapAirProblem) {
+        heading = facts.has("FACT_EVAP_COIL_ICED")
+            ? "Evaporator icing / airflow problem"
+            : "Evaporator airflow problem";
+
+        if (facts.has("FACT_EVAP_COIL_ICED") &&
+            !facts.has("FACT_EVAP_FAN_NOT_RUNNING")) {
+            meaning =
+                "Icing is restricting evaporator airflow, but the reason the coil iced has not yet been established.";
+        }
+        else if (facts.has("FACT_EVAP_FAN_NOT_RUNNING")) {
+            meaning =
+                "The non-operating evaporator fan directly reduces airflow across the evaporator.";
+        }
+        else {
+            meaning =
+                "Evaporator airflow is restricted, but the underlying cause is not yet fully localized.";
+        }
+    }
+    else if (result.diagnoses.length === 1) {
+        const diagnosis=result.diagnoses[0];
+        heading=labelFor(diagnosis.candidate);
+        if(diagnosis.candidate==="CAUSE_FILTER_DRIER_RESTRICTION"&&facts.has("FACT_DRIER_TEMP_DROP")){
+            const dt=adapted.trace.find(item=>item.fact==="FACT_DRIER_TEMP_DROP")?.value;
+            const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_HIGH")?.value;
+            meaning=`${Number.isFinite(dt)?`A ${Number(dt).toFixed(1)}°F temperature decrease is present across the liquid-line filter drier. `:""}This localizes a liquid-line restriction at the filter drier.${facts.has("FACT_EVAP_SH_HIGH")?` The ${Number.isFinite(sh)?`${Number(sh).toFixed(1)}°F `:""}high evaporator superheat shows evaporator starvation consistent with restricted liquid refrigerant flow.`:""}`;
+        } else meaning="The available measurements and observations support this specific diagnostic cause.";
+    }
+    else if (result.diagnoses.length > 1) {
+        heading="More than one diagnostic branch is supported";
+        meaning="The evidence supports multiple independent branches. Additional checks or corrective work are needed to separate cause from consequence.";
+    }
+    else if (result.conditions?.length) {
+        const primaryCondition=result.conditions[0];
+        heading=labelFor(primaryCondition.id);
+        const conditionConcept=knowledgeHub.concepts.items.find(item=>item.id===primaryCondition.id);
+        meaning=conditionConcept?.explanation||"The available evidence establishes this system condition. Root cause still depends on the remaining diagnostic evidence.";
+    }
+
+    /*
+     * Root-cause possibilities: hide items that merely restate a confirmed
+     * direct observation. Also suppress fan failure when the technician
+     * explicitly recorded fan operation as Normal.
+     */
+    const evapFanObservedNormal =
+        observationValue("evaporator", "fan_operation") === "normal";
+    const condFanObservedNormal =
+        observationValue("condenser", "fan_operation") === "normal";
+
+    const directRestatements = new Set();
+    if (facts.has("FACT_COND_FAN_NOT_RUNNING"))
+        directRestatements.add("CAUSE_COND_FAN_FAILURE");
+    if (facts.has("FACT_COND_COIL_DIRTY"))
+        directRestatements.add("CAUSE_COND_COIL_DIRTY");
+    if (facts.has("FACT_EVAP_FAN_NOT_RUNNING"))
+        directRestatements.add("CAUSE_EVAP_FAN_FAILURE");
+    if (facts.has("FACT_EVAP_COIL_DIRTY"))
+        directRestatements.add("CAUSE_EVAP_COIL_DIRTY");
+    if (facts.has("FACT_EVAP_COIL_ICED"))
+        directRestatements.add("CAUSE_EVAP_ICING");
+
+    // Once a single specific cause is supported, unresolved differential
+    // possibilities are superseded in the primary technician-facing result.
+    // Keep alternatives only while diagnosis remains unresolved or multiple.
+    const candidatePool =
+        result.diagnoses.length === 1
+            ? []
+            : [...result.diagnoses, ...result.possible];
+
+    const rootCauseItems = candidatePool.filter((item, index, all) =>
+        all.findIndex(x => x.candidate === item.candidate) === index
+    ).filter(item =>
+        !directRestatements.has(item.candidate) &&
+        !(evapFanObservedNormal && item.candidate === "CAUSE_EVAP_FAN_FAILURE") &&
+        !(condFanObservedNormal && item.candidate === "CAUSE_COND_FAN_FAILURE") &&
+        item.candidate !== "CAUSE_EVAP_AIRFLOW_RESTRICTION" &&
+        item.candidate !== "CAUSE_COND_AIRFLOW_RESTRICTION"
+    ).slice(0, 5);
+
+    const rootCauses = rootCauseItems.length
+        ? `
+            <div style="margin-top:14px;">
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
+                    POSSIBLE UNDERLYING CAUSES
+                </div>
+                <div style="margin-top:6px;color:#263746;line-height:1.45;">
+                    ${rootCauseItems.map(item => `<div>• ${labelFor(item.candidate)}</div>`).join("")}
+                </div>
+            </div>
+        `
+        : "";
+
+    let nextAction = null;
+
+    /*
+     * Directly correct obvious physical faults before asking for unrelated
+     * diagnostic measurements. Then recheck the operating state.
+     */
+    if (facts.has("FACT_COND_FAN_NOT_RUNNING") || facts.has("FACT_COND_COIL_DIRTY")) {
+        nextAction =
+            "Restore condenser airflow first, then recheck operating pressures and temperatures.";
+    }
+    else if (facts.has("FACT_EVAP_COIL_ICED")) {
+        nextAction =
+            "Determine why the evaporator iced before treating icing itself as the root cause. Check defrost operation, air infiltration, coil/fan airflow, and then refrigerant-side evidence as needed.";
+    }
+    else if (result.diagnoses.length === 1) {
+        const diagnosisConcept=knowledgeHub.concepts.items.find(item=>item.id===result.diagnoses[0].candidate);
+        nextAction=diagnosisConcept?.corrective_action || (result.nextCheck ? (checkLabels.get(result.nextCheck)||result.nextCheck) : null);
+    }
+    else if (result.nextCheck) {
+        nextAction=checkLabels.get(result.nextCheck)||result.nextCheck;
+    }
+
+    const confirmedHtml = confirmed.length
+        ? `
+            <div style="margin-top:14px;">
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
+                    CONFIRMED FINDINGS
+                </div>
+                <div style="margin-top:6px;color:#263746;line-height:1.45;">
+                    ${confirmed.map(text => `<div>• ${text}</div>`).join("")}
+                </div>
+            </div>
+        `
+        : "";
+
+    const factTrace = adapted.trace.length
+        ? adapted.trace.map(item => `<div style="margin-top:5px;">• ${labelFor(item.fact)}</div>`).join("")
+        : `<div>No Knowledge Hub facts established yet.</div>`;
+
+    return `
+        <div style="margin-top:16px;padding:16px;border:1px solid #b9d7e8;border-radius:8px;background:#f7fbfd;">
+            <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">
+                KNOWLEDGE HUB PREVIEW
+            </div>
+
+            <div style="margin-top:8px;font-size:1.08em;font-weight:700;color:#263746;">
+                ${heading}
+            </div>
+
+            ${confirmedHtml}
+
+            <div style="margin-top:14px;">
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
+                    WHAT THIS MEANS
+                </div>
+                <div style="margin-top:6px;color:#5f7180;line-height:1.45;">
+                    ${meaning}
+                </div>
+            </div>
+
+            ${rootCauses}
+
+            ${nextAction ? `
+                <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(100,120,140,0.18);">
+                    <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
+                        ${result.diagnoses.length === 1 ? "RECOMMENDED ACTION" : "NEXT ACTION / CHECK"}
+                    </div>
+                    <div style="margin-top:6px;line-height:1.45;color:#263746;font-weight:600;">
+                        ${nextAction}
+                    </div>
+                </div>
+            ` : ""}
+
+            <details style="margin-top:12px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">
+                    Evidence used
+                </summary>
+                <div style="padding-top:7px;color:#5f7180;line-height:1.45;">
+                    ${factTrace}
+                </div>
+            </details>
+        </div>
+    `;
+}
+
+function buildSystemCheckTool() {
+
+    const evaporatorTd = evaporatorReferenceTd();
+    const condenserTd = condenserReferenceTdRange();
+
+    const measurements = {
+        boxTemperature: getNumericMeasurementValue("box_temperature", "temperature"),
+        evaporatorEnteringAir: getNumericMeasurementValue("evaporator_entering_air", "temperature"),
+        evaporatorLeavingAir: getNumericMeasurementValue("evaporator_leaving_air", "temperature"),
+        condenserEnteringAir: getNumericMeasurementValue("condenser_entering_air", "temperature"),
+        condenserLeavingAir: getNumericMeasurementValue("condenser_leaving_air", "temperature"),
+        evaporatorOutletPressure: getNumericMeasurementValue("evaporator_outlet", "pressure"),
+        evaporatorOutletTemperature: getNumericMeasurementValue("evaporator_outlet", "temperature"),
+        compressorSuctionPressure: getNumericMeasurementValue("compressor_suction", "pressure"),
+        compressorSuctionTemperature: getNumericMeasurementValue("compressor_suction", "temperature"),
+        compressorDischargePressure: getNumericMeasurementValue("compressor_discharge", "pressure"),
+        compressorDischargeTemperature: getNumericMeasurementValue("compressor_discharge", "temperature"),
+        condenserOutletPressure: getNumericMeasurementValue("condenser_outlet", "pressure"),
+        condenserOutletTemperature: getNumericMeasurementValue("condenser_outlet", "temperature"),
+        kingValvePressure: getNumericMeasurementValue("receiver_outlet", "pressure")
+    };
+
+    /*
+     * Translate the existing component-observation Map into the
+     * diagnostic engine's semantic evidence object.
+     *
+     * This is intentionally an adapter. Diagnostic rules stay in
+     * diagnostic_engine.js rather than being duplicated in app.js.
+     */
+    const observationValue = (componentId, fieldId) => {
+        const value = componentObservationValues.get(
+            observationKey(componentId, fieldId)
+        );
+
+        if (
+            value === undefined ||
+            value === null ||
+            String(value).trim() === "" ||
+            value === "unknown"
+        ) {
+            return null;
+        }
+
+        return value;
+    };
+
+    const observations = {
+        filterDrierOutletSweating:
+            observationValue("filter_drier", "outlet_sweating"),
+
+        condenserAirflow:
+            observationValue("condenser", "airflow"),
+
+        condenserCoilCondition:
+            observationValue("condenser", "coil_condition"),
+
+        condenserFanOperation:
+            observationValue("condenser", "fan_operation"),
+
+        hotAirRecirculation:
+            observationValue("condenser", "air_recirculation"),
+
+        evaporatorAirflow:
+            observationValue("evaporator", "airflow"),
+
+        evaporatorCoilCondition:
+            observationValue("evaporator", "coil_condition"),
+
+        evaporatorFanOperation:
+            observationValue("evaporator", "fan_operation")
+    };
+
+    /*
+     * v23 does NOT invent universal SH/SC limits.
+     *
+     * When application/manufacturer SH/SC targets are added to the
+     * reference-data layer later, they can be passed here. Until then,
+     * charge/restriction rules that require those limits correctly
+     * remain unasserted in the live UI.
+     */
+    const references = {
+        evaporatorTd:
+            evaporatorTd?.value ?? null,
+
+        condenserCtoaLow:
+            condenserTd?.low ?? null,
+
+        condenserCtoaHigh:
+            condenserTd?.high ?? null
+    };
+
+    const result = diagnoseSystem({
+        measurements,
+        observations,
+        references,
+        saturationTemperatureFromPressure
+    });
+
+    const state = result.state || {};
+    const fmt = value => formatCalculatedTemperature(value);
+
+    const evidenceText = {
+        EVAP_SAT_MATCH:
+            `Evaporator SAT ${fmt(state.evaporatorSat)}; reference ${fmt(state.evaporatorReferenceSat)}`,
+
+        COND_SAT_IN_RANGE:
+            `Condenser SAT ${fmt(state.condenserSat)}; reference range ${formatTemperatureRange(state.condenserReferenceLow, state.condenserReferenceHigh)}`,
+
+        EVAP_SAT_REFERENCE_DEVIATION:
+            `Evaporator SAT ${fmt(state.evaporatorSat)} differs from reference ${fmt(state.evaporatorReferenceSat)}`,
+
+        COND_SAT_REFERENCE_DEVIATION:
+            `Condenser SAT ${fmt(state.condenserSat)} is outside reference range ${formatTemperatureRange(state.condenserReferenceLow, state.condenserReferenceHigh)}`,
+
+        EVAP_SH_HIGH:
+            `Evaporator superheat is above the supplied application/manufacturer reference.`,
+
+        SUBCOOLING_LOW:
+            `Condenser-outlet subcooling is below the supplied application/manufacturer reference.`,
+
+        SUBCOOLING_NOT_LOW:
+            `Condenser-outlet subcooling is not below the supplied reference.`,
+
+        LIQUID_LINE_RESTRICTION_EVIDENCE:
+            `A direct liquid-line restriction observation is present.`,
+
+        COND_SAT_ABOVE_REFERENCE:
+            `Condensing saturation temperature is above the current reference range.`,
+
+        CONDENSER_AIRFLOW_EVIDENCE:
+            `Condenser airflow, fan, coil, or recirculation observation indicates impaired heat rejection.`,
+
+        EVAP_SAT_BELOW_REFERENCE:
+            `Evaporating saturation temperature is below the current application reference.`,
+
+        EVAPORATOR_AIRFLOW_EVIDENCE:
+            `Evaporator airflow, fan, or coil observation indicates reduced airflow / heat load.`,
+
+        liquid_line_restriction:
+            `Liquid-line restriction pattern is independently supported.`,
+
+        condenser_heat_rejection:
+            `Condenser heat-rejection fault pattern is independently supported.`,
+
+        evaporator_airflow_or_load:
+            `Evaporator airflow / load fault pattern is independently supported.`,
+
+        low_refrigerant_charge:
+            `Low refrigerant charge pattern is independently supported.`
+    };
+
+    const evidenceItems =
+        result.evidence?.length
+            ? result.evidence
+                .map(item => `
+                    <div style="
+                        margin-bottom:7px;
+                        padding-left:14px;
+                        position:relative;
+                        line-height:1.4;
+                    ">
+                        <span style="
+                            position:absolute;
+                            left:0;
+                            color:#277fb5;
+                        ">•</span>
+                        ${evidenceText[item.id] || item.id}
+                    </div>
+                `)
+                .join("")
+            : "";
+
+    const why =
+        evidenceItems
+            ? `
+                <details style="margin-top:14px;">
+                    <summary style="
+                        cursor:pointer;
+                        color:#277fb5;
+                        font-weight:600;
+                    ">
+                        Why?
+                    </summary>
+
+                    <div style="
+                        padding:9px 0 0;
+                        color:#5f7180;
+                    ">
+                        ${evidenceItems}
+                    </div>
+                </details>
+            `
+            : "";
+
+    const nextCheck =
+        result.nextCheck
+            ? `
+                <div style="
+                    margin-top:16px;
+                    padding-top:14px;
+                    border-top:1px solid rgba(100,120,140,0.18);
+                ">
+                    <div style="
+                        font-size:0.72em;
+                        letter-spacing:0.10em;
+                        color:#5f7180;
+                        font-weight:700;
+                    ">
+                        NEXT CHECK
+                    </div>
+
+                    <div style="
+                        margin-top:6px;
+                        line-height:1.45;
+                        color:#263746;
+                        font-weight:600;
+                    ">
+                        ${result.nextCheck}
+                    </div>
+                </div>
+            `
+            : "";
+
+    let label = "CURRENT CONCLUSION";
+
+    if (result.type === "more_information") {
+        label =
+            result.id === "CONFLICTING_FAULT_EVIDENCE"
+                ? "MORE INFORMATION NEEDED"
+                : "NEXT INFORMATION NEEDED";
+    }
+
+    if (
+        result.id === "LOW_REFRIGERANT_CHARGE" ||
+        result.id === "LIQUID_LINE_RESTRICTION" ||
+        result.id === "CONDENSER_HEAT_REJECTION_PROBLEM" ||
+        result.id === "EVAPORATOR_AIRFLOW_OR_LOAD_PROBLEM"
+    ) {
+        label = "LIKELY CAUSE";
+    }
+
+    return `
+        <div class="active-tool-panel">
+
+            <div class="active-tool-header">
+                <div>
+                    <div class="active-tool-eyebrow">
+                        SYSTEM CHECK
+                    </div>
+
+                    <h2>
+                        System Check
+                    </h2>
+                </div>
+            </div>
+
+            ${currentSystem?.id === "walk_in_cooler" && knowledgeHub
+                ? buildKnowledgeHubComparison(state, observationValue)
+                : `
+                    <div style="
+                        margin-top:14px;
+                        padding:16px;
+                        border:1px solid #d8e1e7;
+                        border-radius:8px;
+                        background:#fafcfd;
+                    ">
+                        <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">${label}</div>
+                        <div style="margin-top:8px;font-size:1.10em;font-weight:700;color:#263746;">${result.title}</div>
+                        <div style="margin-top:8px;color:#5f7180;line-height:1.48;">${result.summary}</div>
+                        ${nextCheck}
+                        ${why}
+                    </div>
+                    ${currentSystem?.id === "walk_in_cooler" ? buildKnowledgeHubComparison(state, observationValue) : ""}
+                `}
+
+        </div>
+    `;
+}
+
 function buildActiveToolContent() {
 
     if (
@@ -4158,6 +5028,15 @@ function buildActiveToolContent() {
     }
 
 
+    if (
+        activeTool ===
+        "system_check"
+    ) {
+
+        return buildSystemCheckTool();
+    }
+
+
     return buildMeasurementsTool();
 }
 
@@ -4168,7 +5047,13 @@ function buildActiveToolContent() {
  * =========================================================
  */
 
+function renderSessionToolbar() {
+    const host=document.getElementById("session-toolbar-host");
+    if(host) host.innerHTML=buildSessionToolbar();
+}
+
 function renderSidePanel() {
+    renderSessionToolbar();
 
     if (
         originalPanelTitle
@@ -4225,7 +5110,9 @@ function switchTool(
         toolName !==
             "component" &&
         toolName !==
-            "calculations"
+            "calculations" &&
+        toolName !==
+            "system_check"
     ) {
 
         return;
@@ -4953,6 +5840,97 @@ function loadSystem(
 
     renderSidePanel();
 }
+
+
+/*
+ * =========================================================
+ * GLOBAL APPLICATION RESET
+ * =========================================================
+ *
+ * This is intentionally application-level, not a Measurements
+ * command. It restores the page to the same default working state
+ * as a fresh load: default system/refrigerant, default component
+ * configuration, no measurements, observations, electrical values,
+ * selections, or diagnostic evidence.
+ */
+
+async function resetApplicationToDefaults() {
+
+    const hasWorkingData =
+        activeMeasurementPoints.size > 0 ||
+        measurementValues.size > 0 ||
+        optionalPressureAccess.size > 0 ||
+        componentObservationValues.size > 0 ||
+        componentElectricalValues.size > 0;
+
+    if (
+        hasWorkingData &&
+        !window.confirm(
+            "Start a new session? All current measurements, observations, electrical entries, component changes, and diagnostic evidence will be cleared."
+        )
+    ) {
+        return;
+    }
+
+    if (systemSelect) {
+        systemSelect.value = initialSystemId;
+    }
+
+    if (refrigerantSelect) {
+
+        const normalizedInitialRefrigerant =
+            normalizeRefrigerantName(
+                initialRefrigerantValue
+            );
+
+        const defaultRefrigerant =
+            refrigerants.find(
+                refrigerant =>
+                    refrigerant.available &&
+                    (
+                        normalizeRefrigerantName(
+                            refrigerant.id
+                        ) ===
+                            normalizedInitialRefrigerant ||
+                        normalizeRefrigerantName(
+                            refrigerant.label
+                        ) ===
+                            normalizedInitialRefrigerant
+                    )
+            ) ||
+            refrigerants.find(
+                refrigerant =>
+                    refrigerant.available
+            ) ||
+            null;
+
+        if (defaultRefrigerant) {
+            refrigerantSelect.value =
+                defaultRefrigerant.id;
+        }
+
+        await selectRefrigerantData();
+    }
+
+    loadSystem(initialSystemId);
+}
+
+
+document.addEventListener("click", event => {
+    if (event.target.closest("#new-session-button")) {
+        resetApplicationToDefaults();
+        return;
+    }
+    if (event.target.closest("#print-session-button")) {
+        window.print();
+        return;
+    }
+    if (event.target.closest("#help-session-button")) {
+        window.alert(
+            "HVAC/R Field Tool\n\nNew starts a fresh diagnostic session.\nSave/Open are reserved for future session persistence.\nPrint prints the current page.\nUse the Tools below for Measurements, Component, Calculations, and System Check."
+        );
+    }
+});
 
 
 /*

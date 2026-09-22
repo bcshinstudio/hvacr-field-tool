@@ -1,0 +1,277 @@
+{
+  "version": "0.1.0",
+  "cases": [
+    {
+      "id": "EMPTY",
+      "snapshot": {},
+      "facts": []
+    },
+    {
+      "id": "COND_DIRTY",
+      "snapshot": {
+        "observations": {
+          "condenser": {
+            "coil_condition": "dirty"
+          }
+        }
+      },
+      "facts": [
+        "FACT_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "COND_BLOCKED",
+      "snapshot": {
+        "observations": {
+          "condenser": {
+            "coil_condition": "blocked"
+          }
+        }
+      },
+      "facts": [
+        "FACT_COND_AIRFLOW_LOW"
+      ]
+    },
+    {
+      "id": "COND_FAN",
+      "snapshot": {
+        "observations": {
+          "condenser": {
+            "fan_operation": "not_running"
+          }
+        }
+      },
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "EVAP_ICE_BLOCKED",
+      "snapshot": {
+        "observations": {
+          "evaporator": {
+            "coil_condition": "fully_iced",
+            "airflow": "blocked"
+          }
+        }
+      },
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_AIRFLOW_BLOCKED"
+      ]
+    },
+    {
+      "id": "SIGHT_GLASS",
+      "snapshot": {
+        "observations": {
+          "sight_glass": {
+            "refrigerant_appearance": "flashing_or_frothing",
+            "moisture_indicator": "wet"
+          }
+        }
+      },
+      "facts": [
+        "FACT_SIGHT_GLASS_FLASHING",
+        "FACT_MOISTURE_INDICATED"
+      ]
+    },
+    {
+      "id": "SOLENOID",
+      "snapshot": {
+        "observations": {
+          "solenoid": {
+            "valve_operation": "does_not_open"
+          }
+        }
+      },
+      "facts": [
+        "FACT_SOLENOID_NOT_OPENING"
+      ]
+    },
+    {
+      "id": "TXV_INSTALL",
+      "snapshot": {
+        "observations": {
+          "txv": {
+            "bulb_contact": "poor",
+            "equalizer_condition": "issue_observed"
+          }
+        }
+      },
+      "facts": [
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_TXV_EQUALIZER_PROBLEM"
+      ]
+    },
+    {
+      "id": "TXV_HUNTING",
+      "snapshot": {
+        "observations": {
+          "txv": {
+            "hunting": "yes"
+          }
+        }
+      },
+      "facts": [
+        "FACT_TXV_HUNTING"
+      ]
+    },
+    {
+      "id": "LOW_EVAP_SAT",
+      "snapshot": {
+        "calculated": {
+          "evaporatorSat": 20,
+          "evaporatorReferenceSat": 25
+        }
+      },
+      "facts": [
+        "FACT_EVAP_SAT_LOW"
+      ]
+    },
+    {
+      "id": "HIGH_COND_SAT",
+      "snapshot": {
+        "calculated": {
+          "condenserSat": 115,
+          "condenserReferenceHigh": 105
+        }
+      },
+      "facts": [
+        "FACT_COND_SAT_HIGH"
+      ]
+    },
+    {
+      "id": "SH_WITH_REFERENCE",
+      "snapshot": {
+        "calculated": {
+          "evaporatorSuperheat": 18
+        },
+        "references": {
+          "evaporatorSuperheat": {
+            "low": 8,
+            "high": 12
+          }
+        }
+      },
+      "facts": [
+        "FACT_EVAP_SH_HIGH"
+      ]
+    },
+    {
+      "id": "SH_NO_REFERENCE",
+      "snapshot": {
+        "calculated": {
+          "evaporatorSuperheat": 18
+        }
+      },
+      "facts": []
+    },
+    {
+      "id": "SC_LOW_WITH_REFERENCE",
+      "snapshot": {
+        "calculated": {
+          "condenserSubcooling": 3
+        },
+        "references": {
+          "condenserSubcooling": {
+            "low": 8,
+            "high": 15
+          }
+        }
+      },
+      "facts": [
+        "FACT_SUBCOOLING_LOW"
+      ]
+    },
+    {
+      "id": "SC_RETAINED",
+      "snapshot": {
+        "calculated": {
+          "condenserSubcooling": 10
+        },
+        "references": {
+          "condenserSubcooling": {
+            "low": 8,
+            "high": 15
+          }
+        }
+      },
+      "facts": [
+        "FACT_SUBCOOLING_RETAINED"
+      ]
+    },
+    {
+      "id": "SC_NO_REFERENCE",
+      "snapshot": {
+        "calculated": {
+          "condenserSubcooling": 3
+        }
+      },
+      "facts": []
+    },
+    {
+      "id": "DERIVED_DRIER",
+      "snapshot": {
+        "derived": {
+          "drierTempDrop": true,
+          "liquidLinePressureDrop": true
+        }
+      },
+      "facts": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_LIQUID_LINE_PRESSURE_DROP"
+      ]
+    },
+    {
+      "id": "UNKNOWN_IGNORED",
+      "snapshot": {
+        "observations": {
+          "condenser": {
+            "airflow": "unknown"
+          },
+          "evaporator": {
+            "coil_condition": "unknown"
+          }
+        }
+      },
+      "facts": []
+    },
+    {
+      "id": "OIL_EVIDENCE",
+      "snapshot": {
+        "observations": {
+          "compressor": {
+            "oil_evidence": "present"
+          }
+        }
+      },
+      "facts": [
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE"
+      ]
+    },
+    {
+      "id": "COMBINED",
+      "snapshot": {
+        "calculated": {
+          "evaporatorSat": 20,
+          "evaporatorReferenceSat": 25
+        },
+        "observations": {
+          "evaporator": {
+            "fan_operation": "not_running",
+            "airflow": "low"
+          },
+          "condenser": {
+            "air_recirculation": "yes"
+          }
+        }
+      },
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_HOT_AIR_RECIRCULATION"
+      ]
+    }
+  ]
+}

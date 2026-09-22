@@ -1,0 +1,566 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "FACT_BOX_TEMP_HIGH",
+      "type": "fact",
+      "label": "Box temperature above applicable setpoint/reference"
+    },
+    {
+      "id": "FACT_SLOW_PULLDOWN",
+      "type": "fact",
+      "label": "Slow pull-down or room does not reach setpoint"
+    },
+    {
+      "id": "FACT_COMPRESSOR_LONG_RUNTIME",
+      "type": "fact",
+      "label": "Compressor runs continuously/too long"
+    },
+    {
+      "id": "FACT_EVAP_SAT_LOW",
+      "type": "fact",
+      "label": "Evaporating saturation temperature below applicable reference"
+    },
+    {
+      "id": "FACT_EVAP_SAT_HIGH",
+      "type": "fact",
+      "label": "Evaporating saturation temperature above applicable reference"
+    },
+    {
+      "id": "FACT_COND_SAT_HIGH",
+      "type": "fact",
+      "label": "Condensing saturation temperature above applicable reference"
+    },
+    {
+      "id": "FACT_EVAP_SH_HIGH",
+      "type": "fact",
+      "label": "Evaporator superheat above applicable target/reference"
+    },
+    {
+      "id": "FACT_EVAP_SH_LOW",
+      "type": "fact",
+      "label": "Evaporator superheat below applicable target/reference"
+    },
+    {
+      "id": "FACT_SUBCOOLING_LOW",
+      "type": "fact",
+      "label": "Subcooling below applicable target/reference"
+    },
+    {
+      "id": "FACT_SUBCOOLING_HIGH",
+      "type": "fact",
+      "label": "Subcooling above applicable target/reference"
+    },
+    {
+      "id": "FACT_SUBCOOLING_RETAINED",
+      "type": "fact",
+      "label": "Subcooling not below applicable minimum/reference"
+    },
+    {
+      "id": "FACT_SIGHT_GLASS_FLASHING",
+      "type": "fact",
+      "label": "Sight glass shows flash gas/bubbles under stable conditions"
+    },
+    {
+      "id": "FACT_DRIER_TEMP_DROP",
+      "type": "fact",
+      "label": "Temperature decrease across liquid-line filter drier"
+    },
+    {
+      "id": "FACT_LIQUID_LINE_PRESSURE_DROP",
+      "type": "fact",
+      "label": "Abnormal liquid-line pressure drop"
+    },
+    {
+      "id": "FACT_EVAP_AIRFLOW_LOW",
+      "type": "fact",
+      "label": "Evaporator airflow low"
+    },
+    {
+      "id": "FACT_EVAP_AIRFLOW_BLOCKED",
+      "type": "fact",
+      "label": "Evaporator airflow blocked/restricted"
+    },
+    {
+      "id": "FACT_EVAP_FAN_NOT_RUNNING",
+      "type": "fact",
+      "label": "Evaporator fan not running"
+    },
+    {
+      "id": "FACT_EVAP_COIL_DIRTY",
+      "type": "fact",
+      "label": "Evaporator coil dirty/restricted"
+    },
+    {
+      "id": "FACT_EVAP_COIL_ICED",
+      "type": "fact",
+      "label": "Evaporator coil partially/fully iced"
+    },
+    {
+      "id": "FACT_COND_AIRFLOW_LOW",
+      "type": "fact",
+      "label": "Condenser airflow low/blocked"
+    },
+    {
+      "id": "FACT_COND_FAN_NOT_RUNNING",
+      "type": "fact",
+      "label": "Condenser fan not running"
+    },
+    {
+      "id": "FACT_COND_COIL_DIRTY",
+      "type": "fact",
+      "label": "Condenser coil dirty/blocked"
+    },
+    {
+      "id": "FACT_HOT_AIR_RECIRCULATION",
+      "type": "fact",
+      "label": "Condenser discharge air recirculating"
+    },
+    {
+      "id": "FACT_HIGH_AMBIENT",
+      "type": "fact",
+      "label": "Ambient above applicable design/operating condition"
+    },
+    {
+      "id": "FACT_DOOR_OPEN_OR_LEAKING",
+      "type": "fact",
+      "label": "Door open, damaged gasket, or air infiltration"
+    },
+    {
+      "id": "FACT_HIGH_PRODUCT_LOAD",
+      "type": "fact",
+      "label": "Warm/high product load or unusually high room load"
+    },
+    {
+      "id": "FACT_DEFROST_INCOMPLETE",
+      "type": "fact",
+      "label": "Defrost does not fully clear evaporator"
+    },
+    {
+      "id": "FACT_DRAIN_ICE",
+      "type": "fact",
+      "label": "Drain pan/line icing or refreezing"
+    },
+    {
+      "id": "FACT_TXV_HUNTING",
+      "type": "fact",
+      "label": "TXV/feed hunting or unstable superheat"
+    },
+    {
+      "id": "FACT_EVAP_FEED_UNEVEN",
+      "type": "fact",
+      "label": "Uneven evaporator feed/frost pattern"
+    },
+    {
+      "id": "FACT_SOLENOID_NOT_OPENING",
+      "type": "fact",
+      "label": "Liquid-line solenoid does not open fully"
+    },
+    {
+      "id": "FACT_SOLENOID_NOT_CLOSING",
+      "type": "fact",
+      "label": "Liquid-line solenoid does not close fully"
+    },
+    {
+      "id": "FACT_LOW_PRESSURE_CONTROL_TRIP",
+      "type": "fact",
+      "label": "Low-pressure control opens/trips"
+    },
+    {
+      "id": "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+      "type": "fact",
+      "label": "High-pressure control opens/trips"
+    },
+    {
+      "id": "FACT_COMPRESSOR_HIGH_DLT",
+      "type": "fact",
+      "label": "Compressor discharge-line temperature above model/application limit"
+    },
+    {
+      "id": "FACT_COMPRESSOR_HIGH_CURRENT",
+      "type": "fact",
+      "label": "Compressor current above applicable expected/limit"
+    },
+    {
+      "id": "FACT_COMPRESSOR_LOW_CAPACITY",
+      "type": "fact",
+      "label": "Compressor appears to run with reduced pumping/capacity"
+    },
+    {
+      "id": "FACT_OIL_STAIN_OR_LEAK_EVIDENCE",
+      "type": "fact",
+      "label": "Oil stain or confirmed refrigerant leak evidence"
+    },
+    {
+      "id": "FACT_MOISTURE_INDICATED",
+      "type": "fact",
+      "label": "Moisture indicator shows wet/high moisture"
+    },
+    {
+      "id": "FACT_TXV_BULB_BAD_CONTACT",
+      "type": "fact",
+      "label": "TXV bulb contact/location is incorrect"
+    },
+    {
+      "id": "FACT_TXV_EQUALIZER_PROBLEM",
+      "type": "fact",
+      "label": "TXV external equalizer missing/restricted/misapplied"
+    },
+    {
+      "id": "FACT_CONTROLLER_SETPOINT_WRONG",
+      "type": "fact",
+      "label": "Controller setpoint/differential incorrect"
+    },
+    {
+      "id": "FACT_SENSOR_ERROR",
+      "type": "fact",
+      "label": "Temperature/pressure sensor reading or calibration faulty"
+    },
+    {
+      "id": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "type": "condition",
+      "label": "Reduced evaporator heat transfer",
+      "explanation": "Heat transfer at the evaporator is impaired by airflow, coil condition, icing, load/state, or other application factors."
+    },
+    {
+      "id": "COND_COND_REDUCED_HEAT_REJECTION",
+      "type": "condition",
+      "label": "Reduced condenser heat rejection",
+      "explanation": "The condenser is not rejecting heat effectively; airflow, coil condition, ambient/recirculation and charge-side causes must be separated."
+    },
+    {
+      "id": "COND_EVAP_STARVED",
+      "type": "condition",
+      "label": "Evaporator refrigerant starvation",
+      "explanation": "The evaporator is receiving less refrigerant than the load requires. High evaporator superheat is a key indication, but does not by itself identify low charge, a liquid-line restriction, or a metering-device/feed problem."
+    },
+    {
+      "id": "COND_EVAP_OVERFED",
+      "type": "condition",
+      "label": "Evaporator overfeeding/floodback risk",
+      "explanation": "The evaporator is receiving more refrigerant than can be fully vaporized under the present load, increasing floodback risk."
+    },
+    {
+      "id": "COND_HIGH_COMPRESSION_RATIO",
+      "type": "condition",
+      "label": "High compressor compression ratio"
+    },
+    {
+      "id": "COND_EXCESSIVE_ROOM_LOAD",
+      "type": "condition",
+      "label": "Room/product heat load exceeds current system capacity"
+    },
+    {
+      "id": "COND_DEFROST_INADEQUATE",
+      "type": "condition",
+      "label": "Inadequate defrost"
+    },
+    {
+      "id": "COND_LIQUID_FEED_RESTRICTED",
+      "type": "condition",
+      "label": "Liquid refrigerant feed restricted",
+      "explanation": "Liquid refrigerant flow toward the metering device is restricted. Localized pressure/temperature evidence is needed to identify where."
+    },
+    {
+      "id": "COND_CONTROL_SEQUENCE_FAULT",
+      "type": "condition",
+      "label": "Control/pump-down sequence fault"
+    },
+    {
+      "id": "COND_SYSTEM_CONTAMINATED_OR_WET",
+      "type": "condition",
+      "label": "Moisture/contamination present in system"
+    },
+    {
+      "id": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "type": "cause",
+      "label": "Low refrigerant charge / refrigerant loss",
+      "corrective_action": "Do not add refrigerant solely from the symptom pattern. Locate and repair refrigerant leaks as applicable, then restore charge using the equipment/manufacturer charging procedure and verify superheat, subcooling, sight-glass/liquid condition, and system operation."
+    },
+    {
+      "id": "CAUSE_REFRIGERANT_LEAK",
+      "type": "cause",
+      "label": "Refrigerant leak"
+    },
+    {
+      "id": "CAUSE_OVERCHARGE",
+      "type": "cause",
+      "label": "Excess refrigerant charge"
+    },
+    {
+      "id": "CAUSE_NONCONDENSABLES",
+      "type": "cause",
+      "label": "Non-condensables in refrigerant circuit"
+    },
+    {
+      "id": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "type": "cause",
+      "label": "Liquid-line restriction"
+    },
+    {
+      "id": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "type": "cause",
+      "label": "Restricted filter drier",
+      "corrective_action": "Replace the restricted filter drier using proper recovery/service procedures, then evacuate/recharge as required and verify liquid-line condition, superheat, subcooling, and system operation."
+    },
+    {
+      "id": "CAUSE_SOLENOID_RESTRICTION",
+      "type": "cause",
+      "label": "Liquid-line solenoid restriction/not fully open"
+    },
+    {
+      "id": "CAUSE_TXV_UNDERFEED",
+      "type": "cause",
+      "label": "TXV underfeeding"
+    },
+    {
+      "id": "CAUSE_TXV_OVERFEED",
+      "type": "cause",
+      "label": "TXV overfeeding"
+    },
+    {
+      "id": "CAUSE_TXV_BULB_INSTALLATION",
+      "type": "cause",
+      "label": "Incorrect TXV bulb mounting/location",
+      "corrective_action": "Correct the TXV sensing-bulb mounting/contact/location per valve manufacturer instructions, then allow operation to stabilize and verify superheat and evaporator feed."
+    },
+    {
+      "id": "CAUSE_TXV_EQUALIZER_FAULT",
+      "type": "cause",
+      "label": "TXV equalizer problem/misapplication",
+      "corrective_action": "Correct the TXV external-equalizer installation/restriction/misapplication, then allow operation to stabilize and verify superheat and evaporator feed."
+    },
+    {
+      "id": "CAUSE_TXV_INCORRECT_SIZE",
+      "type": "cause",
+      "label": "TXV/nozzle incorrectly sized for application"
+    },
+    {
+      "id": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "type": "cause",
+      "label": "Evaporator airflow restriction"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_FAILURE",
+      "type": "cause",
+      "label": "Evaporator fan failure",
+      "corrective_action": "Repair the evaporator fan fault, then verify airflow and recheck evaporator operation."
+    },
+    {
+      "id": "CAUSE_EVAP_COIL_DIRTY",
+      "type": "cause",
+      "label": "Dirty/restricted evaporator coil",
+      "corrective_action": "Clean the evaporator coil and restore airflow, then recheck evaporator performance."
+    },
+    {
+      "id": "CAUSE_EVAP_ICING",
+      "type": "cause",
+      "label": "Evaporator icing"
+    },
+    {
+      "id": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "type": "cause",
+      "label": "Condenser airflow restriction"
+    },
+    {
+      "id": "CAUSE_COND_FAN_FAILURE",
+      "type": "cause",
+      "label": "Condenser fan failure",
+      "corrective_action": "Repair the condenser fan fault, then verify airflow and recheck operating pressures and temperatures."
+    },
+    {
+      "id": "CAUSE_COND_COIL_DIRTY",
+      "type": "cause",
+      "label": "Dirty/restricted condenser coil",
+      "corrective_action": "Clean the condenser coil and restore airflow, then recheck operating pressures and temperatures."
+    },
+    {
+      "id": "CAUSE_HOT_AIR_RECIRCULATION",
+      "type": "cause",
+      "label": "Condenser hot-air recirculation"
+    },
+    {
+      "id": "CAUSE_HIGH_AMBIENT",
+      "type": "cause",
+      "label": "High condenser ambient"
+    },
+    {
+      "id": "CAUSE_EXCESSIVE_LOAD",
+      "type": "cause",
+      "label": "Excessive room/product/infiltration load"
+    },
+    {
+      "id": "CAUSE_AIR_INFILTRATION",
+      "type": "cause",
+      "label": "Door/gasket/air infiltration"
+    },
+    {
+      "id": "CAUSE_DEFROST_INADEQUATE",
+      "type": "cause",
+      "label": "Defrost too short/infrequent/incorrect termination"
+    },
+    {
+      "id": "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "type": "cause",
+      "label": "Drain/drain-heater problem"
+    },
+    {
+      "id": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "type": "cause",
+      "label": "Moisture freezing/restricting TXV/feed path"
+    },
+    {
+      "id": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "type": "cause",
+      "label": "Low-pressure control setting/fault"
+    },
+    {
+      "id": "CAUSE_HP_CONTROL_SETTING_OR_FAULT",
+      "type": "cause",
+      "label": "High-pressure control setting/fault"
+    },
+    {
+      "id": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "type": "cause",
+      "label": "Liquid-line solenoid control/mechanical fault"
+    },
+    {
+      "id": "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "type": "cause",
+      "label": "Controller setting/sensor fault"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "type": "cause",
+      "label": "Compressor inefficiency/reduced pumping capacity"
+    },
+    {
+      "id": "CAUSE_SYSTEM_UNDERSIZED",
+      "type": "cause",
+      "label": "System capacity insufficient for actual load"
+    },
+    {
+      "id": "FACT_LIQUID_AT_TXV_FLASHING",
+      "type": "fact",
+      "label": "Liquid refrigerant is flashing / not solid liquid at TXV inlet"
+    },
+    {
+      "id": "FACT_TXV_INLET_RESTRICTION",
+      "type": "fact",
+      "label": "Restriction identified at TXV inlet screen/orifice"
+    },
+    {
+      "id": "FACT_TXV_NOT_RESPONDING",
+      "type": "fact",
+      "label": "TXV does not respond appropriately to load/bulb temperature change"
+    },
+    {
+      "id": "FACT_DEFROST_HEATER_NOT_HEATING",
+      "type": "fact",
+      "label": "Electric defrost heater not producing expected heat"
+    },
+    {
+      "id": "FACT_DEFROST_TERMINATION_ERROR",
+      "type": "fact",
+      "label": "Defrost termination sensor/control ends defrost incorrectly"
+    },
+    {
+      "id": "FACT_FAN_DELAY_ERROR",
+      "type": "fact",
+      "label": "Evaporator fan delay/control operation incorrect after defrost"
+    },
+    {
+      "id": "FACT_COMPRESSOR_NOT_RUNNING",
+      "type": "fact",
+      "label": "Compressor commanded on but not running"
+    },
+    {
+      "id": "FACT_COMPRESSOR_PRESSURES_NOT_SEPARATING",
+      "type": "fact",
+      "label": "Running compressor does not develop expected suction/discharge pressure separation"
+    },
+    {
+      "id": "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL",
+      "type": "fact",
+      "label": "Head-pressure control operation is abnormal for current ambient/load"
+    },
+    {
+      "id": "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH",
+      "type": "fact",
+      "label": "Refrigerant / expansion-device application mismatch identified"
+    },
+    {
+      "id": "COND_REFRIGERANT_FEED_UNSTABLE",
+      "type": "condition",
+      "label": "Refrigerant feed / superheat control unstable"
+    },
+    {
+      "id": "COND_HIGH_SIDE_PRESSURE_PROBLEM",
+      "type": "condition",
+      "label": "High-side pressure / heat-rejection problem"
+    },
+    {
+      "id": "COND_COOLING_CAPACITY_LOW",
+      "type": "condition",
+      "label": "Available refrigeration capacity is insufficient for the present load"
+    },
+    {
+      "id": "COND_PUMPDOWN_SEQUENCE_FAULT",
+      "type": "condition",
+      "label": "Pump-down / liquid-solenoid / low-pressure-control sequence fault"
+    },
+    {
+      "id": "CAUSE_TXV_INLET_RESTRICTION",
+      "type": "cause",
+      "label": "TXV inlet strainer/orifice restriction",
+      "corrective_action": "Inspect/service the TXV inlet screen or orifice and correct the identified restriction per valve manufacturer procedure, then verify stable superheat and evaporator feed."
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "type": "cause",
+      "label": "TXV power element / bulb charge fault",
+      "corrective_action": "Repair or replace the defective TXV power element/valve as applicable, then verify superheat and evaporator feed after stable operation."
+    },
+    {
+      "id": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "type": "cause",
+      "label": "Incorrect refrigerant / TXV charge or application match"
+    },
+    {
+      "id": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "type": "cause",
+      "label": "Head-pressure control fault or misapplication"
+    },
+    {
+      "id": "CAUSE_DEFROST_HEATER_FAILURE",
+      "type": "cause",
+      "label": "Electric defrost heater failure",
+      "corrective_action": "Repair the failed defrost-heating circuit/component, clear accumulated ice safely, then verify a complete defrost cycle."
+    },
+    {
+      "id": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "type": "cause",
+      "label": "Defrost termination sensor/control fault"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "type": "cause",
+      "label": "Evaporator fan-delay/control fault"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "type": "cause",
+      "label": "Compressor not running when cooling is demanded"
+    },
+    {
+      "id": "FACT_SUBCOOLING_MEASURED",
+      "type": "fact",
+      "label": "Condenser subcooling measured"
+    },
+    {
+      "id": "FACT_DRIER_TEMPERATURES_MEASURED",
+      "type": "fact",
+      "label": "Filter-drier inlet and outlet temperatures measured"
+    }
+  ]
+}

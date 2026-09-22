@@ -1,0 +1,475 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "REL_LOWCHARGE_STARVES",
+      "from": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_RESTRICTION_STARVES",
+      "from": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "REL_DRIER_RESTRICTS_FEED",
+      "from": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_LIQUID_FEED_RESTRICTED",
+      "sources": [
+        "SRC_COPELAND_AE105",
+        "SRC_SPORLAN_DRIER"
+      ]
+    },
+    {
+      "id": "REL_TXV_UNDERFEED_STARVES",
+      "from": "CAUSE_TXV_UNDERFEED",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_AIRFLOW_HEAT",
+      "from": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_FAN_HEAT",
+      "from": "CAUSE_EVAP_FAN_FAILURE",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_ICE_HEAT",
+      "from": "CAUSE_EVAP_ICING",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_COND_AIRFLOW_HEAT",
+      "from": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_COND_REDUCED_HEAT_REJECTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "REL_COND_FAN_HEAT",
+      "from": "CAUSE_COND_FAN_FAILURE",
+      "relation": "MAY_CAUSE",
+      "to": "COND_COND_REDUCED_HEAT_REJECTION",
+      "sources": [
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "REL_COND_DIRTY_HEAT",
+      "from": "CAUSE_COND_COIL_DIRTY",
+      "relation": "MAY_CAUSE",
+      "to": "COND_COND_REDUCED_HEAT_REJECTION",
+      "sources": [
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_COPELAND_AE105"
+      ]
+    },
+    {
+      "id": "REL_INFILTRATION_LOAD",
+      "from": "CAUSE_AIR_INFILTRATION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EXCESSIVE_ROOM_LOAD",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_INFILTRATION_ICE",
+      "from": "CAUSE_AIR_INFILTRATION",
+      "relation": "MAY_CAUSE",
+      "to": "CAUSE_EVAP_ICING",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_DEFROST_ICE",
+      "from": "CAUSE_DEFROST_INADEQUATE",
+      "relation": "MAY_CAUSE",
+      "to": "CAUSE_EVAP_ICING",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_ICE_FEEDBACK",
+      "from": "CAUSE_EVAP_ICING",
+      "relation": "MAY_AGGRAVATE",
+      "to": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "note": "Ice can reduce airflow; reduced heat transfer/low evaporating condition can contribute to continued icing. Treat as a feedback relationship, not proof of origin."
+    },
+    {
+      "id": "REL_LOWCHARGE_CONFUSED_RESTRICTION",
+      "from": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "relation": "CONFUSED_WITH",
+      "to": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_TXV_CONFUSED_RESTRICTION",
+      "from": "CAUSE_TXV_UNDERFEED",
+      "relation": "CONFUSED_WITH",
+      "to": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_TXV_CONFUSED_LOWCHARGE",
+      "from": "CAUSE_TXV_UNDERFEED",
+      "relation": "CONFUSED_WITH",
+      "to": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_COND_COEXIST",
+      "from": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "relation": "CAN_COEXIST_WITH",
+      "to": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_HIGHCR_DLT",
+      "from": "COND_HIGH_COMPRESSION_RATIO",
+      "relation": "MAY_CAUSE",
+      "to": "FACT_COMPRESSOR_HIGH_DLT",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_HIGHCOND_HIGHCR",
+      "from": "FACT_COND_SAT_HIGH",
+      "relation": "MAY_SUPPORT",
+      "to": "COND_HIGH_COMPRESSION_RATIO",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_LOWESAT_HIGHCR",
+      "from": "FACT_EVAP_SAT_LOW",
+      "relation": "MAY_SUPPORT",
+      "to": "COND_HIGH_COMPRESSION_RATIO",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_OVERFEED_FLOOD",
+      "from": "CAUSE_TXV_OVERFEED",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_OVERFED",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_EVAP_AIRFLOW_FLOOD",
+      "from": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "relation": "MAY_CONTRIBUTE_TO",
+      "to": "COND_EVAP_OVERFED",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_OVERCHARGE_FLOOD",
+      "from": "CAUSE_OVERCHARGE",
+      "relation": "MAY_CONTRIBUTE_TO",
+      "to": "COND_EVAP_OVERFED",
+      "sources": [
+        "SRC_COPELAND_TROUBLESHOOT"
+      ]
+    },
+    {
+      "id": "REL_LLSV_CONTROL",
+      "from": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "relation": "MAY_CAUSE",
+      "to": "COND_CONTROL_SEQUENCE_FAULT",
+      "sources": [
+        "SRC_DANFOSS_SOLENOID",
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ]
+    },
+    {
+      "id": "REL_LP_CONTROL_SEQUENCE",
+      "from": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "relation": "MAY_CAUSE",
+      "to": "COND_CONTROL_SEQUENCE_FAULT",
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ]
+    },
+    {
+      "id": "REL_WET_CONTAM",
+      "from": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "relation": "MAY_SUPPORT",
+      "to": "COND_SYSTEM_CONTAMINATED_OR_WET",
+      "sources": [
+        "SRC_HEATCRAFT_FAQ",
+        "SRC_SPORLAN_DRIER"
+      ]
+    },
+    {
+      "id": "REL_HIGH_SH_INDICATES_STARVED",
+      "from": "FACT_EVAP_SH_HIGH",
+      "relation": "INDICATES",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_SUPERHEAT_CONTROL"
+      ],
+      "note": "High evaporator SH indicates underfeeding/starvation in applicable refrigeration context; it does not identify root cause by itself."
+    },
+    {
+      "id": "REL_LOW_SH_INDICATES_OVERFED",
+      "from": "FACT_EVAP_SH_LOW",
+      "relation": "INDICATES",
+      "to": "COND_EVAP_OVERFED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_DRIER_DROP_INDICATES_RESTRICTION",
+      "from": "FACT_DRIER_TEMP_DROP",
+      "relation": "INDICATES",
+      "to": "COND_LIQUID_FEED_RESTRICTED",
+      "sources": [
+        "SRC_SPORLAN_DRIER"
+      ]
+    },
+    {
+      "id": "REL_LL_DROP_INDICATES_RESTRICTION",
+      "from": "FACT_LIQUID_LINE_PRESSURE_DROP",
+      "relation": "INDICATES",
+      "to": "COND_LIQUID_FEED_RESTRICTED",
+      "sources": [
+        "SRC_SPORLAN_SUPERHEAT_CONTROL"
+      ]
+    },
+    {
+      "id": "REL_EVAP_AIR_LOW_CONDITION",
+      "from": "FACT_EVAP_AIRFLOW_LOW",
+      "relation": "INDICATES",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_EVAP_AIR_BLOCKED_CONDITION",
+      "from": "FACT_EVAP_AIRFLOW_BLOCKED",
+      "relation": "INDICATES",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_COND_AIR_LOW_CONDITION",
+      "from": "FACT_COND_AIRFLOW_LOW",
+      "relation": "INDICATES",
+      "to": "COND_COND_REDUCED_HEAT_REJECTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_COND_SAT_HIGH_CONDITION",
+      "from": "FACT_COND_SAT_HIGH",
+      "relation": "INDICATES",
+      "to": "COND_HIGH_SIDE_PRESSURE_PROBLEM",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_TXV_HUNTING_UNSTABLE",
+      "from": "FACT_TXV_HUNTING",
+      "relation": "INDICATES",
+      "to": "COND_REFRIGERANT_FEED_UNSTABLE",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_FILTER_DRIER_RESTRICTION",
+      "from": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_SOLENOID_RESTRICTION",
+      "from": "CAUSE_SOLENOID_RESTRICTION",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_TXV_INLET_RESTRICTION",
+      "from": "CAUSE_TXV_INLET_RESTRICTION",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_TXV_UNDERFEED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_TXV_BULB_INSTALLATION",
+      "from": "CAUSE_TXV_BULB_INSTALLATION",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_TXV_UNDERFEED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_TXV_EQUALIZER_FAULT",
+      "from": "CAUSE_TXV_EQUALIZER_FAULT",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_TXV_UNDERFEED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "from": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_TXV_UNDERFEED",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_COND_FAN_FAILURE",
+      "from": "CAUSE_COND_FAN_FAILURE",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_COND_COIL_DIRTY",
+      "from": "CAUSE_COND_COIL_DIRTY",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_EVAP_FAN_FAILURE",
+      "from": "CAUSE_EVAP_FAN_FAILURE",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_EVAP_COIL_DIRTY",
+      "from": "CAUSE_EVAP_COIL_DIRTY",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_DEFROST_HEATER_FAILURE",
+      "from": "CAUSE_DEFROST_HEATER_FAILURE",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_DEFROST_INADEQUATE",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_SUBTYPE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "from": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "relation": "SUBTYPE_OF",
+      "to": "CAUSE_DEFROST_INADEQUATE",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
+    },
+    {
+      "id": "REL_TXV_INLET_STARVES",
+      "from": "CAUSE_TXV_INLET_RESTRICTION",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST"
+      ]
+    },
+    {
+      "id": "REL_TXV_POWER_STARVES",
+      "from": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "relation": "MAY_CAUSE",
+      "to": "COND_EVAP_STARVED",
+      "sources": [
+        "SRC_DANFOSS_EVAP_TXV_FROST"
+      ]
+    },
+    {
+      "id": "REL_HEADCTRL_HIGHSIDE",
+      "from": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "relation": "MAY_CAUSE",
+      "to": "COND_HIGH_SIDE_PRESSURE_PROBLEM",
+      "sources": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ]
+    }
+  ]
+}
