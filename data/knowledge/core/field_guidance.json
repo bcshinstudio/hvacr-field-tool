@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "GUIDE_FILTER_DRIER_RESTRICTION",
+      "priority": 100,
+      "requires_all": ["FACT_DRIER_TEMP_DROP"],
+      "relationship": "A temperature decrease across the filter drier localizes a restriction at that component. If high superheat is also present, restricted liquid flow can explain the starved evaporator.",
+      "steps": [
+        {"action":"Replace the restricted filter drier using proper recovery/service procedures.","record":"After service, run the system normally and recheck filter-drier inlet/outlet temperature, superheat, subcooling and pressures."}
+      ]
+    },
+    {
+      "id": "GUIDE_TXV_BULB",
+      "priority": 95,
+      "requires_all": ["FACT_TXV_BULB_BAD_CONTACT"],
+      "relationship": "The TXV sensing bulb tells the valve about suction-line temperature. Poor contact, wrong position or poor installation can give the valve the wrong signal and contribute to incorrect refrigerant feed. If high superheat is present, correct this known TXV input problem before blaming charge or another component.",
+      "steps": [
+        {"action":"Correct the sensing bulb contact, location and mounting per the TXV manufacturer instructions.","record":"Component → Metering Device → Observations → Sensing Bulb Contact / Position / Insulation."},
+        {"action":"Run the system in Stable cooling until readings stabilize, then recheck evaporator superheat.","record":"If superheat remains high, continue with liquid supply and TXV inlet/equalizer checks."}
+      ]
+    },
+    {
+      "id": "GUIDE_TXV_EQUALIZER",
+      "priority": 95,
+      "requires_all": ["FACT_TXV_EQUALIZER_PROBLEM"],
+      "relationship": "The external equalizer supplies evaporator-outlet pressure to the TXV control mechanism. A blocked, leaking, disconnected or incorrectly connected equalizer can make the TXV control refrigerant flow incorrectly. With high superheat, this is a direct TXV-side clue that should be corrected first.",
+      "steps": [
+        {"action":"Inspect and correct the external equalizer connection, restriction, leak or misapplication.","record":"Component → Metering Device → Observations → External Equalizer."},
+        {"action":"Run the system in Stable cooling until readings stabilize, then recheck evaporator superheat.","record":"If superheat remains high, continue with TXV inlet liquid condition/strainer and upstream liquid-line checks."}
+      ]
+    },
+    {
+      "id": "GUIDE_COND_FAN_NOT_RUNNING",
+      "priority": 90,
+      "requires_all": ["FACT_COND_FAN_NOT_RUNNING"],
+      "relationship": "A stopped condenser fan reduces condenser airflow and heat rejection and can drive condensing pressure/temperature high. The stopped fan is the immediate fault to isolate; do not diagnose charge from high head pressure until airflow is restored.",
+      "steps": [
+        {"action":"With power safely isolated, check for a blocked blade or mechanical obstruction.","record":"Component → Condenser → Observations → Fan Operation."},
+        {"action":"If mechanically free, verify the fan circuit is being commanded on and check correct supply voltage at the fan circuit using safe electrical procedures.","record":"Record the electrical finding in component notes until dedicated electrical fields are added."},
+        {"action":"If the motor uses a run capacitor, test it against its rated capacitance/tolerance. If supply/control and capacitor are good, test the fan motor and wiring/control device.","record":"Record capacitor, motor or control finding in component notes."},
+        {"action":"After repair, verify correct fan rotation/airflow and recheck condensing pressure/temperature.","record":"Measurements → condenser/high-side readings."}
+      ]
+    },
+    {
+      "id": "GUIDE_COND_COIL_DIRTY",
+      "priority": 85,
+      "requires_all": ["FACT_COND_COIL_DIRTY"],
+      "relationship": "A dirty or blocked condenser reduces airflow and heat rejection. Correct this known airflow problem before using high-side readings to judge refrigerant charge.",
+      "steps": [
+        {"action":"Clean/remove the condenser airflow restriction and confirm the fan operates normally.","record":"Component → Condenser → Observations → Coil Condition and Fan Operation."},
+        {"action":"Run the system in Stable cooling until readings stabilize, then recheck condensing pressure/temperature and condenser split.","record":"Measurements → condenser/high-side and condenser-air readings."}
+      ]
+    },
+    {
+      "id": "GUIDE_EVAP_ICED",
+      "priority": 80,
+      "requires_all": ["FACT_EVAP_COIL_ICED"],
+      "relationship": "Ice restricts evaporator airflow, but icing is usually a result that still needs a cause. Start with airflow and defrost evidence before moving to refrigerant-side causes.",
+      "steps": [
+        {"action":"First check whether the evaporator fan is running normally and whether the air path is blocked.","record":"Component → Evaporator → Observations → Fan Operation and Coil Condition."},
+        {"action":"If fan/airflow are normal, check defrost operation and termination, then door openings/air infiltration and drain/heater issues as applicable.","record":"Use the relevant component observations/notes; dedicated defrost-control fields are used where available."},
+        {"action":"After the coil is clear and airflow/defrost problems are corrected, run Stable cooling and recheck temperatures, pressures and superheat before judging refrigerant feed.","record":"Measurements → evaporator and refrigerant readings."}
+      ]
+    }
+  ]
+}

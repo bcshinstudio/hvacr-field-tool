@@ -73,6 +73,17 @@ function suppressParents(items,relationships){
   for(const child of ids){let p=parents.get(child),seen=new Set();while(p&&!seen.has(p)){seen.add(p);if(ids.has(p))hidden.add(p);p=parents.get(p);}}
   return items.filter(x=>!hidden.has(x.candidate));
 }
+// For unresolved/plausible hypotheses, prefer the broad parent until localized/direct
+// evidence supports a subtype.
+function generalizePlausible(items,relationships){
+  const parents=parentMap(relationships), ids=new Set(items.map(x=>x.candidate)), hide=new Set();
+  for(const item of items){
+    if(item.direct) continue;
+    let p=parents.get(item.candidate),seen=new Set();
+    while(p&&!seen.has(p)){seen.add(p);if(ids.has(p)){hide.add(item.candidate);break;}p=parents.get(p);}
+  }
+  return items.filter(x=>!hide.has(x.candidate));
+}
 function inferConditions(validFacts,relationships){
   const out=new Map();
   for(const r of relationships||[]){
@@ -161,7 +172,7 @@ export function evaluateHypotheses({
     return [...m.values()];
   };
   const supported=dedupeBest(suppressParents(all.filter(x=>x.state==="SUPPORTED"),relationships));
-  const plausible=dedupeBest(suppressParents(all.filter(x=>x.state==="PLAUSIBLE"),relationships));
+  const plausible=dedupeBest(generalizePlausible(all.filter(x=>x.state==="PLAUSIBLE"),relationships));
   const disfavored=all.filter(x=>x.state==="DISFAVORED");
   const outOfScope=all.filter(x=>x.state==="OUT_OF_SCOPE");
   const conditions=inferConditions(factState.valid,relationships);

@@ -257,7 +257,7 @@
     },
     {
       "id": "CHECK_ESTABLISH_OPERATING_STATE",
-      "label": "Confirm operating state",
+      "label": "Verify the system is actively cooling: confirm there is a cooling call and the compressor is running normally\u2014not in defrost, pump-down, startup, or already satisfied. If it is actively cooling and readings have stabilized, select Stable cooling in Operating State above. System Check will update automatically and show the next refrigeration check.",
       "produces": [
         "FACT_OPERATING_STATE_CONFIRMED"
       ],

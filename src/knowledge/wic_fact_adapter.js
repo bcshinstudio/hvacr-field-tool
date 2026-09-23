@@ -51,6 +51,14 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   const r=snapshot.references||{};
   const o=snapshot.observations||{};
   const d=snapshot.derived||{};
+  const configuration=new Set(snapshot.configuration||[]);
+
+  // ---- System configuration ----
+  // Receiver presence materially changes how condenser-outlet subcooling is
+  // interpreted in refrigeration systems. Preserve that context as evidence;
+  // do not invent a generic subcooling threshold.
+  if (configuration.has("RECEIVER"))
+    addFact(result,"FACT_RECEIVER_PRESENT","configuration.receiver",true,"Liquid receiver is installed in the active system configuration.");
 
   // ---- Reference-based calculated conditions ----
   if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceSat)) {
@@ -78,6 +86,14 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   classifyAgainstRange(c.condenserSubcooling,r.condenserSubcooling,
     "FACT_SUBCOOLING_LOW","FACT_SUBCOOLING_HIGH","FACT_SUBCOOLING_RETAINED",
     result,"calculated.condenserSubcooling");
+
+  // A measured condenser-outlet SC value without an applicable target remains
+  // numeric evidence only. On a receiver-equipped WIC, explicitly preserve the
+  // receiver caveat so downstream reasoning cannot silently treat a packaged-
+  // system SC target as applicable.
+  if (finite(c.condenserSubcooling) && !r.condenserSubcooling && configuration.has("RECEIVER"))
+    addFact(result,"FACT_SC_REFERENCE_NOT_APPLICABLE","calculated.condenserSubcooling",
+      c.condenserSubcooling,"Receiver-equipped system has no applicable condenser-subcooling target; value remains measured but unclassified.");
 
   // ---- Direct field-measurement relationships ----
   // A detectable outlet temperature reduction across a liquid-line filter drier

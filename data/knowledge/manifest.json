@@ -1,14 +1,15 @@
 {
-  "knowledge_version": "2.0.1",
+  "knowledge_version": "2.0.6",
   "schema_version": "1.0.0",
-  "status": "consolidated_user_test_release_ui_hotfix",
+  "status": "field_guidance_release",
   "counts": {
     "concepts": 108,
     "rules": 34,
     "relationships": 51,
     "checks": 20,
     "discriminators": 5,
-    "sources": 20
+    "sources": 20,
+    "field_guidance": 6
   },
   "entry_files": {
     "concepts": "core/concepts.json",
@@ -17,13 +18,18 @@
     "checks": "core/checks.json",
     "discriminators": "core/discriminators.json",
     "sources": "sources/sources.json",
-    "application": "applications/walk_in_cooler.json"
+    "application": "applications/walk_in_cooler.json",
+    "field_guidance": "core/field_guidance.json"
   },
   "design_notes": [
     "References resolved outside generic reasoning engine.",
     "Direct evidence declared in evidence_rules.json via direct=true.",
     "Cause hierarchy declared in relationships.json via SUBTYPE_OF.",
     "System conditions inferred via INDICATES.",
-    "Missing evidence remains unknown."
+    "Missing evidence remains unknown.",
+    "Receiver presence is carried into WIC facts so measured condenser-outlet subcooling without an applicable target remains unclassified and receiver-aware.",
+    "Plausible subtype hypotheses remain generalized to their broad parent until localized/direct evidence supports the subtype.",
+    "Gold-standard validation expectations are derived from manufacturer/component literature before comparison with Brain output; regression pass counts are not treated as proof of diagnostic correctness.",
+    "Field guidance is structured separately from diagnosis: direct observations map to why-it-matters, next physical check, exact UI recording path where available, follow-up branch, and repair verification."
   ]
 }

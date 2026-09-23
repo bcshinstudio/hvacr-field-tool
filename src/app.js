@@ -4488,6 +4488,10 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
             evaporatorPressureQuality: wicDiagnosticContext.evaporatorPressureQuality,
             condenserPressureQuality: wicDiagnosticContext.condenserPressureQuality
         },
+        configuration: [
+            ...(currentSystem?.components?.some(component => component.id === "receiver" && isComponentInstalled(component)) ? ["RECEIVER"] : []),
+            ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component)) ? ["TXV"] : [])
+        ],
         derived: {}
     };
 }
@@ -4526,6 +4530,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
         checks: knowledgeHub.checks.items,
         application: knowledgeHub.application?.id || "APP_WIC",
         operatingState: snapshot.context.operatingState,
+        configuration: snapshot.configuration || [],
         factRecords: adapted.factRecords || []
     });
 
@@ -4619,6 +4624,8 @@ function buildKnowledgeHubComparison(state, observationValue) {
                 pushConfirmed(`Condenser subcooling is high at ${Number(sc.value).toFixed(1)}°F against the applicable reference.`);
             else if (sc.classification === "WITHIN_REFERENCE")
                 pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F and is within the applicable reference.`);
+            else if (facts.has("FACT_RECEIVER_PRESENT"))
+                pushConfirmed(`Condenser subcooling is only ${Number(sc.value).toFixed(1)}°F (very little/minimal subcooling). No applicable manufacturer/equipment target is available, so it is not assigned a formal LOW/NORMAL/HIGH classification. With a liquid receiver, this condenser-outlet value is important liquid-supply evidence but does not by itself prove low refrigerant charge.`);
             else
                 pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment/application target is available, so it is not classified as low, normal, or high.`);
         }
@@ -4653,13 +4660,66 @@ function buildKnowledgeHubComparison(state, observationValue) {
     let meaning =
         "The available evidence does not yet establish a specific system condition.";
 
-    if (result.stateGate?.steadyInterpretationAllowed === false &&
-        ["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","STARTUP","OFF","UNKNOWN"].includes(snapshot.context.operatingState)) {
-        heading = snapshot.context.operatingState === "UNKNOWN"
-            ? "Establish the operating state first"
-            : `${formatObservationOptionLabel(snapshot.context.operatingState)} — state-specific interpretation`;
+    /*
+     * UNKNOWN operating state limits certainty, but must not erase a
+     * physically supported lower-level condition. Example: high evaporator
+     * SH can indicate evaporator underfeeding/starvation while the state is
+     * still unknown. We present that as POSSIBLE and keep state confirmation
+     * as the next check; root-cause diagnosis remains gated.
+     *
+     * Known non-cooling/transient states (defrost, pump-down, satisfied,
+     * startup, off, post-defrost) continue to use state-specific handling.
+     */
+    // Direct localized component evidence outranks a generic operating-state gate.
+    // A measurable temperature decrease across a liquid-line filter drier is
+    // manufacturer-supported evidence of a blocked/restricted drier. Do not
+    // hide this physical fault merely because the case-wide state is UNKNOWN.
+    if (facts.has("FACT_DRIER_TEMP_DROP")) {
+        const dt=adapted.trace.find(item=>item.fact==="FACT_DRIER_TEMP_DROP")?.value;
+        const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_HIGH")?.value;
+        heading = "Restricted filter drier indicated";
+        meaning = `${Number.isFinite(dt)?`A ${Number(dt).toFixed(1)}°F temperature decrease is present across the liquid-line filter drier. `:"A temperature decrease is present across the liquid-line filter drier. "}` +
+            `This localizes a liquid-line restriction at the filter drier.${facts.has("FACT_EVAP_SH_HIGH")?` The ${Number.isFinite(sh)?`${Number(sh).toFixed(1)}°F `:""}high evaporator superheat is consistent with evaporator starvation caused by restricted liquid flow.`:""}`;
+    }
+    else if (facts.has("FACT_TXV_BULB_BAD_CONTACT") && facts.has("FACT_EVAP_SH_HIGH")) {
+        heading = "TXV sensing-bulb problem is related to evaporator starvation";
+        meaning = "High evaporator superheat shows that the evaporator is being underfed. The observed sensing-bulb contact/location problem can give the TXV an incorrect temperature signal and cause incorrect refrigerant feed. Correct this known TXV input problem first, then recheck superheat before blaming refrigerant charge or another component.";
+    }
+    else if (facts.has("FACT_TXV_EQUALIZER_PROBLEM") && facts.has("FACT_EVAP_SH_HIGH")) {
+        heading = "TXV external-equalizer problem is related to evaporator starvation";
+        meaning = "High evaporator superheat shows that the evaporator is being underfed. The observed external-equalizer problem can give the TXV incorrect evaporator-outlet pressure information and cause incorrect refrigerant feed. Correct the equalizer problem first, then recheck superheat before moving to other causes.";
+    }
+    else if (snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length) {
+        const primaryCondition = result.conditions[0];
+        const conditionLabel = labelFor(primaryCondition.id);
+        heading = `Possible ${conditionLabel.charAt(0).toLowerCase()}${conditionLabel.slice(1)}`;
+
+        if (primaryCondition.id === "COND_EVAP_STARVED" && facts.has("FACT_EVAP_SH_HIGH")) {
+            const sh = adapted.trace.find(item => item.fact === "FACT_EVAP_SH_HIGH")?.value;
+            meaning =
+                `${Number.isFinite(sh) ? `High evaporator superheat (${Number(sh).toFixed(1)}°F) ` : "High evaporator superheat "}` +
+                "supports insufficient refrigerant feed / evaporator starvation. " +
+                (facts.has("FACT_SUBCOOLING_MEASURED") && facts.has("FACT_RECEIVER_PRESENT") && facts.has("FACT_SC_REFERENCE_NOT_APPLICABLE")
+                    ? "Condenser subcooling is also measured, but without an applicable target—and with a receiver present—it does not by itself prove low charge. "
+                    : "") +
+                "Confirm the operating state before treating this as a steady-cooling diagnosis or assigning a root cause.";
+        }
+        else {
+            meaning =
+                "The available evidence supports this possible system condition, but the operating state must be confirmed before steady-cooling root-cause conclusions are made.";
+        }
+    }
+    else if (result.stateGate?.steadyInterpretationAllowed === false &&
+        ["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","STARTUP","OFF"].includes(snapshot.context.operatingState)) {
+        heading = `${formatObservationOptionLabel(snapshot.context.operatingState)} — state-specific interpretation`;
         meaning =
             "Steady-cooling conclusions are limited in this operating state. The Brain will use only evidence that is valid for the selected state.";
+    }
+    else if (result.stateGate?.steadyInterpretationAllowed === false &&
+        snapshot.context.operatingState === "UNKNOWN") {
+        heading = "Establish the operating state first";
+        meaning =
+            "First confirm how the system is operating. Pressure and temperature readings can mean something different during defrost, startup, pump-down, or when cooling is already satisfied.";
     }
     else if (result.suspectFacts?.length || result.invalidFacts?.length) {
         heading = "Verify a questionable measurement first";
@@ -4710,6 +4770,20 @@ function buildKnowledgeHubComparison(state, observationValue) {
                 "Evaporator airflow is restricted, but the underlying cause is not yet fully localized.";
         }
     }
+    else if (result.conditions?.some(item => item.id === "COND_EVAP_STARVED") &&
+        facts.has("FACT_EVAP_SH_HIGH") && facts.has("FACT_SUBCOOLING_MEASURED") &&
+        facts.has("FACT_RECEIVER_PRESENT") && facts.has("FACT_SC_REFERENCE_NOT_APPLICABLE") &&
+        result.diagnoses.length === 0) {
+        heading = "Evaporator refrigerant starvation";
+        const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_HIGH")?.value;
+        const sc=measurementStates.condenserSubcooling.value;
+        meaning =
+            `${Number.isFinite(sh)?`High evaporator superheat (${Number(sh).toFixed(1)}°F) confirms the starvation/underfeeding condition. `:"High evaporator superheat confirms the starvation/underfeeding condition. "}` +
+            `${Number.isFinite(sc)?`Condenser subcooling is only ${Number(sc).toFixed(1)}°F (very little/minimal subcooling). `:"Very little condenser subcooling is measured. "}` +
+            "Together with high superheat, this increases concern about inadequate liquid refrigerant supply, and low refrigerant inventory is an important possibility. " +
+            "However, no applicable manufacturer/equipment subcooling target is available and a liquid receiver is present, so this value alone does not prove low charge. " +
+            "An upstream liquid-line restriction and TXV underfeeding remain competing causes; use localized liquid-line/TXV evidence plus leak or receiver-inventory evidence to separate them.";
+    }
     else if (result.diagnoses.length === 1) {
         const diagnosis=result.diagnoses[0];
         heading=labelFor(diagnosis.candidate);
@@ -4755,10 +4829,46 @@ function buildKnowledgeHubComparison(state, observationValue) {
     // Once a single specific cause is supported, unresolved differential
     // possibilities are superseded in the primary technician-facing result.
     // Keep alternatives only while diagnosis remains unresolved or multiple.
+    /*
+     * When state is UNKNOWN, rules that require stable cooling are correctly
+     * prevented from becoming diagnoses. However, a supported system
+     * condition can still have source-backed causal branches in the knowledge
+     * graph. Surface only the broad/top-level branches as POSSIBILITIES.
+     * Specific subtypes remain hidden until localizing evidence supports them.
+     */
+    const provisionalConditionCauses = [];
+    if (snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length) {
+        const conditionIds = new Set(result.conditions.map(item => item.id));
+        const incoming = knowledgeHub.relationships.items
+            .filter(rel => rel.relation === "MAY_CAUSE" && conditionIds.has(rel.to))
+            .map(rel => rel.from);
+
+        const incomingSet = new Set(incoming);
+        const subtypeIds = new Set(
+            knowledgeHub.relationships.items
+                .filter(rel =>
+                    rel.relation === "SUBTYPE_OF" &&
+                    incomingSet.has(rel.from) &&
+                    incomingSet.has(rel.to)
+                )
+                .map(rel => rel.from)
+        );
+
+        for (const candidate of incoming) {
+            if (!subtypeIds.has(candidate) &&
+                !provisionalConditionCauses.some(item => item.candidate === candidate)) {
+                provisionalConditionCauses.push({
+                    candidate,
+                    state: "POSSIBLE_FROM_CONDITION"
+                });
+            }
+        }
+    }
+
     const candidatePool =
         result.diagnoses.length === 1
             ? []
-            : [...result.diagnoses, ...result.possible];
+            : [...result.diagnoses, ...result.possible, ...provisionalConditionCauses];
 
     const rootCauseItems = candidatePool.filter((item, index, all) =>
         all.findIndex(x => x.candidate === item.candidate) === index
@@ -4785,24 +4895,29 @@ function buildKnowledgeHubComparison(state, observationValue) {
 
     let nextAction = null;
 
+    const fieldGuidanceItems = [...(knowledgeHub.fieldGuidance?.items || [])]
+        .sort((a,b)=>(b.priority||0)-(a.priority||0));
+    const activeFieldGuide = fieldGuidanceItems.find(guide =>
+        (guide.requires_all || []).every(fact => facts.has(fact)) &&
+        (!guide.requires_any?.length || guide.requires_any.some(fact => facts.has(fact)))
+    );
+
     /*
      * Directly correct obvious physical faults before asking for unrelated
      * diagnostic measurements. Then recheck the operating state.
      */
-    if (result.nextCheck && (
+    if (facts.has("FACT_DRIER_TEMP_DROP")) {
+        nextAction = "Replace the restricted filter drier using proper recovery/service procedures. Then run the system normally and recheck filter-drier temperature difference, superheat, subcooling and pressures.";
+    }
+    else if (activeFieldGuide?.steps?.length) {
+        nextAction = activeFieldGuide.steps[0].action + (activeFieldGuide.steps[0].record ? ` <span style="font-weight:400;color:#5f7180;">Where to record it: ${activeFieldGuide.steps[0].record}</span>` : "");
+    }
+    else if (result.nextCheck && (
         result.stateGate?.steadyInterpretationAllowed === false ||
         result.suspectFacts?.length ||
         result.invalidFacts?.length
     )) {
         nextAction = checkLabels.get(result.nextCheck) || result.nextCheck;
-    }
-    else if (facts.has("FACT_COND_FAN_NOT_RUNNING") || facts.has("FACT_COND_COIL_DIRTY")) {
-        nextAction =
-            "Restore condenser airflow first, then recheck operating pressures and temperatures.";
-    }
-    else if (facts.has("FACT_EVAP_COIL_ICED")) {
-        nextAction =
-            "Determine why the evaporator iced before treating icing itself as the root cause. Check defrost operation, air infiltration, coil/fan airflow, and then refrigerant-side evidence as needed.";
     }
     else if (result.diagnoses.length === 1) {
         const diagnosisConcept=knowledgeHub.concepts.items.find(item=>item.id===result.diagnoses[0].candidate);
@@ -4861,6 +4976,16 @@ function buildKnowledgeHubComparison(state, observationValue) {
                         ${nextAction}
                     </div>
                 </div>
+            ` : ""}
+
+            ${activeFieldGuide ? `
+                <details open style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(100,120,140,0.18);">
+                    <summary style="cursor:pointer;color:#277fb5;font-weight:700;">Field troubleshooting path</summary>
+                    <div style="margin-top:8px;color:#5f7180;line-height:1.45;">${activeFieldGuide.relationship}</div>
+                    <div style="margin-top:9px;color:#263746;line-height:1.5;">
+                        ${activeFieldGuide.steps.map((step,index)=>`<div style="margin-top:7px;"><strong>${index+1}. ${step.action}</strong>${step.record?`<div style="color:#5f7180;">Record/check here: ${step.record}</div>`:""}</div>`).join("")}
+                    </div>
+                </details>
             ` : ""}
 
             <details style="margin-top:12px;">

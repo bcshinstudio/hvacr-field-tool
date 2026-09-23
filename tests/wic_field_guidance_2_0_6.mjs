@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import {buildWicKnowledgeFacts} from '../src/knowledge/wic_fact_adapter.js';
+const j=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url),'utf8'));
+const guidance=j('../data/knowledge/core/field_guidance.json').items;
+const app=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+let n=0; const ok=(v,m)=>{if(!v)throw Error(m);n++};
+const g=id=>guidance.find(x=>x.id===id);
+ok(g('GUIDE_TXV_BULB').relationship.includes('incorrect refrigerant feed'),'bulb explains relationship');
+ok(g('GUIDE_TXV_BULB').steps.some(x=>x.record.includes('Sensing Bulb Contact')),'bulb exact UI path');
+ok(g('GUIDE_TXV_EQUALIZER').relationship.includes('evaporator-outlet pressure'),'equalizer explains relationship');
+ok(g('GUIDE_TXV_EQUALIZER').steps.some(x=>x.record.includes('External Equalizer')),'equalizer exact UI path');
+ok(g('GUIDE_EVAP_ICED').steps[0].record.includes('Fan Operation'),'iced first check fan and UI path');
+ok(g('GUIDE_COND_FAN_NOT_RUNNING').steps.some(x=>/capacitor/i.test(x.action)),'fan path includes capacitor when applicable');
+ok(g('GUIDE_COND_FAN_NOT_RUNNING').steps.some(x=>/motor/i.test(x.action)),'fan path includes motor');
+ok(g('GUIDE_COND_COIL_DIRTY').steps.some(x=>/recheck condensing/i.test(x.action)),'dirty condenser repair verification');
+ok(app.includes('Pressure and temperature readings can mean something different during defrost'),'plain operating-state language');
+ok(app.includes('TXV sensing-bulb problem is related to evaporator starvation'),'localized bulb presentation');
+ok(app.includes('TXV external-equalizer problem is related to evaporator starvation'),'localized equalizer presentation');
+// Configuration must change facts when receiver is removed/added.
+const base={measurements:{},calculated:{condenserSubcooling:2.2},references:{evaporatorSuperheat:{low:8,high:12},condenserSubcooling:null},observations:{},context:{operatingState:'STABLE_COOLING'},derived:{}};
+let withR=buildWicKnowledgeFacts({...base,configuration:['TXV','RECEIVER']});
+let noR=buildWicKnowledgeFacts({...base,configuration:['TXV']});
+ok(withR.facts.includes('FACT_RECEIVER_PRESENT'),'receiver added fact');
+ok(!noR.facts.includes('FACT_RECEIVER_PRESENT'),'receiver removed fact');
+ok(withR.facts.includes('FACT_SC_REFERENCE_NOT_APPLICABLE'),'receiver-aware SC caveat');
+console.log(`WIC FIELD GUIDANCE 2.0.6: ${n} assertions PASS`);

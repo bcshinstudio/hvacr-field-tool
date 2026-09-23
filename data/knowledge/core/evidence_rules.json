@@ -1583,6 +1583,25 @@
           "PULLDOWN"
         ]
       }
+    },
+    {
+      "id": "RULE_FILTER_DRIER_RESTRICTION_DIRECT",
+      "candidate": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_DRIER_TEMP_DROP",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      }
     }
   ]
 }
