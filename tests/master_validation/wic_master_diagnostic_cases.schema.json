@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WIC Master Diagnostic Validation Case",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "suite_id",
+    "cases"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "suite_id": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "system",
+          "category",
+          "setup",
+          "expected",
+          "validation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "system": {
+            "const": "walk_in_cooler"
+          },
+          "category": {
+            "type": "string"
+          },
+          "setup": {
+            "type": "array"
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "headline",
+              "confirmed_findings",
+              "what_this_means",
+              "next_action_check",
+              "troubleshooting_path",
+              "must_not_conclude"
+            ]
+          },
+          "validation": {
+            "type": "object",
+            "required": [
+              "confidence",
+              "source_ids"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

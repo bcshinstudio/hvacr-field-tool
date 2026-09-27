@@ -4642,6 +4642,17 @@ function buildKnowledgeHubComparison(state, observationValue) {
         pushConfirmed("A restriction is identified at the TXV inlet/strainer.");
     if (facts.has("FACT_TXV_NOT_RESPONDING"))
         pushConfirmed("TXV does not respond appropriately to bulb/load change.");
+    if (facts.has("FACT_EVAP_SAT_LOW")) pushConfirmed("Suction / evaporating pressure is low against the applicable reference.");
+    if (facts.has("FACT_EVAP_SAT_HIGH")) pushConfirmed("Suction / evaporating pressure is high against the applicable reference.");
+    if (facts.has("FACT_COND_SAT_LOW")) pushConfirmed("Condensing / high-side pressure is low against the applicable reference.");
+    if (facts.has("FACT_COND_SAT_HIGH")) pushConfirmed("Condensing / high-side pressure is high against the applicable reference.");
+    if (facts.has("FACT_SUBCOOLING_LOW")) pushConfirmed("Subcooling is low against the applicable reference.");
+    if (facts.has("FACT_SUBCOOLING_HIGH")) pushConfirmed("Subcooling is high against the applicable reference.");
+    if (facts.has("FACT_HIGH_PRODUCT_LOAD")) pushConfirmed("Large warm product / room load is present.");
+    if (facts.has("FACT_DOOR_OPEN_OR_LEAKING")) pushConfirmed("Door / warm-air infiltration is confirmed.");
+    if (facts.has("FACT_SENSOR_ERROR")) pushConfirmed("A room/control sensor disagrees with the trusted reference or is otherwise suspect.");
+    if (facts.has("FACT_COOLING_DEMAND_ABSENT")) pushConfirmed("No cooling demand is present.");
+    if (facts.has("FACT_COMPRESSOR_LONG_RUNTIME")) pushConfirmed("Compressor is running continuously / for an extended period.");
 
     const hasCondAirProblem =
         facts.has("FACT_COND_AIRFLOW_LOW") ||
@@ -4655,6 +4666,22 @@ function buildKnowledgeHubComparison(state, observationValue) {
         facts.has("FACT_EVAP_FAN_NOT_RUNNING") ||
         facts.has("FACT_EVAP_COIL_DIRTY") ||
         facts.has("FACT_EVAP_COIL_ICED");
+
+    /*
+     * Field-guidance paths are also evidence-priority metadata.  Guides at
+     * priority 70+ represent a directly actionable observation/fault or a
+     * concrete field clue.  They are allowed to outrank an UNKNOWN-state
+     * presentation gate.  Measurement-pattern guides such as HIGH SH remain
+     * below that threshold and still respect operating-state validity.
+     */
+    const fieldGuidanceItems = [...(knowledgeHub.fieldGuidance?.items || [])]
+        .sort((a,b)=>(b.priority||0)-(a.priority||0));
+    const activeFieldGuides = fieldGuidanceItems.filter(guide =>
+        (guide.requires_all || []).every(fact => facts.has(fact)) &&
+        (!guide.requires_any?.length || guide.requires_any.some(fact => facts.has(fact)))
+    );
+    const activeFieldGuide = activeFieldGuides[0] || null;
+    const actionableFieldGuide = activeFieldGuides.find(guide => (guide.priority || 0) >= 70) || null;
 
     let heading = "More information needed";
     let meaning =
@@ -4689,6 +4716,35 @@ function buildKnowledgeHubComparison(state, observationValue) {
         heading = "TXV external-equalizer problem is related to evaporator starvation";
         meaning = "High evaporator superheat shows that the evaporator is being underfed. The observed external-equalizer problem can give the TXV incorrect evaporator-outlet pressure information and cause incorrect refrigerant feed. Correct the equalizer problem first, then recheck superheat before moving to other causes.";
     }
+    else if (facts.has("FACT_EVAP_FAN_NOT_RUNNING")) {
+        heading = "Evaporator fan is not running";
+        meaning = "This is a direct evaporator-airflow fault. Find why the fan is stopped before using refrigerant readings to diagnose charge or the metering device.";
+    }
+    else if (facts.has("FACT_COND_FAN_NOT_RUNNING")) {
+        heading = "Condenser fan is not running";
+        meaning = "This is a direct condenser-airflow fault. Find why the fan is stopped and restore airflow before using high-side readings to diagnose charge.";
+    }
+    else if (facts.has("FACT_COMPRESSOR_NOT_RUNNING")) {
+        heading = "Compressor is not running";
+        meaning = "First determine whether it should be running, then isolate the control/power/start circuit before deciding the compressor itself has failed.";
+    }
+    else if (facts.has("FACT_SOLENOID_NOT_OPENING") || facts.has("FACT_SOLENOID_NO_FLOW_WHEN_OPEN")) {
+        heading = "Liquid-line solenoid is not opening / passing flow";
+        meaning = "This can stop liquid feed to the evaporator. Separate command/coil voltage from a mechanical valve problem.";
+    }
+    else if (facts.has("FACT_SOLENOID_NOT_CLOSING") || facts.has("FACT_SOLENOID_FLOW_CONTINUES_CLOSED")) {
+        heading = "Liquid-line solenoid is not closing";
+        meaning = "Compare the close command and coil voltage with actual refrigerant flow to separate a control problem from a leaking/stuck valve.";
+    }
+    else if (facts.has("FACT_HP_SAFETY_OPEN")) {
+        heading = "High-pressure safety is open/tripped";
+        meaning = "Find the cause of excessive condensing pressure before resetting or diagnosing refrigerant charge.";
+    }
+    else if (actionableFieldGuide) {
+        heading = actionableFieldGuide.heading || "Actionable field finding";
+        meaning = actionableFieldGuide.short_meaning || actionableFieldGuide.relationship ||
+            "A directly actionable field finding is present. Address it before relying on dependent operating measurements.";
+    }
     else if (snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length) {
         const primaryCondition = result.conditions[0];
         const conditionLabel = labelFor(primaryCondition.id);
@@ -4711,9 +4767,19 @@ function buildKnowledgeHubComparison(state, observationValue) {
     }
     else if (result.stateGate?.steadyInterpretationAllowed === false &&
         ["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","STARTUP","OFF"].includes(snapshot.context.operatingState)) {
-        heading = `${formatObservationOptionLabel(snapshot.context.operatingState)} — state-specific interpretation`;
-        meaning =
-            "Steady-cooling conclusions are limited in this operating state. The Brain will use only evidence that is valid for the selected state.";
+        const statePresentation = {
+            DEFROST: ["Do not apply steady-cooling refrigerant diagnosis during defrost", "The system is in defrost. Pressure, superheat and subcooling readings during defrost are not steady-cooling evidence."],
+            STARTUP: ["Allow startup stabilization before diagnosis", "The system has just started. Pressure and temperature readings must stabilize before steady-cooling diagnostic patterns are applied."],
+            SATISFIED: ["Operating state explains why steady-cooling pressure rules do not apply", "Cooling demand is satisfied/off-cycle. Low suction or other off-cycle readings must not be interpreted as steady-cooling faults."],
+            OFF: ["System is off — obtain readings during a normal cooling call", "Steady-cooling refrigeration diagnosis requires measurements taken during a valid cooling call after operation stabilizes."],
+            POST_DEFROST: ["Allow post-defrost recovery before steady-state diagnosis", "The system is recovering from defrost and readings may be unstable until normal cooling is re-established."],
+            PUMP_DOWN: ["Verify the pump-down sequence before calling a refrigeration fault", "Low suction and an open low-pressure control can be normal parts of an intentional pump-down sequence."]
+        };
+        [heading, meaning] = statePresentation[snapshot.context.operatingState];
+    }
+    else if (activeFieldGuide) {
+        heading = activeFieldGuide.heading || "Diagnostic pattern requires follow-up";
+        meaning = activeFieldGuide.short_meaning || activeFieldGuide.relationship || "Use the next field check to separate the remaining causes.";
     }
     else if (result.stateGate?.steadyInterpretationAllowed === false &&
         snapshot.context.operatingState === "UNKNOWN") {
@@ -4895,13 +4961,6 @@ function buildKnowledgeHubComparison(state, observationValue) {
 
     let nextAction = null;
 
-    const fieldGuidanceItems = [...(knowledgeHub.fieldGuidance?.items || [])]
-        .sort((a,b)=>(b.priority||0)-(a.priority||0));
-    const activeFieldGuide = fieldGuidanceItems.find(guide =>
-        (guide.requires_all || []).every(fact => facts.has(fact)) &&
-        (!guide.requires_any?.length || guide.requires_any.some(fact => facts.has(fact)))
-    );
-
     /*
      * Directly correct obvious physical faults before asking for unrelated
      * diagnostic measurements. Then recheck the operating state.
@@ -4911,6 +4970,17 @@ function buildKnowledgeHubComparison(state, observationValue) {
     }
     else if (activeFieldGuide?.steps?.length) {
         nextAction = activeFieldGuide.steps[0].action + (activeFieldGuide.steps[0].record ? ` <span style="font-weight:400;color:#5f7180;">Where to record it: ${activeFieldGuide.steps[0].record}</span>` : "");
+    }
+    else if (result.stateGate?.steadyInterpretationAllowed === false && ["DEFROST","STARTUP","SATISFIED","OFF","POST_DEFROST","PUMP_DOWN"].includes(snapshot.context.operatingState)) {
+        const stateActions = {
+            DEFROST: "Complete/verify the defrost cycle first. Confirm heaters or hot-gas operation, termination and fan delay as applicable; after the system returns to cooling and stabilizes, then recheck superheat, pressures and temperatures.",
+            STARTUP: "Allow the refrigeration system to complete startup/pull-down and reach a stable cooling condition before using pressures, superheat or subcooling for root-cause diagnosis.",
+            SATISFIED: "Cooling demand is satisfied. Do not diagnose low suction or charge from an off-cycle reading; wait for a normal cooling call and collect readings after operation stabilizes.",
+            OFF: "The system is off. Establish why it is off and obtain refrigeration readings during a normal cooling call before interpreting pressures or charge.",
+            POST_DEFROST: "Allow post-defrost recovery and fan delay to complete. Recheck readings only after normal cooling has stabilized.",
+            PUMP_DOWN: "Verify the pump-down sequence: liquid-line solenoid command/closure, suction pressure fall, low-pressure control cut-out and compressor stop. Interpret low suction in that sequence before calling it a refrigeration fault."
+        };
+        nextAction = stateActions[snapshot.context.operatingState];
     }
     else if (result.nextCheck && (
         result.stateGate?.steadyInterpretationAllowed === false ||
@@ -4926,6 +4996,28 @@ function buildKnowledgeHubComparison(state, observationValue) {
     else if (result.nextCheck) {
         nextAction=checkLabels.get(result.nextCheck)||result.nextCheck;
     }
+
+    const otherActiveGuides = activeFieldGuides
+        .filter(guide => (guide.priority || 0) >= 70 && guide.id !== activeFieldGuide?.id)
+        .filter((guide, index, all) =>
+            all.findIndex(item => (item.heading || item.id) === (guide.heading || guide.id)) === index
+        );
+
+    const otherActiveHtml = otherActiveGuides.length
+        ? `
+            <div style="margin-top:14px;padding:10px 12px;border:1px solid rgba(100,120,140,0.18);border-radius:6px;background:#fff;">
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
+                    OTHER ACTIVE FINDINGS
+                </div>
+                <div style="margin-top:6px;color:#263746;line-height:1.45;">
+                    ${otherActiveGuides.map(guide => `<div>• ${guide.heading || guide.id}</div>`).join("")}
+                </div>
+                <div style="margin-top:6px;color:#5f7180;line-height:1.4;">
+                    These findings remain active. After the primary action is completed, System Check will reevaluate and move to the next unresolved problem.
+                </div>
+            </div>
+        `
+        : "";
 
     const confirmedHtml = confirmed.length
         ? `
@@ -4966,6 +5058,8 @@ function buildKnowledgeHubComparison(state, observationValue) {
             </div>
 
             ${rootCauses}
+
+            ${otherActiveHtml}
 
             ${nextAction ? `
                 <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(100,120,140,0.18);">

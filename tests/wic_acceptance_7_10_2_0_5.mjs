@@ -14,7 +14,7 @@ let n=0; const ok=(v,m)=>{if(!v)throw Error(m);n++};
 // 8 exact UI values: Fan Operation > Normal; Coil Condition > Dirty
 {let s=base();s.observations={condenser:{fan_operation:'normal',coil_condition:'dirty'}};let x=run(s);ok(x.a.facts.includes('FACT_COND_COIL_DIRTY'),'8 fact');ok(x.dx.includes('CAUSE_COND_COIL_DIRTY'),'8 cause');ok(!x.dx.includes('CAUSE_COND_FAN_FAILURE'),'8 normal fan excludes fan failure');ok(app.includes('The dirty/restricted condenser coil can reduce airflow and condenser heat rejection.'),'8 presentation');}
 // 9 Defrost gates ordinary steady-state diagnosis.
-{let s=base('DEFROST');s.calculated.evaporatorSuperheat=24.7;let x=run(s);ok(x.r.stateGate.steadyInterpretationAllowed===false,'9 state gate');ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE')&&!x.dx.includes('CAUSE_TXV_UNDERFEED'),'9 no steady diagnosis');ok(app.includes('— state-specific interpretation'),'9 presentation');}
+{let s=base('DEFROST');s.calculated.evaporatorSuperheat=24.7;let x=run(s);ok(x.r.stateGate.steadyInterpretationAllowed===false,'9 state gate');ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE')&&!x.dx.includes('CAUSE_TXV_UNDERFEED'),'9 no steady diagnosis');ok(app.includes('Do not apply steady-cooling refrigerant diagnosis during defrost'),'9 presentation');}
 // 10 SC alone, receiver, no target: measured but no low-charge verdict.
 {let s=base();s.calculated.condenserSubcooling=2.2;let x=run(s);ok(x.a.facts.includes('FACT_SUBCOOLING_MEASURED'),'10 measured');ok(x.a.facts.includes('FACT_SC_REFERENCE_NOT_APPLICABLE'),'10 receiver caveat');ok(!x.a.facts.includes('FACT_SUBCOOLING_LOW'),'10 no invented formal low class');ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'10 no charge verdict');ok(app.includes('very little/minimal subcooling'),'10 presentation wording');}
-console.log(`WIC ACCEPTANCE 7-10 2.0.6: ${n} assertions PASS`);
+console.log(`WIC ACCEPTANCE 7-10 state-aware presentation: ${n} assertions PASS`);

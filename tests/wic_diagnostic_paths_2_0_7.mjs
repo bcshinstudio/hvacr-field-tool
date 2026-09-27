@@ -1,0 +1,17 @@
+import fs from 'node:fs';
+const j=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url),'utf8'));
+const guides=j('../data/knowledge/core/field_guidance.json').items;
+const app=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+let n=0; const ok=(v,m)=>{if(!v)throw Error(m);n++}; const g=id=>guides.find(x=>x.id===id);
+for (const id of ['GUIDE_EVAP_FAN_NOT_RUNNING','GUIDE_COND_FAN_NOT_RUNNING','GUIDE_COMPRESSOR_NOT_RUNNING','GUIDE_SOLENOID_NOT_OPENING','GUIDE_SOLENOID_NOT_CLOSING','GUIDE_DEFROST_INCOMPLETE','GUIDE_EVAP_AIRFLOW_BLOCKED','GUIDE_SIGHT_GLASS_FLASHING','GUIDE_HIGH_SH']) ok(g(id),`missing ${id}`);
+ok(/mechanically free/i.test(g('GUIDE_EVAP_FAN_NOT_RUNNING').steps[1].action),'evap fan mechanical->electrical sequence');
+ok(/run capacitor/i.test(g('GUIDE_EVAP_FAN_NOT_RUNNING').steps[2].action),'evap fan capacitor branch');
+ok(/voltage is absent/i.test(g('GUIDE_EVAP_FAN_NOT_RUNNING').steps[2].action),'evap fan no-voltage branch');
+ok(/cooling call/i.test(g('GUIDE_COMPRESSOR_NOT_RUNNING').steps[0].action),'compressor starts with demand/state');
+ok(/contactor/i.test(g('GUIDE_COMPRESSOR_NOT_RUNNING').steps[1].action),'compressor control path');
+ok(/voltage at the compressor terminals/i.test(g('GUIDE_COMPRESSOR_NOT_RUNNING').steps[2].action),'compressor terminal voltage');
+ok(/do not add refrigerant/i.test(g('GUIDE_HIGH_SH').steps[1].action),'high SH avoids charge leap');
+ok(/not a charge diagnosis/i.test(g('GUIDE_SIGHT_GLASS_FLASHING').short_meaning),'sight glass avoids charge leap');
+ok(app.indexOf('facts.has("FACT_EVAP_FAN_NOT_RUNNING")') < app.indexOf('snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length'),'direct evap fan evidence precedes unknown-state condition gate');
+ok(app.includes('Find why the fan is stopped before using refrigerant readings'),'technician-facing evap fan wording');
+console.log(`WIC DIAGNOSTIC PATHS 2.0.7: ${n} assertions PASS`);

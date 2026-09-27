@@ -1,7 +1,7 @@
 {
-  "knowledge_version": "2.0.6",
+  "knowledge_version": "2.0.8",
   "schema_version": "1.0.0",
-  "status": "field_guidance_release",
+  "status": "diagnostic_path_release",
   "counts": {
     "concepts": 108,
     "rules": 34,
@@ -9,7 +9,7 @@
     "checks": 20,
     "discriminators": 5,
     "sources": 20,
-    "field_guidance": 6
+    "field_guidance": 47
   },
   "entry_files": {
     "concepts": "core/concepts.json",
@@ -31,5 +31,6 @@
     "Plausible subtype hypotheses remain generalized to their broad parent until localized/direct evidence supports the subtype.",
     "Gold-standard validation expectations are derived from manufacturer/component literature before comparison with Brain output; regression pass counts are not treated as proof of diagnostic correctness.",
     "Field guidance is structured separately from diagnosis: direct observations map to why-it-matters, next physical check, exact UI recording path where available, follow-up branch, and repair verification."
-  ]
+  ],
+  "version": "2.0.8"
 }

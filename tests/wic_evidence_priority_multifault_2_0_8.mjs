@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+const j=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url),'utf8'));
+const guides=j('../data/knowledge/core/field_guidance.json').items;
+const app=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+let n=0; const ok=(v,m)=>{if(!v)throw Error(m);n++};
+const g=id=>guides.find(x=>x.id===id);
+for (const id of ['GUIDE_EVAP_ICED','GUIDE_COND_COIL_DIRTY','GUIDE_SIGHT_GLASS_FLASHING','GUIDE_EVAP_FAN_NOT_RUNNING','GUIDE_COND_FAN_NOT_RUNNING']) ok(g(id),`missing ${id}`);
+ok(g('GUIDE_EVAP_ICED').priority>=70,'iced coil is actionable evidence');
+ok(g('GUIDE_COND_COIL_DIRTY').priority>=70,'dirty condenser is actionable evidence');
+ok(g('GUIDE_SIGHT_GLASS_FLASHING').priority>=70,'sight glass clue outranks generic unknown-state headline');
+ok(g('GUIDE_EVAP_FAN_NOT_RUNNING').priority>g('GUIDE_COND_COIL_DIRTY').priority,'evap fan ranks ahead of dirty condenser in mixed case');
+ok(app.includes('const activeFieldGuides = fieldGuidanceItems.filter'),'all active guides retained');
+ok(app.includes('const actionableFieldGuide = activeFieldGuides.find'),'actionable evidence selector present');
+ok(app.indexOf('else if (actionableFieldGuide)') < app.indexOf('snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length'),'actionable evidence outranks unknown-state condition gate');
+ok(app.includes('OTHER ACTIVE FINDINGS'),'multi-fault queue rendered');
+ok(app.includes('These findings remain active. After the primary action is completed'),'remaining faults explicitly preserved');
+ok(app.includes('guide.id !== activeFieldGuide?.id'),'primary guide excluded from secondary queue');
+console.log(`WIC EVIDENCE PRIORITY + MULTI-FAULT 2.0.8: ${n} assertions PASS`);
