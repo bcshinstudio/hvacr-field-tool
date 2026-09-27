@@ -152,7 +152,7 @@ function stateGate(context){
   const s=context.operatingState;
   if(!s) return {status:"UNKNOWN_NOT_PROVIDED",steadyInterpretationAllowed:true};
   if(STEADY_STATES.has(s)) return {status:"STEADY_OR_INTERPRETABLE",steadyInterpretationAllowed:true};
-  if(["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","STARTUP","OFF","UNKNOWN"].includes(s))
+  if(["DEFROST","POST_DEFROST","PUMP_DOWN","SATISFIED","SATISFIED_OFF","STARTUP","OFF","UNKNOWN"].includes(s))
     return {status:"TRANSIENT_OR_NONCOOLING",steadyInterpretationAllowed:false};
   return {status:"UNKNOWN_STATE",steadyInterpretationAllowed:false};
 }
@@ -171,7 +171,14 @@ export function evaluateHypotheses({
     for(const x of items){const prev=m.get(x.candidate);if(!prev||x.score>prev.score)m.set(x.candidate,x);}
     return [...m.values()];
   };
-  const supported=dedupeBest(suppressParents(all.filter(x=>x.state==="SUPPORTED"),relationships));
+  let supported=dedupeBest(suppressParents(all.filter(x=>x.state==="SUPPORTED"),relationships));
+  // A high-SH + low-SC pair can suggest low refrigerant inventory, but simultaneous
+  // high head is a conflicting pattern. Without direct leak/charge evidence, keep
+  // low charge as a hypothesis rather than a supported diagnosis until heat rejection,
+  // restriction/noncondensables, measurement validity and charge evidence are separated.
+  if(factState.valid.has("FACT_EVAP_SH_HIGH") && factState.valid.has("FACT_SUBCOOLING_LOW") && factState.valid.has("FACT_COND_SAT_HIGH") && !factState.valid.has("FACT_LEAK_CONFIRMED")){
+    supported=supported.filter(x=>x.candidate!=="CAUSE_LOW_REFRIGERANT_CHARGE");
+  }
   const plausible=dedupeBest(generalizePlausible(all.filter(x=>x.state==="PLAUSIBLE"),relationships));
   const disfavored=all.filter(x=>x.state==="DISFAVORED");
   const outOfScope=all.filter(x=>x.state==="OUT_OF_SCOPE");

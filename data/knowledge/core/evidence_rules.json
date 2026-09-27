@@ -26,6 +26,10 @@
         {
           "fact": "FACT_DRIER_TEMP_DROP",
           "role": "CONTRADICT"
+        },
+        {
+          "fact": "FACT_SC_REFERENCE_NOT_APPLICABLE",
+          "role": "EXCLUDE"
         }
       ],
       "sources": [
@@ -337,7 +341,8 @@
         ],
         "operating_states": [
           "STABLE_COOLING",
-          "PULLDOWN"
+          "PULLDOWN",
+          "UNKNOWN"
         ]
       }
     },
@@ -474,7 +479,8 @@
         ],
         "operating_states": [
           "STABLE_COOLING",
-          "PULLDOWN"
+          "PULLDOWN",
+          "UNKNOWN"
         ]
       }
     },
@@ -507,7 +513,10 @@
         ],
         "operating_states": [
           "STABLE_COOLING",
-          "PULLDOWN"
+          "PULLDOWN",
+          "DEFROST",
+          "POST_DEFROST",
+          "UNKNOWN"
         ]
       }
     },
@@ -606,6 +615,11 @@
       "candidate": "CAUSE_AIR_INFILTRATION",
       "evidence": [
         {
+          "fact": "FACT_DOOR_INFILTRATION_CONFIRMED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
           "fact": "FACT_DOOR_OPEN_OR_LEAKING",
           "role": "STRONG_SUPPORT",
           "direct": true
@@ -628,7 +642,10 @@
         ],
         "operating_states": [
           "STABLE_COOLING",
-          "PULLDOWN"
+          "PULLDOWN",
+          "DEFROST",
+          "POST_DEFROST",
+          "UNKNOWN"
         ]
       }
     },
@@ -699,16 +716,17 @@
       "evidence": [
         {
           "fact": "FACT_TXV_HUNTING",
-          "role": "SUPPORT"
+          "role": "STRONG_SUPPORT",
+          "direct": true
         },
         {
           "fact": "FACT_EVAP_FEED_UNEVEN",
-          "role": "SUPPORT"
+          "role": "STRONG_SUPPORT",
+          "direct": true
         },
         {
           "fact": "FACT_MOISTURE_INDICATED",
-          "role": "STRONG_SUPPORT",
-          "direct": true
+          "role": "REQUIRED"
         }
       ],
       "sources": [
@@ -1298,7 +1316,11 @@
         ],
         "operating_states": [
           "PUMP_DOWN",
-          "SATISFIED"
+          "SATISFIED",
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "UNKNOWN",
+          "PUMPDOWN"
         ]
       }
     },
@@ -1475,7 +1497,8 @@
         "operating_states": [
           "STABLE_COOLING",
           "PULLDOWN",
-          "STARTUP"
+          "STARTUP",
+          "UNKNOWN"
         ]
       }
     },
@@ -1602,6 +1625,258 @@
           "APP_WIC"
         ]
       }
+    },
+    {
+      "id": "RULE_COMPRESSOR_WEAK_PUMPING_DIRECT",
+      "candidate": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_CAPACITY_POOR",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_RUNNING",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Weak pumping differential while the compressor is running is direct performance evidence; verify load/feed/measurement before condemnation."
+    },
+    {
+      "id": "RULE_DEFROST_HEATER_ELECTRICAL_OPEN",
+      "candidate": "CAUSE_DEFROST_HEATER_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_DEFROST_COMMAND_PRESENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_DEFROST_HEATER_CURRENT_ABSENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      },
+      "notes": "Command and voltage with no heater current localizes the fault to heater/load circuit or its connections."
+    },
+    {
+      "id": "RULE_LP_CONTROL_OPEN_WARM_BOX",
+      "candidate": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_LP_CONTROL_OPEN",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "SUPPORT"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      },
+      "notes": "An open LP control during a warm-box cooling requirement requires cutout/cutin and actual pressure verification."
+    },
+    {
+      "id": "RULE_UNDERSIZED_DIRECT_LOAD",
+      "candidate": "CAUSE_SYSTEM_UNDERSIZED",
+      "evidence": [
+        {
+          "fact": "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_BOX_TEMP_HIGH",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_AIRFLOW_VERIFIED_NORMAL",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_CONTROLS_VERIFIED_NORMAL",
+          "role": "REQUIRED"
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Verified load above equipment capacity after normal airflow/feed/controls localizes a capacity/sizing problem."
+    },
+    {
+      "id": "RULE_MOISTURE_CONTAMINATION",
+      "candidate": "CAUSE_MOISTURE_CONTAMINATION",
+      "evidence": [
+        {
+          "fact": "FACT_MOISTURE_INDICATED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_SPORLAN_DRIER"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ]
+      },
+      "notes": "A wet indicator establishes moisture contamination risk, but does not alone prove an active TXV ice restriction."
+    },
+    {
+      "id": "RULE_UNDERSIZED_VERIFIED_NORMAL",
+      "candidate": "CAUSE_SYSTEM_UNDERSIZED",
+      "evidence": [
+        {
+          "fact": "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_AIRFLOW_VERIFIED_NORMAL",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_CONTROLS_VERIFIED_NORMAL",
+          "role": "REQUIRED"
+        }
+      ],
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Verified load above available capacity with refrigeration, airflow and controls normal localizes a capacity/sizing problem."
+    },
+    {
+      "id": "RULE_WET_TXV_HIGH_SH",
+      "candidate": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "evidence": [
+        {
+          "fact": "FACT_MOISTURE_INDICATED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "REQUIRED"
+        }
+      ],
+      "sources": [
+        "SRC_HEATCRAFT_FAQ",
+        "SRC_SPORLAN_DRIER"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN"
+        ]
+      },
+      "notes": "Wet indicator plus high evaporator superheat supports moisture-related feed restriction; wet indication alone remains contamination evidence, not proof of active icing."
+    },
+    {
+      "id": "RULE_CONTACTOR_COIL_DEAD_WITH_DEMAND",
+      "candidate": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "evidence": [
+        {
+          "fact": "FACT_COOLING_DEMAND_PRESENT",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_FIELD_DIAGNOSTIC_SEQUENCE"
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      },
+      "notes": "With a cooling call present but no contactor-coil energization, trace control power, safeties, wiring and controller output upstream of the coil."
+    },
+    {
+      "id": "RULE_CONTACTOR_LOAD_PATH_OPEN",
+      "candidate": "CAUSE_CONTACTOR_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_CONTACTOR_COIL_ENERGIZED",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "scope": {
+        "applications": [
+          "APP_WIC"
+        ],
+        "operating_states": [
+          "STABLE_COOLING",
+          "PULLDOWN",
+          "STARTUP"
+        ]
+      },
+      "notes": "Energized contactor coil with no voltage at compressor localizes the open to contactor/load-side wiring path; verify line/load before replacement."
     }
   ]
 }

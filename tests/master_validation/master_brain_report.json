@@ -174,10 +174,10 @@
       "operatingState": "STABLE_COOLING",
       "resolution": "SINGLE_SUPPORTED_CAUSE",
       "diagnoses": [
-        "CAUSE_WET_SYSTEM_TXV_ICE"
+        "CAUSE_MOISTURE_CONTAMINATION"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_TXV_INSTALL",
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
       "activeGuides": [
         "GUIDE_MOISTURE_WET"
       ]
@@ -603,6 +603,7 @@
       ],
       "nextCheck": "CHECK_DRIER_DROP",
       "activeGuides": [
+        "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
         "GUIDE_SIGHT_GLASS_FLASHING",
         "GUIDE_HIGH_SH"
       ]
@@ -638,6 +639,7 @@
       ],
       "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
+        "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
         "GUIDE_FILTER_DRIER_RESTRICTION",
         "GUIDE_SIGHT_GLASS_FLASHING",
         "GUIDE_HIGH_SH"
@@ -734,6 +736,7 @@
       ],
       "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
       "activeGuides": [
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
         "GUIDE_PATTERN_OVERCHARGE_POSSIBLE"
       ]
     },
@@ -824,6 +827,7 @@
       ],
       "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
       "activeGuides": [
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
         "GUIDE_PATTERN_HIGH_AMBIENT"
       ]
     },
@@ -963,6 +967,7 @@
       ],
       "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
+        "GUIDE_LOW_SH_BULB_ERROR",
         "GUIDE_TXV_BULB",
         "GUIDE_PATTERN_LOW_SH"
       ]
@@ -1224,8 +1229,10 @@
         "FACT_SOLENOID_COMMAND_CLOSED"
       ],
       "operatingState": "PUMP_DOWN",
-      "resolution": "STATE_CONTEXT_REQUIRED",
-      "diagnoses": [],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+      ],
       "conditions": [],
       "nextCheck": "CHECK_SOLENOID_SEQUENCE",
       "activeGuides": [
@@ -1279,8 +1286,10 @@
         "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
       ],
       "operatingState": "STABLE_COOLING",
-      "resolution": "INSUFFICIENT_EVIDENCE",
-      "diagnoses": [],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
+      ],
       "conditions": [],
       "nextCheck": "CHECK_DRAIN_REFREEZE",
       "activeGuides": [
@@ -1310,7 +1319,7 @@
         "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_CONTROLLER_SENSOR",
+      "nextCheck": "CHECK_DOOR_LOAD",
       "activeGuides": [
         "GUIDE_SENSOR_ERROR"
       ]
@@ -1508,7 +1517,7 @@
         "CAUSE_EVAP_COIL_DIRTY"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "nextCheck": "CHECK_DOOR_LOAD",
       "activeGuides": [
         "GUIDE_EVAP_AIRFLOW_BLOCKED"
       ]
@@ -1817,8 +1826,8 @@
       "pass": true,
       "failureClass": null,
       "errors": [],
-      "headlineScore": 0.6666666666666666,
-      "nextScore": 0.4444444444444444,
+      "headlineScore": 1,
+      "nextScore": 0.5555555555555556,
       "findingScores": [
         1,
         1,
@@ -1841,6 +1850,7 @@
       ],
       "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
+        "GUIDE_RESTRICTION_OUTRANKS_CHARGE_PATTERN",
         "GUIDE_FILTER_DRIER_RESTRICTION",
         "GUIDE_HIGH_SH"
       ]
@@ -2208,10 +2218,8 @@
         "FACT_SUBCOOLING_LOW"
       ],
       "operatingState": "STABLE_COOLING",
-      "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "diagnoses": [
-        "CAUSE_LOW_REFRIGERANT_CHARGE"
-      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
       "conditions": [
         "COND_EVAP_STARVED",
         "COND_HIGH_SIDE_PRESSURE_PROBLEM"
@@ -2237,10 +2245,12 @@
         "FACT_EVAP_FAN_NOT_RUNNING"
       ],
       "operatingState": "UNKNOWN",
-      "resolution": "STATE_CONTEXT_REQUIRED",
-      "diagnoses": [],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
       "conditions": [],
-      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
       "activeGuides": [
         "GUIDE_EVAP_FAN_NOT_RUNNING"
       ]

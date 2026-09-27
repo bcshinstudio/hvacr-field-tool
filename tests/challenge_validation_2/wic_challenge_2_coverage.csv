@@ -1,0 +1,61 @@
+case,title,state,fact_count
+CH2-A001,High SH without confirmed operating state,UNKNOWN,2
+CH2-A002,Low SC without applicable model target,STABLE_COOLING,4
+CH2-A003,Model target overrides generic reference,STABLE_COOLING,3
+CH2-A004,Suspect evaporator outlet pressure reading,STABLE_COOLING,2
+CH2-A005,Warm room with normal suction and head,STABLE_COOLING,3
+CH2-A006,Low suction with low evaporator load,STABLE_COOLING,4
+CH2-A007,High head just after warm pull-down begins,STABLE_COOLING,3
+CH2-A008,Low SH with verified low evaporator load,STABLE_COOLING,3
+CH2-A009,Sight-glass bubbles during low ambient,STABLE_COOLING,3
+CH2-A010,High current with normal head,STABLE_COOLING,2
+CH2-B011,High SH + high SC + low suction,STABLE_COOLING,3
+CH2-B012,High SH + low SC + confirmed restriction,STABLE_COOLING,3
+CH2-B013,Low SH + high suction with airflow normal,STABLE_COOLING,3
+CH2-B014,High suction + low head + weak differential,STABLE_COOLING,4
+CH2-B015,Low suction + low head + bubbles + no leak evidence,STABLE_COOLING,4
+CH2-B016,High head + high SC + normal airflow + noncondensable evidence,STABLE_COOLING,4
+CH2-B017,High head + high SC + normal airflow + overcharge evidence,STABLE_COOLING,4
+CH2-B018,High head with dirty coil and high ambient,STABLE_COOLING,3
+CH2-B019,High SH + proper TXV liquid + bulb good + no response,STABLE_COOLING,4
+CH2-B020,High SH + flashing at TXV + drier drop,STABLE_COOLING,3
+CH2-C021,Startup transient high suction,STARTUP,2
+CH2-C022,Defrost active with low suction,DEFROST,2
+CH2-C023,Post-defrost low SH with fan delay active,POST_DEFROST,3
+CH2-C024,Pump-down with LP control open,PUMPDOWN,3
+CH2-C025,Satisfied/off with low suction,SATISFIED_OFF,1
+CH2-C026,Defrost heater voltage present and current absent,DEFROST,3
+CH2-C027,Defrost completes but drain refreezes,STABLE_COOLING,2
+CH2-C028,Fan delay active immediately after defrost,POST_DEFROST,2
+CH2-C029,Startup after long off-cycle with hot compressor,STARTUP,2
+CH2-C030,Post-defrost abnormal pressures that normalize,POST_DEFROST,3
+CH2-D031,Cooling demand but contactor coil dead,STABLE_COOLING,2
+CH2-D032,Contactor coil energized but no load-side voltage,STABLE_COOLING,2
+CH2-D033,Correct compressor voltage but no start + start fault,STABLE_COOLING,3
+CH2-D034,Fuse open with cause unknown,STABLE_COOLING,1
+CH2-D035,HP safety open with condenser fan stopped,STABLE_COOLING,3
+CH2-D036,Overload open on hot compressor,STABLE_COOLING,3
+CH2-D037,Solenoid commanded open with voltage but no flow,STABLE_COOLING,3
+CH2-D038,Solenoid commanded closed but flow continues,STABLE_COOLING,2
+CH2-D039,Anti-short-cycle delay active with demand,STABLE_COOLING,3
+CH2-D040,LP control opens too early during cooling,STABLE_COOLING,3
+CH2-E041,Evap fan stopped + dirty condenser + warm room,STABLE_COOLING,3
+CH2-E042,Dirty condenser + sensor error + high load,STABLE_COOLING,3
+CH2-E043,Iced coil + fan stopped + drain refreeze,STABLE_COOLING,3
+CH2-E044,High SH + drier drop + TXV bulb fault,STABLE_COOLING,3
+CH2-E045,High head + fan stopped + overcharge evidence,STABLE_COOLING,3
+CH2-E046,Low-charge pattern + confirmed leak + drier restriction,STABLE_COOLING,4
+CH2-E047,Sensor error + refrigeration normal + warm room,STABLE_COOLING,3
+CH2-E048,High product load + normal refrigeration + long runtime,STABLE_COOLING,3
+CH2-E049,Load exceeds capacity with all major functions normal,STABLE_COOLING,4
+CH2-E050,Unknown state + direct condenser fan fault,UNKNOWN,1
+CH2-F051,Moisture indicator wet with otherwise normal operation,STABLE_COOLING,2
+CH2-F052,TXV hunting with head-control instability,STABLE_COOLING,2
+CH2-F053,Uneven evaporator feed with proper inlet liquid,STABLE_COOLING,2
+CH2-F054,High discharge temperature + low suction + high SH,STABLE_COOLING,3
+CH2-F055,High current + high head + dirty condenser,STABLE_COOLING,3
+CH2-F056,Compressor hot but head not excessive,STABLE_COOLING,3
+CH2-F057,Low ambient + low head + head control installed,STABLE_COOLING,3
+CH2-F058,High head with clean coil and normal airflow,STABLE_COOLING,4
+CH2-F059,Warm room + normal refrigeration + door infiltration,STABLE_COOLING,3
+CH2-F060,Conflicting high-head and low-charge clues,STABLE_COOLING,4

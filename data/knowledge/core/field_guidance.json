@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "items": [
     {
       "id": "GUIDE_FILTER_DRIER_RESTRICTION",
@@ -518,7 +518,7 @@
       "relationship": "An open low-pressure control can be normal at the end of pump-down; interpret it with operating state and solenoid command before calling it a fault.",
       "steps": [
         {
-          "action": "Confirm pump-down state and liquid-line solenoid command. If pump-down is complete, verify the compressor stops at the intended cut-out and restarts correctly on the next call.",
+          "action": "Confirm operating/pump-down state and liquid-line solenoid command. During cooling, compare actual suction pressure and LP cut-in/cutout with the application setting/specification; inspect the sensing line and control calibration before adjustment or replacement. If pump-down is complete, verify the compressor stops and restarts at the intended pressures.",
           "record": "Record the result in the applicable component observation/notes and rerun System Check."
         }
       ],
@@ -884,6 +884,1462 @@
       ],
       "heading": "Load context must be separated from compressor inefficiency",
       "short_meaning": "High load can raise suction while low head may reflect ambient/head-control conditions; compressor inefficiency is not proven."
+    },
+    {
+      "id": "GUIDE_MIGRATION_STARTUP_RISK",
+      "priority": 94,
+      "requires_all": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_LONG_OFF_CYCLE_STARTUP"
+      ],
+      "relationship": "After a long off-cycle or uncertain startup condition, compressor heat alone does not identify a failed compressor; migration/floodback and crankcase protection must be considered.",
+      "steps": [
+        {
+          "action": "Before condemning the compressor, verify crankcase heater operation, off-cycle conditions, oil condition and startup behavior.",
+          "record": "Record off-cycle duration, crankcase heater status, oil condition and startup suction/superheat behavior."
+        }
+      ],
+      "heading": "Refrigerant migration / startup floodback risk must be considered",
+      "short_meaning": "After a long off-cycle or uncertain startup condition, compressor heat alone does not identify a failed compressor; migration/floodback and crankcase protection must be considered."
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_LIQUID_RETURN",
+      "priority": 99,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_EVAP_SH_LOW"
+      ],
+      "relationship": "Low superheat during post-defrost recovery can be transient and can increase liquid-return risk; it is not steady-cooling charge evidence.",
+      "steps": [
+        {
+          "action": "Allow controlled post-defrost recovery; verify fan delay, superheat and liquid return before judging charge.",
+          "record": "After normal fan release and stable cooling, remeasure superheat."
+        }
+      ],
+      "heading": "Post-defrost liquid return / floodback risk",
+      "short_meaning": "Low superheat during post-defrost recovery can be transient and can increase liquid-return risk; it is not steady-cooling charge evidence."
+    },
+    {
+      "id": "GUIDE_COMPRESSOR_WEAK_PUMPING",
+      "priority": 96,
+      "requires_all": [
+        "FACT_COMPRESSOR_RUNNING",
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK"
+      ],
+      "relationship": "A running compressor with weak pressure separation indicates reduced pumping performance, but load, feed and measurement accuracy must be verified before condemnation.",
+      "steps": [
+        {
+          "action": "Verify load, airflow, feed and measurement accuracy, then compare suction/discharge performance with model data before condemning compressor.",
+          "record": "Record stabilized suction/discharge pressures, current and applicable manufacturer performance data."
+        }
+      ],
+      "heading": "Compressor pumping efficiency is suspect",
+      "short_meaning": "A running compressor with weak pressure separation indicates reduced pumping performance, but load, feed and measurement accuracy must be verified before condemnation."
+    },
+    {
+      "id": "GUIDE_COMPRESSOR_VALVE_LEAKAGE",
+      "priority": 99,
+      "requires_all": [
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+      ],
+      "relationship": "Weak pressure separation plus internal valve-leakage evidence strongly localizes reduced compressor pumping capacity.",
+      "steps": [
+        {
+          "action": "Confirm electrical/load conditions and model performance, then plan compressor repair/replacement per manufacturer procedure.",
+          "record": "Record pressure differential, current and leakage evidence."
+        }
+      ],
+      "heading": "Internal compressor leakage strongly indicated",
+      "short_meaning": "Weak pressure separation plus internal valve-leakage evidence strongly localizes reduced compressor pumping capacity."
+    },
+    {
+      "id": "GUIDE_OVERLOAD_WITH_FLOODBACK",
+      "priority": 98,
+      "requires_all": [
+        "FACT_OVERLOAD_PROTECTION_OPEN",
+        "FACT_COMPRESSOR_HOT",
+        "FACT_EVAP_SH_LOW"
+      ],
+      "relationship": "An open overload protects the hot compressor. Low superheat is a floodback clue, but voltage/current and cooling conditions also require verification.",
+      "steps": [
+        {
+          "action": "Let protection reset safely, then diagnose floodback, voltage/current and cooling conditions before restart.",
+          "record": "Do not repeatedly reset protection without correcting the cause."
+        }
+      ],
+      "heading": "Protection trip; root cause still unresolved",
+      "short_meaning": "An open overload protects the hot compressor. Low superheat is a floodback clue, but voltage/current and cooling conditions also require verification."
+    },
+    {
+      "id": "GUIDE_HIGH_DLT_STARVATION",
+      "priority": 96,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "relationship": "High discharge temperature with low evaporating condition and high superheat is consistent with a starved/high-compression-ratio operating condition.",
+      "steps": [
+        {
+          "action": "Find the starvation cause and restore proper suction conditions before extended operation.",
+          "record": "Check liquid supply, restrictions, metering device and load; then recheck discharge temperature."
+        }
+      ],
+      "heading": "High discharge-temperature risk with starved evaporator",
+      "short_meaning": "High discharge temperature with low evaporating condition and high superheat is consistent with a starved/high-compression-ratio operating condition."
+    },
+    {
+      "id": "GUIDE_HIGH_CURRENT_HIGH_HEAD",
+      "priority": 96,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "relationship": "High condensing pressure increases compressor work and can raise current. Correct the high-side cause before judging the compressor electrically.",
+      "steps": [
+        {
+          "action": "Correct high-head cause first, then recheck current against nameplate/model limits.",
+          "record": "Verify condenser airflow, ambient/load, charge method and high-side controls."
+        }
+      ],
+      "heading": "High compressor load associated with high condensing pressure",
+      "short_meaning": "High condensing pressure increases compressor work and can raise current. Correct the high-side cause before judging the compressor electrically."
+    },
+    {
+      "id": "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
+      "priority": 95,
+      "requires_all": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_NORMAL"
+      ],
+      "relationship": "When condenser airflow is verified normal, high head requires charge/inventory, noncondensables, load/ambient and pressure-control discrimination rather than more airflow work.",
+      "steps": [
+        {
+          "action": "Use applicable charge method and pressure-temperature evidence to separate overcharge from noncondensables/high load.",
+          "record": "Record subcooling/inventory evidence, ambient/load and service history."
+        }
+      ],
+      "heading": "High head remains after airflow causes are excluded",
+      "short_meaning": "When condenser airflow is verified normal, high head requires charge/inventory, noncondensables, load/ambient and pressure-control discrimination rather than more airflow work."
+    },
+    {
+      "id": "GUIDE_NONCONDENSABLE_DIRECT",
+      "priority": 99,
+      "requires_all": [
+        "FACT_NONCONDENSABLE_EVIDENCE",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "relationship": "High head with verified noncondensable pressure-temperature/service evidence and normal airflow localizes a refrigerant-circuit contamination problem.",
+      "steps": [
+        {
+          "action": "Recover/handle refrigerant according to service procedure, evacuate properly, recharge correctly, and verify.",
+          "record": "Verify airflow and service history before opening the circuit."
+        }
+      ],
+      "heading": "Noncondensables strongly supported",
+      "short_meaning": "High head with verified noncondensable pressure-temperature/service evidence and normal airflow localizes a refrigerant-circuit contamination problem."
+    },
+    {
+      "id": "GUIDE_OVERCHARGE_DIRECT",
+      "priority": 99,
+      "requires_all": [
+        "FACT_OVERCHARGE_EVIDENCE",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "relationship": "High head plus direct excess-inventory/charge evidence supports overcharge after airflow causes are excluded.",
+      "steps": [
+        {
+          "action": "Correct charge by the equipment-specific method and verify stable operation.",
+          "record": "Use manufacturer charge method; do not rely on a generic target where not applicable."
+        }
+      ],
+      "heading": "Excess refrigerant charge strongly supported",
+      "short_meaning": "High head plus direct excess-inventory/charge evidence supports overcharge after airflow causes are excluded."
+    },
+    {
+      "id": "GUIDE_TXV_UNDERFEED_AFTER_SUPPLY_VERIFIED",
+      "priority": 96,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+        "FACT_NO_LOCALIZED_RESTRICTION"
+      ],
+      "relationship": "High superheat remains after proper liquid at the TXV and no upstream restriction are verified, so metering-device control/application becomes the next discriminator.",
+      "steps": [
+        {
+          "action": "Test TXV response, bulb/equalizer and application match before adjustment/replacement.",
+          "record": "Record bulb contact/position, equalizer condition, valve response and refrigerant/valve match."
+        }
+      ],
+      "heading": "Metering-device underfeed becomes more likely",
+      "short_meaning": "High superheat remains after proper liquid at the TXV and no upstream restriction are verified, so metering-device control/application becomes the next discriminator."
+    },
+    {
+      "id": "GUIDE_TXV_NO_RESPONSE_HIGH_SH",
+      "priority": 99,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_NO_RESPONSE",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+      ],
+      "relationship": "High superheat with proper inlet liquid and a failed valve response test localizes the fault to TXV control/valve behavior after bulb/equalizer verification.",
+      "steps": [
+        {
+          "action": "Verify bulb/equalizer one last time, then service/replace the TXV per manufacturer guidance.",
+          "record": "Do not change charge to compensate for a localized valve-response fault."
+        }
+      ],
+      "heading": "TXV valve/power-element fault strongly indicated",
+      "short_meaning": "High superheat with proper inlet liquid and a failed valve response test localizes the fault to TXV control/valve behavior after bulb/equalizer verification."
+    },
+    {
+      "id": "GUIDE_WRONG_TXV_APPLICATION",
+      "priority": 99,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH"
+      ],
+      "relationship": "A valve/refrigerant application mismatch can underfeed the evaporator and cannot be corrected reliably by charge or arbitrary adjustment.",
+      "steps": [
+        {
+          "action": "Correct the valve/refrigerant application match before tuning or charge changes.",
+          "record": "Verify valve model, refrigerant, capacity and application."
+        }
+      ],
+      "heading": "Expansion-device application mismatch",
+      "short_meaning": "A valve/refrigerant application mismatch can underfeed the evaporator and cannot be corrected reliably by charge or arbitrary adjustment."
+    },
+    {
+      "id": "GUIDE_TXV_NO_RESPONSE_LOW_SH",
+      "priority": 98,
+      "requires_all": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_NO_RESPONSE"
+      ],
+      "relationship": "Low superheat plus abnormal TXV response requires bulb/equalizer and valve-mechanical verification before adjustment.",
+      "steps": [
+        {
+          "action": "Verify bulb/equalizer and valve mechanics before adjustment or replacement.",
+          "record": "Stabilize and remeasure superheat after correction."
+        }
+      ],
+      "heading": "Overfeed with abnormal valve response",
+      "short_meaning": "Low superheat plus abnormal TXV response requires bulb/equalizer and valve-mechanical verification before adjustment."
+    },
+    {
+      "id": "GUIDE_EEV_SENSOR_INPUT",
+      "priority": 98,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SENSOR_ERROR"
+      ],
+      "relationship": "A sensor/transducer error can command incorrect EEV feed and must be corrected before condemning refrigerant charge or the valve.",
+      "steps": [
+        {
+          "action": "Verify transducer range/type, temperature sensor type/location/wiring, then reevaluate valve behavior.",
+          "record": "Compare sensor/transducer values with trusted references."
+        }
+      ],
+      "heading": "Electronic superheat-control input error possible",
+      "short_meaning": "A sensor/transducer error can command incorrect EEV feed and must be corrected before condemning refrigerant charge or the valve."
+    },
+    {
+      "id": "GUIDE_LOW_SH_BULB_ERROR",
+      "priority": 99,
+      "requires_all": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "relationship": "Incorrect sensing-bulb contact/location can produce an incorrect control signal; correct this known input fault before diagnosing the valve or charge.",
+      "steps": [
+        {
+          "action": "Correct bulb location/contact/insulation, stabilize system, then remeasure SH.",
+          "record": "Use manufacturer bulb mounting guidance."
+        }
+      ],
+      "heading": "Bulb installation must be corrected before valve diagnosis",
+      "short_meaning": "Incorrect sensing-bulb contact/location can produce an incorrect control signal; correct this known input fault before diagnosing the valve or charge."
+    },
+    {
+      "id": "GUIDE_DEFROST_HEATER_ELECTRICAL",
+      "priority": 100,
+      "requires_all": [
+        "FACT_DEFROST_COMMAND_PRESENT",
+        "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+        "FACT_DEFROST_HEATER_CURRENT_ABSENT"
+      ],
+      "relationship": "A defrost command and proper voltage with no heater current/heat localizes an open heater/load circuit or connection.",
+      "steps": [
+        {
+          "action": "De-energize safely and test heater continuity/resistance and connections; repair then verify current/heat.",
+          "record": "Use safe electrical procedures and verify the full defrost cycle after repair."
+        }
+      ],
+      "heading": "Defrost heater circuit/load failure localized",
+      "short_meaning": "A defrost command and proper voltage with no heater current/heat localizes an open heater/load circuit or connection."
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_FAN_DELAY_ERROR",
+      "priority": 99,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ERROR"
+      ],
+      "relationship": "Incorrect fan release after defrost is a sequence/control fault and should be corrected before judging refrigeration readings.",
+      "steps": [
+        {
+          "action": "Verify fan-delay sensor/timer/controller logic and correct before evaluating refrigeration performance.",
+          "record": "Record actual fan release temperature/time versus equipment sequence."
+        }
+      ],
+      "heading": "Evaporator fan-delay/control fault",
+      "short_meaning": "Incorrect fan release after defrost is a sequence/control fault and should be corrected before judging refrigeration readings."
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_FAN_DELAY_NORMAL",
+      "priority": 99,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ACTIVE"
+      ],
+      "relationship": "An active fan delay immediately after defrost can be normal equipment sequence, not a fan failure.",
+      "steps": [
+        {
+          "action": "Verify delay matches equipment sequence; wait for normal release before diagnosing fan failure.",
+          "record": "Confirm fan starts when the release condition is met."
+        }
+      ],
+      "heading": "Post-defrost fan delay is intentional",
+      "short_meaning": "An active fan delay immediately after defrost can be normal equipment sequence, not a fan failure."
+    },
+    {
+      "id": "GUIDE_DEFROST_STATE_MEASUREMENTS",
+      "priority": 100,
+      "requires_all": [
+        "FACT_DEFROST_ACTIVE"
+      ],
+      "relationship": "Pressure, superheat and subcooling readings during active defrost are not ordinary stable-cooling evidence.",
+      "steps": [
+        {
+          "action": "Complete defrost and recovery, then obtain stabilized cooling readings.",
+          "record": "Do not diagnose charge from defrost readings."
+        }
+      ],
+      "heading": "Defrost readings are not steady-cooling diagnostic evidence",
+      "short_meaning": "Pressure, superheat and subcooling readings during active defrost are not ordinary stable-cooling evidence."
+    },
+    {
+      "id": "GUIDE_ICING_DEFROST_VERIFIED",
+      "priority": 98,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DEFROST_COMPLETES",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "relationship": "If the coil still ices while defrost completes and the evaporator fan operates, investigate moisture/load/drain and refrigerant-feed causes rather than replacing proven defrost hardware.",
+      "steps": [
+        {
+          "action": "Check door/infiltration, drain/refreeze pattern, load and refrigerant feed.",
+          "record": "Record frost pattern and when icing returns."
+        }
+      ],
+      "heading": "Look beyond defrost hardware",
+      "short_meaning": "If the coil still ices while defrost completes and the evaporator fan operates, investigate moisture/load/drain and refrigerant-feed causes rather than replacing proven defrost hardware."
+    },
+    {
+      "id": "GUIDE_ICING_LOW_LOAD",
+      "priority": 97,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_LOW_EVAP_LOAD",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "relationship": "Low evaporator load can depress evaporating conditions and contribute to icing even with the fan running.",
+      "steps": [
+        {
+          "action": "Confirm controls/setpoint/load, defrost performance and stable evaporating condition before charge changes.",
+          "record": "Do not add refrigerant solely because suction is low under low load."
+        }
+      ],
+      "heading": "Low load may contribute to low evaporating condition/icing",
+      "short_meaning": "Low evaporator load can depress evaporating conditions and contribute to icing even with the fan running."
+    },
+    {
+      "id": "GUIDE_CONTROL_TRACE_UNKNOWN_SCHEME",
+      "priority": 99,
+      "requires_all": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+        "FACT_WIRING_SCHEME_UNKNOWN"
+      ],
+      "relationship": "Cooling demand with a dead contactor coil does not identify the failed upstream device when the control scheme is unknown.",
+      "steps": [
+        {
+          "action": "Use the equipment wiring diagram to trace control voltage through safeties and controls to the coil.",
+          "record": "Record the first point where control voltage is lost."
+        }
+      ],
+      "heading": "Control circuit must be traced before component replacement",
+      "short_meaning": "Cooling demand with a dead contactor coil does not identify the failed upstream device when the control scheme is unknown."
+    },
+    {
+      "id": "GUIDE_LP_CONTROL_WARM_BOX",
+      "priority": 99,
+      "requires_all": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_LP_CONTROL_OPEN"
+      ],
+      "relationship": "A warm box with an open LP control requires comparison of actual pressure and cutout/cutin settings with the intended control sequence.",
+      "steps": [
+        {
+          "action": "Compare cutout/cutin with equipment requirements and actual pressure; correct setting only per manufacturer design.",
+          "record": "Verify whether the control is intended for pump-down, safety, or temperature control."
+        }
+      ],
+      "heading": "Low-pressure control setting/sequence needs verification",
+      "short_meaning": "A warm box with an open LP control requires comparison of actual pressure and cutout/cutin settings with the intended control sequence."
+    },
+    {
+      "id": "GUIDE_WARM_ROOM_REFRIG_NORMAL",
+      "priority": 96,
+      "requires_all": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "relationship": "When refrigeration performance is verified normal but the room remains warm, investigate load, infiltration, sensing/control and equipment capacity.",
+      "steps": [
+        {
+          "action": "Characterize load/infiltration, verify sensor/setpoint, and compare capacity with actual load.",
+          "record": "Avoid refrigerant adjustments without refrigeration-side evidence."
+        }
+      ],
+      "heading": "Investigate load/control/sizing rather than refrigeration circuit",
+      "short_meaning": "When refrigeration performance is verified normal but the room remains warm, investigate load, infiltration, sensing/control and equipment capacity."
+    },
+    {
+      "id": "GUIDE_CAPACITY_INSUFFICIENT",
+      "priority": 100,
+      "requires_all": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+      ],
+      "relationship": "When actual/design load exceeds available equipment capacity after normal airflow/feed/controls are verified, the problem is capacity/sizing rather than refrigerant charge.",
+      "steps": [
+        {
+          "action": "Reduce load or correct equipment sizing/capacity; verify design assumptions.",
+          "record": "Document actual load and equipment rated capacity."
+        }
+      ],
+      "heading": "System capacity is insufficient for verified load",
+      "short_meaning": "When actual/design load exceeds available equipment capacity after normal airflow/feed/controls are verified, the problem is capacity/sizing rather than refrigerant charge."
+    },
+    {
+      "id": "GUIDE_MULTIPLE_CONTRIBUTORS",
+      "priority": 101,
+      "requires_all": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_SENSOR_ERROR",
+        "FACT_HIGH_PRODUCT_LOAD"
+      ],
+      "relationship": "A dirty condenser, sensor error and high product load are independent active contributors; preserve all three while prioritizing direct corrective work.",
+      "steps": [
+        {
+          "action": "Correct the direct condenser restriction, validate sensor/control, characterize load, then reassess refrigeration readings.",
+          "record": "Do not drop the sensor or load finding after selecting the condenser as first action."
+        }
+      ],
+      "heading": "Multiple independent contributors are active",
+      "short_meaning": "A dirty condenser, sensor error and high product load are independent active contributors; preserve all three while prioritizing direct corrective work."
+    },
+    {
+      "id": "GUIDE_RESTRICTION_OUTRANKS_CHARGE_PATTERN",
+      "priority": 102,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "relationship": "High SH and low SC can resemble low inventory, but a localized drier temperature drop is direct restriction evidence and must be corrected/verified first.",
+      "steps": [
+        {
+          "action": "Correct/verify the drier restriction, then stabilize and reassess charge using an applicable method.",
+          "record": "Do not add refrigerant before resolving the localized restriction evidence."
+        }
+      ],
+      "heading": "Localized restriction outranks generic charge pattern",
+      "short_meaning": "High SH and low SC can resemble low inventory, but a localized drier temperature drop is direct restriction evidence and must be corrected/verified first."
+    },
+    {
+      "id": "GUIDE_SC_REFERENCE_NOT_APPLICABLE",
+      "priority": 110,
+      "requires_all": [
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE"
+      ],
+      "relationship": "A low subcooling number against a non-applicable reference does not establish low charge, especially where receiver/configuration and measurement location affect interpretation.",
+      "steps": [
+        {
+          "action": "Verify measurement location and use the applicable equipment/model charging method; then check liquid condition, sight glass, leak and restriction evidence before judging charge.",
+          "record": "Do not add refrigerant solely from a generic subcooling target."
+        }
+      ],
+      "heading": "Low subcooling needs configuration-aware interpretation",
+      "short_meaning": "A low subcooling number against a non-applicable reference does not establish low charge, especially where receiver/configuration and measurement location affect interpretation."
+    },
+    {
+      "id": "GUIDE_MODEL_TARGET_PRECEDENCE",
+      "priority": 111,
+      "requires_all": [
+        "FACT_MODEL_SPECIFIC_TARGET_AVAILABLE",
+        "FACT_GENERIC_REFERENCE_CONFLICTS_MODEL"
+      ],
+      "relationship": "An applicable manufacturer/model target takes precedence over a generic rule of thumb.",
+      "steps": [
+        {
+          "action": "Compare the measured value with the applicable model target and manufacturer charging procedure, then reassess charge from that target.",
+          "record": "Do not use the generic target when an applicable model target exists."
+        }
+      ],
+      "heading": "Use the model-specific charging target",
+      "short_meaning": "An applicable manufacturer/model target takes precedence over a generic rule of thumb."
+    },
+    {
+      "id": "GUIDE_WARM_ROOM_NORMAL_PRESSURES",
+      "priority": 104,
+      "requires_all": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SUCTION_NORMAL_FOR_STATE",
+        "FACT_HEAD_NORMAL_FOR_STATE"
+      ],
+      "relationship": "Reasonable suction and head for the current state/load shift attention toward airflow, infiltration/load, sensing/controls and available capacity.",
+      "steps": [
+        {
+          "action": "Verify evaporator airflow, door/product load, sensor/control accuracy and actual capacity before opening or adjusting the refrigerant circuit.",
+          "record": "Do not add refrigerant simply because the room is warm."
+        }
+      ],
+      "heading": "Warm-room problem is not yet localized to the refrigeration circuit",
+      "short_meaning": "Reasonable suction and head for the current state/load shift attention toward airflow, infiltration/load, sensing/controls and available capacity."
+    },
+    {
+      "id": "GUIDE_LOW_SUCTION_LOW_LOAD",
+      "priority": 105,
+      "requires_all": [
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_LOW_EVAP_LOAD"
+      ],
+      "relationship": "Verified low evaporator load can lower evaporating pressure without proving low charge or a feed restriction.",
+      "steps": [
+        {
+          "action": "Confirm room/load condition, measure superheat, and evaluate liquid-supply/restriction evidence before diagnosing refrigerant starvation.",
+          "record": "Do not diagnose low charge from low suction alone."
+        }
+      ],
+      "heading": "Low suction may be load-related rather than a feed fault",
+      "short_meaning": "Verified low evaporator load can lower evaporating pressure without proving low charge or a feed restriction."
+    },
+    {
+      "id": "GUIDE_HIGH_CURRENT_NORMAL_HEAD",
+      "priority": 106,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_HEAD_NORMAL_FOR_STATE"
+      ],
+      "relationship": "High current with normal head is not explained by excessive condensing pressure alone.",
+      "steps": [
+        {
+          "action": "Verify supply voltage/phase condition, compare current with nameplate, check start/run components where applicable, compressor temperature/protection and mechanical condition.",
+          "record": "Do not blame high head when head pressure is normal."
+        }
+      ],
+      "heading": "High compressor current needs electrical/mechanical isolation",
+      "short_meaning": "High current with normal head is not explained by excessive condensing pressure alone."
+    },
+    {
+      "id": "GUIDE_STARTUP_TRANSIENT_PRESSURE",
+      "priority": 108,
+      "requires_all": [
+        "FACT_LONG_OFF_CYCLE_STARTUP",
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD"
+      ],
+      "relationship": "After a long off-cycle, suction and other readings can be transient while load and refrigerant distribution normalize.",
+      "steps": [
+        {
+          "action": "Confirm compressor/fans are operating, allow stable cooling, then remeasure suction, head, superheat and subcooling before diagnosing.",
+          "record": "Do not diagnose compressor inefficiency from startup suction alone."
+        }
+      ],
+      "heading": "Startup pressure is not yet a steady-state diagnosis",
+      "short_meaning": "After a long off-cycle, suction and other readings can be transient while load and refrigerant distribution normalize."
+    },
+    {
+      "id": "GUIDE_SATISFIED_OFF_PRESSURE",
+      "priority": 108,
+      "requires_all": [
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "relationship": "When cooling is satisfied/off, pressure behavior is not interpreted with steady-cooling diagnostic patterns.",
+      "steps": [
+        {
+          "action": "Wait for a cooling call and stable operation, then remeasure suction before diagnosing charge or feed.",
+          "record": "Do not diagnose low charge from an off-cycle suction reading."
+        }
+      ],
+      "heading": "Off-cycle suction is not a steady-cooling diagnostic",
+      "short_meaning": "When cooling is satisfied/off, pressure behavior is not interpreted with steady-cooling diagnostic patterns.",
+      "operating_states": [
+        "SATISFIED_OFF",
+        "SATISFIED",
+        "OFF"
+      ]
+    },
+    {
+      "id": "GUIDE_STARTUP_HOT_COMPRESSOR",
+      "priority": 112,
+      "requires_all": [
+        "FACT_LONG_OFF_CYCLE_STARTUP",
+        "FACT_COMPRESSOR_HOT"
+      ],
+      "relationship": "A hot compressor after a long off-cycle/startup raises migration/liquid-return and protection concerns that should be checked before repeated starts.",
+      "steps": [
+        {
+          "action": "Check crankcase heater/off-cycle protection and observe startup for liquid-return evidence before repeated starts.",
+          "record": "Do not repeatedly restart a compressor with suspected liquid slugging."
+        }
+      ],
+      "heading": "Startup/migration history requires compressor-protection checks",
+      "short_meaning": "A hot compressor after a long off-cycle/startup raises migration/liquid-return and protection concerns that should be checked before repeated starts."
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_PRESSURE_TRANSIENT",
+      "priority": 109,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD"
+      ],
+      "relationship": "Heat added during defrost can temporarily raise load and pressures during recovery.",
+      "steps": [
+        {
+          "action": "Trend pressures through recovery and diagnose only if abnormal values persist after the system returns to stable cooling.",
+          "record": "Do not diagnose overcharge from transient post-defrost high head."
+        }
+      ],
+      "heading": "Post-defrost pressure transient requires stabilization",
+      "short_meaning": "Heat added during defrost can temporarily raise load and pressures during recovery.",
+      "operating_states": [
+        "POST_DEFROST"
+      ]
+    },
+    {
+      "id": "GUIDE_ANTI_SHORT_CYCLE_PRIMARY",
+      "priority": 113,
+      "requires_all": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE",
+        "FACT_COMPRESSOR_NOT_RUNNING"
+      ],
+      "relationship": "An active anti-short-cycle delay can intentionally hold the compressor off even while cooling demand exists.",
+      "steps": [
+        {
+          "action": "Verify the configured delay, allow it to expire, and confirm the compressor starts afterward.",
+          "record": "Do not bypass the delay or condemn the compressor while the delay is active."
+        }
+      ],
+      "heading": "Compressor off-time delay is intentionally preventing restart",
+      "short_meaning": "An active anti-short-cycle delay can intentionally hold the compressor off even while cooling demand exists."
+    },
+    {
+      "id": "GUIDE_TWO_STARVATION_CAUSES",
+      "priority": 114,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "relationship": "Both a localized liquid-line restriction and incorrect TXV bulb contact can contribute to evaporator starvation/high superheat.",
+      "steps": [
+        {
+          "action": "Correct the drier restriction and bulb mounting, then stabilize and remeasure before judging charge.",
+          "record": "Do not add refrigerant before correcting the known restriction and bulb fault."
+        }
+      ],
+      "heading": "Two starvation causes are directly observed",
+      "short_meaning": "Both a localized liquid-line restriction and incorrect TXV bulb contact can contribute to evaporator starvation/high superheat."
+    },
+    {
+      "id": "GUIDE_SENSOR_ERROR_REFRIG_NORMAL",
+      "priority": 113,
+      "requires_all": [
+        "FACT_SENSOR_ERROR",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "relationship": "With refrigeration performance verified normal, a sensor error can make the control respond to incorrect temperature information.",
+      "steps": [
+        {
+          "action": "Compare the sensor with an independent reference, inspect placement/wiring, and calibrate or replace as appropriate.",
+          "record": "Do not open the refrigerant circuit when refrigeration performance is verified normal."
+        }
+      ],
+      "heading": "Control/sensing problem is favored over refrigerant fault",
+      "short_meaning": "With refrigeration performance verified normal, a sensor error can make the control respond to incorrect temperature information."
+    },
+    {
+      "id": "GUIDE_CAPACITY_VERIFIED",
+      "priority": 114,
+      "requires_all": [
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_CONTROLS_VERIFIED_NORMAL"
+      ],
+      "relationship": "A correctly operating refrigeration system cannot maintain the target when verified load exceeds available equipment capacity.",
+      "steps": [
+        {
+          "action": "Quantify actual load and equipment rated capacity; reduce load or correct equipment sizing/design rather than adjusting charge.",
+          "record": "Do not add refrigerant to fix an undersized system."
+        }
+      ],
+      "heading": "Cooling load exceeds available system capacity",
+      "short_meaning": "A correctly operating refrigeration system cannot maintain the target when verified load exceeds available equipment capacity."
+    },
+    {
+      "id": "GUIDE_MOISTURE_NORMAL_OPERATION",
+      "priority": 112,
+      "requires_all": [
+        "FACT_MOISTURE_INDICATED",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "relationship": "A wet moisture indicator can identify contamination risk before obvious cooling performance is lost.",
+      "steps": [
+        {
+          "action": "Verify the indicator and service history; correct the moisture source and service the drier/evacuation as appropriate.",
+          "record": "Do not ignore a wet moisture indicator merely because temperatures are currently normal."
+        }
+      ],
+      "heading": "Moisture contamination requires service attention even if cooling appears normal",
+      "short_meaning": "A wet moisture indicator can identify contamination risk before obvious cooling performance is lost."
+    },
+    {
+      "id": "GUIDE_UNEVEN_FEED_PROPER_LIQUID",
+      "priority": 108,
+      "requires_all": [
+        "FACT_EVAP_FEED_UNEVEN",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+      ],
+      "relationship": "Uneven evaporator feed with proper liquid at the TXV inlet shifts attention to distributor/nozzle/circuit restriction or valve/feed application.",
+      "steps": [
+        {
+          "action": "Compare circuit temperatures and inspect distributor/nozzle and TXV application/feeding before adjusting charge.",
+          "record": "Do not diagnose low total charge solely from an uneven frost pattern."
+        }
+      ],
+      "heading": "Evaporator distribution/feed problem needs localization",
+      "short_meaning": "Uneven evaporator feed with proper liquid at the TXV inlet shifts attention to distributor/nozzle/circuit restriction or valve/feed application."
+    },
+    {
+      "id": "GUIDE_HOT_COMPRESSOR_NORMAL_HEAD",
+      "priority": 108,
+      "requires_all": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_HEAD_NOT_EXCESSIVE"
+      ],
+      "relationship": "With head pressure not excessive, overheating may involve electrical supply/current, high compression ratio or low suction, return-gas cooling, protection history or internal problems.",
+      "steps": [
+        {
+          "action": "Check voltage/current, suction and compression ratio, return-gas conditions and overload history.",
+          "record": "Do not assume condenser/high head is the cause when head is not excessive."
+        }
+      ],
+      "heading": "Compressor overheating needs causes beyond high head",
+      "short_meaning": "With head pressure not excessive, overheating may involve electrical supply/current, high compression ratio or low suction, return-gas cooling, protection history or internal problems."
+    },
+    {
+      "id": "GUIDE_LOW_SUCTION_LOW_LOAD_COMPLETE",
+      "priority": 116,
+      "requires_all": [
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_LOW_EVAP_LOAD",
+        "FACT_EVAP_COIL_CLEAR",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "relationship": "Low suction is consistent with verified low evaporator load; the evaporator airflow path is normal because the coil is clear and the fan is running.",
+      "steps": [
+        {
+          "action": "Confirm room/load condition and compare suction pressure with the expected low-load operating condition before diagnosing a feed or charge fault.",
+          "record": "Airflow path is normal; low suction alone is not proof of low charge."
+        }
+      ],
+      "heading": "Low suction is consistent with low evaporator load",
+      "short_meaning": "Verified low load can lower suction while the evaporator airflow path remains normal."
+    },
+    {
+      "id": "GUIDE_CONFIRMED_LEAK_LOW_CHARGE_ACTION",
+      "priority": 125,
+      "requires_all": [
+        "FACT_LEAK_CONFIRMED",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "relationship": "A confirmed refrigerant leak together with high superheat and low subcooling supports refrigerant loss/low charge.",
+      "steps": [
+        {
+          "action": "Repair the leak, leak-test as required, evacuate and charge by the approved manufacturer method, then verify stable superheat and subcooling.",
+          "record": "Correct the leak before final charge verification."
+        }
+      ],
+      "heading": "Confirmed refrigerant leak supports a low-charge condition",
+      "short_meaning": "The combined evidence supports refrigerant loss rather than a single-reading guess."
+    },
+    {
+      "id": "GUIDE_HIGH_HEAD_AMBIENT_LOAD",
+      "priority": 118,
+      "requires_all": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_AMBIENT",
+        "FACT_HIGH_PRODUCT_LOAD"
+      ],
+      "relationship": "High ambient and high refrigeration load can elevate condensing pressure without proving a refrigerant fault.",
+      "steps": [
+        {
+          "action": "Record actual ambient and load, then compare condensing pressure and compressor operation with the manufacturer/application operating envelope for those conditions.",
+          "record": "Do not diagnose overcharge from high head alone."
+        }
+      ],
+      "heading": "High head may be load/ambient driven rather than a fault",
+      "short_meaning": "Both condenser ambient and refrigeration load are elevated."
+    },
+    {
+      "id": "GUIDE_LONG_OFF_STARTUP_LOW_SH",
+      "priority": 126,
+      "requires_all": [
+        "FACT_LONG_OFF_CYCLE_STARTUP",
+        "FACT_EVAP_SH_LOW"
+      ],
+      "operating_states": [
+        "STARTUP"
+      ],
+      "relationship": "Startup after a long off-cycle can carry migration and transient liquid-return risk; low superheat during this transient is not yet a steady-state charge diagnosis.",
+      "steps": [
+        {
+          "action": "Monitor compressor suction superheat and liquid-return indicators through startup; verify crankcase heater/migration protection and approved charge practices.",
+          "record": "Reassess after the system stabilizes."
+        }
+      ],
+      "heading": "Startup after a long off-cycle carries migration/liquid-return risk",
+      "short_meaning": "Transient liquid return can occur at startup and should be evaluated before steady-state diagnosis."
+    },
+    {
+      "id": "GUIDE_SATISFIED_OFF_LOW_SUCTION",
+      "priority": 126,
+      "requires_all": [
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "operating_states": [
+        "SATISFIED_OFF",
+        "SATISFIED",
+        "OFF"
+      ],
+      "relationship": "Low suction while satisfied/off is not interpreted as a running steady-cooling diagnosis.",
+      "steps": [
+        {
+          "action": "Confirm cooling demand; if diagnosis is needed, operate the system in cooling and obtain pressures/temperatures after stabilization.",
+          "record": "Do not apply steady-cooling pressure patterns to an off-cycle reading."
+        }
+      ],
+      "heading": "Low suction while satisfied/off is not a cooling diagnosis",
+      "short_meaning": "Off-cycle pressures are not interpreted like running steady-state pressures."
+    },
+    {
+      "id": "GUIDE_LOW_SH_HIGH_SUCTION_NORMAL_AIRFLOW",
+      "priority": 120,
+      "requires_all": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+        "FACT_EVAP_AIRFLOW_NORMAL"
+      ],
+      "relationship": "Low superheat with suction high for load and normal evaporator airflow forms an evaporator overfeed/flooding pattern.",
+      "steps": [
+        {
+          "action": "Verify TXV bulb mounting/insulation, valve setting and response, and actual evaporator load before making refrigerant-charge changes.",
+          "record": "Normal airflow reduces airflow restriction as the explanation."
+        }
+      ],
+      "heading": "Evaporator overfeed/flooding pattern is present",
+      "short_meaning": "With airflow not limiting load, the combination supports overfeeding or excess feed."
+    },
+    {
+      "id": "GUIDE_ICED_FAN_NORMAL_DEFROST_INCOMPLETE",
+      "priority": 122,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_RUNNING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "relationship": "The evaporator is iced while the fan operates normally and defrost is incomplete, localizing attention to the defrost sequence rather than fan airflow hardware.",
+      "steps": [
+        {
+          "action": "Observe a complete defrost and verify heater output/current, defrost duration and termination.",
+          "record": "Evaporator fan operation is confirmed."
+        }
+      ],
+      "heading": "Defrost is not fully clearing the evaporator",
+      "short_meaning": "Persistent ice with the evaporator fan operating points to incomplete defrost."
+    },
+    {
+      "id": "GUIDE_ICED_DOOR_INFILTRATION",
+      "priority": 123,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "relationship": "Confirmed door infiltration adds warm humid air and latent load that can drive evaporator frost/icing even with the fan running.",
+      "steps": [
+        {
+          "action": "Repair the door/gasket/closure infiltration source, completely defrost the coil, then monitor the frost pattern for recurrence.",
+          "record": "Do not ignore the confirmed moisture load."
+        }
+      ],
+      "heading": "Air infiltration is adding moisture that drives evaporator icing",
+      "short_meaning": "Warm humid air entering the box increases latent load and frost formation."
+    },
+    {
+      "id": "GUIDE_ICED_COMMON_CAUSES_EXCLUDED",
+      "priority": 119,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_CLOSED_SEALED",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "relationship": "With the door sealed and evaporator fan running, common infiltration and fan-failure causes are reduced; defrost performance and evaporating/feed conditions remain candidates.",
+      "steps": [
+        {
+          "action": "Observe defrost performance and termination; after the coil is clear, verify evaporating temperature, suction/feed and frost pattern during stable cooling.",
+          "record": "Do not stop at a generic icing diagnosis."
+        }
+      ],
+      "heading": "Common airflow/infiltration causes are excluded; inspect defrost and evaporating condition",
+      "short_meaning": "Defrost schedule/termination, low evaporating temperature or feed conditions remain candidates."
+    },
+    {
+      "id": "GUIDE_LP_OPENS_EARLY",
+      "priority": 124,
+      "requires_all": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_LP_CONTROL_OPEN",
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "relationship": "An LP control that opens while cooling demand remains may be opening above the intended cutout or responding to a genuine low-suction condition.",
+      "steps": [
+        {
+          "action": "Measure suction pressure accurately and compare actual LP cutout/cut-in with the equipment control sequence; correct the setting/control fault as required and verify restart.",
+          "record": "Verify the cause of low suction before adjusting a safety/control."
+        }
+      ],
+      "heading": "LP control setting/fault may stop cooling prematurely",
+      "short_meaning": "Verify actual pressure and intended cutout/cut-in before adjustment."
+    },
+    {
+      "id": "GUIDE_MULTIFAULT_EVAP_FAN_DIRTY_COND",
+      "priority": 130,
+      "requires_all": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "relationship": "Two confirmed airflow faults are active: loss of evaporator airflow is an immediate cooling fault and the dirty condenser is a separate heat-rejection fault.",
+      "steps": [
+        {
+          "action": "Restore evaporator fan operation, clean the condenser, then retest room temperature, pressures and temperatures under stable cooling.",
+          "record": "Preserve both confirmed faults; do not erase the secondary condenser problem."
+        }
+      ],
+      "heading": "Two confirmed airflow faults are active and both must be preserved",
+      "short_meaning": "Evaporator airflow and condenser heat rejection both require correction."
+    },
+    {
+      "id": "GUIDE_MULTIFAULT_DIRTY_SENSOR_LOAD",
+      "priority": 130,
+      "requires_all": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_SENSOR_ERROR",
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "relationship": "Heat rejection, sensing and load problems are simultaneously present and can independently contribute to poor temperature control.",
+      "steps": [
+        {
+          "action": "Clean/restore condenser heat rejection, verify room temperature with a reference and correct the sensor issue, characterize product load, then reassess cooling.",
+          "record": "Do not select one contributor and discard the others."
+        }
+      ],
+      "heading": "Heat rejection, sensing and load problems are simultaneously present",
+      "short_meaning": "Multiple independent contributors can coexist."
+    },
+    {
+      "id": "GUIDE_LP_CONTROL_TRIP_COOLING",
+      "priority": 124,
+      "requires_all": [
+        "FACT_LOW_PRESSURE_CONTROL_TRIP",
+        "FACT_COOLING_DEMAND_PRESENT"
+      ],
+      "relationship": "An LP control trip while cooling demand remains may stop refrigeration prematurely if the cutout/setting, sensing line or control calibration is wrong.",
+      "steps": [
+        {
+          "action": "Measure actual suction/cutout pressure, compare LP cut-in/cutout with the application specification, and inspect the sensing line/control calibration before adjustment or replacement.",
+          "record": "Do not add refrigerant merely to keep an incorrectly set LP control closed."
+        }
+      ],
+      "heading": "LP control setting/operation may be preventing adequate cooling",
+      "short_meaning": "Verify actual trip pressure against the intended control setting and application."
+    },
+    {
+      "id": "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
+      "priority": 145,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "relationship": "High superheat and sight-glass bubbles without confirmed stable cooling can be transient and should not establish charge.",
+      "steps": [
+        {
+          "action": "Confirm stable cooling, then repeat superheat, liquid condition and applicable subcooling before diagnosing charge.",
+          "record": "Record operating state and repeat readings under stable cooling."
+        }
+      ],
+      "heading": "Abnormal readings recorded but operating state must be established first",
+      "short_meaning": "High superheat and sight-glass bubbles without confirmed stable cooling can be transient and should not establish charge.",
+      "operating_states": [
+        "UNKNOWN"
+      ]
+    },
+    {
+      "id": "GUIDE_CONFIRMED_LEAK_REPAIR",
+      "priority": 150,
+      "requires_all": [
+        "FACT_LEAK_CONFIRMED"
+      ],
+      "relationship": "Direct leak evidence outweighs indirect charge indicators; correct the leak before final charge assessment.",
+      "steps": [
+        {
+          "action": "Repair the leak, evacuate and charge by the equipment procedure, then verify stable operation and charge indicators.",
+          "record": "Record leak repair, evacuation/charging method and stabilized verification."
+        }
+      ],
+      "heading": "Confirmed refrigerant leak requires repair before final charge verification",
+      "short_meaning": "Direct leak evidence outweighs indirect charge indicators; correct the leak before final charge assessment."
+    },
+    {
+      "id": "GUIDE_CONFLICT_HIGH_HEAD_NOT_EXCESSIVE",
+      "priority": 150,
+      "requires_all": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HEAD_NOT_EXCESSIVE"
+      ],
+      "relationship": "Internally inconsistent head-pressure evidence must be verified before diagnosing a cause.",
+      "steps": [
+        {
+          "action": "Verify gauge/transducer accuracy, measurement point, refrigerant P-T conversion and operating state.",
+          "record": "Record corrected pressure/temperature and measurement location."
+        }
+      ],
+      "heading": "High-head report conflicts with verified non-excessive head context",
+      "short_meaning": "Internally inconsistent head-pressure evidence must be verified before diagnosing a cause."
+    },
+    {
+      "id": "GUIDE_HIGH_CURRENT_LOW_HEAD",
+      "priority": 145,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_COND_SAT_LOW"
+      ],
+      "relationship": "High compressor current with low head points to electrical/mechanical loading rather than condenser overload.",
+      "steps": [
+        {
+          "action": "Verify supply voltage/unbalance, start/run components where applicable, compressor temperature and winding/mechanical condition.",
+          "record": "Record voltage, current, compressor temperature and electrical checks."
+        }
+      ],
+      "heading": "High current is not explained by high condensing pressure",
+      "short_meaning": "High compressor current with low head points to electrical/mechanical loading rather than condenser overload."
+    },
+    {
+      "id": "GUIDE_PUMPDOWN_LOW_SUCTION_EXPECTED",
+      "priority": 150,
+      "requires_all": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "relationship": "The pump-down sequence intentionally pulls suction pressure down after the liquid solenoid closes.",
+      "steps": [
+        {
+          "action": "Verify the low-pressure control opens at its intended cutout and the compressor stops; do not interpret pump-down suction as steady cooling.",
+          "record": "Record LP cutout and compressor stop behavior."
+        }
+      ],
+      "heading": "Low suction is expected during pump-down",
+      "short_meaning": "The pump-down sequence intentionally pulls suction pressure down after the liquid solenoid closes.",
+      "operating_states": [
+        "PUMP_DOWN",
+        "PUMPDOWN"
+      ]
+    },
+    {
+      "id": "GUIDE_SENSOR_NORMAL_REFRIG",
+      "priority": 145,
+      "requires_all": [
+        "FACT_SENSOR_DISAGREES_REFERENCE",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "relationship": "Sensor disagreement with otherwise normal refrigeration performance localizes the complaint to sensing/location/calibration.",
+      "steps": [
+        {
+          "action": "Verify sensor placement, calibration, wiring and controller input before refrigerant work.",
+          "record": "Record reference temperature and controller sensor reading."
+        }
+      ],
+      "heading": "Temperature-control problem is localized to sensing rather than refrigeration capacity",
+      "short_meaning": "Sensor disagreement with otherwise normal refrigeration performance localizes the complaint to sensing/location/calibration."
+    },
+    {
+      "id": "GUIDE_HIGH_SH_HIGH_SC_PROPER_LIQUID",
+      "priority": 145,
+      "requires_all": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+      ],
+      "relationship": "High subcooling and proper liquid at the TXV make simple low refrigerant inventory less likely; investigate feed/control and load.",
+      "steps": [
+        {
+          "action": "Check TXV response, bulb/equalizer and evaporator load before changing charge.",
+          "record": "Record valve response, bulb/equalizer condition and load."
+        }
+      ],
+      "heading": "High superheat with retained liquid inventory points away from simple low charge",
+      "short_meaning": "High subcooling and proper liquid at the TXV make simple low refrigerant inventory less likely; investigate feed/control and load."
+    },
+    {
+      "id": "GUIDE_UNEVEN_FEED_TXV_INLET_RESTRICTION",
+      "priority": 150,
+      "requires_all": [
+        "FACT_EVAP_FEED_UNEVEN",
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "relationship": "The identified inlet restriction localizes the uneven-feed problem at/upstream of the expansion device.",
+      "steps": [
+        {
+          "action": "Inspect, clean or replace the inlet screen/orifice and verify solid liquid supply before retesting.",
+          "record": "Record inlet restriction correction and feed pattern."
+        }
+      ],
+      "heading": "Localized TXV inlet restriction can produce uneven or starved feed",
+      "short_meaning": "The identified inlet restriction localizes the uneven-feed problem at/upstream of the expansion device."
+    },
+    {
+      "id": "GUIDE_HIGH_DLT_LOW_SUCTION_HIGH_SH",
+      "priority": 150,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "relationship": "Low suction and high superheat can increase compression ratio and discharge temperature.",
+      "steps": [
+        {
+          "action": "Correct the cause of low suction/starvation, then verify compressor operating envelope and discharge temperature.",
+          "record": "Record stabilized suction, superheat, compression ratio and discharge temperature."
+        }
+      ],
+      "heading": "Compressor thermal stress accompanies low-suction starved operation",
+      "short_meaning": "Low suction and high superheat can increase compression ratio and discharge temperature."
+    },
+    {
+      "id": "GUIDE_HIGH_DLT_HIGH_HEAD",
+      "priority": 150,
+      "requires_all": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "relationship": "High condensing pressure increases compression work and can contribute to high discharge temperature.",
+      "steps": [
+        {
+          "action": "Correct the high-head cause first, then recheck current, compression ratio and discharge temperature.",
+          "record": "Record heat-rejection correction and stabilized compressor values."
+        }
+      ],
+      "heading": "High-side load is contributing to compressor thermal stress",
+      "short_meaning": "High condensing pressure increases compression work and can contribute to high discharge temperature."
+    },
+    {
+      "id": "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL",
+      "priority": 145,
+      "requires_all": [
+        "FACT_COND_SAT_LOW",
+        "FACT_LOW_AMBIENT"
+      ],
+      "relationship": "Low ambient may reduce liquid pressure enough to create flash gas or feeding problems when head-pressure control is absent or ineffective.",
+      "steps": [
+        {
+          "action": "Verify whether head-pressure control is required and present, then check liquid condition at the metering device.",
+          "record": "Record ambient, condensing pressure, head-control configuration and liquid condition."
+        }
+      ],
+      "heading": "Low ambient can drive low condensing pressure",
+      "short_meaning": "Low ambient may reduce liquid pressure enough to create flash gas or feeding problems when head-pressure control is absent or ineffective."
+    },
+    {
+      "id": "GUIDE_HP_TRIP_NOW_NORMAL",
+      "priority": 145,
+      "requires_all": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_HEAD_NORMAL_FOR_STATE"
+      ],
+      "relationship": "A normalized pressure does not explain the prior safety trip; an intermittent airflow, load or control event may have occurred.",
+      "steps": [
+        {
+          "action": "Review condenser fan operation, blockage/recirculation, ambient/load and reset/trip history before simply resetting.",
+          "record": "Record trip history and intermittent heat-rejection checks."
+        }
+      ],
+      "heading": "High-pressure trip history needs cause investigation even though head is now normal",
+      "short_meaning": "A normalized pressure does not explain the prior safety trip; an intermittent airflow, load or control event may have occurred."
+    },
+    {
+      "id": "GUIDE_SETPOINT_NORMAL_REFRIG",
+      "priority": 150,
+      "requires_all": [
+        "FACT_CONTROLLER_SETPOINT_WRONG",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "relationship": "Incorrect setpoint or differential can mimic refrigeration underperformance when the refrigeration circuit is normal.",
+      "steps": [
+        {
+          "action": "Correct setpoint/differential per application and observe temperature control before mechanical service.",
+          "record": "Record corrected settings and resulting control cycle."
+        }
+      ],
+      "heading": "Control setting explains the temperature complaint",
+      "short_meaning": "Incorrect setpoint or differential can mimic refrigeration underperformance when the refrigeration circuit is normal."
+    },
+    {
+      "id": "GUIDE_ICED_FAN_RUNNING_DEFROST_INCOMPLETE",
+      "priority": 155,
+      "requires_all": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_RUNNING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "relationship": "The evaporator is iced even though the fan runs, and defrost does not fully clear the coil.",
+      "steps": [
+        {
+          "action": "Check defrost duration, heater output and termination before charge adjustments.",
+          "record": "Record heater output, duration and termination behavior."
+        }
+      ],
+      "heading": "Inadequate defrost is supported",
+      "short_meaning": "The evaporator is iced even though the fan runs, and defrost does not fully clear the coil."
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_DELAY_WARM",
+      "priority": 155,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ACTIVE",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "relationship": "Post-defrost fan delay with a temporarily warm room may be normal sequence behavior until the coil is ready for airflow.",
+      "steps": [
+        {
+          "action": "Confirm the fan starts at the configured delay/temperature and room temperature then recovers.",
+          "record": "Record fan release point and room-temperature recovery."
+        }
+      ],
+      "heading": "Intentional fan delay can temporarily delay room cooling after defrost",
+      "short_meaning": "Post-defrost fan delay with a temporarily warm room may be normal sequence behavior until the coil is ready for airflow.",
+      "operating_states": [
+        "POST_DEFROST"
+      ]
+    },
+    {
+      "id": "GUIDE_LONG_RUNTIME_SENSOR_ERROR",
+      "priority": 150,
+      "requires_all": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_SENSOR_ERROR"
+      ],
+      "relationship": "A bad sensor/control input can keep cooling demand active unnecessarily even when coils are clear.",
+      "steps": [
+        {
+          "action": "Verify sensor calibration/location and controller cutout behavior.",
+          "record": "Record sensor/reference comparison and controller cutout."
+        }
+      ],
+      "heading": "Control or sensor error can cause excessive compressor runtime",
+      "short_meaning": "A bad sensor/control input can keep cooling demand active unnecessarily even when coils are clear."
+    },
+    {
+      "id": "GUIDE_PUMPDOWN_SOLENOID_LEAK",
+      "priority": 160,
+      "requires_all": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "relationship": "Liquid flow continuing with the solenoid commanded closed prevents normal pump-down.",
+      "steps": [
+        {
+          "action": "Verify the valve de-energizes and inspect or repair the leaking solenoid seat.",
+          "record": "Record valve command, voltage and actual flow."
+        }
+      ],
+      "heading": "Leaking liquid solenoid defeats pump-down",
+      "short_meaning": "Liquid flow continuing with the solenoid commanded closed prevents normal pump-down.",
+      "operating_states": [
+        "PUMP_DOWN",
+        "PUMPDOWN"
+      ]
+    },
+    {
+      "id": "GUIDE_INFILTRATION_SENSOR_MULTIFAULT",
+      "priority": 160,
+      "requires_all": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_SENSOR_ERROR"
+      ],
+      "relationship": "Confirmed infiltration and sensor error are independent room-side faults and both must be preserved.",
+      "steps": [
+        {
+          "action": "Repair infiltration and verify sensor/reference accuracy before refrigerant adjustments.",
+          "record": "Record door/gasket correction and sensor comparison."
+        }
+      ],
+      "heading": "Both infiltration and sensing faults can affect room control",
+      "short_meaning": "Confirmed infiltration and sensor error are independent room-side faults and both must be preserved."
+    },
+    {
+      "id": "GUIDE_FAN_DIRTY_HIGH_SH_MULTIFAULT",
+      "priority": 165,
+      "requires_all": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "relationship": "Evaporator fan failure and dirty condenser can distort refrigerant readings; high superheat should be reassessed after correction.",
+      "steps": [
+        {
+          "action": "Restore evaporator fan operation and clean the condenser, then stabilize and repeat superheat and pressures.",
+          "record": "Preserve both direct faults and record stabilized readings."
+        }
+      ],
+      "heading": "Direct airflow faults on both sides make superheat secondary until corrected",
+      "short_meaning": "Evaporator fan failure and dirty condenser can distort refrigerant readings; high superheat should be reassessed after correction."
+    },
+    {
+      "id": "GUIDE_DRIER_BULB_LOW_SC_MULTIFAULT",
+      "priority": 165,
+      "requires_all": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "relationship": "Drier restriction evidence and TXV bulb fault can coexist and mimic charge problems.",
+      "steps": [
+        {
+          "action": "Correct the drier restriction and bulb mounting, then reassess charge indicators.",
+          "record": "Do not add refrigerant before correcting localized faults."
+        }
+      ],
+      "heading": "Two localized feed faults are present; low subcooling should not erase them",
+      "short_meaning": "Drier restriction evidence and TXV bulb fault can coexist and mimic charge problems."
+    },
+    {
+      "id": "GUIDE_UNKNOWN_SOLENOID_DIRECT",
+      "priority": 170,
+      "requires_all": [
+        "FACT_SOLENOID_COMMAND_OPEN",
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "relationship": "A command-versus-response solenoid fault is direct evidence and does not require steady-state pressure inference.",
+      "steps": [
+        {
+          "action": "Inspect the solenoid and pressure differential and restore flow before broader diagnosis.",
+          "record": "Record coil voltage, pressure differential and restored flow."
+        }
+      ],
+      "heading": "Direct liquid-solenoid flow fault is actionable even if overall state is uncertain",
+      "short_meaning": "A command-versus-response solenoid fault is direct evidence and does not require steady-state pressure inference.",
+      "operating_states": [
+        "UNKNOWN"
+      ]
+    },
+    {
+      "id": "GUIDE_UNKNOWN_INFILTRATION_DIRECT",
+      "priority": 170,
+      "requires_all": [
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "relationship": "A direct room-load fault should not be hidden by missing operating-state information.",
+      "steps": [
+        {
+          "action": "Repair infiltration, then establish stable cooling and reassess the remaining temperature complaint.",
+          "record": "Record infiltration correction and stabilized room response."
+        }
+      ],
+      "heading": "Confirmed infiltration remains actionable with unknown refrigeration state",
+      "short_meaning": "A direct room-load fault should not be hidden by missing operating-state information.",
+      "operating_states": [
+        "UNKNOWN"
+      ]
+    },
+    {
+      "id": "GUIDE_DEFROST_DIRTY_COND_DIRECT",
+      "priority": 170,
+      "requires_all": [
+        "FACT_DEFROST_ACTIVE",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "relationship": "Do not use defrost pressure as steady-state charge evidence; preserve the physical condenser fault.",
+      "steps": [
+        {
+          "action": "Clean the condenser and repeat pressures only after defrost ends and stable cooling resumes.",
+          "record": "Record condenser correction and stabilized pressure."
+        }
+      ],
+      "heading": "Defrost makes refrigerant readings transient, but dirty condenser remains a direct fault",
+      "short_meaning": "Do not use defrost pressure as steady-state charge evidence; preserve the physical condenser fault.",
+      "operating_states": [
+        "DEFROST"
+      ]
+    },
+    {
+      "id": "GUIDE_POST_DEFROST_INFILTRATION_DIRECT",
+      "priority": 170,
+      "requires_all": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_EVAP_SH_LOW",
+        "FACT_DOOR_INFILTRATION_CONFIRMED"
+      ],
+      "relationship": "Transient post-defrost superheat should not distract from a direct moisture/load fault.",
+      "steps": [
+        {
+          "action": "Repair infiltration and repeat superheat after stable cooling is restored.",
+          "record": "Record infiltration correction and stabilized superheat."
+        }
+      ],
+      "heading": "Post-defrost superheat is transient while confirmed infiltration remains actionable",
+      "short_meaning": "Transient post-defrost superheat should not distract from a direct moisture/load fault.",
+      "operating_states": [
+        "POST_DEFROST"
+      ]
     }
   ]
 }

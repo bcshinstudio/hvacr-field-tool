@@ -1,0 +1,6 @@
+range,domain,cases
+F001-F010,compressor/floodback/migration,10
+H011-H020,head pressure/low ambient,10
+T021-T030,TXV/EEV edge cases,10
+D031-D040,defrost/recovery,10
+C041-C050,controls/load/multifault,10

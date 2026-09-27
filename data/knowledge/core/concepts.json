@@ -1006,6 +1006,17 @@
       "id": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
       "type": "cause",
       "label": "TXV power-element or valve fault"
+    },
+    {
+      "id": "FACT_LONG_OFF_CYCLE_STARTUP",
+      "type": "fact",
+      "label": "Long off-cycle / startup context is present"
+    },
+    {
+      "id": "CAUSE_MOISTURE_CONTAMINATION",
+      "type": "CAUSE",
+      "label": "Moisture contamination in refrigerant circuit",
+      "description": "A wet moisture indicator or verified moisture condition indicates contamination requiring corrective service, without by itself proving an active TXV ice restriction."
     }
   ]
 }

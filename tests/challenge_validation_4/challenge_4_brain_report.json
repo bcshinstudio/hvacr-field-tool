@@ -1,0 +1,2245 @@
+{
+  "suite": "WIC_CHALLENGE_VALIDATION_4",
+  "brain": "2.0.14",
+  "total": 80,
+  "passed": 80,
+  "failed": 0,
+  "results": [
+    {
+      "id": "CH4-001",
+      "title": "High SH plus bubbles but operating state not confirmed",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "state": "UNKNOWN",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
+      "activeGuides": [
+        "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
+        "GUIDE_SIGHT_GLASS_FLASHING",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.875
+      ]
+    },
+    {
+      "id": "CH4-002",
+      "title": "Low SC with receiver and confirmed leak",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_LEAK_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_CONFIRMED_LEAK_REPAIR"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-003",
+      "title": "High SH with solid liquid at TXV and equalizer fault",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+        "FACT_TXV_EQUALIZER_PROBLEM"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_EQUALIZER",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.3333333333333333,
+      "findingScores": [
+        1,
+        0.75,
+        1
+      ]
+    },
+    {
+      "id": "CH4-004",
+      "title": "High SH with solid liquid and wrong TXV match",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+        "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_WRONG_TXV_APPLICATION",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        0.75,
+        0.8
+      ]
+    },
+    {
+      "id": "CH4-005",
+      "title": "Low SH with high suction and verified high load",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+        "FACT_HIGH_PRODUCT_LOAD"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_EXCESSIVE_LOAD"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_HIGH_PRODUCT_LOAD",
+        "GUIDE_PATTERN_LOW_SH"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.3333333333333333,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-006",
+      "title": "Low suction plus low load and clear coil",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_LOW_EVAP_LOAD",
+        "FACT_EVAP_COIL_CLEAR",
+        "FACT_EVAP_FAN_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_LOW_SUCTION_LOW_LOAD_COMPLETE",
+        "GUIDE_LOW_SUCTION_LOW_LOAD"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.5,
+      "findingScores": [
+        1,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "CH4-007",
+      "title": "Low suction plus low load but high SH",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_LOW_EVAP_LOAD",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_LOW_SUCTION_LOW_LOAD",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5714285714285714,
+      "nextScore": 0.375,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-008",
+      "title": "High head with high ambient but condenser airflow normal",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_AMBIENT",
+        "FACT_COND_AIRFLOW_NORMAL",
+        "FACT_COND_COIL_CLEAN"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
+        "GUIDE_PATTERN_HIGH_AMBIENT"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.36363636363636365,
+      "findingScores": [
+        0.6666666666666666,
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-009",
+      "title": "High head with normal ambient and recirculation",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_RECIRCULATION_CONFIRMED",
+        "FACT_COND_FAN_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [],
+      "headlineScore": 0.5,
+      "nextScore": 0.25,
+      "findingScores": [
+        0.5,
+        0.6666666666666666,
+        0.75
+      ]
+    },
+    {
+      "id": "CH4-010",
+      "title": "High head with normal airflow and no cause localized",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_NORMAL",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_HEAD_NOT_EXCESSIVE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_CONFLICT_HIGH_HEAD_NOT_EXCESSIVE",
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.7142857142857143
+      ]
+    },
+    {
+      "id": "CH4-011",
+      "title": "High current with high head but condenser clean",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_COND_AIRFLOW_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HIGH_CURRENT_HIGH_HEAD",
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.36363636363636365,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-012",
+      "title": "High current with low head",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_HIGH_CURRENT",
+        "FACT_COND_SAT_LOW"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_HIGH_CURRENT_LOW_HEAD"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-013",
+      "title": "Hot compressor after long off-cycle start",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_LONG_OFF_CYCLE_STARTUP"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "activeGuides": [
+        "GUIDE_STARTUP_HOT_COMPRESSOR",
+        "GUIDE_MIGRATION_STARTUP_RISK"
+      ],
+      "headlineScore": 0.8,
+      "nextScore": 0.36363636363636365,
+      "findingScores": [
+        1,
+        0.8
+      ]
+    },
+    {
+      "id": "CH4-014",
+      "title": "Post-defrost low SH with no fan delay information",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_EVAP_SH_LOW"
+      ],
+      "state": "POST_DEFROST",
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_POST_DEFROST_LIQUID_RETURN",
+        "GUIDE_PATTERN_LOW_SH"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.5714285714285714,
+      "findingScores": [
+        0.75,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-015",
+      "title": "Pump-down low suction with solenoid closed",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "state": "PUMPDOWN",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "activeGuides": [
+        "GUIDE_PUMPDOWN_LOW_SUCTION_EXPECTED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-016",
+      "title": "Cooling call with anti-short-cycle active and compressor off",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE",
+        "FACT_COMPRESSOR_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_NOT_RUNNING",
+        "CAUSE_ANTI_SHORT_CYCLE_DELAY"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_PUMPING",
+      "activeGuides": [
+        "GUIDE_ANTI_SHORT_CYCLE_PRIMARY",
+        "GUIDE_COMPRESSOR_NOT_RUNNING",
+        "GUIDE_ANTI_SHORT_CYCLE"
+      ],
+      "headlineScore": 0.8333333333333334,
+      "nextScore": 0.7142857142857143,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-017",
+      "title": "Cooling call, coil dead, wiring unknown",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+        "FACT_WIRING_SCHEME_UNKNOWN"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_CONTROL_SEQUENCE_FAULT"
+      ],
+      "diagnoses": [
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ],
+      "nextCheck": "CHECK_WIRING_DIAGRAM_CONTROL_STATE",
+      "activeGuides": [
+        "GUIDE_CONTROL_TRACE_UNKNOWN_SCHEME",
+        "GUIDE_CONTACTOR_COIL_OFF"
+      ],
+      "headlineScore": 0.8333333333333334,
+      "nextScore": 0.7272727272727273,
+      "findingScores": [
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-018",
+      "title": "Contactor coil energized but compressor terminal voltage absent",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE",
+        "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "activeGuides": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.2857142857142857,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-019",
+      "title": "Correct compressor voltage and open overload",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_OVERLOAD_PROTECTION_OPEN",
+        "FACT_COMPRESSOR_HOT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "activeGuides": [
+        "GUIDE_OVERLOAD_OPEN"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.5833333333333334,
+      "findingScores": [
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-020",
+      "title": "Fuse open after condenser fan failure",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_FUSE_OPEN",
+        "FACT_COND_FAN_FAILED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_FUSE_OPEN_REQUIRES_CAUSE"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_PUMPING",
+      "activeGuides": [
+        "GUIDE_FUSE_OPEN"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.4,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-021",
+      "title": "Sensor error but refrigeration performance normal",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SENSOR_DISAGREES_REFERENCE",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_SENSOR_NORMAL_REFRIG",
+        "GUIDE_SENSOR_ERROR"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-022",
+      "title": "Warm room with normal refrigeration but load unknown",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_WARM_ROOM_REFRIG_NORMAL"
+      ],
+      "headlineScore": 0.375,
+      "nextScore": 0.7142857142857143,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-023",
+      "title": "Warm room with normal refrigeration and high product load",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_PRODUCT_LOAD_PULLDOWN"
+      ],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_WARM_ROOM_REFRIG_NORMAL",
+        "GUIDE_HIGH_PRODUCT_LOAD"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-024",
+      "title": "Warm room with normal refrigeration and sealed door",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_DOOR_CLOSED_SEALED",
+        "FACT_INFILTRATION_LOAD_CHARACTERIZED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_WARM_ROOM_REFRIG_NORMAL"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.7777777777777778,
+      "findingScores": [
+        1,
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-025",
+      "title": "Verified load exceeds capacity with normal circuit",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_CONTROLS_VERIFIED_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SYSTEM_UNDERSIZED"
+      ],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_CAPACITY_VERIFIED"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.6666666666666666,
+      "findingScores": [
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-026",
+      "title": "Bubbles with confirmed leak",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SIGHT_GLASS_FLASHING",
+        "FACT_LEAK_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_CONFIRMED_LEAK_REPAIR",
+        "GUIDE_SIGHT_GLASS_FLASHING"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.5555555555555556,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-027",
+      "title": "Bubbles plus drier drop",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SIGHT_GLASS_FLASHING",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_DRIER_TEMPERATURES_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "nextCheck": "CHECK_MEASURE_SH",
+      "activeGuides": [
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_SIGHT_GLASS_FLASHING"
+      ],
+      "headlineScore": 0.42857142857142855,
+      "nextScore": 0.3333333333333333,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-028",
+      "title": "High SH low SC with confirmed drier restriction",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_DRIER_TEMPERATURES_MEASURED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_RESTRICTION_OUTRANKS_CHARGE_PATTERN",
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.8571428571428571,
+      "findingScores": [
+        1,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "CH4-029",
+      "title": "High SH low SC with confirmed leak and no restriction",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_LEAK_CONFIRMED",
+        "FACT_NO_LOCALIZED_RESTRICTION"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_CONFIRMED_LEAK_REPAIR",
+        "GUIDE_CONFIRMED_LEAK_LOW_CHARGE_ACTION",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.7,
+      "findingScores": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-030",
+      "title": "High SH high SC with proper liquid at TXV",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_HIGH_SH_HIGH_SC_PROPER_LIQUID",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "CH4-031",
+      "title": "Low SH with bulb bad contact",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_LOW_SH_BULB_ERROR",
+        "GUIDE_TXV_BULB",
+        "GUIDE_PATTERN_LOW_SH"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.5714285714285714,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-032",
+      "title": "TXV hunting with low load",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_TXV_HUNTING",
+        "FACT_LOW_EVAP_LOAD"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_REFRIGERANT_FEED_UNSTABLE"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_HUNTING"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.4,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-033",
+      "title": "Uneven feed plus inlet restriction",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_FEED_UNEVEN",
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "nextCheck": "CHECK_MEASURE_SH",
+      "activeGuides": [
+        "GUIDE_UNEVEN_FEED_TXV_INLET_RESTRICTION"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-034",
+      "title": "Moisture wet plus TXV no response",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_MOISTURE_INDICATED",
+        "FACT_TXV_NO_RESPONSE",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+        "CAUSE_MOISTURE_CONTAMINATION",
+        "CAUSE_WET_SYSTEM_TXV_ICE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_MOISTURE_WET",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.5454545454545454,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-035",
+      "title": "EEV high SH with sensor disagreement",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE",
+        "FACT_TXV_NO_RESPONSE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_SENSOR_ERROR",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.3,
+      "findingScores": [
+        1,
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-036",
+      "title": "High DLT with low suction and high SH",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_SUCTION_PRESSURE_LOW",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_HIGH_DLT_LOW_SUCTION_HIGH_SH",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5555555555555556,
+      "nextScore": 0.8888888888888888,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-037",
+      "title": "High DLT with high head",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_HIGH_DLT",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HIGH_DLT_HIGH_HEAD"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-038",
+      "title": "Weak differential plus normal load",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_RUNNING",
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_INFILTRATION_LOAD_CHARACTERIZED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_DIFFERENTIAL",
+      "activeGuides": [
+        "GUIDE_COMPRESSOR_WEAK_PUMPING"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.3,
+      "findingScores": [
+        1,
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-039",
+      "title": "Weak differential plus valve leakage evidence",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_PERFORMANCE",
+      "activeGuides": [
+        "GUIDE_COMPRESSOR_VALVE_LEAKAGE"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.7,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-040",
+      "title": "High head and low-charge clues conflict",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_PATTERN_CONFLICTING_CHARGE",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.75,
+      "findingScores": [
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-041",
+      "title": "High head plus overcharge evidence and fan stopped",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_OVERCHARGE_EVIDENCE",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_OVERCHARGE"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_OVERCHARGE_DIRECT",
+        "GUIDE_MULTI_COND_FAN_HIGH_HEAD",
+        "GUIDE_COND_FAN_NOT_RUNNING"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.625,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-042",
+      "title": "Dirty condenser plus noncondensable evidence",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_NONCONDENSABLE_EVIDENCE",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_NONCONDENSABLE_DIRECT",
+        "GUIDE_COND_COIL_DIRTY"
+      ],
+      "headlineScore": 0.4,
+      "nextScore": 0.2727272727272727,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-043",
+      "title": "Evap fan stopped plus high SH plus drier restriction",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_DRIER_TEMP_DROP"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_EVAP_FAN_NOT_RUNNING",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 0.4,
+      "nextScore": 0.36363636363636365,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-044",
+      "title": "Unknown state plus direct fan fault and high SH",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "UNKNOWN",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_FAN_NOT_RUNNING",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.42857142857142855,
+      "findingScores": [
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-045",
+      "title": "Unknown state plus direct condenser fan fault and high head",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "state": "UNKNOWN",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_MULTI_COND_FAN_HIGH_HEAD",
+        "GUIDE_COND_FAN_NOT_RUNNING"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "CH4-046",
+      "title": "Low head in low ambient with no head control",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_LOW_AMBIENT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-047",
+      "title": "Low head in low ambient with head control installed",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_LOW_AMBIENT",
+        "FACT_HEAD_CONTROL_INSTALLED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_HEAD_CONTROL_CONFIGURATION",
+      "activeGuides": [
+        "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.5555555555555556,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-048",
+      "title": "Head control flood charge insufficient with bubbles",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_HEAD_CONTROL_INSTALLED",
+        "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT",
+        "FACT_SIGHT_GLASS_FLASHING",
+        "FACT_LOW_AMBIENT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_HEAD_CONTROL_FLOOD_CHARGE"
+      ],
+      "nextCheck": "CHECK_HEAD_CONTROL_CONFIGURATION",
+      "activeGuides": [
+        "GUIDE_SIGHT_GLASS_FLASHING"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.4444444444444444,
+      "findingScores": [
+        1,
+        1,
+        0.6
+      ]
+    },
+    {
+      "id": "CH4-049",
+      "title": "LP control open during normal cooling, not pumpdown",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_LOW_PRESSURE_CONTROL_TRIP",
+        "FACT_LP_CONTROL_OPEN",
+        "FACT_COOLING_DEMAND_PRESENT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+      ],
+      "nextCheck": "CHECK_PRESSURE_CONTROLS",
+      "activeGuides": [
+        "GUIDE_LP_CONTROL_TRIP_COOLING",
+        "GUIDE_LP_PUMPDOWN"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.4444444444444444,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-050",
+      "title": "HP safety open but head now normal",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_HP_SAFETY_OPEN",
+        "FACT_HEAD_NORMAL_FOR_STATE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_HP_TRIP_NOW_NORMAL",
+        "GUIDE_HP_SAFETY"
+      ],
+      "headlineScore": 0.7777777777777778,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-051",
+      "title": "Solenoid commanded open, voltage present, no flow",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SOLENOID_COMMAND_OPEN",
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
+      ],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_SOLENOID_NOT_OPENING",
+        "GUIDE_SOLENOID_NO_FLOW"
+      ],
+      "headlineScore": 0.6,
+      "nextScore": 0.2727272727272727,
+      "findingScores": [
+        1,
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-052",
+      "title": "Solenoid commanded closed but flow continues",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
+      ],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_SOLENOID_NOT_CLOSING",
+        "GUIDE_SOLENOID_FLOW_CLOSED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-053",
+      "title": "Room sensor disagrees only during door openings",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SENSOR_DISAGREES_REFERENCE",
+        "FACT_DOOR_OPEN_OR_LEAKING"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_SENSOR_ERROR",
+        "GUIDE_DOOR_INFILTRATION"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.25,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-054",
+      "title": "Controller setpoint wrong with otherwise normal system",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_CONTROLLER_SETPOINT_WRONG",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
+      ],
+      "nextCheck": "CHECK_CONTROLLER_SENSOR",
+      "activeGuides": [
+        "GUIDE_SETPOINT_NORMAL_REFRIG"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-055",
+      "title": "High product load plus dirty condenser",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_EXCESSIVE_LOAD"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_COND_COIL_DIRTY",
+        "GUIDE_HIGH_PRODUCT_LOAD"
+      ],
+      "headlineScore": 0.4,
+      "nextScore": 0.4,
+      "findingScores": [
+        1,
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-056",
+      "title": "WIC iced coil with fan running and defrost incomplete",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_RUNNING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DEFROST_INADEQUATE"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_ICED_FAN_RUNNING_DEFROST_INCOMPLETE",
+        "GUIDE_ICED_FAN_NORMAL_DEFROST_INCOMPLETE",
+        "GUIDE_DEFROST_INCOMPLETE",
+        "GUIDE_EVAP_ICED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-057",
+      "title": "WIC iced coil with fan stopped and incomplete defrost",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DEFROST_INADEQUATE"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_FAN_NOT_RUNNING",
+        "GUIDE_DEFROST_INCOMPLETE",
+        "GUIDE_EVAP_ICED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.4,
+      "findingScores": [
+        1,
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-058",
+      "title": "WIC defrost commanded, heater voltage present, zero current",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DEFROST_COMMAND_PRESENT",
+        "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+        "FACT_DEFROST_HEATER_CURRENT_ABSENT"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_DEFROST_HEATER_FAILURE"
+      ],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_DEFROST_HEATER_ELECTRICAL"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.5714285714285714,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-059",
+      "title": "WIC defrost heater works but termination ends too soon",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DEFROST_TERMINATION_ERROR",
+        "FACT_DEFROST_INCOMPLETE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_DEFROST_INCOMPLETE"
+      ],
+      "headlineScore": 0.8,
+      "nextScore": 0.42857142857142855,
+      "findingScores": [
+        0.6666666666666666,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-060",
+      "title": "WIC post-defrost fan delay active and room temporarily warm",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_FAN_DELAY_ACTIVE",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "state": "POST_DEFROST",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_CONTROLLER_SENSOR",
+      "activeGuides": [
+        "GUIDE_POST_DEFROST_DELAY_WARM",
+        "GUIDE_POST_DEFROST_FAN_DELAY_NORMAL"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.75,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-061",
+      "title": "WIC fan starts too early after defrost",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_FAN_DELAY_ERROR",
+        "FACT_POST_DEFROST_ACTIVE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_POST_DEFROST_FAN_DELAY_ERROR"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.6666666666666666,
+      "findingScores": [
+        1,
+        0.6666666666666666
+      ]
+    },
+    {
+      "id": "CH4-062",
+      "title": "WIC drain refreezes after complete defrost",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DEFROST_COMPLETES",
+        "FACT_DRAIN_REFREEZE"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_DRAIN_REFREEZE"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "activeGuides": [
+        "GUIDE_DEFROST_INCOMPLETE"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.42857142857142855,
+      "findingScores": [
+        1,
+        0.75
+      ]
+    },
+    {
+      "id": "CH4-063",
+      "title": "WIC icing concentrated near leaking door",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_INFILTRATION_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_ICED"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.2222222222222222,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-064",
+      "title": "WIC icing with sealed door, fan normal, defrost normal",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_DOOR_CLOSED_SEALED",
+        "FACT_EVAP_FAN_RUNNING",
+        "FACT_DEFROST_COMPLETES"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_EVAP_ICING"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_ICED_COMMON_CAUSES_EXCLUDED",
+        "GUIDE_ICING_DEFROST_VERIFIED",
+        "GUIDE_EVAP_ICED"
+      ],
+      "headlineScore": 0.625,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        0.5,
+        0.5,
+        1
+      ]
+    },
+    {
+      "id": "CH4-065",
+      "title": "WIC long runtime with warm load and normal refrigeration",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_PRODUCT_LOAD_PULLDOWN"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_HIGH_PRODUCT_LOAD"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.4,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-066",
+      "title": "WIC long runtime with no abnormal load and dirty condenser",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_INFILTRATION_LOAD_CHARACTERIZED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_COND_COIL_DIRTY"
+      ],
+      "headlineScore": 0.5,
+      "nextScore": 0.25,
+      "findingScores": [
+        0.6666666666666666,
+        1,
+        0.4
+      ]
+    },
+    {
+      "id": "CH4-067",
+      "title": "WIC long runtime with normal coils and sensor error",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_COND_COIL_CLEAN",
+        "FACT_EVAP_COIL_CLEAR",
+        "FACT_SENSOR_ERROR"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_LONG_RUNTIME_SENSOR_ERROR",
+        "GUIDE_SENSOR_ERROR"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.5,
+        0.6666666666666666,
+        1
+      ]
+    },
+    {
+      "id": "CH4-068",
+      "title": "WIC pump-down solenoid closed but flow continues",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "state": "PUMPDOWN",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
+      ],
+      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "activeGuides": [
+        "GUIDE_PUMPDOWN_SOLENOID_LEAK",
+        "GUIDE_SOLENOID_NOT_CLOSING",
+        "GUIDE_SOLENOID_FLOW_CLOSED"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-069",
+      "title": "WIC pump-down LP control opens too early",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_PUMPDOWN_ACTIVE",
+        "FACT_LP_CONTROL_OPEN",
+        "FACT_LOW_PRESSURE_CONTROL_TRIP"
+      ],
+      "state": "PUMPDOWN",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+      ],
+      "nextCheck": "CHECK_PRESSURE_CONTROLS",
+      "activeGuides": [
+        "GUIDE_LP_PUMPDOWN"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.4444444444444444,
+      "findingScores": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-070",
+      "title": "WIC high room temp with sealed door and warm product load",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DOOR_CLOSED_SEALED",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_PRODUCT_LOAD_PULLDOWN"
+      ],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_HIGH_PRODUCT_LOAD"
+      ],
+      "headlineScore": 0.6,
+      "nextScore": 0.5454545454545454,
+      "findingScores": [
+        0.5,
+        0.5,
+        1
+      ]
+    },
+    {
+      "id": "CH4-071",
+      "title": "WIC high room temp with infiltration and sensor error",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_SENSOR_ERROR"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_AIR_INFILTRATION",
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
+      ],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_INFILTRATION_SENSOR_MULTIFAULT",
+        "GUIDE_SENSOR_ERROR"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.5,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-072",
+      "title": "WIC dirty condenser plus high load plus sensor error",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_SENSOR_ERROR",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_EXCESSIVE_LOAD"
+      ],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_MULTIFAULT_DIRTY_SENSOR_LOAD",
+        "GUIDE_MULTIPLE_CONTRIBUTORS",
+        "GUIDE_COND_COIL_DIRTY",
+        "GUIDE_SENSOR_ERROR",
+        "GUIDE_HIGH_PRODUCT_LOAD"
+      ],
+      "headlineScore": 0.75,
+      "nextScore": 0.7,
+      "findingScores": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-073",
+      "title": "WIC fan stopped plus dirty condenser plus high SH",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_FAN_DIRTY_HIGH_SH_MULTIFAULT",
+        "GUIDE_EVAP_FAN_NOT_RUNNING",
+        "GUIDE_COND_COIL_DIRTY",
+        "GUIDE_HIGH_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-074",
+      "title": "WIC drier restriction plus TXV bulb fault plus low SC",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "nextCheck": "CHECK_MEASURE_SH",
+      "activeGuides": [
+        "GUIDE_DRIER_BULB_LOW_SC_MULTIFAULT",
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_TXV_BULB"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-075",
+      "title": "WIC high head plus fan stopped plus dirty condenser",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_MULTI_COND_FAN_HIGH_HEAD",
+        "GUIDE_COND_FAN_NOT_RUNNING",
+        "GUIDE_COND_COIL_DIRTY"
+      ],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.5,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-076",
+      "title": "WIC unknown state with direct solenoid no-flow fault",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_SOLENOID_COMMAND_OPEN",
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "state": "UNKNOWN",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
+      ],
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
+      "activeGuides": [
+        "GUIDE_UNKNOWN_SOLENOID_DIRECT",
+        "GUIDE_SOLENOID_NOT_OPENING",
+        "GUIDE_SOLENOID_NO_FLOW"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.75,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-077",
+      "title": "WIC unknown state with confirmed door infiltration",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "state": "UNKNOWN",
+      "conditions": [],
+      "diagnoses": [
+        "CAUSE_AIR_INFILTRATION"
+      ],
+      "nextCheck": "CHECK_CONTROLLER_SENSOR",
+      "activeGuides": [
+        "GUIDE_UNKNOWN_INFILTRATION_DIRECT"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        0.5
+      ]
+    },
+    {
+      "id": "CH4-078",
+      "title": "WIC defrost active with high head and dirty condenser",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_DEFROST_ACTIVE",
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "state": "DEFROST",
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_DEFROST_DIRTY_COND_DIRECT",
+        "GUIDE_DEFROST_STATE_MEASUREMENTS",
+        "GUIDE_COND_COIL_DIRTY"
+      ],
+      "headlineScore": 1,
+      "nextScore": 0.8571428571428571,
+      "findingScores": [
+        1,
+        0.3333333333333333,
+        1
+      ]
+    },
+    {
+      "id": "CH4-079",
+      "title": "WIC post-defrost with low SH and door infiltration",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_POST_DEFROST_ACTIVE",
+        "FACT_EVAP_SH_LOW",
+        "FACT_DOOR_INFILTRATION_CONFIRMED"
+      ],
+      "state": "POST_DEFROST",
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "diagnoses": [
+        "CAUSE_AIR_INFILTRATION"
+      ],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_POST_DEFROST_INFILTRATION_DIRECT",
+        "GUIDE_POST_DEFROST_LIQUID_RETURN",
+        "GUIDE_PATTERN_LOW_SH"
+      ],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "CH4-080",
+      "title": "WIC warm room with normal refrigeration, load not characterized, sensor normal",
+      "pass": true,
+      "errors": [],
+      "facts": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_CONTROLS_VERIFIED_NORMAL"
+      ],
+      "state": "STABLE_COOLING",
+      "conditions": [],
+      "diagnoses": [],
+      "nextCheck": "CHECK_DOOR_LOAD",
+      "activeGuides": [
+        "GUIDE_WARM_ROOM_REFRIG_NORMAL"
+      ],
+      "headlineScore": 0.45454545454545453,
+      "nextScore": 0.7142857142857143,
+      "findingScores": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

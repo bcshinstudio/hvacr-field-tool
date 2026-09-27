@@ -1,0 +1,2128 @@
+{
+  "suite_id": "WIC_CHALLENGE_V1",
+  "brain_frozen": "2.0.10",
+  "created": "2026-09-27",
+  "purpose": "Out-of-master-suite challenge validation. Expected answers defined before running frozen Brain 2.0.10.",
+  "cases": [
+    {
+      "id": "CH-F001",
+      "title": "Startup after long off-cycle; migration risk",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HOT",
+          "FACT_LONG_OFF_CYCLE_STARTUP"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Refrigerant migration / startup floodback risk must be considered",
+        "confirmed_findings": [
+          "Long off-cycle/startup context requires compressor protection reasoning"
+        ],
+        "what_this_means": "Liquid refrigerant can migrate to the crankcase during extended shutdown and cause slugging or oil dilution at startup.",
+        "next_action_check": "Before condemning the compressor, verify crankcase heater operation, off-cycle conditions, oil condition and startup behavior.",
+        "troubleshooting_path": [
+          "Verify crankcase heater and off-cycle protection",
+          "Observe startup for liquid return/slugging evidence",
+          "Correct migration source before repeated starts"
+        ],
+        "must_not_conclude": [
+          "Do not repeatedly restart a compressor showing liquid slugging symptoms."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F002",
+      "title": "Post-defrost liquid return risk",
+      "system": "walk_in_cooler",
+      "operating_state": "POST_DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_EVAP_SH_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Post-defrost liquid return / floodback risk",
+        "confirmed_findings": [
+          "Post-defrost recovery is active",
+          "Superheat is low"
+        ],
+        "what_this_means": "Liquid condensed in the evaporator/suction line during defrost can return on restart.",
+        "next_action_check": "Allow controlled post-defrost recovery; verify fan delay, superheat and liquid return before judging charge.",
+        "troubleshooting_path": [
+          "Verify fan-delay sequence",
+          "Watch superheat during recovery",
+          "Check accumulator/piping if floodback persists"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant because post-defrost suction behavior looks abnormal."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F003",
+      "title": "Low SH with normal airflow and load",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_LOW",
+          "FACT_AIRFLOW_VERIFIED_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Overfeeding / floodback direction",
+        "confirmed_findings": [
+          "Superheat is low",
+          "Airflow is verified normal"
+        ],
+        "what_this_means": "With airflow/load not explaining low SH, refrigerant overfeed or TXV/control causes move up the list.",
+        "next_action_check": "Check TXV bulb, equalizer, valve response and charge/liquid conditions before adjusting the valve.",
+        "troubleshooting_path": [
+          "Verify bulb mounting",
+          "Verify equalizer",
+          "Test valve response",
+          "Check charge only with applicable method"
+        ],
+        "must_not_conclude": [
+          "Do not adjust TXV solely from one low-SH reading."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F004",
+      "title": "Compressor running but weak pressure separation",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_RUNNING",
+          "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+          "FACT_CAPACITY_POOR"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor pumping efficiency is suspect",
+        "confirmed_findings": [
+          "Compressor is running",
+          "Pressure differential is weak",
+          "Capacity is poor"
+        ],
+        "what_this_means": "A running compressor that cannot develop expected pressure separation may have internal leakage or mechanical inefficiency.",
+        "next_action_check": "Verify load, airflow, feed and measurement accuracy, then compare suction/discharge performance with model data before condemning compressor.",
+        "troubleshooting_path": [
+          "Verify external causes first",
+          "Compare model-specific performance",
+          "Check valve/internal leakage evidence"
+        ],
+        "must_not_conclude": [
+          "Do not condemn compressor from suction pressure alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_INEFFICIENCY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F005",
+      "title": "Weak compressor differential with valve leakage evidence",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_RUNNING",
+          "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+          "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Internal compressor leakage strongly indicated",
+        "confirmed_findings": [
+          "Weak pumping differential",
+          "Internal valve leakage evidence is present"
+        ],
+        "what_this_means": "Localized internal leakage evidence strengthens compressor inefficiency diagnosis.",
+        "next_action_check": "Confirm electrical/load conditions and model performance, then plan compressor repair/replacement per manufacturer procedure.",
+        "troubleshooting_path": [
+          "Confirm evidence",
+          "Protect system from contamination",
+          "Repair/replace and verify pressures"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant to compensate for weak pumping."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_INEFFICIENCY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F006",
+      "title": "Hot compressor with high compression ratio direction",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HOT",
+          "FACT_EVAP_SAT_LOW",
+          "FACT_COND_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor overheating / high compression-ratio condition",
+        "confirmed_findings": [
+          "Compressor is hot",
+          "Low evaporating pressure",
+          "High condensing pressure"
+        ],
+        "what_this_means": "Large pressure ratio increases compressor stress and discharge temperature.",
+        "next_action_check": "Correct suction-side starvation/load and high-side heat-rejection causes before repeated operation.",
+        "troubleshooting_path": [
+          "Check evaporator feed/airflow",
+          "Check condenser airflow/head",
+          "Verify discharge temperature/current"
+        ],
+        "must_not_conclude": [
+          "Do not treat compressor overheating as a compressor-only fault."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          },
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F007",
+      "title": "Overload open on hot compressor after floodback history",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_OVERLOAD_PROTECTION_OPEN",
+          "FACT_COMPRESSOR_HOT",
+          "FACT_EVAP_SH_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Protection trip; root cause still unresolved",
+        "confirmed_findings": [
+          "Overload is open",
+          "Compressor is hot",
+          "Low SH/floodback clue exists"
+        ],
+        "what_this_means": "Protection opening is an effect; liquid return and overheating causes must be investigated.",
+        "next_action_check": "Let protection reset safely, then diagnose floodback, voltage/current and cooling conditions before restart.",
+        "troubleshooting_path": [
+          "Find reason for overload",
+          "Check liquid return",
+          "Check electrical supply/current"
+        ],
+        "must_not_conclude": [
+          "Do not bypass the overload."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F008",
+      "title": "High discharge temperature with low suction",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HIGH_DLT",
+          "FACT_EVAP_SAT_LOW",
+          "FACT_EVAP_SH_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High discharge-temperature risk with starved evaporator",
+        "confirmed_findings": [
+          "Discharge temperature is high",
+          "Suction/evaporating condition is low",
+          "SH is high"
+        ],
+        "what_this_means": "Starvation/high compression ratio can overheat the compressor.",
+        "next_action_check": "Find the starvation cause and restore proper suction conditions before extended operation.",
+        "troubleshooting_path": [
+          "Check liquid supply",
+          "Check restrictions/TXV",
+          "Verify condenser side",
+          "Recheck DLT after repair"
+        ],
+        "must_not_conclude": [
+          "Do not continue running solely to gather more readings if temperature exceeds manufacturer limit."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F009",
+      "title": "High compressor current with high head",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HIGH_CURRENT",
+          "FACT_COND_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High compressor load associated with high condensing pressure",
+        "confirmed_findings": [
+          "Compressor current is high",
+          "Head/condensing pressure is high"
+        ],
+        "what_this_means": "High condensing pressure can raise compressor workload/current.",
+        "next_action_check": "Correct high-head cause first, then recheck current against nameplate/model limits.",
+        "troubleshooting_path": [
+          "Check condenser airflow",
+          "Check ambient/recirculation",
+          "Check charge/noncondensables if airflow normal"
+        ],
+        "must_not_conclude": [
+          "Do not replace compressor before correcting high head."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          },
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-F010",
+      "title": "Compressor terminal voltage present but no start; start fault localized",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+          "FACT_START_COMPONENT_FAULT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor start-component fault localized",
+        "confirmed_findings": [
+          "Cooling demand exists",
+          "Correct terminal voltage is present",
+          "Start component fault is localized"
+        ],
+        "what_this_means": "The control circuit is delivering power; the localized start component is the next repair target.",
+        "next_action_check": "Correct the start-component fault and verify compressor starts normally without bypassing protection.",
+        "troubleshooting_path": [
+          "Replace/repair applicable start component",
+          "Verify current and pressures after start"
+        ],
+        "must_not_conclude": [
+          "Do not replace compressor before correcting the localized start component fault."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H011",
+      "title": "Low ambient with head control installed and low head",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_LOW_AMBIENT",
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_COND_SAT_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low-ambient head-pressure control needs evaluation",
+        "confirmed_findings": [
+          "Ambient is low",
+          "Head control is installed",
+          "Condensing pressure is low"
+        ],
+        "what_this_means": "Low ambient can reduce head pressure enough to impair liquid feed unless the control maintains design conditions.",
+        "next_action_check": "Check head-pressure-control operation and manufacturer target before changing refrigerant charge.",
+        "troubleshooting_path": [
+          "Verify control setting/operation",
+          "Verify receiver/liquid condition",
+          "Use model-specific target"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from low head alone in low ambient."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H012",
+      "title": "Head-control flood charge insufficient",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_LOW_AMBIENT",
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Head-pressure-control refrigerant inventory is insufficient",
+        "confirmed_findings": [
+          "Low ambient/head-control system",
+          "Flood-charge inventory is insufficient"
+        ],
+        "what_this_means": "Some low-ambient controls require sufficient refrigerant inventory to flood condenser volume and maintain receiver pressure.",
+        "next_action_check": "Correct charge using the equipment/head-control manufacturer procedure, not a generic SC target.",
+        "troubleshooting_path": [
+          "Verify receiver/head-control design",
+          "Charge by manufacturer method",
+          "Recheck liquid feed"
+        ],
+        "must_not_conclude": [
+          "Do not use generic subcooling target if not applicable."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H013",
+      "title": "Head control setting/restriction localized",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
+          "FACT_COND_SAT_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Head-pressure-control fault/restriction localized",
+        "confirmed_findings": [
+          "Head control installed",
+          "Setting/restriction evidence localized",
+          "Head is low"
+        ],
+        "what_this_means": "The head-control device is not maintaining the intended condensing condition.",
+        "next_action_check": "Inspect/adjust/repair the head-pressure control per manufacturer instructions and verify liquid feed.",
+        "troubleshooting_path": [
+          "Verify sensing/setting",
+          "Check valve restriction",
+          "Confirm head after repair"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant before verifying head-control operation."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H014",
+      "title": "High head with recirculation confirmed",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_RECIRCULATION_CONFIRMED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Condenser discharge-air recirculation is driving high head",
+        "confirmed_findings": [
+          "High head",
+          "Hot-air recirculation confirmed"
+        ],
+        "what_this_means": "Recirculated hot discharge air raises entering condenser temperature and reduces heat rejection.",
+        "next_action_check": "Correct installation/airflow recirculation first, then stabilize and recheck head.",
+        "troubleshooting_path": [
+          "Separate discharge and intake air",
+          "Verify airflow",
+          "Recheck head"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge before correcting confirmed recirculation."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_CONDENSER_RECIRCULATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H015",
+      "title": "High head with clean coil, fan running, normal airflow",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_COIL_CLEAN",
+          "FACT_COND_FAN_RUNNING",
+          "FACT_COND_AIRFLOW_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High head remains after airflow causes are excluded",
+        "confirmed_findings": [
+          "Head is high",
+          "Condenser coil/fan/airflow are verified normal"
+        ],
+        "what_this_means": "With heat-rejection airflow verified, charge, noncondensables, load, or control causes deserve higher priority.",
+        "next_action_check": "Use applicable charge method and pressure-temperature evidence to separate overcharge from noncondensables/high load.",
+        "troubleshooting_path": [
+          "Verify ambient/load",
+          "Verify charge method",
+          "Check noncondensable evidence"
+        ],
+        "must_not_conclude": [
+          "Do not clean/replace condenser fan when airflow is verified normal."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H016",
+      "title": "High head with noncondensable evidence",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_AIRFLOW_NORMAL",
+          "FACT_NONCONDENSABLE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Noncondensables strongly supported",
+        "confirmed_findings": [
+          "High head",
+          "Airflow normal",
+          "Noncondensable evidence present"
+        ],
+        "what_this_means": "Noncondensable gas can elevate condensing pressure even when condenser airflow is normal.",
+        "next_action_check": "Recover/handle refrigerant according to service procedure, evacuate properly, recharge correctly, and verify.",
+        "troubleshooting_path": [
+          "Confirm evidence",
+          "Recover as required",
+          "Evacuate",
+          "Recharge by approved method"
+        ],
+        "must_not_conclude": [
+          "Do not vent refrigerant."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_NONCONDENSABLES"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H017",
+      "title": "High head with overcharge evidence",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_AIRFLOW_NORMAL",
+          "FACT_OVERCHARGE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Excess refrigerant charge strongly supported",
+        "confirmed_findings": [
+          "High head",
+          "Airflow normal",
+          "Overcharge evidence present"
+        ],
+        "what_this_means": "Excess refrigerant can raise condensing pressure and liquid inventory.",
+        "next_action_check": "Correct charge by the equipment-specific method and verify stable operation.",
+        "troubleshooting_path": [
+          "Verify applicable charging method",
+          "Correct inventory",
+          "Recheck pressures/SC"
+        ],
+        "must_not_conclude": [
+          "Do not remove charge based only on high head without supporting evidence."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_OVERCHARGE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H018",
+      "title": "HP trip with recirculation",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_HP_SAFETY_OPEN",
+          "FACT_COND_RECIRCULATION_CONFIRMED",
+          "FACT_COND_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High-pressure trip caused by heat-rejection/recirculation problem",
+        "confirmed_findings": [
+          "HP safety is open",
+          "High head confirmed",
+          "Recirculation confirmed"
+        ],
+        "what_this_means": "The safety trip is protective response to a confirmed high-side airflow installation problem.",
+        "next_action_check": "Correct recirculation before resetting/restarting; then verify head pressure and safety operation.",
+        "troubleshooting_path": [
+          "Correct recirculation",
+          "Verify condenser airflow",
+          "Reset only after cause corrected"
+        ],
+        "must_not_conclude": [
+          "Do not repeatedly reset HP safety without correcting cause."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H019",
+      "title": "Low head and flash gas with low ambient",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_LOW",
+          "FACT_SIGHT_GLASS_FLASHING",
+          "FACT_LOW_AMBIENT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low condensing pressure may be causing inadequate liquid pressure/subcooling",
+        "confirmed_findings": [
+          "Head is low",
+          "Sight glass flashes",
+          "Ambient is low"
+        ],
+        "what_this_means": "Low ambient can reduce liquid pressure/subcooling and create flash gas before the TXV.",
+        "next_action_check": "Check head-pressure control and liquid-line pressure drop before diagnosing low charge.",
+        "troubleshooting_path": [
+          "Verify head control",
+          "Check liquid pressure drop",
+          "Check liquid condition at TXV"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from bubbles alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-H020",
+      "title": "High ambient + high load + high head",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_HIGH_AMBIENT",
+          "FACT_HIGH_PRODUCT_LOAD",
+          "FACT_COND_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High head may be load/ambient driven",
+        "confirmed_findings": [
+          "Ambient is high",
+          "Product load is high",
+          "Head is high"
+        ],
+        "what_this_means": "High ambient and high refrigeration load both increase condensing demand.",
+        "next_action_check": "Verify condenser capacity/airflow and compare readings with design conditions before charge diagnosis.",
+        "troubleshooting_path": [
+          "Characterize load",
+          "Verify airflow",
+          "Compare with design target"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge solely from high head under extreme load/ambient."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T021",
+      "title": "High SH with proper liquid at TXV and no restriction",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+          "FACT_NO_LOCALIZED_RESTRICTION"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Metering-device underfeed becomes more likely",
+        "confirmed_findings": [
+          "SH high",
+          "Proper liquid reaches TXV",
+          "No upstream restriction evidence"
+        ],
+        "what_this_means": "After upstream liquid supply is verified, valve sizing/response/power element becomes a stronger branch.",
+        "next_action_check": "Test TXV response, bulb/equalizer and application match before adjustment/replacement.",
+        "troubleshooting_path": [
+          "Verify bulb/equalizer",
+          "Test valve response",
+          "Verify valve sizing/application"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant when upstream liquid supply is verified without charge evidence."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T022",
+      "title": "High SH + TXV no response + proper inlet liquid",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_NO_RESPONSE",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+        ]
+      },
+      "expected": {
+        "system_check_result": "TXV valve/power-element fault strongly indicated",
+        "confirmed_findings": [
+          "High SH",
+          "TXV fails response test",
+          "Proper inlet liquid verified"
+        ],
+        "what_this_means": "A valve that does not respond with adequate inlet liquid points toward valve/power-element malfunction.",
+        "next_action_check": "Verify bulb/equalizer one last time, then service/replace the TXV per manufacturer guidance.",
+        "troubleshooting_path": [
+          "Verify bulb/equalizer",
+          "Service valve/power element",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge solely from high SH."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T023",
+      "title": "High SH with wrong refrigerant/TXV match",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Expansion-device application mismatch",
+        "confirmed_findings": [
+          "High SH",
+          "Refrigerant/valve match is wrong"
+        ],
+        "what_this_means": "A TEV charge/application mismatch can prevent proper superheat control.",
+        "next_action_check": "Correct the valve/refrigerant application match before tuning or charge changes.",
+        "troubleshooting_path": [
+          "Identify valve charge/application",
+          "Install correct device",
+          "Verify SH"
+        ],
+        "must_not_conclude": [
+          "Do not adjust the wrong valve to compensate for application mismatch."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T024",
+      "title": "Unstable SH with otherwise normal liquid supply",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_TXV_HUNTING",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Unstable superheat/feed control",
+        "confirmed_findings": [
+          "TXV/feed is hunting",
+          "Liquid supply at valve is proper"
+        ],
+        "what_this_means": "Hunting can come from sensor/bulb issues, valve sizing, pressure-control instability or control tuning.",
+        "next_action_check": "Check bulb/sensor installation, valve sizing and upstream/downstream pressure-control stability.",
+        "troubleshooting_path": [
+          "Check bulb/sensor",
+          "Check valve sizing",
+          "Check head/suction control stability"
+        ],
+        "must_not_conclude": [
+          "Do not replace TXV solely because SH is unstable."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T025",
+      "title": "Low SH with TXV no response",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_LOW",
+          "FACT_TXV_NO_RESPONSE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Overfeed with abnormal valve response",
+        "confirmed_findings": [
+          "SH is low",
+          "TXV response is abnormal"
+        ],
+        "what_this_means": "Persistent low SH plus abnormal valve response raises overfeed/valve-control concern.",
+        "next_action_check": "Verify bulb/equalizer and valve mechanics before adjustment or replacement.",
+        "troubleshooting_path": [
+          "Check bulb",
+          "Check equalizer",
+          "Test valve movement"
+        ],
+        "must_not_conclude": [
+          "Do not reduce charge solely to correct low SH."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T026",
+      "title": "High SH with moisture indication",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_MOISTURE_INDICATED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Moisture-related intermittent TXV/feed restriction is plausible",
+        "confirmed_findings": [
+          "High SH",
+          "Moisture indicator is wet"
+        ],
+        "what_this_means": "Moisture can freeze at the expansion valve and restrict feed intermittently.",
+        "next_action_check": "Address system moisture/drier condition and verify valve feed after dehydration.",
+        "troubleshooting_path": [
+          "Verify indicator/drier",
+          "Replace drier as appropriate",
+          "Evacuate/dehydrate",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [
+          "Do not adjust TXV before addressing confirmed moisture."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_WET_SYSTEM_TXV_ICE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T027",
+      "title": "High SH + inlet strainer restriction",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_INLET_RESTRICTION"
+        ]
+      },
+      "expected": {
+        "system_check_result": "TXV inlet restriction localized",
+        "confirmed_findings": [
+          "High SH",
+          "TXV inlet restriction identified"
+        ],
+        "what_this_means": "A localized inlet restriction can starve the evaporator even with adequate upstream charge.",
+        "next_action_check": "Service the inlet screen/orifice and verify clean solid liquid supply and SH.",
+        "troubleshooting_path": [
+          "Correct restriction",
+          "Check contamination source",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant to overcome a localized restriction."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_INLET_RESTRICTION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T028",
+      "title": "High SH with EEV sensor/transducer mismatch",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SENSOR_ERROR"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Electronic superheat-control input error possible",
+        "confirmed_findings": [
+          "High SH",
+          "Sensor/transducer error exists"
+        ],
+        "what_this_means": "Electronic valve control depends on correct pressure and temperature inputs; wrong sensor setup can create false/poor control.",
+        "next_action_check": "Verify transducer range/type, temperature sensor type/location/wiring, then reevaluate valve behavior.",
+        "troubleshooting_path": [
+          "Check pressure transducer setup",
+          "Check temperature sensor",
+          "Check wiring/location"
+        ],
+        "must_not_conclude": [
+          "Do not condemn EEV before verifying control inputs."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T029",
+      "title": "Unstable SH with head-pressure control instability",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_TXV_HUNTING",
+          "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Upstream pressure-control instability may drive hunting",
+        "confirmed_findings": [
+          "SH/feed unstable",
+          "Head-pressure control abnormal"
+        ],
+        "what_this_means": "Changing pressure across the valve can destabilize superheat control.",
+        "next_action_check": "Stabilize head-pressure control first, then reevaluate TXV/EEV hunting.",
+        "troubleshooting_path": [
+          "Correct head-control instability",
+          "Allow stable cooling",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [
+          "Do not tune PID/TXV around unstable head pressure."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Superheat Control Bulletin 100-50-5.1",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-5.1-Superheat-Control.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-T030",
+      "title": "Low SH after bulb mounting error",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_LOW",
+          "FACT_TXV_BULB_BAD_CONTACT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Bulb installation must be corrected before valve diagnosis",
+        "confirmed_findings": [
+          "Low SH",
+          "Bulb mounting/contact is wrong"
+        ],
+        "what_this_means": "Incorrect sensing can cause improper valve feed and misleading SH behavior.",
+        "next_action_check": "Correct bulb location/contact/insulation, stabilize system, then remeasure SH.",
+        "troubleshooting_path": [
+          "Correct bulb",
+          "Stabilize",
+          "Remeasure SH"
+        ],
+        "must_not_conclude": [
+          "Do not adjust valve before correcting bulb installation."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D031",
+      "title": "Defrost command + heater voltage but no current",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_COMMAND_PRESENT",
+          "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+          "FACT_DEFROST_HEATER_CURRENT_ABSENT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost heater circuit/load failure localized",
+        "confirmed_findings": [
+          "Defrost commanded",
+          "Voltage reaches heater",
+          "No heater current/heat"
+        ],
+        "what_this_means": "Power is delivered but the heating load is not operating, pointing to heater/open load connection.",
+        "next_action_check": "De-energize safely and test heater continuity/resistance and connections; repair then verify current/heat.",
+        "troubleshooting_path": [
+          "Lock out power",
+          "Test heater resistance",
+          "Repair connection/heater",
+          "Verify defrost"
+        ],
+        "must_not_conclude": [
+          "Do not replace controller when it is delivering heater voltage."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DEFROST_HEATER_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D032",
+      "title": "Defrost heater works but terminates too early",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+          "FACT_DEFROST_TERMINATION_ERROR",
+          "FACT_DEFROST_INCOMPLETE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost termination control fault",
+        "confirmed_findings": [
+          "Heater operates",
+          "Defrost terminates incorrectly",
+          "Coil does not fully clear"
+        ],
+        "what_this_means": "Premature termination can leave residual ice even with a functioning heater.",
+        "next_action_check": "Check termination sensor location/calibration/control logic and verify full coil clearing.",
+        "troubleshooting_path": [
+          "Check sensor location",
+          "Check termination setting",
+          "Run complete defrost"
+        ],
+        "must_not_conclude": [
+          "Do not replace heater when heat output is verified."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D033",
+      "title": "Post-defrost fan starts too early",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_FAN_DELAY_ERROR"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evaporator fan-delay/control fault",
+        "confirmed_findings": [
+          "Post-defrost state",
+          "Fan delay behavior incorrect"
+        ],
+        "what_this_means": "Starting fans too early can blow heat/moisture into the box and disrupt recovery.",
+        "next_action_check": "Verify fan-delay sensor/timer/controller logic and correct before evaluating refrigeration performance.",
+        "troubleshooting_path": [
+          "Check fan-delay control",
+          "Verify coil temperature criteria",
+          "Retest recovery"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose refrigerant charge during abnormal fan-delay recovery."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D034",
+      "title": "Drain refreezes after complete defrost",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_COMPLETES",
+          "FACT_DRAIN_REFREEZE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Drain/refreeze fault",
+        "confirmed_findings": [
+          "Defrost clears coil",
+          "Water refreezes at drain/pan"
+        ],
+        "what_this_means": "If coil defrost completes, persistent drain ice points to drainage/heater/slope problems rather than insufficient coil defrost.",
+        "next_action_check": "Inspect drain heater, trap/slope, blockage and heat transfer; correct drainage and retest.",
+        "troubleshooting_path": [
+          "Inspect drain path",
+          "Test drain heater",
+          "Correct slope/blockage"
+        ],
+        "must_not_conclude": [
+          "Do not lengthen coil defrost blindly when coil already clears."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DRAIN_REFREEZE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D035",
+      "title": "Fan delay intentionally active after defrost",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_FAN_DELAY_ACTIVE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Post-defrost fan delay is intentional",
+        "confirmed_findings": [
+          "Post-defrost state",
+          "Fan delay is active"
+        ],
+        "what_this_means": "Fans may intentionally remain off until coil temperature/time criteria are met.",
+        "next_action_check": "Verify delay matches equipment sequence; wait for normal release before diagnosing fan failure.",
+        "troubleshooting_path": [
+          "Check sequence specification",
+          "Verify delay releases normally"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose evaporator fan failure solely because fans are off during valid fan delay."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D036",
+      "title": "Defrost active with abnormal pressures",
+      "system": "walk_in_cooler",
+      "operating_state": "DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_ACTIVE",
+          "FACT_COND_SAT_HIGH",
+          "FACT_EVAP_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost readings are not steady-cooling diagnostic evidence",
+        "confirmed_findings": [
+          "Defrost is active",
+          "Pressures are abnormal for cooling"
+        ],
+        "what_this_means": "Defrost intentionally changes system state; normal cooling pressure patterns do not apply.",
+        "next_action_check": "Complete defrost and recovery, then obtain stabilized cooling readings.",
+        "troubleshooting_path": [
+          "Complete defrost",
+          "Allow recovery",
+          "Measure during stable cooling"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose charge from defrost pressures."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D037",
+      "title": "Post-defrost low SH resolves after stabilization",
+      "system": "walk_in_cooler",
+      "operating_state": "POST_DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_EVAP_SH_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Post-defrost SH must be rechecked after recovery",
+        "confirmed_findings": [
+          "Post-defrost recovery",
+          "SH currently low"
+        ],
+        "what_this_means": "Transient liquid return/unstable heat load can distort SH immediately after defrost.",
+        "next_action_check": "Wait for stable cooling and fan operation, then remeasure before component diagnosis.",
+        "troubleshooting_path": [
+          "Verify fan release",
+          "Allow stabilization",
+          "Remeasure SH"
+        ],
+        "must_not_conclude": [
+          "Do not adjust TXV from immediate post-defrost SH."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D038",
+      "title": "Iced coil with heater and termination verified normal",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_DEFROST_COMPLETES",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Look beyond defrost hardware",
+        "confirmed_findings": [
+          "Coil icing exists",
+          "Defrost completes",
+          "Fan operates"
+        ],
+        "what_this_means": "With defrost and fan operation verified, infiltration, load, drainage or refrigeration-feed causes move up the list.",
+        "next_action_check": "Check door/infiltration, drain/refreeze pattern, load and refrigerant feed.",
+        "troubleshooting_path": [
+          "Check infiltration",
+          "Check drain",
+          "Check load/feed"
+        ],
+        "must_not_conclude": [
+          "Do not replace heater when defrost is verified complete."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D039",
+      "title": "Iced coil + door sealed + fan running",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_DOOR_CLOSED_SEALED",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Icing remains unexplained by fan or door leakage",
+        "confirmed_findings": [
+          "Coil iced",
+          "Door seals",
+          "Fan runs"
+        ],
+        "what_this_means": "Known airflow fan and door-infiltration causes are reduced; defrost and refrigeration/feed checks become more important.",
+        "next_action_check": "Check defrost completion/termination and then refrigerant feed/coil load.",
+        "troubleshooting_path": [
+          "Check defrost",
+          "Check drain",
+          "Check feed"
+        ],
+        "must_not_conclude": [
+          "Do not assume door infiltration when door is verified sealed."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-D040",
+      "title": "Icing with low evaporator load",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_LOW_EVAP_LOAD",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low load may contribute to low evaporating condition/icing",
+        "confirmed_findings": [
+          "Coil iced",
+          "Evaporator load is low",
+          "Fan runs"
+        ],
+        "what_this_means": "Low load can change evaporator conditions and should be separated from defrost/feed faults.",
+        "next_action_check": "Confirm controls/setpoint/load, defrost performance and stable evaporating condition before charge changes.",
+        "troubleshooting_path": [
+          "Verify load/setpoint",
+          "Check defrost",
+          "Check stable suction/SH"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant simply because suction is low at low load."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C041",
+      "title": "Cooling demand but contactor coil dead; wiring scheme unknown",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+          "FACT_WIRING_SCHEME_UNKNOWN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Control circuit must be traced before component replacement",
+        "confirmed_findings": [
+          "Cooling demand exists",
+          "Contactor coil is not energized",
+          "Wiring/control scheme is unknown"
+        ],
+        "what_this_means": "An open safety/control path can prevent coil energization; the actual schematic determines the sequence.",
+        "next_action_check": "Use the equipment wiring diagram to trace control voltage through safeties and controls to the coil.",
+        "troubleshooting_path": [
+          "Obtain schematic",
+          "Trace control voltage",
+          "Identify open device"
+        ],
+        "must_not_conclude": [
+          "Do not replace compressor or contactor contacts before finding why the coil is not energized."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C042",
+      "title": "Fuse open; cause unknown",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_FUSE_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Open fuse requires root-cause investigation",
+        "confirmed_findings": [
+          "Fuse is open"
+        ],
+        "what_this_means": "A blown fuse is protection evidence, not the root cause.",
+        "next_action_check": "De-energize, inspect for shorts/ground faults/overload, then replace with correct fuse only after cause is addressed.",
+        "troubleshooting_path": [
+          "Check wiring/ground fault",
+          "Check load current/components",
+          "Replace correct fuse"
+        ],
+        "must_not_conclude": [
+          "Do not repeatedly replace fuses without finding the cause."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_FUSE_OPEN_REQUIRES_CAUSE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C043",
+      "title": "Solenoid commanded open + correct coil voltage + no flow",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SOLENOID_COMMAND_OPEN",
+          "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+          "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Liquid solenoid mechanical/flow fault localized",
+        "confirmed_findings": [
+          "Command open",
+          "Correct coil voltage",
+          "No refrigerant flow"
+        ],
+        "what_this_means": "Electrical command reaches the coil, so mechanical valve opening/restriction becomes the primary branch.",
+        "next_action_check": "Verify coil magnetism/valve differential and inspect valve for mechanical sticking/restriction.",
+        "troubleshooting_path": [
+          "Verify coil action",
+          "Check pressure differential",
+          "Service valve"
+        ],
+        "must_not_conclude": [
+          "Do not blame thermostat/control when correct coil voltage is present."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C044",
+      "title": "Anti-short-cycle delay active with demand",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Intentional restart delay",
+        "confirmed_findings": [
+          "Cooling demand exists",
+          "Anti-short-cycle delay active"
+        ],
+        "what_this_means": "The controller may intentionally prevent immediate restart to protect the compressor.",
+        "next_action_check": "Verify configured delay and wait for expiration; troubleshoot only if it fails to release.",
+        "troubleshooting_path": [
+          "Verify timer setting",
+          "Wait for release",
+          "Confirm compressor starts"
+        ],
+        "must_not_conclude": [
+          "Do not bypass intentional anti-short-cycle protection."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_ANTI_SHORT_CYCLE_DELAY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland Refrigeration Manual AE-104",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEM&PDF=AE-104"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C045",
+      "title": "Room warm; LP cutout set too high",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_LP_CONTROL_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low-pressure control setting/sequence needs verification",
+        "confirmed_findings": [
+          "Room is warm",
+          "LP control is open"
+        ],
+        "what_this_means": "An LP cutout set too high can stop cooling before the room reaches target.",
+        "next_action_check": "Compare cutout/cutin with equipment requirements and actual pressure; correct setting only per manufacturer design.",
+        "troubleshooting_path": [
+          "Measure suction",
+          "Verify LP setting",
+          "Adjust/repair as specified"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant solely to keep an incorrectly set LP control closed."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Cold room temperature high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/room-conditions/air-temperature-in-cold-room-too-high/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C046",
+      "title": "Warm room with verified normal refrigeration performance",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Investigate load/control/sizing rather than refrigeration circuit",
+        "confirmed_findings": [
+          "Room is warm",
+          "Refrigeration performance otherwise normal"
+        ],
+        "what_this_means": "If refrigeration circuit performance is normal, room load, infiltration, controls or capacity/sizing become stronger causes.",
+        "next_action_check": "Characterize load/infiltration, verify sensor/setpoint, and compare capacity with actual load.",
+        "troubleshooting_path": [
+          "Check door/load",
+          "Check sensor/setpoint",
+          "Compare capacity"
+        ],
+        "must_not_conclude": [
+          "Do not change refrigerant charge when refrigeration performance is verified normal."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Cold room temperature high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/room-conditions/air-temperature-in-cold-room-too-high/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C047",
+      "title": "Warm room; airflow/feed/controls normal; load exceeds capacity",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_AIRFLOW_VERIFIED_NORMAL",
+          "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+          "FACT_CONTROLS_VERIFIED_NORMAL",
+          "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+        ]
+      },
+      "expected": {
+        "system_check_result": "System capacity is insufficient for verified load",
+        "confirmed_findings": [
+          "Room warm",
+          "Airflow/feed/controls normal",
+          "Load exceeds equipment capacity"
+        ],
+        "what_this_means": "The remaining problem is application capacity, not a service adjustment.",
+        "next_action_check": "Reduce load or correct equipment sizing/capacity; verify design assumptions.",
+        "troubleshooting_path": [
+          "Quantify load",
+          "Compare rated capacity",
+          "Correct application/sizing"
+        ],
+        "must_not_conclude": [
+          "Do not overcharge or force controls to compensate for undersizing."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SYSTEM_UNDERSIZED"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Cold room temperature high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/room-conditions/air-temperature-in-cold-room-too-high/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C048",
+      "title": "Sensor disagrees with reference but refrigeration normal",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SENSOR_DISAGREES_REFERENCE",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Sensor location/calibration/input fault",
+        "confirmed_findings": [
+          "Sensor disagrees with trusted reference",
+          "Refrigeration performance normal"
+        ],
+        "what_this_means": "Control decisions may be wrong because the sensed temperature is wrong even though refrigeration works.",
+        "next_action_check": "Verify sensor placement, calibration, wiring and controller input; correct sensor issue and retest control.",
+        "troubleshooting_path": [
+          "Compare reference",
+          "Inspect placement",
+          "Check calibration/wiring"
+        ],
+        "must_not_conclude": [
+          "Do not alter refrigerant charge to correct a bad temperature input."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Ref Tools - Cold room temperature high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/low-pressure/room-conditions/air-temperature-in-cold-room-too-high/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C049",
+      "title": "Multiple faults: dirty condenser + sensor error + high load",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_COIL_DIRTY",
+          "FACT_SENSOR_ERROR",
+          "FACT_HIGH_PRODUCT_LOAD"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Multiple independent contributors are active",
+        "confirmed_findings": [
+          "Condenser is dirty",
+          "Sensor error exists",
+          "Product load is high"
+        ],
+        "what_this_means": "Heat rejection, control accuracy and load can all affect performance simultaneously.",
+        "next_action_check": "Correct the direct condenser restriction, validate sensor/control, characterize load, then reassess refrigeration readings.",
+        "troubleshooting_path": [
+          "Clean condenser",
+          "Correct sensor",
+          "Characterize load",
+          "Stabilize and retest"
+        ],
+        "must_not_conclude": [
+          "Do not drop secondary confirmed faults after selecting a primary action."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Danfoss Ref Tools - Head pressure too high",
+            "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/condensing-units/system/head-pressure-too-highn/"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH-C050",
+      "title": "Conflicting evidence: low-charge pattern plus confirmed restriction",
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SUBCOOLING_LOW",
+          "FACT_DRIER_TEMP_DROP"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Localized restriction outranks generic charge pattern",
+        "confirmed_findings": [
+          "High SH",
+          "Low SC",
+          "Localized drier temperature drop"
+        ],
+        "what_this_means": "Generic starvation/charge clues can coexist with a localized restriction; the localized evidence must be addressed first.",
+        "next_action_check": "Correct/verify the drier restriction, then stabilize and reassess charge using an applicable method.",
+        "troubleshooting_path": [
+          "Address restriction",
+          "Stabilize",
+          "Recheck SH/SC/liquid condition"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant before correcting the localized restriction."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Parker Sporlan Bulletin 10-11",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    }
+  ]
+}

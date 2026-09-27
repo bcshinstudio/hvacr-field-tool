@@ -1,0 +1,3541 @@
+{
+  "suite_id": "WIC_CHALLENGE_3_V1",
+  "brain_frozen": "2.0.12",
+  "created": "2026-09-27",
+  "purpose": "Third unseen challenge suite; introduces reusable core-vs-WIC classification, field ambiguity, transient/measurement validity, and multi-fault cases. Expected answers defined before frozen Brain run.",
+  "cases": [
+    {
+      "id": "CH3-R001",
+      "title": "High SH but measurement taken before stable operation",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "UNKNOWN",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_EVAP_SH_MEASURED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High superheat is not yet valid for steady-state diagnosis",
+        "confirmed_findings": [
+          "High evaporator superheat is recorded without confirmed stable cooling"
+        ],
+        "what_this_means": "Transient operation can make superheat misleading.",
+        "next_action_check": "Confirm stable cooling, allow stabilization, then repeat superheat and liquid-side checks.",
+        "troubleshooting_path": [
+          "Confirm compressor/cooling demand",
+          "Wait for stable operation",
+          "Repeat SH and SC"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from this reading alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R002",
+      "title": "Low SC with receiver present and no applicable target",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUBCOOLING_LOW",
+          "FACT_SUBCOOLING_MEASURED",
+          "FACT_RECEIVER_PRESENT",
+          "FACT_SC_REFERENCE_NOT_APPLICABLE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Subcooling value is not diagnostic against a non-applicable target",
+        "confirmed_findings": [
+          "Receiver is present",
+          "The available subcooling reference is not applicable"
+        ],
+        "what_this_means": "Receiver/configuration and measurement location can make a generic SC target invalid.",
+        "next_action_check": "Use the equipment charging method and applicable measurement location before judging charge.",
+        "troubleshooting_path": [
+          "Identify manufacturer charging method",
+          "Verify measurement location",
+          "Re-evaluate liquid condition"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from an inapplicable subcooling target."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R003",
+      "title": "Model target conflicts with generic subcooling reference",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUBCOOLING_MEASURED",
+          "FACT_MODEL_SPECIFIC_TARGET_AVAILABLE",
+          "FACT_GENERIC_REFERENCE_CONFLICTS_MODEL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Use the applicable model-specific charging target",
+        "confirmed_findings": [
+          "A model-specific target is available",
+          "Generic reference conflicts with the model target"
+        ],
+        "what_this_means": "Equipment-specific charging data takes precedence over a generic reference.",
+        "next_action_check": "Compare the measured value with the manufacturer/model target at the specified condition and location.",
+        "troubleshooting_path": [
+          "Confirm model and refrigerant",
+          "Use manufacturer target",
+          "Record measurement location"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R004",
+      "title": "High SH with proper liquid and no localized restriction",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_EVAP_SH_MEASURED",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+          "FACT_NO_LOCALIZED_RESTRICTION",
+          "FACT_TXV_BULB_BAD_CONTACT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High SH is localized toward TXV sensing/bulb installation",
+        "confirmed_findings": [
+          "High superheat",
+          "Proper liquid reaches TXV",
+          "No upstream restriction",
+          "TXV bulb contact is poor"
+        ],
+        "what_this_means": "The feed problem is downstream/control-side rather than proof of low charge.",
+        "next_action_check": "Correct bulb mounting/contact, then recheck valve response and superheat.",
+        "troubleshooting_path": [
+          "Correct bulb installation",
+          "Verify insulation/location",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant solely because superheat is high."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_BULB_INSTALLATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R005",
+      "title": "High SH with proper liquid, good bulb, valve no response",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER",
+          "FACT_NO_LOCALIZED_RESTRICTION",
+          "FACT_TXV_NO_RESPONSE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "TXV does not respond despite proper inlet liquid",
+        "confirmed_findings": [
+          "High superheat",
+          "Proper liquid at TXV inlet",
+          "No localized restriction",
+          "TXV does not respond"
+        ],
+        "what_this_means": "Evidence localizes the fault toward the valve/power element.",
+        "next_action_check": "Verify equalizer and valve application, then test/replace the TXV if non-response remains.",
+        "troubleshooting_path": [
+          "Verify equalizer",
+          "Verify refrigerant/valve match",
+          "Confirm valve response"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R006",
+      "title": "Low suction caused by verified low load",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_LOW",
+          "FACT_LOW_EVAP_LOAD",
+          "FACT_EVAP_COIL_CLEAR",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low suction is consistent with low evaporator load",
+        "confirmed_findings": [
+          "Suction pressure is low",
+          "Evaporator load is verified low",
+          "Airflow path is normal"
+        ],
+        "what_this_means": "Low suction by itself is not proof of refrigerant shortage.",
+        "next_action_check": "Confirm room/load condition and evaluate suction against the expected low-load operating condition.",
+        "troubleshooting_path": [
+          "Confirm box temperature/load",
+          "Check stable state",
+          "Compare to applicable target"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from low suction alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R007",
+      "title": "Low suction plus iced evaporator",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_LOW",
+          "FACT_EVAP_COIL_ICED",
+          "FACT_EVAP_AIRFLOW_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evaporator icing and airflow restriction can drive low suction",
+        "confirmed_findings": [
+          "Low suction pressure",
+          "Evaporator is iced",
+          "Evaporator airflow is low"
+        ],
+        "what_this_means": "Heat transfer is reduced and refrigerant readings are secondary until airflow is restored.",
+        "next_action_check": "Clear the ice and correct the cause of icing/airflow loss before judging charge.",
+        "troubleshooting_path": [
+          "Restore evaporator airflow",
+          "Determine why coil iced",
+          "Recheck pressures after stable cooling"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_ICING"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R008",
+      "title": "Low suction plus solenoid commanded open but no flow",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_LOW",
+          "FACT_SOLENOID_COMMAND_OPEN",
+          "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+          "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Liquid solenoid/feed fault is starving the evaporator",
+        "confirmed_findings": [
+          "Low suction",
+          "Solenoid is commanded open with correct coil voltage",
+          "No refrigerant flow through solenoid"
+        ],
+        "what_this_means": "The feed interruption is localized at the solenoid/mechanical path.",
+        "next_action_check": "Verify pressure differential and valve mechanics; repair the solenoid/feed fault before charge diagnosis.",
+        "troubleshooting_path": [
+          "Confirm coil voltage",
+          "Check valve opening/pressure drop",
+          "Repair mechanical restriction"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R009",
+      "title": "High SH plus drier temperature drop and low SC",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SUBCOOLING_LOW",
+          "FACT_DRIER_TEMP_DROP",
+          "FACT_DRIER_TEMPERATURES_MEASURED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Liquid-line restriction evidence takes priority over charge pattern",
+        "confirmed_findings": [
+          "High superheat",
+          "Low subcooling",
+          "Temperature drop across filter drier"
+        ],
+        "what_this_means": "A restriction can create starvation and charge-like symptoms.",
+        "next_action_check": "Measure/confirm drier pressure or temperature drop and replace the restricted drier as appropriate, then retest.",
+        "troubleshooting_path": [
+          "Confirm localized drier drop",
+          "Correct restriction",
+          "Recheck SH/SC"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant before correcting the confirmed restriction."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_FILTER_DRIER_RESTRICTION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R010",
+      "title": "Low-charge pattern with confirmed leak",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_LOW",
+          "FACT_COND_SAT_LOW",
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SUBCOOLING_LOW",
+          "FACT_LEAK_CONFIRMED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Confirmed refrigerant leak supports a low-charge condition",
+        "confirmed_findings": [
+          "Low suction/head pattern",
+          "High superheat",
+          "Low subcooling",
+          "Refrigerant leak is confirmed"
+        ],
+        "what_this_means": "The combined evidence supports refrigerant loss rather than a single-reading guess.",
+        "next_action_check": "Repair the leak, evacuate/charge by the approved method, then verify stable operation.",
+        "troubleshooting_path": [
+          "Repair leak",
+          "Leak test/evacuate",
+          "Charge per manufacturer",
+          "Verify SH/SC"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R011",
+      "title": "Sight glass bubbles without supporting charge evidence",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SIGHT_GLASS_FLASHING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Sight-glass bubbles alone are not enough to diagnose low charge",
+        "confirmed_findings": [
+          "Sight glass shows bubbles/flash gas"
+        ],
+        "what_this_means": "Bubbles can result from pressure drop, low ambient/head pressure, load changes or low charge.",
+        "next_action_check": "Confirm stable state and check applicable subcooling, liquid pressure drop, ambient and restriction evidence.",
+        "troubleshooting_path": [
+          "Confirm state",
+          "Measure SC",
+          "Check drier/liquid pressure drop"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from bubbles alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R012",
+      "title": "Sight glass bubbles in low ambient with head control",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SIGHT_GLASS_FLASHING",
+          "FACT_LOW_AMBIENT",
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_COND_SAT_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low ambient/head-pressure conditions can explain flash gas",
+        "confirmed_findings": [
+          "Sight glass bubbles",
+          "Low ambient",
+          "Head-pressure control installed",
+          "Head pressure is low"
+        ],
+        "what_this_means": "Insufficient liquid pressure can create flash gas without proving total system undercharge.",
+        "next_action_check": "Check head-pressure-control operation and liquid condition before adjusting charge.",
+        "troubleshooting_path": [
+          "Verify head control",
+          "Check receiver/liquid condition",
+          "Compare to design target"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant based only on the sight glass."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R013",
+      "title": "High head with dirty condenser and high ambient",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_COIL_DIRTY",
+          "FACT_HIGH_AMBIENT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High head has two supported heat-rejection contributors",
+        "confirmed_findings": [
+          "High condensing pressure",
+          "Condenser coil is dirty",
+          "Ambient is high"
+        ],
+        "what_this_means": "Both reduced heat rejection and high entering ambient can elevate head pressure.",
+        "next_action_check": "Clean the condenser, verify airflow, then recheck head pressure under the actual ambient/load.",
+        "troubleshooting_path": [
+          "Clean coil",
+          "Verify fan/airflow",
+          "Recheck condensing split"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COND_COIL_DIRTY",
+          "CAUSE_HIGH_AMBIENT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R014",
+      "title": "High head with condenser fan stopped",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_FAN_NOT_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Stopped condenser fan is a direct high-head fault",
+        "confirmed_findings": [
+          "High condensing pressure",
+          "Condenser fan is not running"
+        ],
+        "what_this_means": "Loss of condenser airflow reduces heat rejection and can trip HP protection.",
+        "next_action_check": "Restore fan operation and verify capacitor/motor/power as applicable before charge changes.",
+        "troubleshooting_path": [
+          "Check fan power",
+          "Check capacitor/motor",
+          "Restore airflow",
+          "Recheck head"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COND_FAN_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R015",
+      "title": "High head with clean coil, normal airflow and noncondensable evidence",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_COIL_CLEAN",
+          "FACT_COND_AIRFLOW_NORMAL",
+          "FACT_NONCONDENSABLE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evidence supports noncondensables after airflow causes are excluded",
+        "confirmed_findings": [
+          "High condensing pressure",
+          "Condenser is clean",
+          "Airflow is normal",
+          "Noncondensable evidence is present"
+        ],
+        "what_this_means": "High head is not explained by airflow and service evidence points to noncondensables.",
+        "next_action_check": "Verify pressure-temperature behavior and service history, then recover/evacuate/recharge correctly if confirmed.",
+        "troubleshooting_path": [
+          "Verify gauges/temperature",
+          "Review service history",
+          "Correct contamination"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_NONCONDENSABLES"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R016",
+      "title": "High head with clean airflow and overcharge evidence",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_SUBCOOLING_HIGH",
+          "FACT_COND_AIRFLOW_NORMAL",
+          "FACT_OVERCHARGE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evidence supports excess refrigerant inventory",
+        "confirmed_findings": [
+          "High head",
+          "High subcooling",
+          "Condenser airflow normal",
+          "Overcharge evidence present"
+        ],
+        "what_this_means": "With heat rejection verified, inventory evidence supports overcharge.",
+        "next_action_check": "Verify charge using the manufacturer method and correct excess refrigerant if confirmed.",
+        "troubleshooting_path": [
+          "Confirm charging method",
+          "Verify measurement location",
+          "Correct charge"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_OVERCHARGE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R017",
+      "title": "High head during high ambient and high load",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_SAT_HIGH",
+          "FACT_HIGH_AMBIENT",
+          "FACT_HIGH_PRODUCT_LOAD"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High head may be load/ambient driven rather than a fault",
+        "confirmed_findings": [
+          "High condensing pressure",
+          "High ambient",
+          "High product load"
+        ],
+        "what_this_means": "Both condenser ambient and refrigeration load are elevated.",
+        "next_action_check": "Compare pressures to equipment/application limits for the actual ambient/load before condemning components.",
+        "troubleshooting_path": [
+          "Record ambient",
+          "Characterize load",
+          "Compare to manufacturer envelope"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge from high head alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R018",
+      "title": "High compressor current with high head and dirty condenser",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HIGH_CURRENT",
+          "FACT_COND_SAT_HIGH",
+          "FACT_COND_COIL_DIRTY"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High compressor current is consistent with excessive condensing load",
+        "confirmed_findings": [
+          "Compressor current is high",
+          "Head pressure is high",
+          "Condenser is dirty"
+        ],
+        "what_this_means": "The compressor is working against elevated discharge pressure.",
+        "next_action_check": "Correct condenser heat rejection first, then recheck current and pressures.",
+        "troubleshooting_path": [
+          "Clean condenser",
+          "Verify fan/airflow",
+          "Recheck amps/head"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R019",
+      "title": "High compressor current with normal head",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HIGH_CURRENT",
+          "FACT_HEAD_NORMAL_FOR_STATE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "High current needs electrical/mechanical investigation because head is not excessive",
+        "confirmed_findings": [
+          "Compressor current is high",
+          "Head pressure is normal for state/load"
+        ],
+        "what_this_means": "High current is not explained by high condensing pressure.",
+        "next_action_check": "Verify voltage/unbalance, current against nameplate/model limits and mechanical/start condition before condemning the compressor.",
+        "troubleshooting_path": [
+          "Measure supply voltage",
+          "Compare running amps",
+          "Check mechanical/start condition"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R020",
+      "title": "Hot compressor with normal head",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_HOT",
+          "FACT_HEAD_NOT_EXCESSIVE",
+          "FACT_OVERHEAT_CAUSE_UNRESOLVED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor overheating is unresolved and not explained by excessive head",
+        "confirmed_findings": [
+          "Compressor is hot",
+          "Head pressure is not excessive",
+          "Overheat cause is unresolved"
+        ],
+        "what_this_means": "Other causes such as low suction gas cooling, electrical problems, floodback history or operating envelope must be checked.",
+        "next_action_check": "Check suction conditions, current/voltage, superheat/floodback evidence and compressor operating envelope.",
+        "troubleshooting_path": [
+          "Measure suction/SH",
+          "Check amps/voltage",
+          "Review floodback/operating envelope"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R021",
+      "title": "Weak compressor differential under stable load",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_RUNNING",
+          "FACT_COMPRESSOR_PRESSURES_NOT_SEPARATING",
+          "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Running compressor is not developing expected pressure separation",
+        "confirmed_findings": [
+          "Compressor is running",
+          "Suction/discharge pressure separation is weak"
+        ],
+        "what_this_means": "Reduced pumping capacity is possible after system conditions and valves are verified.",
+        "next_action_check": "Verify load, valves/bypass and measurement accuracy; then evaluate compressor pumping efficiency.",
+        "troubleshooting_path": [
+          "Verify gauges",
+          "Check bypass/unloaders/valves",
+          "Compare compression performance"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_INEFFICIENCY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R022",
+      "title": "Weak differential with internal leakage evidence",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_RUNNING",
+          "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+          "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Weak pumping is localized by internal leakage evidence",
+        "confirmed_findings": [
+          "Compressor pressure differential is weak",
+          "Internal valve/leakage evidence is present"
+        ],
+        "what_this_means": "The evidence supports compressor inefficiency rather than a charge adjustment.",
+        "next_action_check": "Confirm operating conditions and compressor test criteria, then plan compressor repair/replacement if verified.",
+        "troubleshooting_path": [
+          "Confirm stable conditions",
+          "Verify leakage/pumping test",
+          "Follow manufacturer replacement criteria"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_INEFFICIENCY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R023",
+      "title": "Startup after long off-cycle with low SH",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STARTUP",
+      "setup": {
+        "facts": [
+          "FACT_LONG_OFF_CYCLE_STARTUP",
+          "FACT_EVAP_SH_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Startup after a long off-cycle carries migration/liquid-return risk",
+        "confirmed_findings": [
+          "Long off-cycle startup context",
+          "Low superheat is observed"
+        ],
+        "what_this_means": "Transient liquid return can occur at startup and should be evaluated before steady-state diagnosis.",
+        "next_action_check": "Monitor compressor suction superheat/liquid-return indicators through startup and verify crankcase protection/charge practices.",
+        "troubleshooting_path": [
+          "Observe startup transient",
+          "Monitor suction SH",
+          "Check migration controls"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland AE4-1495 application/transient testing",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEB&PDF=1495"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R024",
+      "title": "Post-defrost low SH",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "POST_DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_EVAP_SH_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Post-defrost low superheat may be transient",
+        "confirmed_findings": [
+          "System is in post-defrost recovery",
+          "Superheat is low"
+        ],
+        "what_this_means": "Refrigerant/feed conditions can be unstable immediately after defrost.",
+        "next_action_check": "Allow the system to return to stable cooling, then recheck superheat before diagnosing overfeed.",
+        "troubleshooting_path": [
+          "Complete recovery/fan delay",
+          "Stabilize cooling",
+          "Repeat SH"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose TXV overfeed from a transient post-defrost reading."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Copeland AE4-1495 application/transient testing",
+            "url": "https://webapps.copeland.com/online-product-information/Publication/LaunchPDF?Index=AEB&PDF=1495"
+          },
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R025",
+      "title": "Defrost pressure readings used as charge evidence",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_ACTIVE",
+          "FACT_SUCTION_PRESSURE_LOW",
+          "FACT_EVAP_SH_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost-state refrigerant readings are not steady-cooling charge evidence",
+        "confirmed_findings": [
+          "Defrost is active",
+          "Abnormal suction/superheat readings are present"
+        ],
+        "what_this_means": "Defrost changes refrigerant flow and operating sequence.",
+        "next_action_check": "Finish defrost and recovery, establish stable cooling, then repeat refrigerant measurements.",
+        "troubleshooting_path": [
+          "Complete defrost",
+          "Wait through fan/drip delay",
+          "Recheck during stable cooling"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose charge from defrost-state pressures."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R026",
+      "title": "Satisfied/off low suction",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "SATISFIED_OFF",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Low suction while satisfied/off is not a cooling diagnosis",
+        "confirmed_findings": [
+          "Suction pressure is low while the system is satisfied/off"
+        ],
+        "what_this_means": "Off-cycle pressures are not interpreted like running steady-state pressures.",
+        "next_action_check": "Confirm cooling demand and obtain operating readings during stable cooling if diagnosis is needed.",
+        "troubleshooting_path": [
+          "Confirm thermostat demand",
+          "Start cooling if appropriate",
+          "Measure after stabilization"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R027",
+      "title": "Pump-down LP control open",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "PUMPDOWN",
+      "setup": {
+        "facts": [
+          "FACT_PUMPDOWN_ACTIVE",
+          "FACT_LP_CONTROL_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Open LP control can be normal at the end of pump-down",
+        "confirmed_findings": [
+          "Pump-down is active",
+          "Low-pressure control is open"
+        ],
+        "what_this_means": "The LP control is intended to stop the compressor after suction pressure falls during pump-down.",
+        "next_action_check": "Verify solenoid closure, pump-down sequence and LP cut-in/cut-out settings before calling it a fault.",
+        "troubleshooting_path": [
+          "Confirm solenoid command closed",
+          "Observe suction fall",
+          "Verify LP settings"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R028",
+      "title": "Cooling demand with anti-short-cycle delay",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE",
+          "FACT_COMPRESSOR_NOT_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Intentional anti-short-cycle delay is preventing compressor start",
+        "confirmed_findings": [
+          "Cooling demand is present",
+          "Anti-short-cycle delay is active",
+          "Compressor is not running"
+        ],
+        "what_this_means": "A configured protective delay can intentionally hold the compressor off.",
+        "next_action_check": "Verify the configured delay and wait for it to expire; if it does not release, troubleshoot the control logic.",
+        "troubleshooting_path": [
+          "Check timer/controller status",
+          "Wait required delay",
+          "Verify contactor call afterward"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_ANTI_SHORT_CYCLE_DELAY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R029",
+      "title": "Cooling demand but contactor coil dead",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Control circuit is open upstream of the contactor coil",
+        "confirmed_findings": [
+          "Cooling demand is present",
+          "Contactor coil is not energized"
+        ],
+        "what_this_means": "The problem is in control power, safeties, wiring or controller output rather than load-side contacts.",
+        "next_action_check": "Trace control voltage through safeties and controller outputs using the actual wiring diagram.",
+        "troubleshooting_path": [
+          "Obtain wiring diagram",
+          "Trace control voltage",
+          "Identify open safety/control"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R030",
+      "title": "Contactor energized but no load-side voltage",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_CONTACTOR_COIL_ENERGIZED",
+          "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Contactor is energized but not passing line voltage",
+        "confirmed_findings": [
+          "Contactor coil is energized",
+          "No load-side voltage is passed"
+        ],
+        "what_this_means": "The contactor/power path is localized.",
+        "next_action_check": "Verify line-side voltage and contacts, then replace/repair the failed contactor as appropriate.",
+        "troubleshooting_path": [
+          "Verify line voltage",
+          "Measure across contacts",
+          "Correct contactor fault"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_CONTACTOR_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R031",
+      "title": "Correct compressor voltage but no start with start fault",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+          "FACT_COMPRESSOR_NOT_RUNNING",
+          "FACT_START_COMPONENT_FAULT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor start circuit fault is localized",
+        "confirmed_findings": [
+          "Correct terminal voltage is present",
+          "Compressor does not start",
+          "Start component fault is identified"
+        ],
+        "what_this_means": "Power reaches the compressor but the starting circuit is defective.",
+        "next_action_check": "Correct the start component fault and verify compressor current/start operation.",
+        "troubleshooting_path": [
+          "Isolate power",
+          "Test/replace start component",
+          "Recheck startup"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R032",
+      "title": "Open fuse with unknown cause",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_FUSE_OPEN"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Open fuse requires cause investigation before replacement",
+        "confirmed_findings": [
+          "Fuse is open/blown"
+        ],
+        "what_this_means": "A fuse is an outcome/protection event; the downstream cause may still be present.",
+        "next_action_check": "De-energize and check downstream shorts/grounds/load condition before replacing and re-energizing.",
+        "troubleshooting_path": [
+          "Inspect circuit",
+          "Check resistance/ground fault",
+          "Identify overload/short"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_FUSE_OPEN_REQUIRES_CAUSE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R033",
+      "title": "Overload open on hot compressor",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_OVERLOAD_PROTECTION_OPEN",
+          "FACT_COMPRESSOR_HOT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Compressor overload is open because the compressor is hot/protected",
+        "confirmed_findings": [
+          "Overload protection is open",
+          "Compressor is abnormally hot"
+        ],
+        "what_this_means": "The protector has responded; the reason for overheating must be found before restart.",
+        "next_action_check": "Allow safe cooling and investigate current, voltage, pressures, superheat/floodback and operating envelope.",
+        "troubleshooting_path": [
+          "Allow cooldown",
+          "Measure electrical conditions",
+          "Check refrigerant/pressure causes"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R034",
+      "title": "Sensor disagrees but refrigeration normal",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SENSOR_DISAGREES_REFERENCE",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Temperature-control indication is suspect while refrigeration performance is normal",
+        "confirmed_findings": [
+          "Sensor disagrees with independent reference",
+          "Refrigeration performance is otherwise normal"
+        ],
+        "what_this_means": "The fault is more likely sensor location/calibration/input than the refrigeration circuit.",
+        "next_action_check": "Compare sensor placement/calibration/wiring with an independent reference and correct the input fault.",
+        "troubleshooting_path": [
+          "Verify reference thermometer",
+          "Inspect sensor location",
+          "Calibrate/replace sensor"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R035",
+      "title": "Warm room with normal refrigeration and door infiltration",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+          "FACT_DOOR_INFILTRATION_CONFIRMED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Confirmed air infiltration explains the warm-room load",
+        "confirmed_findings": [
+          "Room temperature is high",
+          "Refrigeration performance is normal",
+          "Door infiltration is confirmed"
+        ],
+        "what_this_means": "Warm/moist air load can exceed current cooling without a refrigerant fault.",
+        "next_action_check": "Correct the door/gasket/infiltration source, then verify room pull-down.",
+        "troubleshooting_path": [
+          "Repair seal/door",
+          "Reduce infiltration",
+          "Monitor pull-down"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_AIR_INFILTRATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R036",
+      "title": "Warm room with high product load and normal refrigeration",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+          "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Warm product load explains extended pull-down",
+        "confirmed_findings": [
+          "Room is warm",
+          "Refrigeration performance is normal",
+          "Large warm product load is confirmed"
+        ],
+        "what_this_means": "The system may be operating normally against a temporary high load.",
+        "next_action_check": "Track product/room pull-down and compare runtime/capacity with the expected load before changing charge.",
+        "troubleshooting_path": [
+          "Record product temperature/load",
+          "Monitor pull-down",
+          "Compare capacity to load"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_PRODUCT_LOAD_PULLDOWN"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R037",
+      "title": "Verified load exceeds equipment capacity",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+          "FACT_AIRFLOW_VERIFIED_NORMAL",
+          "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+          "FACT_CONTROLS_VERIFIED_NORMAL",
+          "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Available refrigeration capacity is insufficient for verified load",
+        "confirmed_findings": [
+          "Room is warm",
+          "Major refrigeration functions are verified normal",
+          "Actual/design load exceeds equipment capacity"
+        ],
+        "what_this_means": "The system is undersized for the actual application rather than simply mischarged.",
+        "next_action_check": "Perform/verify load calculation and equipment capacity at design conditions; correct sizing/application.",
+        "troubleshooting_path": [
+          "Quantify load",
+          "Verify equipment capacity",
+          "Address sizing/application"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SYSTEM_UNDERSIZED"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R038",
+      "title": "High SH and high SC with low suction",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SUBCOOLING_HIGH",
+          "FACT_SUCTION_PRESSURE_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Starvation with retained refrigerant points away from simple low charge",
+        "confirmed_findings": [
+          "High superheat",
+          "High subcooling",
+          "Low suction"
+        ],
+        "what_this_means": "Refrigerant is retained on the high side while the evaporator is starved, suggesting restriction/feed control.",
+        "next_action_check": "Check drier/liquid-line pressure drop and TXV inlet/response before adjusting charge.",
+        "troubleshooting_path": [
+          "Check drier delta",
+          "Verify liquid at TXV",
+          "Test valve response"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from high superheat alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R039",
+      "title": "Low SH and high suction with normal airflow",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_LOW",
+          "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+          "FACT_EVAP_AIRFLOW_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evaporator overfeed/flooding pattern is present",
+        "confirmed_findings": [
+          "Low superheat",
+          "Suction is high for load",
+          "Evaporator airflow is normal"
+        ],
+        "what_this_means": "With airflow not limiting load, the combination supports overfeeding or excess feed.",
+        "next_action_check": "Check TXV bulb/setting/response and load before making charge changes.",
+        "troubleshooting_path": [
+          "Verify bulb mounting",
+          "Check valve response",
+          "Confirm load"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_OVERFEED"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R040",
+      "title": "High suction low head weak differential",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
+          "FACT_COND_SAT_LOW",
+          "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Weak pressure differential points toward reduced compressor pumping",
+        "confirmed_findings": [
+          "Suction is high for load",
+          "Head is low",
+          "Pressure differential is weak"
+        ],
+        "what_this_means": "The compressor may not be producing expected compression.",
+        "next_action_check": "Verify gauges/load/bypass and evaluate compressor pumping efficiency.",
+        "troubleshooting_path": [
+          "Verify measurements",
+          "Check bypass/unloader",
+          "Evaluate compressor"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COMPRESSOR_INEFFICIENCY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R041",
+      "title": "Moisture indicator wet but operation normal",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_MOISTURE_INDICATED",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Moisture contamination requires service even if cooling currently appears normal",
+        "confirmed_findings": [
+          "Moisture indicator shows wet",
+          "Refrigeration performance is currently normal"
+        ],
+        "what_this_means": "Moisture can later freeze/restrict the expansion device and damage system reliability.",
+        "next_action_check": "Verify indicator condition, service history and drier condition; correct moisture contamination and evacuate properly as required.",
+        "troubleshooting_path": [
+          "Confirm indicator",
+          "Check/replace drier as appropriate",
+          "Evacuate/dehydrate system"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_MOISTURE_CONTAMINATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R042",
+      "title": "Moisture plus high SH",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_MOISTURE_INDICATED",
+          "FACT_EVAP_SH_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Moisture can intermittently restrict the TXV/feed path",
+        "confirmed_findings": [
+          "Moisture is indicated",
+          "Superheat is high"
+        ],
+        "what_this_means": "Water can freeze at the expansion device and cause starvation.",
+        "next_action_check": "Check drier/moisture condition and valve inlet; correct contamination before condemning the TXV.",
+        "troubleshooting_path": [
+          "Inspect drier",
+          "Check TXV inlet",
+          "Dehydrate/replace drier"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_WET_SYSTEM_TXV_ICE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R043",
+      "title": "TXV hunting with otherwise proper liquid",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_TXV_HUNTING",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Unstable superheat/feed requires valve/load/control investigation",
+        "confirmed_findings": [
+          "TXV/feed is hunting",
+          "Proper liquid reaches the TXV"
+        ],
+        "what_this_means": "Hunting can result from valve sizing, bulb location, load instability or control interaction.",
+        "next_action_check": "Verify bulb mounting, valve sizing/setting and load stability before replacement.",
+        "troubleshooting_path": [
+          "Check bulb",
+          "Check valve size/setting",
+          "Observe load stability"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R044",
+      "title": "Uneven evaporator feed with proper inlet liquid",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_FEED_UNEVEN",
+          "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Uneven evaporator distribution is localized downstream of proper inlet liquid",
+        "confirmed_findings": [
+          "Evaporator feed is uneven",
+          "Proper liquid reaches the metering device"
+        ],
+        "what_this_means": "Distribution/nozzle/circuiting or localized restriction can create uneven feed.",
+        "next_action_check": "Inspect distributor/nozzle/circuit temperatures and pressure drop; localize the affected circuit.",
+        "troubleshooting_path": [
+          "Compare circuit temperatures",
+          "Inspect distributor/nozzle",
+          "Check localized restriction"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R045",
+      "title": "TXV bulb poor contact plus high SH",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_BULB_BAD_CONTACT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Poor TXV bulb contact can cause high superheat/starvation",
+        "confirmed_findings": [
+          "High superheat",
+          "TXV bulb contact/location is incorrect"
+        ],
+        "what_this_means": "The valve receives an incorrect sensing signal.",
+        "next_action_check": "Correct bulb contact/location/insulation, then stabilize and recheck superheat.",
+        "troubleshooting_path": [
+          "Correct bulb",
+          "Insulate correctly",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_BULB_INSTALLATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R046",
+      "title": "External equalizer problem plus high SH",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_TXV_EQUALIZER_PROBLEM"
+        ]
+      },
+      "expected": {
+        "system_check_result": "TXV equalizer fault can starve the evaporator",
+        "confirmed_findings": [
+          "High superheat",
+          "External equalizer problem is identified"
+        ],
+        "what_this_means": "Incorrect equalizer pressure signal can keep the valve from feeding correctly.",
+        "next_action_check": "Correct equalizer routing/restriction and recheck valve response/superheat.",
+        "troubleshooting_path": [
+          "Inspect equalizer",
+          "Correct restriction/connection",
+          "Recheck SH"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_TXV_EQUALIZER_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R047",
+      "title": "Wrong refrigerant or TXV match",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Expansion device is mismatched to refrigerant/application",
+        "confirmed_findings": [
+          "High superheat",
+          "Refrigerant/valve match is wrong"
+        ],
+        "what_this_means": "A mismatched valve charge/capacity cannot control superheat correctly.",
+        "next_action_check": "Verify refrigerant, valve power element/nozzle/capacity and install the correct matched device.",
+        "troubleshooting_path": [
+          "Identify refrigerant",
+          "Verify valve model",
+          "Correct application match"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R048",
+      "title": "Head-control installed but low head in low ambient",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_LOW_AMBIENT",
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_COND_SAT_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Head-pressure control is not maintaining expected condensing pressure",
+        "confirmed_findings": [
+          "Ambient is low",
+          "Head control is installed",
+          "Head pressure remains low"
+        ],
+        "what_this_means": "Control setting, valve operation or required flood charge may be inadequate.",
+        "next_action_check": "Check head-control setting/operation and receiver/flood-charge requirements before adding refrigerant generically.",
+        "troubleshooting_path": [
+          "Verify control setpoint",
+          "Check valve operation",
+          "Verify design flood charge"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R049",
+      "title": "Head-control flood charge insufficient",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_LOW_AMBIENT",
+          "FACT_HEAD_CONTROL_INSTALLED",
+          "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT",
+          "FACT_COND_SAT_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Configured low-ambient control lacks required flood-charge inventory",
+        "confirmed_findings": [
+          "Low ambient",
+          "Head control installed",
+          "Flood-charge inventory is insufficient",
+          "Head is low"
+        ],
+        "what_this_means": "The specific head-control design requires adequate refrigerant inventory to maintain liquid pressure.",
+        "next_action_check": "Verify manufacturer flood-charge calculation and correct charge for that control design.",
+        "troubleshooting_path": [
+          "Confirm control design",
+          "Calculate required flood charge",
+          "Correct per manufacturer"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_HEAD_CONTROL_FLOOD_CHARGE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-R050",
+      "title": "Conflicting low-charge and high-head clues",
+      "scope": "core",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer",
+        "split_ac"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_SUBCOOLING_LOW",
+          "FACT_COND_SAT_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Conflicting refrigerant clues require discrimination before charge adjustment",
+        "confirmed_findings": [
+          "High superheat",
+          "Low subcooling",
+          "High head pressure"
+        ],
+        "what_this_means": "The readings do not form a clean single-fault charge pattern; airflow, restriction, noncondensables and measurement validity must be checked.",
+        "next_action_check": "Verify condenser airflow/ambient, measurement locations and restriction evidence before changing charge.",
+        "troubleshooting_path": [
+          "Verify measurements",
+          "Check condenser heat rejection",
+          "Check restriction/noncondensables"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge or overcharge from this conflicting pattern alone."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W051",
+      "title": "Iced coil with evaporator fan stopped",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_EVAP_FAN_NOT_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Stopped evaporator fan is a direct cause of icing/poor heat transfer",
+        "confirmed_findings": [
+          "Evaporator coil is iced",
+          "Evaporator fan is not running"
+        ],
+        "what_this_means": "Loss of airflow promotes icing and poor cooling.",
+        "next_action_check": "Restore fan operation, fully defrost the coil, then verify airflow and refrigeration readings.",
+        "troubleshooting_path": [
+          "Diagnose fan power/motor",
+          "Defrost coil",
+          "Recheck airflow"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_FAN_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          },
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W052",
+      "title": "Iced coil with fans normal and incomplete defrost",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_EVAP_FAN_RUNNING",
+          "FACT_DEFROST_INCOMPLETE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost is not fully clearing the evaporator",
+        "confirmed_findings": [
+          "Evaporator is iced",
+          "Fans operate",
+          "Defrost is incomplete"
+        ],
+        "what_this_means": "Persistent ice with airflow hardware working points to defrost duration/termination/heater sequence.",
+        "next_action_check": "Observe a complete defrost and verify heater output, duration and termination.",
+        "troubleshooting_path": [
+          "Initiate/observe defrost",
+          "Check heater/current",
+          "Check termination"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DEFROST_INADEQUATE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W053",
+      "title": "Defrost command and heater voltage but no current",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_COMMAND_PRESENT",
+          "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+          "FACT_DEFROST_HEATER_CURRENT_ABSENT",
+          "FACT_DEFROST_HEATER_NOT_HEATING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Defrost heater load is open/not producing heat",
+        "confirmed_findings": [
+          "Defrost is commanded",
+          "Heater voltage is present",
+          "Heater current/heat is absent"
+        ],
+        "what_this_means": "Power is reaching the heater circuit but the heater/load path is open or failed.",
+        "next_action_check": "De-energize and test heater continuity/resistance and connections; repair the heater circuit.",
+        "troubleshooting_path": [
+          "Lock out power",
+          "Test heater resistance",
+          "Inspect connections"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DEFROST_HEATER_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W054",
+      "title": "Defrost terminates too early",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_TERMINATION_ERROR",
+          "FACT_DEFROST_INCOMPLETE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Premature defrost termination leaves ice on the coil",
+        "confirmed_findings": [
+          "Defrost ends incorrectly",
+          "Evaporator is not fully cleared"
+        ],
+        "what_this_means": "Termination sensor/control logic is ending defrost before the coil is clear.",
+        "next_action_check": "Verify termination sensor location/calibration and controller settings, then observe a full cycle.",
+        "troubleshooting_path": [
+          "Check termination sensor",
+          "Check setting",
+          "Observe complete defrost"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W055",
+      "title": "Fan starts too early after defrost",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_FAN_DELAY_ERROR",
+          "FACT_POST_DEFROST_ACTIVE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Evaporator fan-delay control is incorrect after defrost",
+        "confirmed_findings": [
+          "Post-defrost recovery is active",
+          "Fan delay operation is incorrect"
+        ],
+        "what_this_means": "Starting fans too early can blow heat/moisture into the room and disturb recovery.",
+        "next_action_check": "Verify fan-delay sensor/setting and controller sequence before refrigerant diagnosis.",
+        "troubleshooting_path": [
+          "Check fan-delay setting",
+          "Check sensor",
+          "Observe sequence"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W056",
+      "title": "Fan delay intentionally active after defrost",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "POST_DEFROST",
+      "setup": {
+        "facts": [
+          "FACT_POST_DEFROST_ACTIVE",
+          "FACT_FAN_DELAY_ACTIVE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Fan-off period is intentional during post-defrost recovery",
+        "confirmed_findings": [
+          "Post-defrost recovery is active",
+          "Configured fan delay is active"
+        ],
+        "what_this_means": "Fans may intentionally remain off until the evaporator cools.",
+        "next_action_check": "Verify the delay releases at the configured condition; do not condemn the fan motor during the intentional delay.",
+        "troubleshooting_path": [
+          "Check controller status",
+          "Verify release condition",
+          "Confirm fan starts afterward"
+        ],
+        "must_not_conclude": [
+          "Do not diagnose evaporator fan failure while intentional fan delay is active."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W057",
+      "title": "Defrost completes but drain refreezes",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_DEFROST_COMPLETES",
+          "FACT_DRAIN_REFREEZE",
+          "FACT_DRAIN_ICE"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Drain/refreeze fault remains after successful coil defrost",
+        "confirmed_findings": [
+          "Defrost clears the evaporator",
+          "Water refreezes in drain/pan"
+        ],
+        "what_this_means": "The defrost heater may be working while drain heat/slope/blockage remains faulty.",
+        "next_action_check": "Inspect drain heater, trap/slope and blockage; correct drainage before changing defrost duration.",
+        "troubleshooting_path": [
+          "Inspect drain path",
+          "Test drain heater",
+          "Correct slope/blockage"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_DRAIN_REFREEZE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W058",
+      "title": "Icing with confirmed door infiltration",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_DOOR_INFILTRATION_CONFIRMED",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Air infiltration is adding moisture that drives evaporator icing",
+        "confirmed_findings": [
+          "Evaporator is iced",
+          "Door infiltration is confirmed",
+          "Evaporator fan runs"
+        ],
+        "what_this_means": "Warm humid air entering the box increases latent load and frost formation.",
+        "next_action_check": "Repair door/gasket/closure, defrost the coil and monitor recurrence.",
+        "troubleshooting_path": [
+          "Repair infiltration",
+          "Defrost coil",
+          "Monitor frost pattern"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_AIR_INFILTRATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          },
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W059",
+      "title": "Icing despite door sealed and fan running",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_COIL_ICED",
+          "FACT_DOOR_CLOSED_SEALED",
+          "FACT_EVAP_FAN_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Common airflow/infiltration causes are excluded; inspect defrost and evaporating condition",
+        "confirmed_findings": [
+          "Evaporator is iced",
+          "Door seals normally",
+          "Fan runs normally"
+        ],
+        "what_this_means": "Defrost schedule/termination, low evaporating temperature or feed conditions remain candidates.",
+        "next_action_check": "Observe defrost performance and check evaporating temperature/feed after the coil is clear.",
+        "troubleshooting_path": [
+          "Observe defrost",
+          "Verify termination",
+          "Recheck suction/feed"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss AK-RC 251 walk-in controller defrost guide",
+            "url": "https://assets.danfoss.com/documents/latest/161344/BC364433930186en-000101.pdf"
+          },
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W060",
+      "title": "Warm room with compressor long runtime and high load",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_COMPRESSOR_LONG_RUNTIME",
+          "FACT_HIGH_PRODUCT_LOAD"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Long runtime is consistent with a high room/product load",
+        "confirmed_findings": [
+          "Room is warm",
+          "Compressor runs continuously",
+          "Product/room load is high"
+        ],
+        "what_this_means": "The system may be in extended pull-down rather than suffering a control fault.",
+        "next_action_check": "Characterize load and monitor pull-down while verifying airflow and operating envelope.",
+        "troubleshooting_path": [
+          "Record load/product temp",
+          "Monitor temperature trend",
+          "Verify airflow/pressures"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W061",
+      "title": "Warm room with compressor long runtime and no abnormal load",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_COMPRESSOR_LONG_RUNTIME",
+          "FACT_CAPACITY_POOR"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Cooling capacity is insufficient and needs systematic localization",
+        "confirmed_findings": [
+          "Room is warm",
+          "Compressor runs continuously",
+          "Capacity is poor"
+        ],
+        "what_this_means": "With no known transient load explanation, airflow, feed, compressor performance and sizing must be checked.",
+        "next_action_check": "Check evaporator/condenser airflow, refrigerant feed, compressor differential and system capacity.",
+        "troubleshooting_path": [
+          "Check airflow",
+          "Check SH/SC/feed",
+          "Check compressor differential",
+          "Compare capacity"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W062",
+      "title": "Room sensor error causing poor temperature control",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SENSOR_ERROR",
+          "FACT_BOX_TEMP_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Sensor/control input fault can cause incorrect room temperature control",
+        "confirmed_findings": [
+          "Room temperature is high",
+          "Sensor reading/calibration is faulty"
+        ],
+        "what_this_means": "The controller may be making decisions from bad temperature information.",
+        "next_action_check": "Compare sensor to an independent reference, inspect location/wiring and correct calibration/input.",
+        "troubleshooting_path": [
+          "Use reference thermometer",
+          "Inspect sensor placement",
+          "Correct sensor/input"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W063",
+      "title": "LP control opens too early during cooling",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COOLING_DEMAND_PRESENT",
+          "FACT_LP_CONTROL_OPEN",
+          "FACT_SUCTION_PRESSURE_LOW"
+        ]
+      },
+      "expected": {
+        "system_check_result": "LP control setting/fault may stop cooling prematurely",
+        "confirmed_findings": [
+          "Cooling demand remains",
+          "LP control is open",
+          "Suction is low"
+        ],
+        "what_this_means": "If the control opens above the intended cutout, the room can warm even though refrigeration hardware is otherwise capable.",
+        "next_action_check": "Verify actual suction pressure and LP cutout/cut-in against the equipment sequence; adjust/repair as required.",
+        "troubleshooting_path": [
+          "Measure suction accurately",
+          "Check LP settings",
+          "Verify restart/cut-in"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W064",
+      "title": "Solenoid commanded closed but flow continues",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_SOLENOID_COMMAND_CLOSED",
+          "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Liquid solenoid is leaking/not closing",
+        "confirmed_findings": [
+          "Solenoid is commanded closed",
+          "Refrigerant flow continues"
+        ],
+        "what_this_means": "Pump-down/temperature control can fail because liquid continues feeding.",
+        "next_action_check": "Verify valve command and pressure differential, then repair/replace the leaking solenoid.",
+        "troubleshooting_path": [
+          "Confirm command voltage off",
+          "Verify continued flow",
+          "Repair valve"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W065",
+      "title": "Multiple faults: fan stopped and dirty condenser",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_FAN_NOT_RUNNING",
+          "FACT_COND_COIL_DIRTY",
+          "FACT_BOX_TEMP_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Two confirmed airflow faults are active and both must be preserved",
+        "confirmed_findings": [
+          "Evaporator fan is stopped",
+          "Condenser is dirty",
+          "Room is warm"
+        ],
+        "what_this_means": "The evaporator fan is an immediate cooling fault while the dirty condenser is also an active heat-rejection problem.",
+        "next_action_check": "Restore evaporator airflow first for cooling, clean the condenser, then retest the full system.",
+        "troubleshooting_path": [
+          "Repair evaporator fan",
+          "Clean condenser",
+          "Retest pressures/temperature"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_FAN_FAILURE",
+          "CAUSE_COND_COIL_DIRTY"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W066",
+      "title": "Multiple faults: drier restriction and TXV bulb fault",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_SH_HIGH",
+          "FACT_DRIER_TEMP_DROP",
+          "FACT_TXV_BULB_BAD_CONTACT"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Both a liquid-line restriction and TXV sensing fault are supported",
+        "confirmed_findings": [
+          "High superheat",
+          "Drier temperature drop",
+          "TXV bulb contact is poor"
+        ],
+        "what_this_means": "Either fault can contribute to starvation; neither should be discarded.",
+        "next_action_check": "Correct the confirmed drier restriction and bulb installation, then stabilize and recheck SH/feed.",
+        "troubleshooting_path": [
+          "Correct drier restriction",
+          "Correct bulb",
+          "Retest feed"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_FILTER_DRIER_RESTRICTION",
+          "CAUSE_TXV_BULB_INSTALLATION"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W067",
+      "title": "Multiple faults: dirty condenser, sensor error, high load",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_COND_COIL_DIRTY",
+          "FACT_SENSOR_ERROR",
+          "FACT_HIGH_PRODUCT_LOAD",
+          "FACT_BOX_TEMP_HIGH"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Heat rejection, sensing and load problems are simultaneously present",
+        "confirmed_findings": [
+          "Condenser is dirty",
+          "Sensor is faulty",
+          "Product load is high",
+          "Room is warm"
+        ],
+        "what_this_means": "Multiple independent contributors can coexist; selecting one must not erase the others.",
+        "next_action_check": "Restore condenser heat rejection, verify temperature with a reference, characterize load, then reassess cooling.",
+        "troubleshooting_path": [
+          "Clean condenser",
+          "Verify sensor/reference",
+          "Characterize load",
+          "Retest"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W068",
+      "title": "Unknown state but direct condenser fan fault",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "UNKNOWN",
+      "setup": {
+        "facts": [
+          "FACT_COND_FAN_NOT_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Direct condenser fan fault should be acted on even when operating state is not fully characterized",
+        "confirmed_findings": [
+          "Condenser fan is directly observed not running"
+        ],
+        "what_this_means": "A direct physical fault is actionable and should not be hidden behind a generic request for state.",
+        "next_action_check": "Determine why the condenser fan is not running and restore airflow; then establish state and retest pressures.",
+        "troubleshooting_path": [
+          "Check fan power/control",
+          "Check capacitor/motor",
+          "Restore airflow"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_COND_FAN_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W069",
+      "title": "Unknown state but direct evaporator fan fault",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "UNKNOWN",
+      "setup": {
+        "facts": [
+          "FACT_EVAP_FAN_NOT_RUNNING"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Direct evaporator fan fault should remain the primary actionable finding",
+        "confirmed_findings": [
+          "Evaporator fan is directly observed not running"
+        ],
+        "what_this_means": "Loss of evaporator airflow is a confirmed physical fault regardless of incomplete state information.",
+        "next_action_check": "Troubleshoot fan power/control/motor and restore airflow, then obtain stabilized refrigeration readings.",
+        "troubleshooting_path": [
+          "Check fan power",
+          "Check motor/capacitor if applicable",
+          "Restore airflow"
+        ],
+        "must_not_conclude": [],
+        "required_any_ids": [],
+        "required_diagnosis_ids": [
+          "CAUSE_EVAP_FAN_FAILURE"
+        ]
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    },
+    {
+      "id": "CH3-W070",
+      "title": "Warm room with refrigeration normal but capacity/load not yet characterized",
+      "scope": "wic",
+      "applicable_systems": [
+        "walk_in_cooler",
+        "walk_in_freezer"
+      ],
+      "system": "walk_in_cooler",
+      "operating_state": "STABLE_COOLING",
+      "setup": {
+        "facts": [
+          "FACT_BOX_TEMP_HIGH",
+          "FACT_REFRIGERATION_PERFORMANCE_NORMAL"
+        ]
+      },
+      "expected": {
+        "system_check_result": "Refrigeration circuit appears normal; room/load side needs characterization",
+        "confirmed_findings": [
+          "Room is warm",
+          "Refrigeration performance is verified normal"
+        ],
+        "what_this_means": "A warm box with normal refrigeration can result from infiltration, product load, sensor/control issues or undersizing.",
+        "next_action_check": "Measure independent room/product temperature and characterize door/load conditions before changing refrigeration components.",
+        "troubleshooting_path": [
+          "Verify room temperature",
+          "Check doors/infiltration",
+          "Quantify product load",
+          "Compare capacity"
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant when refrigeration performance is verified normal."
+        ],
+        "required_any_ids": [],
+        "required_diagnosis_ids": []
+      },
+      "validation": {
+        "sources": [
+          {
+            "name": "Danfoss Cold Room Troubleshooting & Fault Diagnosis",
+            "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/"
+          },
+          {
+            "name": "Parker Sporlan Bulletin 10-11 TEV Troubleshooting",
+            "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-010/10-11.pdf"
+          }
+        ],
+        "status": "independently_defined_before_brain_run"
+      }
+    }
+  ]
+}

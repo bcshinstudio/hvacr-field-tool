@@ -1,0 +1,71 @@
+id,scope,title,operating_state,applicable_systems
+CH3-R001,core,High SH but measurement taken before stable operation,UNKNOWN,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R002,core,Low SC with receiver present and no applicable target,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R003,core,Model target conflicts with generic subcooling reference,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R004,core,High SH with proper liquid and no localized restriction,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R005,core,"High SH with proper liquid, good bulb, valve no response",STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R006,core,Low suction caused by verified low load,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R007,core,Low suction plus iced evaporator,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R008,core,Low suction plus solenoid commanded open but no flow,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R009,core,High SH plus drier temperature drop and low SC,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R010,core,Low-charge pattern with confirmed leak,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R011,core,Sight glass bubbles without supporting charge evidence,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R012,core,Sight glass bubbles in low ambient with head control,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R013,core,High head with dirty condenser and high ambient,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R014,core,High head with condenser fan stopped,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R015,core,"High head with clean coil, normal airflow and noncondensable evidence",STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R016,core,High head with clean airflow and overcharge evidence,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R017,core,High head during high ambient and high load,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R018,core,High compressor current with high head and dirty condenser,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R019,core,High compressor current with normal head,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R020,core,Hot compressor with normal head,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R021,core,Weak compressor differential under stable load,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R022,core,Weak differential with internal leakage evidence,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R023,core,Startup after long off-cycle with low SH,STARTUP,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R024,core,Post-defrost low SH,POST_DEFROST,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R025,core,Defrost pressure readings used as charge evidence,DEFROST,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R026,core,Satisfied/off low suction,SATISFIED_OFF,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R027,core,Pump-down LP control open,PUMPDOWN,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R028,core,Cooling demand with anti-short-cycle delay,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R029,core,Cooling demand but contactor coil dead,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R030,core,Contactor energized but no load-side voltage,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R031,core,Correct compressor voltage but no start with start fault,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R032,core,Open fuse with unknown cause,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R033,core,Overload open on hot compressor,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R034,core,Sensor disagrees but refrigeration normal,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R035,core,Warm room with normal refrigeration and door infiltration,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R036,core,Warm room with high product load and normal refrigeration,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R037,core,Verified load exceeds equipment capacity,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R038,core,High SH and high SC with low suction,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R039,core,Low SH and high suction with normal airflow,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R040,core,High suction low head weak differential,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R041,core,Moisture indicator wet but operation normal,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R042,core,Moisture plus high SH,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R043,core,TXV hunting with otherwise proper liquid,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R044,core,Uneven evaporator feed with proper inlet liquid,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R045,core,TXV bulb poor contact plus high SH,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R046,core,External equalizer problem plus high SH,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R047,core,Wrong refrigerant or TXV match,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R048,core,Head-control installed but low head in low ambient,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R049,core,Head-control flood charge insufficient,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-R050,core,Conflicting low-charge and high-head clues,STABLE_COOLING,walk_in_cooler;walk_in_freezer;split_ac
+CH3-W051,wic,Iced coil with evaporator fan stopped,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W052,wic,Iced coil with fans normal and incomplete defrost,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W053,wic,Defrost command and heater voltage but no current,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W054,wic,Defrost terminates too early,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W055,wic,Fan starts too early after defrost,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W056,wic,Fan delay intentionally active after defrost,POST_DEFROST,walk_in_cooler;walk_in_freezer
+CH3-W057,wic,Defrost completes but drain refreezes,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W058,wic,Icing with confirmed door infiltration,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W059,wic,Icing despite door sealed and fan running,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W060,wic,Warm room with compressor long runtime and high load,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W061,wic,Warm room with compressor long runtime and no abnormal load,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W062,wic,Room sensor error causing poor temperature control,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W063,wic,LP control opens too early during cooling,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W064,wic,Solenoid commanded closed but flow continues,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W065,wic,Multiple faults: fan stopped and dirty condenser,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W066,wic,Multiple faults: drier restriction and TXV bulb fault,STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W067,wic,"Multiple faults: dirty condenser, sensor error, high load",STABLE_COOLING,walk_in_cooler;walk_in_freezer
+CH3-W068,wic,Unknown state but direct condenser fan fault,UNKNOWN,walk_in_cooler;walk_in_freezer
+CH3-W069,wic,Unknown state but direct evaporator fan fault,UNKNOWN,walk_in_cooler;walk_in_freezer
+CH3-W070,wic,Warm room with refrigeration normal but capacity/load not yet characterized,STABLE_COOLING,walk_in_cooler;walk_in_freezer
