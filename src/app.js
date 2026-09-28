@@ -91,6 +91,8 @@ let systemComponentsExpanded =
 let activeComponentTab =
     "overview";
 
+let workspaceView = "diagram";
+
 
 /*
  * =========================================================
@@ -355,7 +357,16 @@ function componentRoleLabel(
             "Sight Glass / Moisture Indicator",
 
         solenoid_valve:
-            "Solenoid Valve"
+            "Solenoid Valve",
+
+        power_supply:
+            "Power Supply",
+
+        contactor:
+            "Contactor",
+
+        system_controls:
+            "System Controls / Safeties"
     };
 
 
@@ -1255,6 +1266,33 @@ function bindComponentConfiguration(
     );
 }
 
+
+/* Electrical/control entities are UI-only evidence collectors.
+ * They are intentionally not refrigeration-diagram components. */
+function getElectricalControlEntities() {
+    if (currentSystem?.id !== "walk_in_cooler") return [];
+    return [
+        { id: "power_supply", role: "power_supply", label: "Power Supply", electricalOnly: true },
+        { id: "contactor", role: "contactor", label: "Contactor", electricalOnly: true },
+        { id: "system_controls", role: "system_controls", label: "System Controls / Safeties", electricalOnly: true }
+    ];
+}
+
+function buildElectricalControlConfiguration() {
+    const entities = getElectricalControlEntities();
+    if (!entities.length) return "";
+    return `
+        <div class="selected-tool-item" style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(100,120,140,.18);">
+            <div class="selected-type">ELECTRICAL / CONTROLS</div>
+            <div class="component-config-note" style="margin-top:5px;">Power path and control-circuit evidence</div>
+            <div class="electrical-control-list">
+                ${entities.map(entity => `
+                    <button type="button" class="electrical-control-button ${selectedComponent?.id === entity.id ? "is-selected" : ""}" data-electrical-control="${entity.id}">
+                        ${entity.label}
+                    </button>`).join("")}
+            </div>
+        </div>`;
+}
 
 /*
  * =========================================================
@@ -3633,6 +3671,10 @@ function buildComponentTool() {
                 buildSystemComponentConfiguration()
             }
 
+            ${
+                buildElectricalControlConfiguration()
+            }
+
 
             ${selectedComponentHtml}
 
@@ -4461,6 +4503,82 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         setObservation(componentId, fieldId);
     });
 
+    /* Bridge structured Electrical/Controls UI evidence into the existing
+     * validated WIC fact vocabulary. This keeps the UI as the evidence source
+     * without teaching the Brain case-specific textbook answers. */
+    const e = (componentId, fieldId) => componentElectricalValues.get(electricalKey(componentId, fieldId));
+    const put = (componentId, fieldId, value) => {
+        if (value === undefined || value === null || value === "" || value === "unknown") return;
+        if (!observations[componentId]) observations[componentId] = {};
+        observations[componentId][fieldId] = value;
+    };
+
+    const demand = e("system_controls", "cooling_demand");
+    if (demand === "yes") put("controls", "cooling_demand", "calling");
+    if (demand === "no") put("controls", "cooling_demand", "not_calling");
+
+    const asc = e("system_controls", "anti_short_cycle");
+    if (asc) put("controls", "anti_short_cycle", asc);
+    const hp = e("system_controls", "hp_control");
+    if (hp === "open") put("controls", "hp_safety", "open_tripped");
+    if (hp === "closed") put("controls", "hp_safety", "closed_normal");
+    const lp = e("system_controls", "lp_control");
+    if (lp) put("controls", "lp_control", lp);
+
+    const coil = e("contactor", "coil_energized");
+    if (coil === "yes") put("controls", "contactor_coil", "energized");
+    if (coil === "no") put("controls", "contactor_coil", "not_energized");
+    const lineV = Number(e("contactor", "line_voltage"));
+    const loadV = Number(e("contactor", "load_voltage"));
+    const dropL1T1 = Number(e("contactor", "drop_l1_t1"));
+    const dropL2T2 = Number(e("contactor", "drop_l2_t2"));
+    if (Number.isFinite(lineV) && lineV > 20 && Number.isFinite(loadV)) {
+        put("controls", "contactor_output", loadV < lineV * 0.5 ? "not_passing_voltage" : "passes_voltage");
+    }
+    /* A closed/energized contact should have very little voltage across it.
+     * A substantial measured drop across L-T is direct evidence that the
+     * contact is not passing line voltage. Keep this independent of a separate
+     * line/load measurement so a field technician can enter the textbook-style
+     * voltage-drop test directly. */
+    if (coil === "yes" && ((Number.isFinite(dropL1T1) && dropL1T1 >= 10) ||
+                           (Number.isFinite(dropL2T2) && dropL2T2 >= 10))) {
+        put("controls", "contactor_output", "not_passing_voltage");
+    }
+
+    const mainPower = e("power_supply", "main_power_available");
+    if (mainPower === "yes") put("controls", "main_power_available", "yes");
+    if (mainPower === "no") put("controls", "main_power_available", "no");
+
+    const fuse1 = e("power_supply", "fuse_l1");
+    const fuse2 = e("power_supply", "fuse_l2");
+    if (fuse1 === "open" || fuse2 === "open") put("controls", "fuse_state", "open_blown");
+    else if (fuse1 === "good" && fuse2 === "good") put("controls", "fuse_state", "normal");
+
+    const compState = e("compressor", "operating_state");
+    if (["not_running", "off"].includes(compState)) put("compressor", "running_state", "not_running");
+    if (compState === "running") put("compressor", "running_state", "running");
+
+    const condFanState = e("condenser", "operating_state");
+    if (condFanState === "not_running") put("condenser", "fan_operation", "not_running");
+    if (condFanState === "running") put("condenser", "fan_operation", "normal");
+    if (condFanState === "slow") put("condenser", "fan_operation", "slow");
+    const condShaft = e("condenser", "shaft_condition");
+    if (condShaft) put("condenser", "fan_shaft_condition", condShaft);
+    const evapFanState = e("evaporator", "operating_state");
+    if (evapFanState === "not_running") put("evaporator", "fan_operation", "not_running");
+    if (evapFanState === "running") put("evaporator", "fan_operation", "normal");
+    const overload = e("compressor", "overload_state");
+    if (overload) put("compressor", "overload_state", overload);
+
+    const normOhm = v => { const t=String(v ?? "").trim().toUpperCase(); return t === "OL" ? "OL" : (t !== "" && Number.isFinite(Number(t)) ? Number(t) : null); };
+    const cr=normOhm(e("compressor","winding_c_r")), cs=normOhm(e("compressor","winding_c_s")), rs=normOhm(e("compressor","winding_r_s"));
+    if (cr !== null && cs !== null && rs !== null) {
+        if (cr !== "OL" && cs === "OL" && rs === "OL") put("compressor","winding_start_open",true);
+        if (cr !== "OL" && cs !== "OL" && rs !== "OL" && Math.abs((cr+cs)-rs) <= Math.max(1, rs*0.10)) put("compressor","winding_relationship_normal",true);
+    }
+    const fcr=normOhm(e("condenser","winding_c_r")), fcs=normOhm(e("condenser","winding_c_s")), frs=normOhm(e("condenser","winding_r_s"));
+    if (fcr !== null && fcs !== null && frs !== null && fcr !== "OL" && fcs !== "OL" && frs !== "OL" && Math.abs((fcr+fcs)-frs) <= Math.max(1, frs*0.10)) put("condenser","fan_winding_relationship_normal",true);
+
     return {
         measurements: {
             filterDrierInletTemperature: getNumericMeasurementValue("filter_drier_inlet","temperature"),
@@ -4716,6 +4834,22 @@ function buildKnowledgeHubComparison(state, observationValue) {
         heading = "TXV external-equalizer problem is related to evaporator starvation";
         meaning = "High evaporator superheat shows that the evaporator is being underfed. The observed external-equalizer problem can give the TXV incorrect evaporator-outlet pressure information and cause incorrect refrigerant feed. Correct the equalizer problem first, then recheck superheat before moving to other causes.";
     }
+    else if (facts.has("FACT_MAIN_POWER_NOT_AVAILABLE") && facts.has("FACT_COOLING_DEMAND_PRESENT")) {
+        heading = "Line power is not available to the condensing unit";
+        meaning = "The system is calling for cooling, but required line power is not available at the outdoor/condensing unit. This localizes the problem upstream in the supply path; it is not evidence of a compressor, capacitor or refrigerant fault.";
+    }
+    else if (facts.has("FACT_COMPRESSOR_START_WINDING_OPEN")) {
+        heading = "Compressor start winding is open";
+        meaning = "The C-R winding path has continuity while C-S and R-S read open. This pattern localizes an open start-winding circuit inside the compressor rather than a normal start-component problem.";
+    }
+    else if (facts.has("FACT_COND_FAN_RUNNING_SLOW") && facts.has("FACT_COND_FAN_SHAFT_FREE") && facts.has("FACT_COND_FAN_WINDING_RELATIONSHIP_NORMAL")) {
+        heading = "Condenser fan is running abnormally slow";
+        meaning = "The fan turns freely and its winding resistance relationship is internally consistent, but it runs slowly. Check the fan run capacitor and actual supply/current before condemning the motor.";
+    }
+    else if (facts.has("FACT_CONTACTOR_COIL_ENERGIZED") && facts.has("FACT_CONTACTOR_NOT_PASSING_VOLTAGE")) {
+        heading = "Contactor is energized but is not passing line voltage";
+        meaning = "The cooling control signal is reaching the contactor coil, but the power path through the contactor is not delivering normal load voltage. This localizes the fault to the contactor/load-power path before the compressor or condenser fan.";
+    }
     else if (facts.has("FACT_EVAP_FAN_NOT_RUNNING")) {
         heading = "Evaporator fan is not running";
         meaning = "This is a direct evaporator-airflow fault. Find why the fan is stopped before using refrigerant readings to diagnose charge or the metering device.";
@@ -4942,6 +5076,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
         !directRestatements.has(item.candidate) &&
         !(evapFanObservedNormal && item.candidate === "CAUSE_EVAP_FAN_FAILURE") &&
         !(condFanObservedNormal && item.candidate === "CAUSE_COND_FAN_FAILURE") &&
+        !(facts.has("FACT_CONTACTOR_NOT_PASSING_VOLTAGE") && item.candidate === "CAUSE_COND_FAN_FAILURE") &&
         item.candidate !== "CAUSE_EVAP_AIRFLOW_RESTRICTION" &&
         item.candidate !== "CAUSE_COND_AIRFLOW_RESTRICTION"
     ).slice(0, 5);
@@ -4965,7 +5100,19 @@ function buildKnowledgeHubComparison(state, observationValue) {
      * Directly correct obvious physical faults before asking for unrelated
      * diagnostic measurements. Then recheck the operating state.
      */
-    if (facts.has("FACT_DRIER_TEMP_DROP")) {
+    if (facts.has("FACT_MAIN_POWER_NOT_AVAILABLE") && facts.has("FACT_COOLING_DEMAND_PRESENT")) {
+        nextAction = "Verify the outdoor disconnect, breaker/fuses, incoming line voltage and supply wiring to the condensing unit. Restore correct line power before testing the contactor load side, compressor, condenser fan or refrigerant circuit.";
+    }
+    else if (facts.has("FACT_COMPRESSOR_START_WINDING_OPEN")) {
+        nextAction = "With power safely isolated, verify the winding readings at the compressor terminals and check each terminal to ground. If C-R has continuity while C-S and R-S remain OL with connections isolated, follow manufacturer procedure for an open compressor winding; do not replace a capacitor expecting it to repair an open winding.";
+    }
+    else if (facts.has("FACT_COND_FAN_RUNNING_SLOW") && facts.has("FACT_COND_FAN_SHAFT_FREE") && facts.has("FACT_COND_FAN_WINDING_RELATIONSHIP_NORMAL")) {
+        nextAction = "With power safely isolated, test the condenser-fan run capacitor against its rated capacitance/tolerance. If the capacitor is acceptable, restore power and verify fan supply voltage and running current; then evaluate the motor if it still runs slowly or opens its overload.";
+    }
+    else if (facts.has("FACT_CONTACTOR_COIL_ENERGIZED") && facts.has("FACT_CONTACTOR_NOT_PASSING_VOLTAGE")) {
+        nextAction = "With power safely isolated, inspect the contactor contacts and connections for burned, pitted, loose or failed contacts. Replace the contactor if the contacts cannot pass line voltage correctly; then restore power and verify normal load-side voltage before evaluating the compressor or condenser fan.";
+    }
+    else if (facts.has("FACT_DRIER_TEMP_DROP")) {
         nextAction = "Replace the restricted filter drier using proper recovery/service procedures. Then run the system normally and recheck filter-drier temperature difference, superheat, subcooling and pressures.";
     }
     else if (activeFieldGuide?.steps?.length) {
@@ -5461,6 +5608,29 @@ function renderSidePanel() {
 }
 
 
+function applyWorkspaceView(view) {
+    const allowed = ["diagram", "work", "tools"];
+    workspaceView = allowed.includes(view) ? view : "diagram";
+    const workspace = document.querySelector(".workspace");
+    if (workspace) {
+        workspace.classList.remove("workspace-view-diagram", "workspace-view-work", "workspace-view-tools");
+        workspace.classList.add(`workspace-view-${workspaceView}`);
+    }
+    document.querySelectorAll("[data-workspace-view]").forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.workspaceView === workspaceView));
+    });
+    try { sessionStorage.setItem("hvacr-workspace-view", workspaceView); } catch (_) {}
+}
+
+function bindWorkspaceViewControls() {
+    document.querySelectorAll("[data-workspace-view]").forEach(button => {
+        button.addEventListener("click", () => applyWorkspaceView(button.dataset.workspaceView));
+    });
+    let saved = "diagram";
+    try { saved = sessionStorage.getItem("hvacr-workspace-view") || "diagram"; } catch (_) {}
+    applyWorkspaceView(saved);
+}
+
 /*
  * =========================================================
  * TOOL SWITCHING
@@ -5606,6 +5776,20 @@ function bindSidePanelControls() {
         );
     }
 
+
+    /* Electrical/control evidence collectors */
+    measurementContent
+        .querySelectorAll("[data-electrical-control]")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                const entity = getElectricalControlEntities().find(item => item.id === button.dataset.electricalControl);
+                if (!entity) return;
+                selectedComponent = entity;
+                selectedMeasurementPoint = null;
+                activeComponentTab = "electrical";
+                renderSidePanel();
+            });
+        });
 
     /*
      * Component tabs
@@ -6549,3 +6733,7 @@ loadSystem(
 
 initializeRefrigerantData();
 initializeReferenceData();
+
+
+// Workspace layout presets are independent of diagnostic state.
+bindWorkspaceViewControls();

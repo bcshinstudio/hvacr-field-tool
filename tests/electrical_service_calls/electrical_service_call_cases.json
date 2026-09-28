@@ -1,0 +1,103 @@
+{
+  "suite_id": "ELECTRICAL_SERVICE_CALLS_V1",
+  "cases": [
+    {
+      "id": "ESC-001",
+      "title": "Cooling call + energized contactor coil + failed contact path",
+      "observations": {
+        "controls": {
+          "cooling_demand": "calling",
+          "contactor_coil": "energized",
+          "contactor_output": "not_passing_voltage"
+        },
+        "compressor": {
+          "running_state": "not_running"
+        },
+        "condenser": {
+          "fan_operation": "not_running"
+        },
+        "evaporator": {
+          "fan_operation": "normal"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "requiredFacts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE",
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "requiredDiagnosis": "CAUSE_CONTACTOR_FAILURE"
+    },
+    {
+      "id": "ESC-002",
+      "title": "Compressor not-running structured state is preserved",
+      "observations": {
+        "compressor": {
+          "running_state": "not_running"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "requiredFacts": [
+        "FACT_COMPRESSOR_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "ESC-003",
+      "title": "Condenser fan not-running structured state is preserved",
+      "observations": {
+        "condenser": {
+          "fan_operation": "not_running"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "requiredFacts": [
+        "FACT_COND_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "ESC-004",
+      "title": "Evaporator fan running does not create a stopped-fan fault",
+      "observations": {
+        "evaporator": {
+          "fan_operation": "normal"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "forbiddenFacts": [
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "ESC-005",
+      "title": "Cooling demand is usable while manual operating state remains unknown",
+      "observations": {
+        "controls": {
+          "cooling_demand": "calling"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "requiredFacts": [
+        "FACT_COOLING_DEMAND_PRESENT"
+      ]
+    },
+    {
+      "id": "ESC-006",
+      "title": "Cooling demand plus no main power is preserved as upstream supply evidence",
+      "observations": {
+        "controls": {
+          "cooling_demand": "calling",
+          "main_power_available": "no",
+          "contactor_coil": "energized"
+        }
+      },
+      "operatingState": "UNKNOWN",
+      "requiredFacts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_MAIN_POWER_NOT_AVAILABLE",
+        "FACT_CONTACTOR_COIL_ENERGIZED"
+      ]
+    }
+  ]
+}

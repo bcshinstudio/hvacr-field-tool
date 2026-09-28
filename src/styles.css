@@ -109,8 +109,8 @@ select {
      */
 
     grid-template-columns:
-        minmax(0, 1fr)
-        320px;
+        minmax(0, 3fr)
+        minmax(280px, 1fr);
 
     gap: 16px;
 
@@ -177,6 +177,36 @@ select {
 }
 
 
+
+
+/* Workspace view presets: 75/25 default, 50/50 work, tools-only. */
+.workspace-view-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+}
+.workspace-view-label { color: #74808c; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.workspace-view-toolbar button {
+    border: 1px solid #cbd4dc;
+    border-radius: 6px;
+    background: #fff;
+    padding: 6px 9px;
+    color: #53606d;
+    cursor: pointer;
+    font: inherit;
+    font-size: 11px;
+}
+.workspace-view-toolbar button[aria-pressed="true"] { border-color: #1687c9; color: #096ca7; background: #f3f9fd; font-weight: 700; }
+.workspace.workspace-view-diagram { grid-template-columns: minmax(0, 3fr) minmax(280px, 1fr); }
+.workspace.workspace-view-work { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.workspace.workspace-view-tools { grid-template-columns: minmax(0, 1fr); }
+.workspace.workspace-view-tools .system-panel { display: none; }
+
+.electrical-control-list { margin-top: 10px; display: grid; gap: 6px; }
+.electrical-control-button { width: 100%; border: 1px solid #d7e0e7; border-radius: 7px; background: #fff; padding: 9px 10px; text-align: left; cursor: pointer; color: #334b5e; font: inherit; font-size: 12px; }
+.electrical-control-button:hover, .electrical-control-button.is-selected { border-color: #1687c9; background: #f3f9fd; color: #096ca7; }
 /*
  * =========================================================
  * DIAGRAM
@@ -831,4 +861,9 @@ select {
         width: 100%;
         margin-left: 0;
     }
+}
+
+@media (max-width: 760px) {
+  .workspace, .workspace.workspace-view-diagram, .workspace.workspace-view-work { grid-template-columns: minmax(0, 1fr); }
+  .workspace-view-toolbar { justify-content: center; }
 }

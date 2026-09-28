@@ -1242,7 +1242,8 @@
         "operating_states": [
           "STABLE_COOLING",
           "PULLDOWN",
-          "STARTUP"
+          "STARTUP",
+          "UNKNOWN"
         ]
       }
     },
@@ -1873,7 +1874,8 @@
         "operating_states": [
           "STABLE_COOLING",
           "PULLDOWN",
-          "STARTUP"
+          "STARTUP",
+          "UNKNOWN"
         ]
       },
       "notes": "Energized contactor coil with no voltage at compressor localizes the open to contactor/load-side wiring path; verify line/load before replacement."

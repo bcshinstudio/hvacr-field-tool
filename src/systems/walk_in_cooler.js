@@ -1645,6 +1645,10 @@ export const walkInCooler = {
 
                                 options: [
                                     "running",
+                                    "not_running",
+                                    "slow",
+                                    "attempts_to_start",
+                                    "cycles_on_overload",
                                     "off",
                                     "cycling",
                                     "unknown"
@@ -1934,6 +1938,17 @@ export const walkInCooler = {
                     },
 
 
+                    {
+                        id: "live_diagnostics",
+                        label: "Live Diagnostics",
+                        category: "operating",
+                        fields: [
+                            { id: "terminal_voltage", label: "Compressor Terminal Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "energized", valueType: "measured" },
+                            { id: "overload_state", label: "Internal Overload", type: "select", options: ["closed", "open", "unknown"], measurementCondition: "power_off", valueType: "measured" }
+                        ]
+                    },
+
+
                     /*
                      * Nameplate values are reference information,
                      * not measurements made by the technician.
@@ -2069,10 +2084,10 @@ export const walkInCooler = {
                                     "Ω",
 
                                 type:
-                                    "number",
+                                    "text",
 
                                 inputType:
-                                    "number",
+                                    "text",
 
                                 measurementCondition:
                                     "power_off",
@@ -2082,7 +2097,8 @@ export const walkInCooler = {
 
                                 appliesWhen: {
                                     phase: [
-                                        "single_phase"
+                                        "single_phase",
+                                        ""
                                     ]
                                 }
                             },
@@ -2099,10 +2115,10 @@ export const walkInCooler = {
                                     "Ω",
 
                                 type:
-                                    "number",
+                                    "text",
 
                                 inputType:
-                                    "number",
+                                    "text",
 
                                 measurementCondition:
                                     "power_off",
@@ -2112,7 +2128,8 @@ export const walkInCooler = {
 
                                 appliesWhen: {
                                     phase: [
-                                        "single_phase"
+                                        "single_phase",
+                                        ""
                                     ]
                                 }
                             },
@@ -2129,10 +2146,10 @@ export const walkInCooler = {
                                     "Ω",
 
                                 type:
-                                    "number",
+                                    "text",
 
                                 inputType:
-                                    "number",
+                                    "text",
 
                                 measurementCondition:
                                     "power_off",
@@ -2142,7 +2159,8 @@ export const walkInCooler = {
 
                                 appliesWhen: {
                                     phase: [
-                                        "single_phase"
+                                        "single_phase",
+                                        ""
                                     ]
                                 }
                             },
@@ -2337,6 +2355,10 @@ export const walkInCooler = {
 
                                 options: [
                                     "running",
+                                    "not_running",
+                                    "slow",
+                                    "attempts_to_start",
+                                    "cycles_on_overload",
                                     "off",
                                     "cycling",
                                     "unknown"
@@ -2614,6 +2636,10 @@ export const walkInCooler = {
 
                                 options: [
                                     "running",
+                                    "not_running",
+                                    "slow",
+                                    "attempts_to_start",
+                                    "cycles_on_overload",
                                     "off",
                                     "cycling",
                                     "unknown"
@@ -3063,6 +3089,62 @@ export const walkInCooler = {
                             }
                         ]
                     }
+                ]
+            },
+
+            {
+                id: "power_supply_electrical",
+                component: "power_supply",
+                sections: [
+                    { id: "power", label: "Power Supply", fields: [
+                        { id: "main_power_available", label: "Main Power Available", type: "select", options: ["yes", "no", "unknown"], measurementCondition: "observation" },
+                        { id: "disconnect_state", label: "Disconnect", type: "select", options: ["on", "off", "unknown"], measurementCondition: "observation" },
+                        { id: "line_voltage_l1_l2", label: "L1-L2 Line Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "line_voltage_l1_ground", label: "L1-Ground Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "line_voltage_l2_ground", label: "L2-Ground Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" }
+                    ]},
+                    { id: "protection", label: "Protection", fields: [
+                        { id: "breaker_state", label: "Breaker", type: "select", options: ["normal", "tripped", "unknown"], measurementCondition: "observation" },
+                        { id: "fuse_l1", label: "Fuse L1", type: "select", options: ["good", "open", "unknown"], measurementCondition: "power_off" },
+                        { id: "fuse_l2", label: "Fuse L2", type: "select", options: ["good", "open", "unknown"], measurementCondition: "power_off" }
+                    ]}
+                ]
+            },
+
+            {
+                id: "contactor_electrical",
+                component: "contactor",
+                sections: [
+                    { id: "control_side", label: "Control Side", fields: [
+                        { id: "coil_rated_voltage", label: "Coil Rated Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "reference" },
+                        { id: "coil_voltage", label: "Coil Measured Voltage", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "coil_energized", label: "Coil Energized", type: "select", options: ["yes", "no", "unknown"], measurementCondition: "observation" },
+                        { id: "contactor_state", label: "Contactor State", type: "select", options: ["open", "closed", "chattering", "unknown"], measurementCondition: "observation" }
+                    ]},
+                    { id: "power_path", label: "Power Path", fields: [
+                        { id: "line_voltage", label: "Line Side L1-L2", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "load_voltage", label: "Load Side T1-T2", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "drop_l1_t1", label: "L1-T1 Voltage Drop", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" },
+                        { id: "drop_l2_t2", label: "L2-T2 Voltage Drop", unit: "V", type: "number", inputType: "number", measurementCondition: "energized" }
+                    ]}
+                ]
+            },
+
+            {
+                id: "system_controls_electrical",
+                component: "system_controls",
+                sections: [
+                    { id: "demand", label: "Operating / Control", fields: [
+                        { id: "cooling_demand", label: "Cooling Demand", type: "select", options: ["yes", "no", "unknown"], measurementCondition: "observation" },
+                        { id: "controller_state", label: "Controller / Thermostat", type: "select", options: ["calling_for_cooling", "satisfied", "defrost", "off", "unknown"], measurementCondition: "observation" },
+                        { id: "anti_short_cycle", label: "Anti-Short-Cycle", type: "select", options: ["active", "inactive", "unknown"], measurementCondition: "observation" }
+                    ]},
+                    { id: "safeties", label: "Safeties", fields: [
+                        { id: "hp_control", label: "HP Control", type: "select", options: ["closed", "open", "unknown"], measurementCondition: "observation" },
+                        { id: "lp_control", label: "LP Control", type: "select", options: ["closed", "open", "unknown"], measurementCondition: "observation" },
+                        { id: "lp_cut_in", label: "LP Cut-In", unit: "psig", type: "number", inputType: "number", measurementCondition: "reference" },
+                        { id: "lp_cut_out", label: "LP Cut-Out", unit: "psig", type: "number", inputType: "number", measurementCondition: "reference" }
+                    ]}
                 ]
             }
         ],

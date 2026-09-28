@@ -1,0 +1,264 @@
+{
+  "suite_id": "TTA_20_HVACR_TROUBLESHOOTING_PROBLEMS_VOLUME_1",
+  "source": "20-HVACR-Troubleshooting-Problems-Volume-1.pdf",
+  "policy": "Expected answers are transcribed/paraphrased from the PDF solution section. Cases are not marked executable unless the current structured UI/Brain can represent the decisive evidence without inventing facts.",
+  "cases": [
+    {
+      "id": "TTA-V1-01",
+      "problem": 1,
+      "title": "Package A/C callback after transformer replacement",
+      "equipment": "3-ton package A/C with gas heat",
+      "expected_answer": "Transformer primary was connected to contactor T1/T2 instead of L1/L2; move primary supply to L1/L2.",
+      "automation_status": "future_ui",
+      "coverage_reason": "Requires transformer primary/secondary wiring-point evidence not presently represented.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-02",
+      "problem": 2,
+      "title": "Cooling but indoor blower stopped",
+      "equipment": "Gas-pack A/C",
+      "expected_answer": "Thermostat sub-base AUTO contacts are not carrying current; replace the thermostat sub-base.",
+      "automation_status": "future_ui",
+      "coverage_reason": "Requires thermostat sub-base AUTO-contact evidence not presently represented.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-03",
+      "problem": 3,
+      "title": "A/C cycles on low pressure",
+      "equipment": "R-22 capillary-tube A/C",
+      "expected_answer": "System is short of refrigerant; locate/repair leak, replace filter drier, evacuate and recharge.",
+      "automation_status": "executable",
+      "coverage_reason": "Reusable refrigeration/low-charge diagnostic pattern.",
+      "requiredFacts": [
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-04",
+      "problem": 4,
+      "title": "Reach-in freezer erratic temperature during hot-gas defrost",
+      "equipment": "Hot-gas defrost freezer",
+      "expected_answer": "Defrost timer NC contacts fail to open, allowing evaporator fan to run during defrost; replace timer.",
+      "automation_status": "future_ui",
+      "coverage_reason": "WIC has defrost context, but timer NC-contact state is not yet a structured input.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-05",
+      "problem": 5,
+      "title": "Gas furnace limit open with blower winding open",
+      "equipment": "Condensing gas furnace",
+      "expected_answer": "Indoor blower motor failed; loss of airflow caused the limit switch to open.",
+      "automation_status": "future_system",
+      "coverage_reason": "Heating-mode furnace safety sequence is outside current WIC system model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-06",
+      "problem": 6,
+      "title": "Gas pack pilot works but no main heat",
+      "equipment": "Gas package unit",
+      "expected_answer": "Replace gas valve; main gas-valve coil is not operating despite 24 V.",
+      "automation_status": "future_system",
+      "coverage_reason": "Gas-valve/ignition system is outside current WIC system model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-07",
+      "problem": 7,
+      "title": "Heat-pump gauges show equal high/low pressures",
+      "equipment": "Heat pump",
+      "expected_answer": "Gauge manifold valves are open, bleeding high side into low side; system itself is not faulty.",
+      "automation_status": "future_ui",
+      "coverage_reason": "Requires service-manifold valve state / measurement-integrity evidence.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-08",
+      "problem": 8,
+      "title": "Ice machine harvest has no air-assist output",
+      "equipment": "Ice machine",
+      "expected_answer": "Replace control board; harvest outputs work except no voltage at air-compressor connector 25/26.",
+      "automation_status": "future_system",
+      "coverage_reason": "Ice-machine harvest sequence/control-board outputs are not yet modeled.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-09",
+      "problem": 9,
+      "title": "Four-pin compressor will not start",
+      "equipment": "Compressor circuit",
+      "expected_answer": "Internal compressor overload protector is open; normal winding resistances but C-T is open.",
+      "automation_status": "executable",
+      "coverage_reason": "Reusable compressor protection/control evidence.",
+      "requiredFacts": [
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+      ],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-10",
+      "problem": 10,
+      "title": "Electric heat has insufficient capacity",
+      "equipment": "Electric resistance heat",
+      "expected_answer": "Replace heating elements HE1 and HE2; each has applied voltage but zero current.",
+      "automation_status": "future_system",
+      "coverage_reason": "Electric heat stages/elements are outside current WIC model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-11",
+      "problem": 11,
+      "title": "PTAC cooling capacity low",
+      "equipment": "PTAC heat pump",
+      "expected_answer": "Refrigeration system is partially restricted; low high/low pressures, partial frost pattern, slow pressure equalization.",
+      "automation_status": "executable",
+      "coverage_reason": "Reusable refrigeration restriction pattern.",
+      "requiredFacts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_COND_SAT_LOW"
+      ],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-12",
+      "problem": 12,
+      "title": "Package heat pump totally dead",
+      "equipment": "Package heat pump",
+      "expected_answer": "Control-circuit fuse is blown; inspect control wiring/connections for a short before replacing fuse.",
+      "automation_status": "executable",
+      "coverage_reason": "Reusable control-power/fuse troubleshooting.",
+      "requiredFacts": [
+        "FACT_FUSE_OPEN"
+      ],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-13",
+      "problem": 13,
+      "title": "Gas furnace blower runs continuously",
+      "equipment": "Gas furnace",
+      "expected_answer": "Transformer failed: primary has 120 V and secondary has 0 V; loss of 2A coil power leaves NC relay contacts in blower-running condition.",
+      "automation_status": "future_system",
+      "coverage_reason": "Furnace transformer/time-delay relay sequence is outside current WIC model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-14",
+      "problem": 14,
+      "title": "Split A/C warm air; outdoor unit dead",
+      "equipment": "Split A/C",
+      "expected_answer": "Contactor failed: 240 V line side + 24 V coil + 0 V load side.",
+      "automation_status": "executable",
+      "coverage_reason": "Directly reusable contactor power-path logic.",
+      "requiredFacts": [
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "requiredHeadline": "Contactor is energized but is not passing line voltage",
+      "requiredActionTerms": [
+        "contactor",
+        "load-side voltage"
+      ]
+    },
+    {
+      "id": "TTA-V1-15",
+      "problem": 15,
+      "title": "Heat pump lacks supplemental heat",
+      "equipment": "Heat pump heating",
+      "expected_answer": "HC1 relay failed: 24 V at HC1 coil but 0 V at SH1.",
+      "automation_status": "future_system",
+      "coverage_reason": "Heating-stage relay/strip heat not in current WIC model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-16",
+      "problem": 16,
+      "title": "Package A/C compressor will not start",
+      "equipment": "CSR compressor",
+      "expected_answer": "Potential relay contact section failed open; start-capacitor circuit cannot be made, causing compressor failure to start and overload trip.",
+      "automation_status": "future_ui",
+      "coverage_reason": "Potential relay contacts/start capacitor path are not yet structured inputs.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-17",
+      "problem": 17,
+      "title": "Water in furnace after rain/snow melt",
+      "equipment": "Furnace/air handler",
+      "expected_answer": "Blocked downspout/underground drain backed water through the condensate pipe into the pan.",
+      "automation_status": "future_system",
+      "coverage_reason": "Building drainage/condensate backflow is outside current WIC diagnostic model.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-18",
+      "problem": 18,
+      "title": "PTAC compressor starting problem",
+      "equipment": "PTAC",
+      "expected_answer": "Debris is a PTC soft-start device; it temporarily alters the start circuit/phase relationship to increase starting torque, then self-removes as resistance rises.",
+      "automation_status": "future_ui",
+      "coverage_reason": "PTC/soft-start component state is not presently represented.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-19",
+      "problem": 19,
+      "title": "Package A/C insufficient cooling and frosted suction",
+      "equipment": "Package A/C",
+      "expected_answer": "Clean the indoor coil; airflow rises when the access panel bypasses the dirty coil.",
+      "automation_status": "executable",
+      "coverage_reason": "Reusable evaporator/indoor-coil airflow diagnosis.",
+      "requiredFacts": [
+        "FACT_EVAP_COIL_DIRTY"
+      ],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    },
+    {
+      "id": "TTA-V1-20",
+      "problem": 20,
+      "title": "Ice machine low production in cool ambient",
+      "equipment": "Remote-condenser ice machine",
+      "expected_answer": "Head pressure control valve/headmaster is faulty; it fails to maintain proper head pressure as ambient falls.",
+      "automation_status": "future_system",
+      "coverage_reason": "Head-control logic exists conceptually, but ice-machine application and direct valve-fault evidence are not yet modeled as an executable service-call input.",
+      "requiredFacts": [],
+      "requiredHeadline": null,
+      "requiredActionTerms": []
+    }
+  ]
+}
