@@ -1,0 +1,1116 @@
+{
+  "suite": "RESIDENTIAL_AC_MASTER_1",
+  "brain": "2.0.10",
+  "runner": "1.2.1",
+  "note": "Calibrated semantic runner v1.2.1. State/context mappings expanded; negative assertions use diagnosis IDs rather than prose similarity.  Concrete master inputs are translated into WIC facts/state. Next-action matching includes the same field-guide/check/corrective-action sources used by System Check. Failures are tagged RUNNER_MAPPING vs BRAIN_OR_PRESENTATION.",
+  "total": 40,
+  "passed": 40,
+  "failed": 0,
+  "results": [
+    {
+      "id": "RAC-A001",
+      "title": "Evaporator fan not running",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "RAC-A002",
+      "title": "Condenser fan not running",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_COND_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "RAC-A003",
+      "title": "Evaporator coil fully iced",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_EVAP_ICING"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_ICED"
+      ]
+    },
+    {
+      "id": "RAC-A004",
+      "title": "Dirty/restricted condenser coil",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "RAC-A005",
+      "title": "Restricted evaporator airflow",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.5,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_AIRFLOW_BLOCKED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "conditions": [
+        "COND_EVAP_REDUCED_HEAT_TRANSFER"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_AIRFLOW_BLOCKED"
+      ]
+    },
+    {
+      "id": "RAC-A006",
+      "title": "Sight glass flashing/bubbles only",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.8
+      ],
+      "facts": [
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_SIGHT_GLASS_FLASHING"
+      ]
+    },
+    {
+      "id": "RAC-A007",
+      "title": "Moisture indicator wet",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.8
+      ],
+      "facts": [
+        "FACT_MOISTURE_INDICATED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_MOISTURE_CONTAMINATION"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_MOISTURE_WET"
+      ]
+    },
+    {
+      "id": "RAC-A008",
+      "title": "TXV sensing bulb poor contact",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_BULB"
+      ]
+    },
+    {
+      "id": "RAC-A009",
+      "title": "TXV external equalizer issue",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.875,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_TXV_EQUALIZER_PROBLEM"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_EQUALIZER"
+      ]
+    },
+    {
+      "id": "RAC-A010",
+      "title": "TXV inlet/strainer restriction observed",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.6153846153846154,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_MEASURE_SH",
+      "activeGuides": []
+    },
+    {
+      "id": "RAC-A011",
+      "title": "TXV hunting",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.4166666666666667,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_TXV_HUNTING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "conditions": [
+        "COND_REFRIGERANT_FEED_UNSTABLE"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_HUNTING"
+      ]
+    },
+    {
+      "id": "RAC-A014",
+      "title": "High-pressure safety tripped",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.8333333333333334,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_HP_SAFETY_OPEN"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_HP_SAFETY"
+      ]
+    },
+    {
+      "id": "RAC-A015",
+      "title": "Compressor not running",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.375,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COOLING_DEMAND_PRESENT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_NOT_RUNNING"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_COMPRESSOR_PUMPING",
+      "activeGuides": [
+        "GUIDE_COMPRESSOR_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "RAC-B019",
+      "title": "High superheat only — insufficient evidence",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.75
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B020",
+      "title": "High SH + large drier temperature drop",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.75,
+        0.8571428571428571
+      ],
+      "facts": [
+        "FACT_DRIER_TEMPERATURES_MEASURED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B021",
+      "title": "High SH + poor TXV bulb contact",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.8,
+      "findingScores": [
+        0.75,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_BULB",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B022",
+      "title": "High SH + external equalizer issue",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.75,
+      "findingScores": [
+        0.75,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_TXV_EQUALIZER_PROBLEM"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_TXV_EQUALIZER",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B023",
+      "title": "High SH + sight-glass bubbles",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.5,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        0.8
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
+        "GUIDE_SIGHT_GLASS_FLASHING",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B024",
+      "title": "High SH + bubbles + drier drop",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.6363636363636364,
+      "findingScores": [
+        1,
+        0.8,
+        0.8
+      ],
+      "facts": [
+        "FACT_DRIER_TEMPERATURES_MEASURED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
+        "GUIDE_FILTER_DRIER_RESTRICTION",
+        "GUIDE_SIGHT_GLASS_FLASHING",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B025",
+      "title": "Low suction + low head + high SH + low SC",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.5,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        1,
+        1,
+        0.6666666666666666
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_PATTERN_LOW_LOW_PRESSURES",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B026",
+      "title": "Low suction + high SH + retained/high SC",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP",
+      "activeGuides": [
+        "GUIDE_PATTERN_RESTRICTION_RETAINED_SC",
+        "GUIDE_HIGH_SH"
+      ]
+    },
+    {
+      "id": "RAC-B027",
+      "title": "High head + high SC + normal condenser airflow",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_COND_AIRFLOW_NORMAL"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
+        "GUIDE_PATTERN_OVERCHARGE_POSSIBLE"
+      ]
+    },
+    {
+      "id": "RAC-B028",
+      "title": "High head + dirty condenser",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.625,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_COIL_DIRTY"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "RAC-B029",
+      "title": "High head + condenser fan stopped",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.8,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_FAN_NOT_RUNNING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_MULTI_COND_FAN_HIGH_HEAD",
+        "GUIDE_COND_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "RAC-B030",
+      "title": "High head + airflow normal + high ambient",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.6923076923076923,
+      "findingScores": [
+        1,
+        1,
+        0.6666666666666666
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_AIRFLOW_NORMAL",
+        "FACT_HIGH_AMBIENT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HIGH_HEAD_AIRFLOW_EXCLUDED",
+        "GUIDE_PATTERN_HIGH_AMBIENT"
+      ]
+    },
+    {
+      "id": "RAC-B031",
+      "title": "High suction + low head",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.9166666666666666,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_COND_SAT_LOW"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_PATTERN_LOW_COMPRESSION"
+      ]
+    },
+    {
+      "id": "RAC-B032",
+      "title": "Low head + low suction",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.8181818181818182,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_COND_SAT_LOW"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_PATTERN_LOW_LOW_PRESSURES"
+      ]
+    },
+    {
+      "id": "RAC-B033",
+      "title": "Low SH / flooding pattern",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        0.6666666666666666
+      ],
+      "facts": [
+        "FACT_EVAP_SH_LOW"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_PATTERN_LOW_SH"
+      ]
+    },
+    {
+      "id": "RAC-B034",
+      "title": "Low SH + low airflow",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.8333333333333334,
+      "findingScores": [
+        0.6666666666666666,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED",
+        "COND_EVAP_REDUCED_HEAT_TRANSFER"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_EVAP_AIRFLOW_BLOCKED",
+        "GUIDE_PATTERN_LOW_SH"
+      ]
+    },
+    {
+      "id": "RAC-B035",
+      "title": "Low SH + TXV bulb installation problem",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.5555555555555556,
+      "findingScores": [
+        0.6666666666666666,
+        1
+      ],
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL",
+      "activeGuides": [
+        "GUIDE_LOW_SH_BULB_ERROR",
+        "GUIDE_TXV_BULB",
+        "GUIDE_PATTERN_LOW_SH"
+      ]
+    },
+    {
+      "id": "RAC-B036",
+      "title": "Low head + sight-glass bubbles",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.75,
+      "findingScores": [
+        1,
+        0.8
+      ],
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_SIGHT_GLASS_FLASHING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_SIGHT_GLASS_FLASHING",
+        "GUIDE_PATTERN_LOW_HEAD_BUBBLES"
+      ]
+    },
+    {
+      "id": "RAC-C037",
+      "title": "Cooling demand absent; compressor off",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.7777777777777778,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_ABSENT",
+        "FACT_COMPRESSOR_NOT_RUNNING"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_NOT_RUNNING"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_COMPRESSOR_PUMPING",
+      "activeGuides": [
+        "GUIDE_COMPRESSOR_NOT_RUNNING",
+        "GUIDE_NO_DEMAND_COMPRESSOR_OFF"
+      ]
+    },
+    {
+      "id": "RAC-C038",
+      "title": "Cooling demand present + anti-short-cycle active",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.8,
+      "nextScore": 0.3,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_ANTI_SHORT_CYCLE_DELAY"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_ANTI_SHORT_CYCLE"
+      ]
+    },
+    {
+      "id": "RAC-C039",
+      "title": "Cooling demand + contactor coil not energized",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.5,
+      "nextScore": 0.7777777777777778,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "diagnoses": [],
+      "conditions": [
+        "COND_CONTROL_SEQUENCE_FAULT"
+      ],
+      "nextCheck": "CHECK_WIRING_DIAGRAM_CONTROL_STATE",
+      "activeGuides": [
+        "GUIDE_CONTACTOR_COIL_OFF"
+      ]
+    },
+    {
+      "id": "RAC-C040",
+      "title": "Contactor coil energized but no output voltage",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.5,
+      "findingScores": [
+        1,
+        0.8
+      ],
+      "facts": [
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "activeGuides": [
+        "GUIDE_CONTACTOR_NO_OUTPUT"
+      ]
+    },
+    {
+      "id": "RAC-C041",
+      "title": "Fuse open/blown",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.6666666666666666,
+      "nextScore": 0.4375,
+      "findingScores": [
+        1
+      ],
+      "facts": [
+        "FACT_FUSE_OPEN"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_FUSE_OPEN_REQUIRES_CAUSE"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_COMPRESSOR_PUMPING",
+      "activeGuides": [
+        "GUIDE_FUSE_OPEN"
+      ]
+    },
+    {
+      "id": "RAC-C042",
+      "title": "Compressor overload open/hot compressor",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.6666666666666666,
+      "findingScores": [
+        1,
+        0.75
+      ],
+      "facts": [
+        "FACT_OVERLOAD_PROTECTION_OPEN",
+        "FACT_COMPRESSOR_HOT"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "activeGuides": [
+        "GUIDE_OVERLOAD_OPEN"
+      ]
+    },
+    {
+      "id": "RAC-C043",
+      "title": "HP safety open + dirty condenser",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 0.5,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_HP_SAFETY_OPEN"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HP_SAFETY",
+        "GUIDE_COND_COIL_DIRTY"
+      ]
+    },
+    {
+      "id": "RAC-C044",
+      "title": "HP safety open + condenser fan stopped",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 0.6,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_HP_SAFETY_OPEN"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "conditions": [],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "activeGuides": [
+        "GUIDE_HP_SAFETY",
+        "GUIDE_COND_FAN_NOT_RUNNING"
+      ]
+    },
+    {
+      "id": "RAC-C050",
+      "title": "Compressor running continuously + no abnormal load",
+      "pass": true,
+      "failureClass": null,
+      "errors": [],
+      "headlineScore": 1,
+      "nextScore": 1,
+      "findingScores": [
+        1,
+        1
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_BOX_TEMP_HIGH"
+      ],
+      "operatingState": "STABLE_COOLING",
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
+      "conditions": [],
+      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "activeGuides": [
+        "GUIDE_LONG_RUNTIME_POOR_COOLING"
+      ]
+    }
+  ]
+}

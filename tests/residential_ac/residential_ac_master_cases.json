@@ -1,0 +1,1824 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "RESIDENTIAL_AC_MASTER_1",
+  "purpose": "Shared DX/electrical regression for residential split/package A/C. Derived from validated generic cases; WIC-only defrost/pump-down/load cases excluded.",
+  "test_count": 40,
+  "cases": [
+    {
+      "id": "RAC-A001",
+      "title": "Evaporator fan not running",
+      "system": "residential_ac",
+      "category": "airflow",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "evaporator.fan_operation",
+          "value": "not_running",
+          "ui_instruction": "Evaporator \u2192 Fan Operation = Not Running"
+        }
+      ],
+      "expected": {
+        "headline": "Evaporator fan is not running",
+        "confirmed_findings": [
+          "Evaporator fan is not operating."
+        ],
+        "what_this_means": "This is a direct evaporator-airflow fault. Refrigerant readings can be misleading until airflow is restored.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "With power safely isolated, check whether the fan blade/motor turns freely and whether ice or another obstruction is blocking it.",
+        "troubleshooting_path": [
+          "Check free rotation/obstruction with power isolated.",
+          "If mechanically free, confirm fan should be commanded on and verify correct supply voltage.",
+          "If correct voltage is present, test applicable run capacitor, motor and wiring; if absent, trace fan control/relay/defrost interlock.",
+          "After repair verify rotation/airflow; clear ice if needed; then run normal cooling and recheck refrigeration readings."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low refrigerant charge from abnormal suction readings while evaporator airflow is lost."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A002",
+      "title": "Condenser fan not running",
+      "system": "residential_ac",
+      "category": "airflow",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "condenser.fan_operation",
+          "value": "not_running",
+          "ui_instruction": "Condenser \u2192 Fan Operation = Not Running"
+        }
+      ],
+      "expected": {
+        "headline": "Condenser fan is not running",
+        "confirmed_findings": [
+          "Condenser fan is not operating."
+        ],
+        "what_this_means": "This is a direct condenser-airflow/heat-rejection fault and can raise condensing pressure.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "With power safely isolated, check for a blocked blade or mechanical obstruction.",
+        "troubleshooting_path": [
+          "Check mechanical freedom/obstruction.",
+          "If free, confirm fan command and correct supply voltage.",
+          "If voltage is correct, test applicable capacitor, motor and wiring/control.",
+          "After repair verify rotation/airflow and recheck condensing pressure/temperature."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge or noncondensables from high head until condenser airflow is restored."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "DANFOSS_HIGH_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A003",
+      "title": "Evaporator coil fully iced",
+      "system": "residential_ac",
+      "category": "icing",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "evaporator.coil_condition",
+          "value": "fully_iced",
+          "ui_instruction": "Evaporator \u2192 Coil Condition = Fully Iced"
+        }
+      ],
+      "expected": {
+        "headline": "Evaporator coil is iced",
+        "confirmed_findings": [
+          "Evaporator coil is iced."
+        ],
+        "what_this_means": "Ice restricts evaporator airflow, but icing is a condition with multiple possible causes.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "First check whether the evaporator fan is running normally and whether the air path is blocked.",
+        "troubleshooting_path": [
+          "Check fan operation and airflow.",
+          "If airflow is normal, check defrost operation/termination, door infiltration and drain/heater issues.",
+          "After clearing ice and correcting the cause, run stable cooling and recheck temperatures, pressures and superheat."
+        ],
+        "must_not_conclude": [
+          "Do not call the icing itself the root cause.",
+          "Do not diagnose charge from refrigerant readings taken with a heavily iced/airflow-restricted coil."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A004",
+      "title": "Dirty/restricted condenser coil",
+      "system": "residential_ac",
+      "category": "airflow",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "condenser.coil_condition",
+          "value": "dirty",
+          "ui_instruction": "Condenser \u2192 Coil Condition = Dirty/Restricted"
+        }
+      ],
+      "expected": {
+        "headline": "Condenser coil is dirty/restricted",
+        "confirmed_findings": [
+          "Condenser coil is dirty/restricted."
+        ],
+        "what_this_means": "The known airflow restriction reduces condenser heat rejection and can raise condensing pressure.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Clean/remove the condenser airflow restriction and confirm the fan operates normally.",
+        "troubleshooting_path": [
+          "Restore condenser airflow.",
+          "Run stable cooling until readings stabilize.",
+          "Recheck condensing pressure/temperature and condenser split."
+        ],
+        "must_not_conclude": [
+          "Do not adjust refrigerant charge based on high-side readings before correcting the known condenser airflow fault."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "DANFOSS_HIGH_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A005",
+      "title": "Restricted evaporator airflow",
+      "system": "residential_ac",
+      "category": "airflow",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "evaporator.airflow",
+          "value": "blocked",
+          "ui_instruction": "Evaporator \u2192 Airflow = Blocked/Restricted"
+        }
+      ],
+      "expected": {
+        "headline": "Evaporator airflow is restricted",
+        "confirmed_findings": [
+          "Evaporator airflow is blocked/restricted."
+        ],
+        "what_this_means": "Low airflow reduces evaporator heat load and changes suction pressure, temperature difference and superheat behavior.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Find and correct the airflow restriction before judging refrigerant-side faults.",
+        "troubleshooting_path": [
+          "Inspect coil for ice/dirt, fan operation and blocked return/discharge path.",
+          "Correct airflow.",
+          "Run stable cooling and recheck box temperature, suction pressure and superheat."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge or TXV failure from suction/superheat while airflow is abnormal."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A006",
+      "title": "Sight glass flashing/bubbles only",
+      "system": "residential_ac",
+      "category": "liquid_supply",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "sight_glass.refrigerant_appearance",
+          "value": "flashing",
+          "ui_instruction": "Sight Glass \u2192 Refrigerant Appearance = Continuous Bubbles/Flashing"
+        }
+      ],
+      "expected": {
+        "headline": "Bubbles / flashing observed in the liquid-line sight glass",
+        "confirmed_findings": [
+          "Sight glass shows flashing/bubbles."
+        ],
+        "what_this_means": "This is a liquid-supply clue, not a charge diagnosis by itself. It can result from insufficient liquid inventory, inadequate subcooling, pressure drop/restriction or head-pressure conditions.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check liquid-line temperature/pressure evidence for restriction, especially across the filter drier and other liquid-line components.",
+        "troubleshooting_path": [
+          "Check localized liquid-line pressure/temperature drop.",
+          "Check applicable subcooling/liquid condition.",
+          "Look for leak/charge evidence before adding refrigerant."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant based on sight-glass bubbles alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_SIGHT_GLASS",
+          "DANFOSS_DRIER_SIGHT"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A007",
+      "title": "Moisture indicator wet",
+      "system": "residential_ac",
+      "category": "liquid_supply",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "sight_glass.moisture_indicator",
+          "value": "wet",
+          "ui_instruction": "Sight Glass \u2192 Moisture Indicator = Wet"
+        }
+      ],
+      "expected": {
+        "headline": "Moisture is indicated in the liquid line",
+        "confirmed_findings": [
+          "Sight-glass moisture indicator shows wet."
+        ],
+        "what_this_means": "The indicator suggests excessive moisture in the refrigerant circuit and warrants service investigation; it does not by itself identify charge level.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Confirm the indicator condition and service history, then address moisture contamination using proper refrigeration service procedures and an appropriate filter drier.",
+        "troubleshooting_path": [
+          "Verify indicator/refrigerant compatibility and condition.",
+          "Investigate source of moisture/service exposure.",
+          "Replace/service filter drier as appropriate, evacuate/dehydrate per service procedure, then verify indicator returns dry after operation."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose undercharge solely from a wet moisture indicator."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_DRIER_SIGHT"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A008",
+      "title": "TXV sensing bulb poor contact",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "txv.bulb_contact",
+          "value": "poor",
+          "ui_instruction": "Metering Device \u2192 Sensing Bulb Contact = Poor"
+        }
+      ],
+      "expected": {
+        "headline": "TXV sensing-bulb problem",
+        "confirmed_findings": [
+          "TXV sensing-bulb mounting/contact is incorrect."
+        ],
+        "what_this_means": "Poor bulb contact/location can give the TXV an incorrect temperature signal and cause incorrect refrigerant feed.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Correct sensing-bulb contact, location and mounting per the TXV manufacturer instructions.",
+        "troubleshooting_path": [
+          "Correct bulb mounting/contact/location.",
+          "Run stable cooling until readings stabilize.",
+          "Recheck evaporator superheat; if still abnormal continue liquid-supply/TXV checks."
+        ],
+        "must_not_conclude": [
+          "Do not condemn the TXV power element or adjust charge before correcting the known bulb installation problem."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011",
+          "PARKER_TEV_109"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A009",
+      "title": "TXV external equalizer issue",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "txv.equalizer_condition",
+          "value": "issue_observed",
+          "ui_instruction": "Metering Device \u2192 External Equalizer = Issue Observed"
+        }
+      ],
+      "expected": {
+        "headline": "TXV external-equalizer problem",
+        "confirmed_findings": [
+          "A TXV external-equalizer problem is present."
+        ],
+        "what_this_means": "A blocked, leaking, disconnected or mislocated equalizer can make the TXV respond to incorrect evaporator-outlet pressure and misfeed refrigerant.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Inspect and correct the external equalizer connection, restriction, leak or location.",
+        "troubleshooting_path": [
+          "Correct equalizer problem.",
+          "Run stable cooling.",
+          "Recheck superheat and refrigerant feed."
+        ],
+        "must_not_conclude": [
+          "Do not blame refrigerant charge before correcting the known equalizer fault."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A010",
+      "title": "TXV inlet/strainer restriction observed",
+      "system": "residential_ac",
+      "category": "restriction",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "txv.inlet_condition",
+          "value": "restriction_observed",
+          "ui_instruction": "Metering Device \u2192 TXV Inlet / Strainer = Restriction Observed"
+        }
+      ],
+      "expected": {
+        "headline": "Restriction is observed at the TXV inlet",
+        "confirmed_findings": [
+          "Restriction is observed at the TXV inlet/strainer."
+        ],
+        "what_this_means": "This is localized evidence of restricted liquid flow into the metering device and can starve the evaporator.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Correct the TXV inlet/strainer restriction using proper service procedures, then verify liquid feed and superheat.",
+        "troubleshooting_path": [
+          "Correct localized restriction.",
+          "Run stable cooling.",
+          "Recheck liquid condition, suction pressure and superheat."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant merely to compensate for a known restriction."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A011",
+      "title": "TXV hunting",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "txv.hunting",
+          "value": "yes",
+          "ui_instruction": "Metering Device \u2192 Hunting = Yes"
+        }
+      ],
+      "expected": {
+        "headline": "TXV/EEV hunting is observed",
+        "confirmed_findings": [
+          "TXV/EEV hunting is observed."
+        ],
+        "what_this_means": "Hunting means refrigerant feed/superheat control is unstable; valve sizing, bulb installation, load/airflow and control settings can contribute.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "First verify stable load/airflow and correct bulb installation, then observe superheat response before adjusting or replacing the valve.",
+        "troubleshooting_path": [
+          "Verify operating state/load and airflow.",
+          "Verify bulb/equalizer installation.",
+          "Trend superheat/valve response; then check valve sizing/setting if instability remains."
+        ],
+        "must_not_conclude": [
+          "Do not replace the TXV from hunting alone without checking installation and load conditions."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A014",
+      "title": "High-pressure safety tripped",
+      "system": "residential_ac",
+      "category": "high_head",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "FACT_HP_SAFETY_OPEN",
+          "ui_instruction": "Room / Control Evidence \u2192 High-Pressure Safety = Open/Tripped"
+        }
+      ],
+      "expected": {
+        "headline": "High-pressure safety is open/tripped",
+        "confirmed_findings": [
+          "High-pressure safety is open/tripped."
+        ],
+        "what_this_means": "The system stopped on a high-pressure protection condition; determine why condensing pressure rose before resetting/returning to service.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check condenser airflow first: coil cleanliness, fan operation, blocked/recirculated discharge air and ambient condition.",
+        "troubleshooting_path": [
+          "Check condenser airflow and fan.",
+          "If airflow is normal, evaluate charge/receiver condition, noncondensables and head-pressure control.",
+          "Verify safe pressure and cause corrected before reset/operation."
+        ],
+        "must_not_conclude": [
+          "Do not repeatedly reset the HP safety without correcting the cause."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "DANFOSS_HIGH_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-A015",
+      "title": "Compressor not running",
+      "system": "residential_ac",
+      "category": "compressor",
+      "setup": [
+        {
+          "type": "observation",
+          "path": "compressor.running_state",
+          "value": "off",
+          "ui_instruction": "Compressor \u2192 Running State = Off"
+        },
+        {
+          "type": "fact",
+          "id": "FACT_COOLING_DEMAND_PRESENT",
+          "ui_instruction": "Room / Control Evidence \u2192 Cooling Demand = Calling"
+        }
+      ],
+      "expected": {
+        "headline": "Compressor should be running but is not",
+        "confirmed_findings": [
+          "Cooling demand is present.",
+          "Compressor is not running."
+        ],
+        "what_this_means": "The compressor circuit must be traced from demand/safeties through contactor/power/start components before condemning the compressor.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check whether safeties/controls permit compressor operation and whether the contactor is being energized.",
+        "troubleshooting_path": [
+          "Verify safeties and anti-short-cycle delay.",
+          "Check contactor coil and line/load voltage.",
+          "If terminal voltage is correct but compressor does not start, evaluate overload/start components/windings per manufacturer procedure."
+        ],
+        "must_not_conclude": [
+          "Do not condemn the compressor before verifying command, safeties and terminal voltage."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B019",
+      "title": "High superheat only \u2014 insufficient evidence",
+      "system": "residential_ac",
+      "category": "refrigerant_feed",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        }
+      ],
+      "expected": {
+        "headline": "Possible evaporator refrigerant starvation",
+        "confirmed_findings": [
+          "Evaporator superheat is high at approximately 24.7\u00b0F."
+        ],
+        "what_this_means": "High superheat supports insufficient evaporator refrigerant feed, but does not identify whether the cause is low liquid inventory, upstream restriction or metering-device underfeeding.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "If the system is in stable cooling, check the liquid-supply side next: applicable subcooling/liquid condition, filter-drier temperature/pressure drop, sight glass and TXV inlet condition.",
+        "troubleshooting_path": [
+          "Verify stable cooling.",
+          "Check liquid-supply discriminators.",
+          "Use localized evidence to separate low inventory, restriction and TXV underfeeding."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge from high superheat alone.",
+          "Do not condemn the TXV from high superheat alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B020",
+      "title": "High SH + large drier temperature drop",
+      "system": "residential_ac",
+      "category": "restriction",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        },
+        {
+          "type": "measurement",
+          "name": "filter_drier_inlet_temperature",
+          "value": 90,
+          "unit": "\u00b0F",
+          "ui_instruction": "Filter Drier Inlet = 90\u00b0F"
+        },
+        {
+          "type": "measurement",
+          "name": "filter_drier_outlet_temperature",
+          "value": 78,
+          "unit": "\u00b0F",
+          "ui_instruction": "Filter Drier Outlet = 78\u00b0F"
+        }
+      ],
+      "expected": {
+        "headline": "Restricted filter drier indicated",
+        "confirmed_findings": [
+          "Evaporator superheat is high at approximately 24.7\u00b0F.",
+          "Temperature decreases 12\u00b0F across the liquid-line filter drier."
+        ],
+        "what_this_means": "The localized temperature decrease identifies a substantial pressure/temperature drop at the filter drier; restricted liquid flow can explain the starved evaporator.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Replace the restricted filter drier using proper recovery/service procedures, then run the system normally and recheck drier temperature difference, superheat, subcooling and pressures.",
+        "troubleshooting_path": [
+          "Service/replace restricted drier.",
+          "Verify restriction is gone.",
+          "Recheck system operation after stabilization."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant to overcome a localized filter-drier restriction."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_DRIER_SIGHT",
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B021",
+      "title": "High SH + poor TXV bulb contact",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        },
+        {
+          "type": "observation",
+          "path": "txv.bulb_contact",
+          "value": "poor",
+          "ui_instruction": "Metering Device \u2192 Sensing Bulb Contact = Poor"
+        }
+      ],
+      "expected": {
+        "headline": "TXV sensing-bulb problem is related to evaporator starvation",
+        "confirmed_findings": [
+          "Evaporator superheat is high at approximately 24.7\u00b0F.",
+          "TXV sensing-bulb mounting/contact is incorrect."
+        ],
+        "what_this_means": "High superheat shows evaporator underfeeding, and the known bulb installation problem can make the TXV control feed incorrectly.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Correct the sensing bulb contact/location/mounting first; then run stable cooling and recheck evaporator superheat.",
+        "troubleshooting_path": [
+          "Correct bulb.",
+          "Stabilize system.",
+          "If SH remains high, continue liquid-supply/TXV checks."
+        ],
+        "must_not_conclude": [
+          "Do not blame charge or replace the TXV before correcting the known bulb issue."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B022",
+      "title": "High SH + external equalizer issue",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        },
+        {
+          "type": "observation",
+          "path": "txv.equalizer_condition",
+          "value": "issue_observed",
+          "ui_instruction": "Metering Device \u2192 External Equalizer = Issue Observed"
+        }
+      ],
+      "expected": {
+        "headline": "TXV external-equalizer problem is related to evaporator starvation",
+        "confirmed_findings": [
+          "Evaporator superheat is high at approximately 24.7\u00b0F.",
+          "A TXV external-equalizer problem is present."
+        ],
+        "what_this_means": "High superheat shows underfeeding; the observed equalizer problem can give the TXV incorrect outlet-pressure information.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Inspect and correct the equalizer connection/restriction/leak/location first, then stabilize and recheck superheat.",
+        "troubleshooting_path": [
+          "Correct equalizer.",
+          "Stabilize.",
+          "If SH remains high, continue upstream liquid/TXV checks."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose low charge before correcting the known equalizer fault."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B023",
+      "title": "High SH + sight-glass bubbles",
+      "system": "residential_ac",
+      "category": "refrigerant_feed",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        },
+        {
+          "type": "observation",
+          "path": "sight_glass.refrigerant_appearance",
+          "value": "flashing",
+          "ui_instruction": "Sight Glass = Continuous Bubbles/Flashing"
+        }
+      ],
+      "expected": {
+        "headline": "Evaporator is underfed; liquid-supply evidence is needed",
+        "confirmed_findings": [
+          "Evaporator superheat is high.",
+          "Sight glass shows flashing/bubbles."
+        ],
+        "what_this_means": "Together these support inadequate liquid feed, but still do not distinguish insufficient refrigerant inventory from upstream pressure drop/restriction or inadequate subcooling.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check localized liquid-line temperature/pressure drop and applicable subcooling before deciding charge.",
+        "troubleshooting_path": [
+          "Check filter drier/liquid-line restriction evidence.",
+          "Check applicable subcooling/liquid condition.",
+          "Check leak/charge evidence only after restriction is excluded."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant from high SH + bubbles alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_SIGHT_GLASS",
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B024",
+      "title": "High SH + bubbles + drier drop",
+      "system": "residential_ac",
+      "category": "restriction",
+      "setup": [
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_pressure",
+          "value": 34,
+          "unit": "psig",
+          "ui_instruction": "Evaporator Outlet Pressure = 34 psig (R-448A)"
+        },
+        {
+          "type": "measurement",
+          "name": "evaporator_outlet_temperature",
+          "value": 35,
+          "unit": "\u00b0F",
+          "ui_instruction": "Evaporator Outlet Temperature = 35\u00b0F"
+        },
+        {
+          "type": "observation",
+          "path": "sight_glass.refrigerant_appearance",
+          "value": "flashing",
+          "ui_instruction": "Sight Glass = Continuous Bubbles/Flashing"
+        },
+        {
+          "type": "measurement",
+          "name": "filter_drier_inlet_temperature",
+          "value": 90,
+          "unit": "\u00b0F",
+          "ui_instruction": "filter_drier_inlet_temperature = 90 \u00b0F"
+        },
+        {
+          "type": "measurement",
+          "name": "filter_drier_outlet_temperature",
+          "value": 78,
+          "unit": "\u00b0F",
+          "ui_instruction": "filter_drier_outlet_temperature = 78 \u00b0F"
+        }
+      ],
+      "expected": {
+        "headline": "Restricted filter drier indicated",
+        "confirmed_findings": [
+          "Evaporator superheat is high.",
+          "Sight glass shows flashing/bubbles.",
+          "Temperature decreases 12\u00b0F across the filter drier."
+        ],
+        "what_this_means": "The localized drier temperature drop explains a liquid-supply restriction and can account for both flashing and evaporator starvation.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Service/replace the restricted filter drier first, then verify clear liquid condition and recheck SH/SC/pressures after stabilization.",
+        "troubleshooting_path": [
+          "Correct drier restriction.",
+          "Verify liquid condition.",
+          "Recheck refrigeration measurements."
+        ],
+        "must_not_conclude": [
+          "Do not treat the sight-glass bubbles as proof of low charge when localized restriction evidence is present."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_DRIER_SIGHT",
+          "DANFOSS_SIGHT_GLASS"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B025",
+      "title": "Low suction + low head + high SH + low SC",
+      "system": "residential_ac",
+      "category": "charge",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low suction + low head + high SH + low SC"
+        }
+      ],
+      "expected": {
+        "headline": "Low refrigerant inventory is strongly suspected",
+        "confirmed_findings": [
+          "Low suction pressure.",
+          "Low condensing pressure.",
+          "High superheat.",
+          "Low applicable subcooling."
+        ],
+        "what_this_means": "The combined pattern is consistent with an underfed evaporator and insufficient refrigerant inventory, provided airflow/load and operating state are normal.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check for leak evidence and verify charge using the equipment/application charging method before adding refrigerant.",
+        "troubleshooting_path": [
+          "Confirm stable cooling and normal airflow/load.",
+          "Inspect for leak/oil evidence.",
+          "Verify charge by approved method; repair leak before recharge."
+        ],
+        "must_not_conclude": [
+          "Do not call low charge from one measurement alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B026",
+      "title": "Low suction + high SH + retained/high SC",
+      "system": "residential_ac",
+      "category": "restriction",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low suction + high SH + retained/high SC"
+        }
+      ],
+      "expected": {
+        "headline": "Liquid-line or metering restriction is favored",
+        "confirmed_findings": [
+          "Low suction pressure.",
+          "High superheat.",
+          "Subcooling is retained/high."
+        ],
+        "what_this_means": "A starved evaporator with retained liquid on the high side favors restricted liquid feed over simple undercharge.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check filter drier, liquid-line pressure/temperature drop, solenoid and TXV inlet/strainer to localize the restriction.",
+        "troubleshooting_path": [
+          "Check drier \u0394T/\u0394P.",
+          "Check solenoid/valves/liquid line.",
+          "Check TXV inlet/strainer."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant merely because suction is low/high SH."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B027",
+      "title": "High head + high SC + normal condenser airflow",
+      "system": "residential_ac",
+      "category": "charge",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "High head + high SC + normal condenser airflow"
+        }
+      ],
+      "expected": {
+        "headline": "Overcharge / excess liquid inventory is possible",
+        "confirmed_findings": [
+          "Condensing pressure is high.",
+          "Subcooling is high.",
+          "Condenser airflow is normal."
+        ],
+        "what_this_means": "With heat rejection verified, excess refrigerant inventory becomes a stronger possibility, but receiver level/application charging method still matter.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify receiver/charge condition and rule out noncondensables/head-pressure-control problems before recovering refrigerant.",
+        "troubleshooting_path": [
+          "Confirm airflow/ambient.",
+          "Verify charge/receiver condition.",
+          "Check service history/noncondensables/head-pressure control."
+        ],
+        "must_not_conclude": [
+          "Do not recover refrigerant from high head alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_HIGH_HEAD",
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B028",
+      "title": "High head + dirty condenser",
+      "system": "residential_ac",
+      "category": "high_head",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "High head + dirty condenser"
+        }
+      ],
+      "expected": {
+        "headline": "Condenser airflow restriction should be corrected first",
+        "confirmed_findings": [
+          "Condensing pressure is high.",
+          "Condenser coil is dirty/restricted."
+        ],
+        "what_this_means": "The directly observed heat-rejection fault can explain elevated condensing pressure.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Clean/restore condenser airflow first; then stabilize and recheck head pressure before considering charge or noncondensables.",
+        "troubleshooting_path": [
+          "Correct airflow.",
+          "Stabilize.",
+          "Recheck high side."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge/noncondensables before correcting the known airflow fault."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_HIGH_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B029",
+      "title": "High head + condenser fan stopped",
+      "system": "residential_ac",
+      "category": "high_head",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "High head + condenser fan stopped"
+        }
+      ],
+      "expected": {
+        "headline": "Condenser fan fault should be corrected first",
+        "confirmed_findings": [
+          "Condensing pressure is high.",
+          "Condenser fan is not operating."
+        ],
+        "what_this_means": "Loss of condenser airflow can directly cause high condensing pressure.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Troubleshoot and restore condenser fan operation first; then recheck high-side readings.",
+        "troubleshooting_path": [
+          "Mechanical check.",
+          "Voltage/control/capacitor/motor as applicable.",
+          "Verify airflow and high side after repair."
+        ],
+        "must_not_conclude": [
+          "Do not adjust charge before restoring fan operation."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_HIGH_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B030",
+      "title": "High head + airflow normal + high ambient",
+      "system": "residential_ac",
+      "category": "load",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "High head + airflow normal + high ambient"
+        }
+      ],
+      "expected": {
+        "headline": "High ambient/heat-rejection load is a major contributor",
+        "confirmed_findings": [
+          "Condensing pressure is high.",
+          "Condenser airflow is normal.",
+          "Ambient temperature is high."
+        ],
+        "what_this_means": "High ambient raises the condensing requirement even with normal airflow; judge head pressure against the application/ambient relationship before calling a fault.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify condenser split/CTOA against the equipment/application target and confirm no recirculation or other heat-rejection problem.",
+        "troubleshooting_path": [
+          "Confirm ambient and condenser split.",
+          "Check recirculation.",
+          "Only then investigate charge/noncondensables if pressure remains excessive."
+        ],
+        "must_not_conclude": [
+          "Do not call overcharge solely from high head during high ambient."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B031",
+      "title": "High suction + low head",
+      "system": "residential_ac",
+      "category": "compressor",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "High suction + low head"
+        }
+      ],
+      "expected": {
+        "headline": "Compressor inefficiency / low compression is possible",
+        "confirmed_findings": [
+          "Suction pressure is high.",
+          "Condensing pressure is low."
+        ],
+        "what_this_means": "A reduced pressure differential can indicate compressor inefficiency, but load, bypass/unloader conditions and operating state must be checked.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Confirm stable load and compressor operation, then evaluate compression ratio/current and compressor capacity per manufacturer data.",
+        "troubleshooting_path": [
+          "Confirm operating state/load.",
+          "Check current and compression ratio.",
+          "Evaluate compressor capacity/valves if low differential persists."
+        ],
+        "must_not_conclude": [
+          "Do not condemn the compressor from two pressure readings without checking load/operating conditions."
+        ]
+      },
+      "validation": {
+        "confidence": "medium",
+        "source_ids": [
+          "DANFOSS_LOW_HEAD",
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B032",
+      "title": "Low head + low suction",
+      "system": "residential_ac",
+      "category": "system_load",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low head + low suction"
+        }
+      ],
+      "expected": {
+        "headline": "Low load / low ambient / insufficient feed must be separated",
+        "confirmed_findings": [
+          "Suction pressure is low.",
+          "Condensing pressure is low."
+        ],
+        "what_this_means": "Both sides low can occur with low load/ambient or insufficient evaporator feed; more context is required.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check box/load condition, ambient/head-pressure control and evaporator feed evidence (SH/SC/liquid condition) to separate causes.",
+        "troubleshooting_path": [
+          "Check load/box temp.",
+          "Check ambient/head-pressure control.",
+          "Check SH/SC/liquid feed."
+        ],
+        "must_not_conclude": [
+          "Do not call low charge from low-low pressures alone."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_LOW_HEAD",
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B033",
+      "title": "Low SH / flooding pattern",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low SH / flooding pattern"
+        }
+      ],
+      "expected": {
+        "headline": "Evaporator overfeeding / floodback risk",
+        "confirmed_findings": [
+          "Evaporator superheat is low."
+        ],
+        "what_this_means": "Low superheat means vapor leaving the evaporator has little temperature margin above saturation and may indicate overfeeding/floodback risk depending on measurement location and application.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify measurement accuracy and stable load/airflow, then check TXV bulb/setting, valve seat/size and load before adjusting the valve.",
+        "troubleshooting_path": [
+          "Verify measurement/location.",
+          "Check airflow/load.",
+          "Check TXV bulb/setting/seat/size."
+        ],
+        "must_not_conclude": [
+          "Do not automatically adjust the TXV from one low-SH reading."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011",
+          "PARKER_TEV_109"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B034",
+      "title": "Low SH + low airflow",
+      "system": "residential_ac",
+      "category": "airflow",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low SH + low airflow"
+        }
+      ],
+      "expected": {
+        "headline": "Correct evaporator airflow before TXV diagnosis",
+        "confirmed_findings": [
+          "Evaporator superheat is low.",
+          "Evaporator airflow is low/restricted."
+        ],
+        "what_this_means": "Low airflow reduces evaporator load and can lower superheat; the known airflow problem must be corrected before judging TXV feed.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Correct evaporator airflow, stabilize the system, then recheck superheat.",
+        "troubleshooting_path": [
+          "Restore airflow.",
+          "Stabilize.",
+          "Recheck SH before metering-device adjustment."
+        ],
+        "must_not_conclude": [
+          "Do not adjust/replace TXV while evaporator airflow is known abnormal."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM",
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B035",
+      "title": "Low SH + TXV bulb installation problem",
+      "system": "residential_ac",
+      "category": "metering",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low SH + TXV bulb installation problem"
+        }
+      ],
+      "expected": {
+        "headline": "Correct TXV bulb installation before adjustment",
+        "confirmed_findings": [
+          "Evaporator superheat is low.",
+          "TXV bulb installation/contact/location is incorrect."
+        ],
+        "what_this_means": "Incorrect bulb installation can distort the TXV temperature signal and contribute to overfeeding/unstable control.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Correct bulb installation first, then stabilize and recheck superheat before adjusting or replacing the valve.",
+        "troubleshooting_path": [
+          "Correct bulb.",
+          "Stabilize.",
+          "Recheck SH."
+        ],
+        "must_not_conclude": [
+          "Do not adjust valve setting before correcting bulb installation."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "PARKER_TEV_1011"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-B036",
+      "title": "Low head + sight-glass bubbles",
+      "system": "residential_ac",
+      "category": "head_control",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "PATTERN_INPUT",
+          "ui_instruction": "Low head + sight-glass bubbles"
+        }
+      ],
+      "expected": {
+        "headline": "Head-pressure/subcooling condition may be causing flash gas",
+        "confirmed_findings": [
+          "Condensing pressure is low.",
+          "Sight glass shows bubbles/flashing."
+        ],
+        "what_this_means": "Low condensing pressure can reduce available liquid pressure/subcooling and cause vapor in the liquid line even when charge is not low.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check ambient/head-pressure control and liquid subcooling before adding refrigerant.",
+        "troubleshooting_path": [
+          "Check ambient/head control.",
+          "Check subcooling/liquid line pressure drop.",
+          "Only then evaluate charge."
+        ],
+        "must_not_conclude": [
+          "Do not add refrigerant from bubbles when low head can explain flash gas."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_SIGHT_GLASS",
+          "DANFOSS_LOW_HEAD"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C037",
+      "title": "Cooling demand absent; compressor off",
+      "system": "residential_ac",
+      "category": "controls",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Cooling demand absent; compressor off"
+        }
+      ],
+      "expected": {
+        "headline": "System may be satisfied / no cooling call",
+        "confirmed_findings": [
+          "Compressor is not running.",
+          "No cooling demand is present."
+        ],
+        "what_this_means": "Compressor-off is expected if the controller is not calling for cooling.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify box temperature, setpoint and controller state before troubleshooting the compressor circuit.",
+        "troubleshooting_path": [
+          "Verify demand/setpoint.",
+          "If room should be cooling but demand is absent, troubleshoot controller/sensor."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose compressor failure when there is no cooling command."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C038",
+      "title": "Cooling demand present + anti-short-cycle active",
+      "system": "residential_ac",
+      "category": "controls",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Cooling demand present + anti-short-cycle active"
+        }
+      ],
+      "expected": {
+        "headline": "Anti-short-cycle delay is preventing restart",
+        "confirmed_findings": [
+          "Cooling demand is present.",
+          "Anti-short-cycle delay is active."
+        ],
+        "what_this_means": "The control is intentionally delaying compressor restart.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify the delay is within the configured time and allow it to expire; if it does not release, troubleshoot the controller/input condition.",
+        "troubleshooting_path": [
+          "Confirm delay timing.",
+          "Wait for release.",
+          "If abnormal, inspect controller/sensor/safety inputs."
+        ],
+        "must_not_conclude": [
+          "Do not bypass the delay or condemn compressor/contactor while the delay is legitimately active."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C039",
+      "title": "Cooling demand + contactor coil not energized",
+      "system": "residential_ac",
+      "category": "controls",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Cooling demand + contactor coil not energized"
+        }
+      ],
+      "expected": {
+        "headline": "Control circuit is not energizing the contactor",
+        "confirmed_findings": [
+          "Cooling demand is present.",
+          "Contactor coil is not energized."
+        ],
+        "what_this_means": "The fault is upstream in the control/safety circuit rather than the compressor power output.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Trace safeties, thermostat/controller output and control voltage to the contactor coil.",
+        "troubleshooting_path": [
+          "Check safeties.",
+          "Check control voltage/output.",
+          "Repair wiring/control fault."
+        ],
+        "must_not_conclude": [
+          "Do not replace the compressor or contactor contacts before establishing why the coil is not energized."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C040",
+      "title": "Contactor coil energized but no output voltage",
+      "system": "residential_ac",
+      "category": "controls",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Contactor coil energized but no output voltage"
+        }
+      ],
+      "expected": {
+        "headline": "Contactor is not passing power",
+        "confirmed_findings": [
+          "Contactor coil is energized.",
+          "Contactor output is not passing voltage."
+        ],
+        "what_this_means": "The contactor is commanded on but power is not reaching the load side, indicating contact/power-path trouble.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Verify line-side voltage and contact condition; replace/repair the contactor or upstream power path as required.",
+        "troubleshooting_path": [
+          "Check line voltage.",
+          "Check contacts/load-side voltage.",
+          "Correct contactor/power-path fault."
+        ],
+        "must_not_conclude": [
+          "Do not condemn the compressor before restoring correct terminal voltage."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C041",
+      "title": "Fuse open/blown",
+      "system": "residential_ac",
+      "category": "electrical",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Fuse open/blown"
+        }
+      ],
+      "expected": {
+        "headline": "Open fuse / power-path fault",
+        "confirmed_findings": [
+          "Fuse is open/blown."
+        ],
+        "what_this_means": "The open protective device interrupts power; the reason for the fuse opening must be investigated before replacement/restart.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "With power isolated, inspect the protected circuit for shorts/ground faults/overcurrent causes and verify component condition before replacing the fuse with the correct rating.",
+        "troubleshooting_path": [
+          "Find cause of overcurrent/open fuse.",
+          "Correct fault.",
+          "Replace with correct protection and verify operation."
+        ],
+        "must_not_conclude": [
+          "Do not simply replace repeatedly opening fuses without finding the cause."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C042",
+      "title": "Compressor overload open/hot compressor",
+      "system": "residential_ac",
+      "category": "compressor",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Compressor overload open/hot compressor"
+        }
+      ],
+      "expected": {
+        "headline": "Compressor overload protection is open",
+        "confirmed_findings": [
+          "Compressor is hot.",
+          "Overload protection is open/tripped."
+        ],
+        "what_this_means": "The compressor has been protected from an abnormal thermal/electrical condition; causes can include high compression ratio, high head, low suction, electrical problems or cooling/feed issues.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Allow safe cooling as required, then find the cause by checking supply voltage/current, condenser airflow/high side, suction/feed and start components before restarting.",
+        "troubleshooting_path": [
+          "Check electrical supply/current.",
+          "Check high-side heat rejection.",
+          "Check suction/feed and start components.",
+          "Restart only after cause is corrected."
+        ],
+        "must_not_conclude": [
+          "Do not repeatedly reset/force operation without finding the overheating cause."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C043",
+      "title": "HP safety open + dirty condenser",
+      "system": "residential_ac",
+      "category": "high_head",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "HP safety open + dirty condenser"
+        }
+      ],
+      "expected": {
+        "headline": "Dirty condenser is the first corrective target",
+        "confirmed_findings": [
+          "HP safety is tripped.",
+          "Condenser coil is dirty/restricted."
+        ],
+        "what_this_means": "The known heat-rejection restriction is a credible direct cause of high condensing pressure.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Clean/restore condenser airflow, then verify safe high-side pressure before resetting/returning to service.",
+        "troubleshooting_path": [
+          "Restore airflow.",
+          "Verify fan.",
+          "Recheck head pressure; then reset per procedure."
+        ],
+        "must_not_conclude": [
+          "Do not reset HP safety first and continue running with the condenser restricted."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C044",
+      "title": "HP safety open + condenser fan stopped",
+      "system": "residential_ac",
+      "category": "high_head",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "HP safety open + condenser fan stopped"
+        }
+      ],
+      "expected": {
+        "headline": "Condenser fan failure is the first corrective target",
+        "confirmed_findings": [
+          "HP safety is tripped.",
+          "Condenser fan is not running."
+        ],
+        "what_this_means": "Loss of condenser airflow can directly cause the high-pressure trip.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Troubleshoot/restore condenser fan operation, then verify condensing pressure is safe before reset.",
+        "troubleshooting_path": [
+          "Repair fan fault.",
+          "Verify airflow.",
+          "Verify high-side pressure and safe reset."
+        ],
+        "must_not_conclude": [
+          "Do not diagnose overcharge before restoring fan operation."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    },
+    {
+      "id": "RAC-C050",
+      "title": "Compressor running continuously + no abnormal load",
+      "system": "residential_ac",
+      "category": "capacity",
+      "setup": [
+        {
+          "type": "fact",
+          "id": "CONTROL_PATTERN",
+          "ui_instruction": "Compressor running continuously + no abnormal load"
+        }
+      ],
+      "expected": {
+        "headline": "Cooling capacity problem requires systematic checks",
+        "confirmed_findings": [
+          "Compressor runs continuously.",
+          "Room is not reaching setpoint."
+        ],
+        "what_this_means": "The system is operating but not removing enough heat; airflow, refrigerant feed, compressor performance, controls and sizing must be separated.",
+        "possible_underlying_causes": [],
+        "other_active_findings": [],
+        "next_action_check": "Check room/load and evaporator airflow first, then condenser airflow, refrigerant feed/TXV behavior and compressor capacity.",
+        "troubleshooting_path": [
+          "Check load/door.",
+          "Check evap airflow.",
+          "Check condenser airflow.",
+          "Check SH/SC/feed.",
+          "Check compressor capacity/controls/sizing."
+        ],
+        "must_not_conclude": [
+          "Do not jump directly to refrigerant charge."
+        ]
+      },
+      "validation": {
+        "confidence": "high",
+        "source_ids": [
+          "DANFOSS_COLD_ROOM"
+        ]
+      },
+      "automation": {
+        "mode": "semantic",
+        "required_concepts": []
+      }
+    }
+  ]
+}

@@ -60,3 +60,20 @@ Run the new batch with:
 Added `tests/textbook_volume1/` covering all 20 cases in the user-supplied *20 HVACR Troubleshooting Problems, Volume 1* PDF. The suite keeps source expected answers separate from current executable coverage so unsupported equipment/UI evidence is not fabricated. Current structured Brain inputs can execute 6 of the 20 cases directly; the remaining 14 are explicitly classified as `future_ui` or `future_system` for later system expansion.
 
 Run: `node tests/textbook_volume1/textbook_volume1_runner.mjs`
+
+## v2.1.0 Residential A/C implementation candidate
+
+Residential A/C now includes Split and Package A/C system profiles, reuse of the validated DX refrigeration/electrical evidence model, A/C electrical/control collection (including 24-V transformer evidence), shared System Check reasoning, and protected WIC regression behavior. A/C does not inherit the WIC 8–12°F superheat fallback; equipment/manufacturer charging targets remain authoritative.
+
+Validation commands:
+
+    node tests\residential_ac\residential_ac_master_runner.mjs
+    node tests\residential_ac\residential_ac_ui_acceptance.mjs
+    node tests\textbook_volume1\textbook_volume1_runner.mjs
+    node tests\master_validation\master_brain_runner.mjs
+    node tests\challenge_validation\challenge_brain_runner.mjs
+    node tests\challenge_validation_2\challenge_2_brain_runner.mjs
+    node tests\challenge_validation_3\challenge_3_brain_runner.mjs
+    node tests\challenge_validation_4\challenge_4_brain_runner.mjs
+
+The 20-case textbook oracle remains a source bank. Cases requiring heat-pump, furnace, electric-heat, ice-machine, or still-unmodeled UI evidence remain explicitly future_system/future_ui rather than being counted as diagnostic passes.

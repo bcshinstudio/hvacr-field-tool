@@ -13,6 +13,7 @@ import {
 import {
     acSplit
 } from "./systems/ac_split.js";
+import { acPackage } from "./systems/ac_package.js";
 
 import {
     renderSystemDiagram
@@ -21,7 +22,8 @@ import {
 
 const systems = {
     walk_in_cooler: walkInCooler,
-    ac_split: acSplit
+    ac_split: acSplit,
+    ac_package: acPackage
 };
 
 
@@ -1270,12 +1272,16 @@ function bindComponentConfiguration(
 /* Electrical/control entities are UI-only evidence collectors.
  * They are intentionally not refrigeration-diagram components. */
 function getElectricalControlEntities() {
-    if (currentSystem?.id !== "walk_in_cooler") return [];
-    return [
+    if (!["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id)) return [];
+    const entities = [
         { id: "power_supply", role: "power_supply", label: "Power Supply", electricalOnly: true },
         { id: "contactor", role: "contactor", label: "Contactor", electricalOnly: true },
         { id: "system_controls", role: "system_controls", label: "System Controls / Safeties", electricalOnly: true }
     ];
+    if (["ac_split","ac_package"].includes(currentSystem?.id)) {
+        entities.splice(1,0,{ id:"transformer", role:"transformer", label:"24-V Transformer", electricalOnly:true });
+    }
+    return entities;
 }
 
 function buildElectricalControlConfiguration() {
@@ -3954,7 +3960,8 @@ async function initializeReferenceData() {
 function currentApplicationId() {
     const applicationBySystem = {
         walk_in_cooler: "APP_WIC",
-        ac_split: "APP_AC_SPLIT"
+        ac_split: "APP_AC_SPLIT",
+        ac_package: "APP_AC_PACKAGE"
     };
     return applicationBySystem[systemSelect?.value] || null;
 }
@@ -4594,10 +4601,8 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         },
 
         references: {
-            evaporatorSuperheat:
-                knowledgeHub?.application?.reference_profiles?.evaporatorSuperheat?.fallback || null,
-            condenserSubcooling:
-                knowledgeHub?.application?.reference_profiles?.condenserSubcooling?.fallback || null
+            evaporatorSuperheat: currentSystem?.id === "walk_in_cooler" ? (knowledgeHub?.application?.reference_profiles?.evaporatorSuperheat?.fallback || null) : null,
+            condenserSubcooling: currentSystem?.id === "walk_in_cooler" ? (knowledgeHub?.application?.reference_profiles?.condenserSubcooling?.fallback || null) : null
         },
 
         observations,
@@ -4617,7 +4622,7 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
 
 function buildKnowledgeHubComparison(state, observationValue) {
 
-    if (currentSystem?.id !== "walk_in_cooler") {
+    if (!["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id)) {
         return "";
     }
 
@@ -5497,9 +5502,9 @@ function buildSystemCheckTool() {
                 </div>
             </div>
 
-            ${currentSystem?.id === "walk_in_cooler" ? buildWicDiagnosticContextControls() : ""}
+            ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) ? buildWicDiagnosticContextControls() : ""}
 
-            ${currentSystem?.id === "walk_in_cooler" && knowledgeHub
+            ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) && knowledgeHub
                 ? buildKnowledgeHubComparison(state, observationValue)
                 : `
                     <div style="
@@ -5515,7 +5520,7 @@ function buildSystemCheckTool() {
                         ${nextCheck}
                         ${why}
                     </div>
-                    ${currentSystem?.id === "walk_in_cooler" ? buildKnowledgeHubComparison(state, observationValue) : ""}
+                    ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) ? buildKnowledgeHubComparison(state, observationValue) : ""}
                 `}
 
         </div>
