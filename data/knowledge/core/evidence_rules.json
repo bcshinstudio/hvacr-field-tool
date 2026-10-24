@@ -77,7 +77,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -112,7 +114,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -151,7 +155,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -192,7 +198,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -235,7 +243,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -263,7 +273,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -301,7 +313,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -337,7 +351,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -370,7 +386,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -409,7 +427,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -442,7 +462,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -475,7 +497,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -509,7 +533,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -539,7 +565,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -566,7 +594,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -847,7 +877,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -877,7 +909,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -914,7 +948,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -946,7 +982,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -977,7 +1015,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1136,7 +1176,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1164,7 +1206,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1192,7 +1236,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1237,7 +1283,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1263,7 +1311,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1288,7 +1338,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1385,7 +1437,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1409,7 +1463,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1515,7 +1571,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STARTUP",
@@ -1540,7 +1598,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ]
       }
     },
@@ -1572,7 +1632,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1600,7 +1662,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1623,7 +1687,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ]
       }
     },
@@ -1647,7 +1713,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1730,7 +1798,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1786,7 +1856,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1843,7 +1915,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1869,7 +1943,9 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1879,6 +1955,486 @@
         ]
       },
       "notes": "Energized contactor coil with no voltage at compressor localizes the open to contactor/load-side wiring path; verify line/load before replacement."
+    },
+    {
+      "id": "RULE_AC_NO_LINE_POWER",
+      "candidate": "CAUSE_NO_LINE_POWER",
+      "evidence": [
+        {
+          "fact": "FACT_MAIN_POWER_NOT_AVAILABLE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COOLING_DEMAND_PRESENT",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_TRANSFORMER_FAILURE",
+      "candidate": "CAUSE_TRANSFORMER_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_TRANSFORMER_PRIMARY_PRESENT",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_TRANSFORMER_SECONDARY_ABSENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_LV_FUSE_OPEN",
+      "candidate": "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "evidence": [
+        {
+          "fact": "FACT_LOW_VOLTAGE_FUSE_OPEN",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_THERMOSTAT_Y_CONTROL",
+      "candidate": "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "evidence": [
+        {
+          "fact": "FACT_COOLING_DEMAND_PRESENT",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_THERMOSTAT_Y_ABSENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_RUN_CAP_FAILED",
+      "candidate": "CAUSE_RUN_CAPACITOR_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_RUN_CAPACITOR_FAILED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_COMP_WINDING_OPEN",
+      "candidate": "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_COMPRESSOR_WINDING_OPEN",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_COMP_GROUNDED",
+      "candidate": "CAUSE_COMPRESSOR_GROUNDED",
+      "evidence": [
+        {
+          "fact": "FACT_COMPRESSOR_GROUNDED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_COND_FAN_MOTOR",
+      "candidate": "CAUSE_COND_FAN_MOTOR_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_COND_FAN_NOT_RUNNING",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_COND_FAN_VOLTAGE_PRESENT",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_COND_FAN_SHAFT_FREE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_BLOWER_MOTOR",
+      "candidate": "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_FAN_NOT_RUNNING",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_EVAP_BLOWER_VOLTAGE_PRESENT",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_FILTER_DUCT",
+      "candidate": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_AIR_FILTER_DIRTY",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_DUCT_ONLY",
+      "candidate": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_DUCT_RESTRICTED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_AIRFLOW_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_FIXED_ORIFICE_RESTRICTED",
+      "candidate": "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "evidence": [
+        {
+          "fact": "FACT_FIXED_ORIFICE_RESTRICTED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ],
+        "requires_configuration": [
+          "FIXED_ORIFICE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_FIXED_ORIFICE_SIZE",
+      "candidate": "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE",
+      "evidence": [
+        {
+          "fact": "FACT_FIXED_ORIFICE_WRONG_SIZE",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ],
+        "requires_configuration": [
+          "FIXED_ORIFICE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_LINE_VOLTAGE_LOW",
+      "candidate": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "evidence": [
+        {
+          "fact": "FACT_LINE_VOLTAGE_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_LINE_VOLTAGE_HIGH",
+      "candidate": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "evidence": [
+        {
+          "fact": "FACT_LINE_VOLTAGE_HIGH",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_WELDED_CONTACTOR",
+      "candidate": "CAUSE_CONTACTOR_WELDED_CLOSED",
+      "evidence": [
+        {
+          "fact": "FACT_CONTACTOR_WELDED_CLOSED",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_COOLING_DEMAND_ABSENT",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_LOW_CHARGE_TARGETED",
+      "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "REQUIRED"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_LOW",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TARGET_SUBCOOLING_AVAILABLE",
+          "role": "STRONG_SUPPORT",
+          "direct": false
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ],
+        "operating_states": [
+          "STABLE_COOLING"
+        ],
+        "requires_configuration": [
+          "TXV"
+        ]
+      }
+    },
+    {
+      "id": "RULE_AC_LOW_CHARGE_FIXED_TARGET",
+      "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "evidence": [
+        {
+          "fact": "FACT_EVAP_SH_HIGH",
+          "role": "STRONG_SUPPORT",
+          "direct": true
+        },
+        {
+          "fact": "FACT_TARGET_SUPERHEAT_AVAILABLE",
+          "role": "STRONG_SUPPORT",
+          "direct": false
+        },
+        {
+          "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        }
+      ],
+      "sources": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_TRANE_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL"
+      ],
+      "scope": {
+        "applications": [
+          "APP_AC_SPLIT",
+          "APP_AC_PACKAGE"
+        ],
+        "operating_states": [
+          "STABLE_COOLING"
+        ],
+        "requires_configuration": [
+          "FIXED_ORIFICE"
+        ]
+      }
     }
   ]
 }

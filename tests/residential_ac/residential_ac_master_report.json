@@ -172,10 +172,8 @@
         "FACT_MOISTURE_INDICATED"
       ],
       "operatingState": "STABLE_COOLING",
-      "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "diagnoses": [
-        "CAUSE_MOISTURE_CONTAMINATION"
-      ],
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "diagnoses": [],
       "conditions": [],
       "nextCheck": "CHECK_DRAIN_REFREEZE",
       "activeGuides": [
@@ -353,7 +351,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRIER_DROP",
+      "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
         "GUIDE_HIGH_SH"
       ]
@@ -476,7 +474,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRIER_DROP",
+      "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
         "GUIDE_UNKNOWN_STATE_HIGH_SH_BUBBLES",
         "GUIDE_SIGHT_GLASS_FLASHING",
@@ -548,7 +546,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRIER_DROP",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
       "activeGuides": [
         "GUIDE_PATTERN_LOW_LOW_PRESSURES",
         "GUIDE_HIGH_SH"
@@ -579,7 +577,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRIER_DROP",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
       "activeGuides": [
         "GUIDE_PATTERN_RESTRICTION_RETAINED_SC",
         "GUIDE_HIGH_SH"
@@ -1107,7 +1105,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_LOAD_INFILTRATION",
+      "nextCheck": "CHECK_COMPRESSOR_DIFFERENTIAL",
       "activeGuides": [
         "GUIDE_LONG_RUNTIME_POOR_COOLING"
       ]

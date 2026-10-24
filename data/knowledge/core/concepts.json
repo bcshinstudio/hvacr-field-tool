@@ -1017,6 +1017,196 @@
       "type": "CAUSE",
       "label": "Moisture contamination in refrigerant circuit",
       "description": "A wet moisture indicator or verified moisture condition indicates contamination requiring corrective service, without by itself proving an active TXV ice restriction."
+    },
+    {
+      "id": "FACT_THERMOSTAT_Y_PRESENT",
+      "type": "fact",
+      "label": "Thermostat Y cooling call is present"
+    },
+    {
+      "id": "FACT_THERMOSTAT_Y_ABSENT",
+      "type": "fact",
+      "label": "Thermostat Y cooling call is absent despite cooling demand"
+    },
+    {
+      "id": "FACT_TRANSFORMER_PRIMARY_PRESENT",
+      "type": "fact",
+      "label": "Transformer primary voltage is present"
+    },
+    {
+      "id": "FACT_TRANSFORMER_SECONDARY_ABSENT",
+      "type": "fact",
+      "label": "Transformer secondary 24-V output is absent"
+    },
+    {
+      "id": "FACT_LOW_VOLTAGE_FUSE_OPEN",
+      "type": "fact",
+      "label": "24-V control fuse is open"
+    },
+    {
+      "id": "FACT_RUN_CAPACITOR_FAILED",
+      "type": "fact",
+      "label": "Run capacitor is outside rated tolerance/failed"
+    },
+    {
+      "id": "FACT_COMPRESSOR_WINDING_OPEN",
+      "type": "fact",
+      "label": "Compressor winding is open"
+    },
+    {
+      "id": "FACT_COMPRESSOR_GROUNDED",
+      "type": "fact",
+      "label": "Compressor winding is shorted to ground"
+    },
+    {
+      "id": "FACT_COND_FAN_VOLTAGE_PRESENT",
+      "type": "fact",
+      "label": "Correct voltage is present at condenser fan motor"
+    },
+    {
+      "id": "FACT_EVAP_BLOWER_VOLTAGE_PRESENT",
+      "type": "fact",
+      "label": "Correct voltage is present at indoor blower motor"
+    },
+    {
+      "id": "FACT_AIR_FILTER_DIRTY",
+      "type": "fact",
+      "label": "Return-air filter is dirty/restricted"
+    },
+    {
+      "id": "FACT_DUCT_RESTRICTED",
+      "type": "fact",
+      "label": "Supply/return duct or damper is restricted"
+    },
+    {
+      "id": "FACT_FIXED_ORIFICE_RESTRICTED",
+      "type": "fact",
+      "label": "Fixed orifice/piston is restricted"
+    },
+    {
+      "id": "FACT_FIXED_ORIFICE_WRONG_SIZE",
+      "type": "fact",
+      "label": "Fixed orifice/piston size is incorrect"
+    },
+    {
+      "id": "FACT_LINE_VOLTAGE_LOW",
+      "type": "fact",
+      "label": "Line voltage is below equipment rating/tolerance"
+    },
+    {
+      "id": "FACT_LINE_VOLTAGE_HIGH",
+      "type": "fact",
+      "label": "Line voltage is above equipment rating/tolerance"
+    },
+    {
+      "id": "FACT_CONTACTOR_WELDED_CLOSED",
+      "type": "fact",
+      "label": "Contactor contacts are welded closed"
+    },
+    {
+      "id": "FACT_COOLING_DEMAND_ABSENT",
+      "type": "fact",
+      "label": "No cooling demand is present"
+    },
+    {
+      "id": "FACT_RETURN_SUPPLY_DT_LOW",
+      "type": "fact",
+      "label": "Return-to-supply air temperature difference is low"
+    },
+    {
+      "id": "FACT_LOAD_VERIFIED_NORMAL",
+      "type": "fact",
+      "label": "Indoor/outdoor load conditions are verified normal"
+    },
+    {
+      "id": "FACT_FIXED_ORIFICE_CONFIGURED",
+      "type": "fact",
+      "label": "System uses fixed-orifice/piston metering"
+    },
+    {
+      "id": "FACT_TXV_CONFIGURED",
+      "type": "fact",
+      "label": "System uses TXV metering"
+    },
+    {
+      "id": "FACT_TARGET_SUPERHEAT_AVAILABLE",
+      "type": "fact",
+      "label": "Applicable fixed-orifice target superheat is available"
+    },
+    {
+      "id": "FACT_TARGET_SUBCOOLING_AVAILABLE",
+      "type": "fact",
+      "label": "Applicable manufacturer target subcooling is available"
+    },
+    {
+      "id": "CAUSE_NO_LINE_POWER",
+      "type": "cause",
+      "label": "No incoming line power to outdoor/packaged unit"
+    },
+    {
+      "id": "CAUSE_TRANSFORMER_FAILURE",
+      "type": "cause",
+      "label": "Failed 24-V control transformer"
+    },
+    {
+      "id": "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "type": "cause",
+      "label": "Open low-voltage fuse / control-circuit short"
+    },
+    {
+      "id": "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "type": "cause",
+      "label": "Thermostat Y/control-circuit fault"
+    },
+    {
+      "id": "CAUSE_RUN_CAPACITOR_FAILURE",
+      "type": "cause",
+      "label": "Failed or out-of-tolerance run capacitor"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "type": "cause",
+      "label": "Open compressor winding"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_GROUNDED",
+      "type": "cause",
+      "label": "Grounded compressor winding"
+    },
+    {
+      "id": "CAUSE_COND_FAN_MOTOR_FAILURE",
+      "type": "cause",
+      "label": "Condenser fan motor electrical/mechanical failure"
+    },
+    {
+      "id": "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE",
+      "type": "cause",
+      "label": "Indoor blower motor electrical/mechanical failure"
+    },
+    {
+      "id": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "type": "cause",
+      "label": "Dirty filter or duct/damper airflow restriction"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "type": "cause",
+      "label": "Restricted fixed-orifice/piston metering device"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE",
+      "type": "cause",
+      "label": "Incorrect fixed-orifice/piston size"
+    },
+    {
+      "id": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "type": "cause",
+      "label": "Line voltage outside equipment tolerance"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_WELDED_CLOSED",
+      "type": "cause",
+      "label": "Contactor welded closed / outdoor unit runs without demand"
     }
   ]
 }

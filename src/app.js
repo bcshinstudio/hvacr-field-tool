@@ -4492,6 +4492,8 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         ["evaporator", "coil_condition"],
         ["evaporator", "fan_operation"],
         ["evaporator", "oil_evidence"],
+        ["evaporator", "air_filter_condition"],
+        ["evaporator", "duct_restriction"],
 
         ["room", "door_infiltration"],
         ["room", "warm_product_load"],
@@ -4577,10 +4579,38 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
     const overload = e("compressor", "overload_state");
     if (overload) put("compressor", "overload_state", overload);
 
+    /* Residential A/C control/electrical evidence. */
+    if (["ac_split","ac_package"].includes(currentSystem?.id)) {
+        const ty = e("system_controls", "thermostat_y_present");
+        if (ty === "yes") put("controls", "thermostat_y", "present");
+        if (ty === "no") put("controls", "thermostat_y", "absent");
+        const tp = Number(e("transformer", "primary_voltage"));
+        const ts = Number(e("transformer", "secondary_voltage"));
+        if (Number.isFinite(tp) && tp > 100) put("controls", "transformer_primary", "present");
+        if (Number.isFinite(tp) && tp > 100 && Number.isFinite(ts) && ts < 10) put("controls", "transformer_secondary", "absent");
+        if (e("transformer", "secondary_fuse") === "open") put("controls", "low_voltage_fuse", "open");
+
+        const compCapRated=Number(e("compressor","capacitor_rated"));
+        const compCapMeasured=Number(e("compressor","capacitor_measured"));
+        const fanCapRated=Number(e("condenser","capacitor_rated"));
+        const fanCapMeasured=Number(e("condenser","capacitor_measured"));
+        const capFailed=(rated,measured)=>Number.isFinite(rated)&&rated>0&&Number.isFinite(measured)&&Math.abs(measured-rated)/rated>0.06;
+        if (capFailed(compCapRated,compCapMeasured)||capFailed(fanCapRated,fanCapMeasured)) put("controls","run_capacitor_failed",true);
+
+        const compV=Number(e("compressor","terminal_voltage"));
+        if (Number.isFinite(compV) && compV > 180) put("compressor","terminal_voltage_present",true);
+        if (["fail","grounded"].includes(e("compressor","ground_test"))) put("compressor","grounded",true);
+        const fanV=Number(e("condenser","fan_voltage"));
+        if (Number.isFinite(fanV) && fanV > 180) put("condenser","fan_voltage_present",true);
+        const blowerV=Number(e("evaporator","fan_voltage"));
+        if (Number.isFinite(blowerV) && blowerV > 100) put("evaporator","fan_voltage_present",true);
+    }
+
     const normOhm = v => { const t=String(v ?? "").trim().toUpperCase(); return t === "OL" ? "OL" : (t !== "" && Number.isFinite(Number(t)) ? Number(t) : null); };
     const cr=normOhm(e("compressor","winding_c_r")), cs=normOhm(e("compressor","winding_c_s")), rs=normOhm(e("compressor","winding_r_s"));
     if (cr !== null && cs !== null && rs !== null) {
         if (cr !== "OL" && cs === "OL" && rs === "OL") put("compressor","winding_start_open",true);
+        if ([cr,cs,rs].includes("OL")) put("compressor","winding_open",true);
         if (cr !== "OL" && cs !== "OL" && rs !== "OL" && Math.abs((cr+cs)-rs) <= Math.max(1, rs*0.10)) put("compressor","winding_relationship_normal",true);
     }
     const fcr=normOhm(e("condenser","winding_c_r")), fcs=normOhm(e("condenser","winding_c_s")), frs=normOhm(e("condenser","winding_r_s"));
@@ -4613,7 +4643,8 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         },
         configuration: [
             ...(currentSystem?.components?.some(component => component.id === "receiver" && isComponentInstalled(component)) ? ["RECEIVER"] : []),
-            ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component)) ? ["TXV"] : [])
+            ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component) && component.subtype === "txv") ? ["TXV"] : []),
+            ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component) && ["fixed_orifice","capillary_tube"].includes(component.subtype)) ? ["FIXED_ORIFICE"] : [])
         ],
         derived: {}
     };
@@ -4651,7 +4682,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
         relationships: knowledgeHub.relationships.items,
         discriminators: knowledgeHub.discriminators.items,
         checks: knowledgeHub.checks.items,
-        application: knowledgeHub.application?.id || "APP_WIC",
+        application: currentApplicationId() || knowledgeHub.application?.id || "APP_WIC",
         operatingState: snapshot.context.operatingState,
         configuration: snapshot.configuration || [],
         factRecords: adapted.factRecords || []

@@ -1,3 +1,18 @@
+# HVAC/R Field Tool
+
+## v2.1.1 — Residential A/C deep validation
+
+Residential Split A/C and Package A/C now execute against their real application scopes (`APP_AC_SPLIT` / `APP_AC_PACKAGE`) rather than the WIC application context. Shared DX rules are explicitly reusable across supported systems, while WIC-only rules remain scoped to WIC.
+
+Deep Residential A/C validation adds 80 split/package diagnostic cases covering line/control power, transformer/thermostat, contactor, capacitor, compressor windings/ground faults, fan/blower electrical faults, airflow restrictions, condenser heat rejection, TXV and fixed-orifice feed/charging logic, compressor pumping, multi-fault cases, transient-state gating, and false-positive resistance. The initial deep suite exposed 4 failures (fixed-orifice charge interpretation and TXV low-subcooling overreach); generalized rule changes corrected them to 80/80.
+
+Validation checkpoint: Residential A/C master 40/40; deep diagnostic 80/80; A/C fact bridge 12/12; A/C UI/bridge 10/10; existing A/C UI 9/9; WIC regression 340/340; textbook source oracle 20/20 with 6/6 currently executable.
+
+Research basis includes Carrier and Trane troubleshooting guidance, HVAC School residential electrical/compressor diagnostic material, and metering-device-specific charging guidance (TXV by applicable subcooling target; fixed-orifice by target superheat under appropriate conditions). General values are not treated as manufacturer setpoints.
+
+Run the new suite with:
+`node tests/residential_ac_deep/residential_ac_deep_runner.mjs`
+
 ## Brain 2.0.14 validation checkpoint
 
 Brain 2.0.14 addresses the 25 independent Challenge #4 failures through generalized diagnostic reasoning and field guidance rather than case-ID-specific rules. The update strengthens direct-fault preservation across transient/unknown states, pump-down interpretation, contactor load-side localization, compressor thermal/current guidance, conflicting measurement handling, confirmed-leak workflow, control/sensor prioritization, and multi-fault presentation.

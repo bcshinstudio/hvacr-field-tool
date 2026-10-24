@@ -1,0 +1,1484 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "RESIDENTIAL_AC_DEEP_1",
+  "purpose": "Research-grounded split/package A/C diagnostic validation using real APP_AC scopes. Cases cover electrical/control, airflow, heat rejection, refrigerant/feed, metering-device-specific charging logic, compressor, multi-fault and false-positive resistance.",
+  "test_count": 80,
+  "sources": [
+    "Carrier residential A/C troubleshooting and troubleshooting chart",
+    "Trane residential A/C troubleshooting",
+    "HVAC School residential electrical/compressor diagnostics",
+    "Manufacturer service charging procedures for TXV and fixed-orifice systems"
+  ],
+  "cases": [
+    {
+      "id": "RACD-001",
+      "title": "No incoming line power with cooling demand [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_MAIN_POWER_NOT_AVAILABLE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ]
+    },
+    {
+      "id": "RACD-002",
+      "title": "No incoming line power with cooling demand [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_MAIN_POWER_NOT_AVAILABLE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ]
+    },
+    {
+      "id": "RACD-003",
+      "title": "Contactor coil energized but load path open [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-004",
+      "title": "Contactor coil energized but load path open [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-005",
+      "title": "Transformer primary present but secondary absent [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TRANSFORMER_PRIMARY_PRESENT",
+        "FACT_TRANSFORMER_SECONDARY_ABSENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-006",
+      "title": "Transformer primary present but secondary absent [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TRANSFORMER_PRIMARY_PRESENT",
+        "FACT_TRANSFORMER_SECONDARY_ABSENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-007",
+      "title": "Low-voltage fuse open [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LOW_VOLTAGE_FUSE_OPEN"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-008",
+      "title": "Low-voltage fuse open [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LOW_VOLTAGE_FUSE_OPEN"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-009",
+      "title": "Cooling demand but thermostat Y absent [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_THERMOSTAT_Y_ABSENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-010",
+      "title": "Cooling demand but thermostat Y absent [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_THERMOSTAT_Y_ABSENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-011",
+      "title": "Run capacitor failed [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-012",
+      "title": "Run capacitor failed [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-013",
+      "title": "Compressor terminal voltage present with open winding [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_COMPRESSOR_WINDING_OPEN"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-014",
+      "title": "Compressor terminal voltage present with open winding [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_COMPRESSOR_WINDING_OPEN"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-015",
+      "title": "Compressor grounded [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_GROUNDED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-016",
+      "title": "Compressor grounded [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COMPRESSOR_GROUNDED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-017",
+      "title": "Condenser fan stopped with voltage and free shaft [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_FAN_VOLTAGE_PRESENT",
+        "FACT_COND_FAN_SHAFT_FREE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-018",
+      "title": "Condenser fan stopped with voltage and free shaft [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_FAN_VOLTAGE_PRESENT",
+        "FACT_COND_FAN_SHAFT_FREE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-019",
+      "title": "Indoor blower stopped with correct motor voltage [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_BLOWER_VOLTAGE_PRESENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-020",
+      "title": "Indoor blower stopped with correct motor voltage [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_BLOWER_VOLTAGE_PRESENT"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-021",
+      "title": "Low line voltage [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LINE_VOLTAGE_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-022",
+      "title": "Low line voltage [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LINE_VOLTAGE_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-023",
+      "title": "High line voltage [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LINE_VOLTAGE_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-024",
+      "title": "High line voltage [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_LINE_VOLTAGE_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-025",
+      "title": "Outdoor unit runs without cooling demand; welded contactor [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_ABSENT",
+        "FACT_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-026",
+      "title": "Outdoor unit runs without cooling demand; welded contactor [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COOLING_DEMAND_ABSENT",
+        "FACT_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-027",
+      "title": "Dirty air filter with low evaporator airflow [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-028",
+      "title": "Dirty air filter with low evaporator airflow [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-029",
+      "title": "Duct restriction with low airflow [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_DUCT_RESTRICTED",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-030",
+      "title": "Duct restriction with low airflow [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_DUCT_RESTRICTED",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-031",
+      "title": "Dirty evaporator coil [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_COIL_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-032",
+      "title": "Dirty evaporator coil [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_COIL_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-033",
+      "title": "Evaporator fan stopped [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-034",
+      "title": "Evaporator fan stopped [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-035",
+      "title": "Dirty condenser coil with high head [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-036",
+      "title": "Dirty condenser coil with high head [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-037",
+      "title": "Condenser fan stopped with high head [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-038",
+      "title": "Condenser fan stopped with high head [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-039",
+      "title": "Condenser recirculation with high head [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_HOT_AIR_RECIRCULATION",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-040",
+      "title": "Condenser recirculation with high head [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_HOT_AIR_RECIRCULATION",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-041",
+      "title": "TXV system low charge pattern with applicable target [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_TARGET_SUBCOOLING_AVAILABLE",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-042",
+      "title": "TXV system low charge pattern with applicable target [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_TARGET_SUBCOOLING_AVAILABLE",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-043",
+      "title": "TXV confirmed leak and low charge pattern [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_TARGET_SUBCOOLING_AVAILABLE",
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-044",
+      "title": "TXV confirmed leak and low charge pattern [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_TARGET_SUBCOOLING_AVAILABLE",
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-045",
+      "title": "TXV high head and high subcooling overcharge evidence [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-046",
+      "title": "TXV high head and high subcooling overcharge evidence [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_OVERCHARGE_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-047",
+      "title": "Noncondensable evidence with high head [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_NONCONDENSABLE_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-048",
+      "title": "Noncondensable evidence with high head [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_NONCONDENSABLE_EVIDENCE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-049",
+      "title": "Filter drier restriction with high SH [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-050",
+      "title": "Filter drier restriction with high SH [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-051",
+      "title": "TXV bulb installation fault with high SH [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-052",
+      "title": "TXV bulb installation fault with high SH [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-053",
+      "title": "TXV equalizer fault with high SH [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_EQUALIZER_PROBLEM",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-054",
+      "title": "TXV equalizer fault with high SH [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_EQUALIZER_PROBLEM",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-055",
+      "title": "TXV inlet restriction [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_INLET_RESTRICTION",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-056",
+      "title": "TXV inlet restriction [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_TXV_INLET_RESTRICTION",
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-057",
+      "title": "Fixed orifice restriction [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_FIXED_ORIFICE_RESTRICTED",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-058",
+      "title": "Fixed orifice restriction [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_FIXED_ORIFICE_RESTRICTED",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-059",
+      "title": "Wrong fixed orifice size [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_FIXED_ORIFICE_WRONG_SIZE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-060",
+      "title": "Wrong fixed orifice size [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_FIXED_ORIFICE_WRONG_SIZE"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-061",
+      "title": "Fixed orifice low charge with target SH [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TARGET_SUPERHEAT_AVAILABLE",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-062",
+      "title": "Fixed orifice low charge with target SH [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "FIXED_ORIFICE"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TARGET_SUPERHEAT_AVAILABLE",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-063",
+      "title": "Weak compressor differential [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_COND_SAT_LOW",
+        "FACT_COMPRESSOR_LOW_CAPACITY"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-064",
+      "title": "Weak compressor differential [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_COND_SAT_LOW",
+        "FACT_COMPRESSOR_LOW_CAPACITY"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-065",
+      "title": "High SH alone is insufficient on AC [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-066",
+      "title": "High SH alone is insufficient on AC [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-067",
+      "title": "Low SC without target is insufficient on TXV [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-068",
+      "title": "Low SC without target is insufficient on TXV [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-069",
+      "title": "High head alone does not prove overcharge [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES"
+      ]
+    },
+    {
+      "id": "RACD-070",
+      "title": "High head alone does not prove overcharge [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES"
+      ]
+    },
+    {
+      "id": "RACD-071",
+      "title": "Iced coil plus dirty filter prioritizes airflow [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-072",
+      "title": "Iced coil plus dirty filter prioritizes airflow [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_COIL_ICED",
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-073",
+      "title": "Multiple faults dirty condenser and failed capacitor [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-074",
+      "title": "Multiple faults dirty condenser and failed capacitor [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-075",
+      "title": "Multiple faults no line power and dirty filter [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_MAIN_POWER_NOT_AVAILABLE",
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-076",
+      "title": "Multiple faults no line power and dirty filter [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_MAIN_POWER_NOT_AVAILABLE",
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "expected_diagnoses": [
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": []
+    },
+    {
+      "id": "RACD-077",
+      "title": "Conflicting high head and low-charge clues [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-078",
+      "title": "Conflicting high head and low-charge clues [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STABLE_COOLING",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_OVERCHARGE"
+      ]
+    },
+    {
+      "id": "RACD-079",
+      "title": "Startup readings should not diagnose charge [Split]",
+      "application": "APP_AC_SPLIT",
+      "operating_state": "STARTUP",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    },
+    {
+      "id": "RACD-080",
+      "title": "Startup readings should not diagnose charge [Package]",
+      "application": "APP_AC_PACKAGE",
+      "operating_state": "STARTUP",
+      "configuration": [
+        "TXV"
+      ],
+      "facts": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_SUBCOOLING_LOW"
+      ],
+      "expected_diagnoses": [],
+      "expected_hypotheses": [],
+      "forbidden_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ]
+    }
+  ]
+}

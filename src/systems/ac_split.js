@@ -24,6 +24,24 @@ fieldData.electrical.push({id:'transformer_electrical',component:'transformer',s
     {id:'secondary_fuse',label:'Low-Voltage Fuse',type:'select',options:['good','open','unknown'],measurementCondition:'power_off'}
   ]}
 ]});
+
+/* Residential A/C-specific structured evidence. */
+const evapObs = (fieldData.observations || []).find(x => x.component === 'evaporator');
+if (evapObs) {
+  evapObs.fields.push(
+    {id:'air_filter_condition',label:'Return-Air Filter',type:'select',options:['clean','dirty_restricted','unknown']},
+    {id:'duct_restriction',label:'Duct / Damper Restriction',type:'select',options:['none_observed','restriction_observed','unknown']}
+  );
+}
+const controlElectrical = (fieldData.electrical || []).find(x => x.component === 'system_controls');
+if (controlElectrical) {
+  const demand = controlElectrical.sections.find(x => x.id === 'demand');
+  if (demand) demand.fields.push(
+    {id:'thermostat_y_present',label:'Thermostat Y Cooling Signal',type:'select',options:['yes','no','unknown'],measurementCondition:'observation'},
+    {id:'thermostat_y_voltage',label:'Y-to-C Voltage',unit:'V',type:'number',inputType:'number',measurementCondition:'energized'}
+  );
+}
+
 fieldData.airLocations = [
   {id:'return_air',label:'Return Air',measurements:['temperature','wet_bulb_temperature']},
   {id:'supply_air',label:'Supply Air',measurements:['temperature']},

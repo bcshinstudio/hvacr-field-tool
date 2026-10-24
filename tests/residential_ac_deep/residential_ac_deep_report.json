@@ -1,0 +1,1356 @@
+{
+  "suite": "RESIDENTIAL_AC_DEEP_1",
+  "total": 80,
+  "passed": 80,
+  "failed": 0,
+  "results": [
+    {
+      "id": "RACD-001",
+      "title": "No incoming line power with cooling demand [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "hypotheses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-002",
+      "title": "No incoming line power with cooling demand [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "hypotheses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-003",
+      "title": "Contactor coil energized but load path open [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_CONTACTOR_FAILURE",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-004",
+      "title": "Contactor coil energized but load path open [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_CONTACTOR_FAILURE",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-005",
+      "title": "Transformer primary present but secondary absent [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-006",
+      "title": "Transformer primary present but secondary absent [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-007",
+      "title": "Low-voltage fuse open [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-008",
+      "title": "Low-voltage fuse open [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-009",
+      "title": "Cooling demand but thermostat Y absent [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "hypotheses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-010",
+      "title": "Cooling demand but thermostat Y absent [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "hypotheses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-011",
+      "title": "Run capacitor failed [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-012",
+      "title": "Run capacitor failed [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-013",
+      "title": "Compressor terminal voltage present with open winding [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE",
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+    },
+    {
+      "id": "RACD-014",
+      "title": "Compressor terminal voltage present with open winding [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE",
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+    },
+    {
+      "id": "RACD-015",
+      "title": "Compressor grounded [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-016",
+      "title": "Compressor grounded [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-017",
+      "title": "Condenser fan stopped with voltage and free shaft [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-018",
+      "title": "Condenser fan stopped with voltage and free shaft [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-019",
+      "title": "Indoor blower stopped with correct motor voltage [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-020",
+      "title": "Indoor blower stopped with correct motor voltage [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-021",
+      "title": "Low line voltage [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-022",
+      "title": "Low line voltage [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-023",
+      "title": "High line voltage [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-024",
+      "title": "High line voltage [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-025",
+      "title": "Outdoor unit runs without cooling demand; welded contactor [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "hypotheses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-026",
+      "title": "Outdoor unit runs without cooling demand; welded contactor [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "hypotheses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-027",
+      "title": "Dirty air filter with low evaporator airflow [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-028",
+      "title": "Dirty air filter with low evaporator airflow [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-029",
+      "title": "Duct restriction with low airflow [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-030",
+      "title": "Duct restriction with low airflow [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-031",
+      "title": "Dirty evaporator coil [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-032",
+      "title": "Dirty evaporator coil [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-033",
+      "title": "Evaporator fan stopped [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-034",
+      "title": "Evaporator fan stopped [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-035",
+      "title": "Dirty condenser coil with high head [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-036",
+      "title": "Dirty condenser coil with high head [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-037",
+      "title": "Condenser fan stopped with high head [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-038",
+      "title": "Condenser fan stopped with high head [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-039",
+      "title": "Condenser recirculation with high head [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "hypotheses": [
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-040",
+      "title": "Condenser recirculation with high head [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "hypotheses": [
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-041",
+      "title": "TXV system low charge pattern with applicable target [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-042",
+      "title": "TXV system low charge pattern with applicable target [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-043",
+      "title": "TXV confirmed leak and low charge pattern [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_MEASURE_SC"
+    },
+    {
+      "id": "RACD-044",
+      "title": "TXV confirmed leak and low charge pattern [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_MEASURE_SC"
+    },
+    {
+      "id": "RACD-045",
+      "title": "TXV high head and high subcooling overcharge evidence [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-046",
+      "title": "TXV high head and high subcooling overcharge evidence [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-047",
+      "title": "Noncondensable evidence with high head [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "hypotheses": [
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-048",
+      "title": "Noncondensable evidence with high head [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "hypotheses": [
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-049",
+      "title": "Filter drier restriction with high SH [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-050",
+      "title": "Filter drier restriction with high SH [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-051",
+      "title": "TXV bulb installation fault with high SH [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-052",
+      "title": "TXV bulb installation fault with high SH [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-053",
+      "title": "TXV equalizer fault with high SH [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-054",
+      "title": "TXV equalizer fault with high SH [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-055",
+      "title": "TXV inlet restriction [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-056",
+      "title": "TXV inlet restriction [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-057",
+      "title": "Fixed orifice restriction [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-058",
+      "title": "Fixed orifice restriction [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-059",
+      "title": "Wrong fixed orifice size [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "hypotheses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-060",
+      "title": "Wrong fixed orifice size [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "hypotheses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_DRAIN_REFREEZE"
+    },
+    {
+      "id": "RACD-061",
+      "title": "Fixed orifice low charge with target SH [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-062",
+      "title": "Fixed orifice low charge with target SH [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-063",
+      "title": "Weak compressor differential [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_COMPRESSOR_DIFFERENTIAL"
+    },
+    {
+      "id": "RACD-064",
+      "title": "Weak compressor differential [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
+      "nextCheck": "CHECK_COMPRESSOR_DIFFERENTIAL"
+    },
+    {
+      "id": "RACD-065",
+      "title": "High SH alone is insufficient on AC [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-066",
+      "title": "High SH alone is insufficient on AC [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "id": "RACD-067",
+      "title": "Low SC without target is insufficient on TXV [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "id": "RACD-068",
+      "title": "Low SC without target is insufficient on TXV [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "resolution": "INSUFFICIENT_EVIDENCE",
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "id": "RACD-069",
+      "title": "High head alone does not prove overcharge [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-070",
+      "title": "High head alone does not prove overcharge [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-071",
+      "title": "Iced coil plus dirty filter prioritizes airflow [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-072",
+      "title": "Iced coil plus dirty filter prioritizes airflow [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-073",
+      "title": "Multiple faults dirty condenser and failed capacitor [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-074",
+      "title": "Multiple faults dirty condenser and failed capacitor [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-075",
+      "title": "Multiple faults no line power and dirty filter [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-076",
+      "title": "Multiple faults no line power and dirty filter [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "id": "RACD-077",
+      "title": "Conflicting high head and low-charge clues [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-078",
+      "title": "Conflicting high head and low-charge clues [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "id": "RACD-079",
+      "title": "Startup readings should not diagnose charge [Split]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+    },
+    {
+      "id": "RACD-080",
+      "title": "Startup readings should not diagnose charge [Package]",
+      "pass": true,
+      "errors": [],
+      "diagnoses": [],
+      "hypotheses": [],
+      "resolution": "SUPPORTED_SYSTEM_CONDITION",
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+    }
+  ]
+}

@@ -215,6 +215,12 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   if(ctl.contactor_output==="not_passing_voltage") addFact(result,"FACT_CONTACTOR_NOT_PASSING_VOLTAGE","observations.controls.contactor_output",ctl.contactor_output);
   if(ctl.main_power_available==="no") addFact(result,"FACT_MAIN_POWER_NOT_AVAILABLE","observations.controls.main_power_available",ctl.main_power_available);
   if(ctl.main_power_available==="yes") addFact(result,"FACT_MAIN_POWER_AVAILABLE","observations.controls.main_power_available",ctl.main_power_available);
+  if(ctl.thermostat_y==="present") addFact(result,"FACT_THERMOSTAT_Y_PRESENT","observations.controls.thermostat_y",ctl.thermostat_y);
+  if(ctl.thermostat_y==="absent") addFact(result,"FACT_THERMOSTAT_Y_ABSENT","observations.controls.thermostat_y",ctl.thermostat_y);
+  if(ctl.transformer_primary==="present") addFact(result,"FACT_TRANSFORMER_PRIMARY_PRESENT","observations.controls.transformer_primary",ctl.transformer_primary);
+  if(ctl.transformer_secondary==="absent") addFact(result,"FACT_TRANSFORMER_SECONDARY_ABSENT","observations.controls.transformer_secondary",ctl.transformer_secondary);
+  if(ctl.low_voltage_fuse==="open") addFact(result,"FACT_LOW_VOLTAGE_FUSE_OPEN","observations.controls.low_voltage_fuse",ctl.low_voltage_fuse);
+  if(ctl.run_capacitor_failed===true) addFact(result,"FACT_RUN_CAPACITOR_FAILED","observations.controls.run_capacitor_failed",true);
   if(ctl.fuse_state==="open_blown") addFact(result,"FACT_FUSE_OPEN","observations.controls.fuse_state",ctl.fuse_state);
   if(ctl.solenoid_command==="closed") addFact(result,"FACT_SOLENOID_COMMAND_CLOSED","observations.controls.solenoid_command",ctl.solenoid_command);
   if(ctl.solenoid_command==="open") addFact(result,"FACT_SOLENOID_COMMAND_OPEN","observations.controls.solenoid_command",ctl.solenoid_command);
@@ -225,10 +231,18 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   if(comp.temperature_condition==="hot") addFact(result,"FACT_COMPRESSOR_HOT","observations.compressor.temperature_condition",comp.temperature_condition);
   if(comp.overload_state==="open_tripped") addFact(result,"FACT_OVERLOAD_PROTECTION_OPEN","observations.compressor.overload_state",comp.overload_state);
   if(comp.winding_start_open===true) addFact(result,"FACT_COMPRESSOR_START_WINDING_OPEN","observations.compressor.winding_start_open",true);
+  if(comp.terminal_voltage_present===true) addFact(result,"FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT","observations.compressor.terminal_voltage_present",true);
+  if(comp.grounded===true) addFact(result,"FACT_COMPRESSOR_GROUNDED","observations.compressor.grounded",true);
+  if(comp.winding_open===true) addFact(result,"FACT_COMPRESSOR_WINDING_OPEN","observations.compressor.winding_open",true);
   if(comp.winding_relationship_normal===true) addFact(result,"FACT_COMPRESSOR_WINDING_RELATIONSHIP_NORMAL","observations.compressor.winding_relationship_normal",true);
   const cf=o.condenser||{};
   if(cf.fan_operation==="slow") addFact(result,"FACT_COND_FAN_RUNNING_SLOW","observations.condenser.fan_operation",cf.fan_operation);
   if(cf.fan_shaft_condition==="free") addFact(result,"FACT_COND_FAN_SHAFT_FREE","observations.condenser.fan_shaft_condition",cf.fan_shaft_condition);
+  if(cf.fan_voltage_present===true) addFact(result,"FACT_COND_FAN_VOLTAGE_PRESENT","observations.condenser.fan_voltage_present",true);
+  const ef=o.evaporator||{};
+  if(ef.fan_voltage_present===true) addFact(result,"FACT_EVAP_BLOWER_VOLTAGE_PRESENT","observations.evaporator.fan_voltage_present",true);
+  if(ef.air_filter_condition==="dirty_restricted") addFact(result,"FACT_AIR_FILTER_DIRTY","observations.evaporator.air_filter_condition",ef.air_filter_condition);
+  if(ef.duct_restriction==="restriction_observed") addFact(result,"FACT_DUCT_RESTRICTED","observations.evaporator.duct_restriction",ef.duct_restriction);
   if(cf.fan_winding_relationship_normal===true) addFact(result,"FACT_COND_FAN_WINDING_RELATIONSHIP_NORMAL","observations.condenser.fan_winding_relationship_normal",true);
 
   // Measurement quality is not a diagnosis. Suspect/invalid pressure makes

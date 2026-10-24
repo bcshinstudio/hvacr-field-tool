@@ -2340,6 +2340,71 @@
       "operating_states": [
         "POST_DEFROST"
       ]
+    },
+    {
+      "id": "GUIDE_AC_NO_LINE_POWER",
+      "priority": 110,
+      "requires_all": [
+        "FACT_MAIN_POWER_NOT_AVAILABLE"
+      ],
+      "heading": "Incoming line power is missing",
+      "short_meaning": "The outdoor/packaged unit cannot operate until its line-power path is restored.",
+      "relationship": "The outdoor/packaged unit cannot operate until its line-power path is restored.",
+      "steps": [
+        {
+          "action": "Verify breaker, disconnect, fuses, incoming line voltage and wiring before testing downstream loads.",
+          "record": "Record the measurement/observation and verify normal operation after correction."
+        }
+      ]
+    },
+    {
+      "id": "GUIDE_AC_TRANSFORMER",
+      "priority": 110,
+      "requires_all": [
+        "FACT_TRANSFORMER_PRIMARY_PRESENT",
+        "FACT_TRANSFORMER_SECONDARY_ABSENT"
+      ],
+      "heading": "24-V transformer output is missing",
+      "short_meaning": "Primary power is present but the transformer is not producing control voltage.",
+      "relationship": "Primary power is present but the transformer is not producing control voltage.",
+      "steps": [
+        {
+          "action": "Verify transformer rating/wiring and secondary circuit; replace a failed transformer only after checking for a downstream short.",
+          "record": "Record the measurement/observation and verify normal operation after correction."
+        }
+      ]
+    },
+    {
+      "id": "GUIDE_AC_CAPACITOR",
+      "priority": 110,
+      "requires_all": [
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "heading": "Run capacitor failed/out of tolerance",
+      "short_meaning": "A failed run capacitor can prevent or impair compressor/fan starting and running.",
+      "relationship": "A failed run capacitor can prevent or impair compressor/fan starting and running.",
+      "steps": [
+        {
+          "action": "With power isolated and capacitor safely discharged, verify rated versus measured capacitance and replace if outside manufacturer tolerance.",
+          "record": "Record the measurement/observation and verify normal operation after correction."
+        }
+      ]
+    },
+    {
+      "id": "GUIDE_AC_DIRTY_FILTER",
+      "priority": 110,
+      "requires_all": [
+        "FACT_AIR_FILTER_DIRTY"
+      ],
+      "heading": "Indoor airflow restriction at filter",
+      "short_meaning": "A dirty filter reduces evaporator airflow and can contribute to low suction/icing/poor capacity.",
+      "relationship": "A dirty filter reduces evaporator airflow and can contribute to low suction/icing/poor capacity.",
+      "steps": [
+        {
+          "action": "Replace/clean the filter, verify blower/duct airflow, thaw ice if present, then stabilize cooling before judging refrigerant charge.",
+          "record": "Record the measurement/observation and verify normal operation after correction."
+        }
+      ]
     }
   ]
 }

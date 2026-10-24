@@ -316,6 +316,38 @@
       "publisher": "Parker Sporlan",
       "url": "https://www.parker.com/content/dam/Parker-com/Literature/Sporlan/Sporlan-pdf-files/Sporlan-pdf-100/100-50-4.1.pdf",
       "use": "One symptom such as high/erratic superheat maps to multiple checks including sensor location/wiring, refrigerant charge, valve function and refrigerant selection."
+    },
+    {
+      "id": "SRC_CARRIER_AC_TROUBLESHOOTING",
+      "organization": "Carrier",
+      "title": "Residential A/C troubleshooting and component fault guidance",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.carrier.com/us/en/residential/hvac-resources/air-conditioners/troubleshoot-an-ac-not-working/",
+      "verified": "2026-09-28"
+    },
+    {
+      "id": "SRC_TRANE_AC_TROUBLESHOOTING",
+      "organization": "Trane",
+      "title": "Central A/C compressor and system troubleshooting",
+      "type": "manufacturer_troubleshooting",
+      "url": "https://www.trane.com/residential/en/resources/troubleshooting/air-conditioners/ac-compressor-not-turning-on/",
+      "verified": "2026-09-28"
+    },
+    {
+      "id": "SRC_HVAC_SCHOOL_RESIDENTIAL",
+      "organization": "HVAC School",
+      "title": "Residential electrical and compressor diagnostic guidance",
+      "type": "industry_training",
+      "url": "https://www.hvacrschool.com/compressor-failure-diagnosis-and-replacement-checklist-for-residential-and-light-commercial-equipment/",
+      "verified": "2026-09-28"
+    },
+    {
+      "id": "SRC_ACSERVICETECH_CHARGING",
+      "organization": "AC Service Tech",
+      "title": "Charging procedures: TXV subcooling and fixed-orifice target superheat",
+      "type": "industry_training",
+      "url": "https://www.acservicetech.com/charging-procedures",
+      "verified": "2026-09-28"
     }
   ]
 }
