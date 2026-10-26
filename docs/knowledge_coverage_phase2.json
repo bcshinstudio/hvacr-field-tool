@@ -1,0 +1,3241 @@
+{
+  "schema_version": "2.0.0",
+  "generated_from": "Current local knowledge files and static test-source scan",
+  "limitations": [
+    "Taxonomy is a provisional ID-based classification requiring domain review",
+    "A test-file mention does not prove a passing assertion or diagnostic accuracy",
+    "No runtime engine coverage is inferred from rule scopes",
+    "Duplicate candidates are review suggestions, not automatic merges"
+  ],
+  "counts": {
+    "faults": 69,
+    "with_rules": 65,
+    "without_rules": 4,
+    "tests_scanned": 68,
+    "with_literal_test_mentions": 65,
+    "unknown_source_references": 0
+  },
+  "applications": [
+    "APP_AC_PACKAGE",
+    "APP_AC_SPLIT",
+    "APP_RIC",
+    "APP_RIF",
+    "APP_WIC",
+    "APP_WIF"
+  ],
+  "taxonomy_groups": {
+    "Refrigerant charge and quality": [
+      "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "CAUSE_REFRIGERANT_LEAK",
+      "CAUSE_OVERCHARGE",
+      "CAUSE_NONCONDENSABLES",
+      "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "CAUSE_MOISTURE_CONTAMINATION"
+    ],
+    "Refrigerant circuit restrictions and valves": [
+      "CAUSE_LIQUID_LINE_RESTRICTION",
+      "CAUSE_FILTER_DRIER_RESTRICTION",
+      "CAUSE_SOLENOID_RESTRICTION",
+      "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+    ],
+    "Metering and refrigerant feed": [
+      "CAUSE_TXV_UNDERFEED",
+      "CAUSE_TXV_OVERFEED",
+      "CAUSE_TXV_BULB_INSTALLATION",
+      "CAUSE_TXV_EQUALIZER_FAULT",
+      "CAUSE_TXV_INCORRECT_SIZE",
+      "CAUSE_WET_SYSTEM_TXV_ICE",
+      "CAUSE_TXV_INLET_RESTRICTION",
+      "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+    ],
+    "Evaporator, airflow and defrost": [
+      "CAUSE_EVAP_FAN_FAILURE",
+      "CAUSE_EVAP_ICING",
+      "CAUSE_COND_FAN_FAILURE",
+      "CAUSE_DEFROST_INADEQUATE",
+      "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "CAUSE_DEFROST_HEATER_FAILURE",
+      "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "CAUSE_DRAIN_REFREEZE",
+      "CAUSE_COND_FAN_MOTOR_FAILURE"
+    ],
+    "Compressor and oil": [
+      "CAUSE_EVAP_COIL_DIRTY",
+      "CAUSE_COND_COIL_DIRTY",
+      "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "CAUSE_COMPRESSOR_GROUNDED"
+    ],
+    "Unclassified — manual review": [
+      "CAUSE_HOT_AIR_RECIRCULATION",
+      "CAUSE_HIGH_AMBIENT",
+      "CAUSE_AIR_INFILTRATION",
+      "CAUSE_SYSTEM_UNDERSIZED",
+      "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "CAUSE_NO_LINE_POWER",
+      "CAUSE_TRANSFORMER_FAILURE"
+    ],
+    "Load, envelope and capacity": [
+      "CAUSE_EXCESSIVE_LOAD",
+      "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+    ],
+    "Electrical and controls": [
+      "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "CAUSE_HP_CONTROL_SETTING_OR_FAULT",
+      "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "CAUSE_CONTACTOR_FAILURE",
+      "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "CAUSE_RUN_CAPACITOR_FAILURE",
+      "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "CAUSE_CONTACTOR_WELDED_CLOSED"
+    ],
+    "Condenser and head-pressure control": [
+      "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "CAUSE_CONDENSER_RECIRCULATION"
+    ]
+  },
+  "duplicate_review": {
+    "same_source_url": [
+      {
+        "url": "https://www.danfoss.com/en-us/industries/food-and-beverage/dcs/cold-rooms/system-design-component-selection/application-vertical-market-sizing/troubleshooting-fault-diagnosis/",
+        "source_ids": [
+          "SRC_DANFOSS_COLDROOM",
+          "SRC_DANFOSS_COLDROOM_ICE",
+          "SRC_DANFOSS_COLDROOM_CONTROLS_LOAD",
+          "SRC_DANFOSS_WIC_STRUCTURED_DIAG"
+        ]
+      },
+      {
+        "url": "https://reftools.danfoss.com/tools/cooling/troubleshooter/system-areas/high-pressure/system/condensing-pressure-too-high/",
+        "source_ids": [
+          "SRC_DANFOSS_HIGH_COND",
+          "SRC_DANFOSS_HIGH_CONDENSING"
+        ]
+      },
+      {
+        "url": "https://e360blog.copeland.com/refrigeration-basics-troubleshooting-fundamentals/",
+        "source_ids": [
+          "SRC_COPELAND_TROUBLESHOOT",
+          "SRC_COPELAND_TROUBLESHOOTING_FUNDAMENTALS"
+        ]
+      },
+      {
+        "url": "https://www.heatcraftrpd.com/support/preventive-maintenance",
+        "source_ids": [
+          "SRC_HEATCRAFT_PM",
+          "SRC_HEATCRAFT_PM_CONDENSING"
+        ]
+      },
+      {
+        "url": "https://www.parker.com/content/dam/parker-com/literature/sporlan/sporlan-pdf-files/sporlan-pdf-010/10-143.pdf",
+        "source_ids": [
+          "SRC_SPORLAN_TEV_COMMON_PROBLEMS",
+          "SRC_SPORLAN_TEV_PROBLEMS"
+        ]
+      }
+    ],
+    "identical_rule_evidence_and_scope": [],
+    "identical_normalized_labels": []
+  },
+  "integrity": {
+    "unknown_source_ids": []
+  },
+  "faults": [
+    {
+      "id": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "label": "Low refrigerant charge / refrigerant loss",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_LOW_CHARGE",
+        "RULE_AC_LOW_CHARGE_TARGETED",
+        "RULE_AC_LOW_CHARGE_FIXED_TARGET"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [
+        "REL_LOWCHARGE_STARVES",
+        "REL_LOWCHARGE_CONFUSED_RESTRICTION",
+        "REL_TXV_CONFUSED_LOWCHARGE"
+      ],
+      "discriminator_ids": [
+        "DISC_LOWCHARGE_RESTRICTION",
+        "DISC_LOWCHARGE_TXV",
+        "DISC_EVAP_ICE",
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP",
+        "CHECK_LEAK"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_OIL_STAIN_OR_LEAK_EVIDENCE",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_TARGET_SUBCOOLING_AVAILABLE",
+        "FACT_TARGET_SUPERHEAT_AVAILABLE"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_condition_preservation.mjs",
+        "tests/brain_2_0_integration.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/chapter7/chapter7_runner.mjs",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_acceptance_7_10_2_0_5.mjs",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_REFRIGERANT_LEAK",
+      "label": "Refrigerant leak",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [],
+      "declared_applications": [],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [],
+      "test_file_mentions": [],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "No literal fault ID found in scanned test source"
+    },
+    {
+      "id": "CAUSE_OVERCHARGE",
+      "label": "Excess refrigerant charge",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_OVERCHARGE",
+        "RULE_OVERCHARGE_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HIGH_COND"
+      ],
+      "relationship_ids": [
+        "REL_OVERCHARGE_FLOOD"
+      ],
+      "discriminator_ids": [
+        "DISC_HIGH_HEAD"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW",
+        "CHECK_MEASURE_SC",
+        "CHECK_PRESSURE_CONTROLS"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+        "FACT_OVERCHARGE_EVIDENCE",
+        "FACT_SUBCOOLING_HIGH"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/master_validation/master_brain_runner.mjs",
+        "tests/residential_ac/residential_ac_master_runner.mjs",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_NONCONDENSABLES",
+      "label": "Non-condensables in refrigerant circuit",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_NONCONDENSABLES",
+        "RULE_NONCONDENSABLE_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_HIGH_COND"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_HIGH_HEAD"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW",
+        "CHECK_PRESSURE_CONTROLS"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+        "FACT_NONCONDENSABLE_EVIDENCE"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "label": "Liquid-line restriction",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_LIQUID_LINE_RESTRICTION"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_RESTRICTION_STARVES",
+        "REL_LOWCHARGE_CONFUSED_RESTRICTION",
+        "REL_TXV_CONFUSED_RESTRICTION",
+        "REL_SUBTYPE_FILTER_DRIER_RESTRICTION",
+        "REL_SUBTYPE_SOLENOID_RESTRICTION"
+      ],
+      "discriminator_ids": [
+        "DISC_LOWCHARGE_RESTRICTION",
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_LIQUID_LINE_PRESSURE_DROP",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_condition_preservation.mjs",
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "label": "Restricted filter drier",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_FILTER_DRIER_RESTRICTION",
+        "RULE_FILTER_DRIER_RESTRICTION_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_CONTAMINATION",
+        "SRC_SPORLAN_DRIER"
+      ],
+      "relationship_ids": [
+        "REL_DRIER_RESTRICTS_FEED",
+        "REL_SUBTYPE_FILTER_DRIER_RESTRICTION"
+      ],
+      "discriminator_ids": [
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_LIQUID_LINE_PRESSURE_DROP",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_1_0_hypothesis.mjs",
+        "tests/brain_2_0_integration.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/reach_in_brain_safety.mjs",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_end_to_end_policy.mjs",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_field_issue_audit.mjs",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_SOLENOID_RESTRICTION",
+      "label": "Liquid-line solenoid restriction/not fully open",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [],
+      "declared_applications": [],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [],
+      "relationship_ids": [
+        "REL_SUBTYPE_SOLENOID_RESTRICTION"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [],
+      "test_file_mentions": [],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "No literal fault ID found in scanned test source"
+    },
+    {
+      "id": "CAUSE_TXV_UNDERFEED",
+      "label": "TXV underfeeding",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_UNDERFEED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_SYSTEM_DESIGN",
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_LOW_SUCTION"
+      ],
+      "relationship_ids": [
+        "REL_TXV_UNDERFEED_STARVES",
+        "REL_TXV_CONFUSED_RESTRICTION",
+        "REL_TXV_CONFUSED_LOWCHARGE",
+        "REL_SUBTYPE_TXV_INLET_RESTRICTION",
+        "REL_SUBTYPE_TXV_BULB_INSTALLATION",
+        "REL_SUBTYPE_TXV_EQUALIZER_FAULT",
+        "REL_SUBTYPE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT"
+      ],
+      "discriminator_ids": [
+        "DISC_LOWCHARGE_TXV",
+        "DISC_EVAP_ICE",
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_BULB_BAD_CONTACT",
+        "FACT_TXV_EQUALIZER_PROBLEM",
+        "FACT_TXV_HUNTING"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_condition_preservation.mjs",
+        "tests/knowledge_cases.json",
+        "tests/reach_in_brain_safety.mjs",
+        "tests/wic_acceptance_7_10_2_0_5.mjs",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_OVERFEED",
+      "label": "TXV overfeeding",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_OVERFEED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_TROUBLESHOOT",
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_OVERFEED_FLOOD"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_TXV_HUNTING"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_BULB_INSTALLATION",
+      "label": "Incorrect TXV bulb mounting/location",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_BULB_INSTALLATION"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_SPORLAN_TEV_PROBLEMS"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_TXV_BULB_INSTALLATION"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_BULB_BAD_CONTACT"
+      ],
+      "test_file_mentions": [
+        "tests/brain_1_0_hypothesis.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_EQUALIZER_FAULT",
+      "label": "TXV equalizer problem/misapplication",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_EQUALIZER_FAULT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_LOW_SUCTION",
+        "SRC_SPORLAN_TEV_PROBLEMS"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_TXV_EQUALIZER_FAULT"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_EQUALIZER_PROBLEM"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_INCORRECT_SIZE",
+      "label": "TXV/nozzle incorrectly sized for application",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [],
+      "declared_applications": [],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [],
+      "test_file_mentions": [],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "No literal fault ID found in scanned test source"
+    },
+    {
+      "id": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "label": "Evaporator airflow restriction",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_EVAP_AIRFLOW"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_LOW_SUCTION",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_EVAP_AIRFLOW_HEAT",
+        "REL_EVAP_ICE_FEEDBACK",
+        "REL_EVAP_COND_COEXIST",
+        "REL_EVAP_AIRFLOW_FLOOD",
+        "REL_SUBTYPE_EVAP_FAN_FAILURE",
+        "REL_SUBTYPE_EVAP_COIL_DIRTY"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_AIRFLOW_BLOCKED",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_FAILURE",
+      "label": "Evaporator fan failure",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_EVAP_FAN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_EVAP_FAN_HEAT",
+        "REL_SUBTYPE_EVAP_FAN_FAILURE"
+      ],
+      "discriminator_ids": [
+        "DISC_EVAP_ICE",
+        "DISC_DEFROST_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_FAN_NOT_RUNNING",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_system_check_presentation_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_EVAP_COIL_DIRTY",
+      "label": "Dirty/restricted evaporator coil",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_EVAP_DIRTY"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_EVAP_COIL_DIRTY"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_DIRTY",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_EVAP_ICING",
+      "label": "Evaporator icing",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_EVAP_ICING"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_EVAP_ICE_HEAT",
+        "REL_INFILTRATION_ICE",
+        "REL_DEFROST_ICE",
+        "REL_EVAP_ICE_FEEDBACK"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_DEFROST",
+        "CHECK_LOAD_INFILTRATION"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_EVAP_SAT_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "label": "Condenser airflow restriction",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_COND_AIRFLOW"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HEAD_HIGH"
+      ],
+      "relationship_ids": [
+        "REL_COND_AIRFLOW_HEAT",
+        "REL_EVAP_COND_COEXIST",
+        "REL_SUBTYPE_COND_FAN_FAILURE",
+        "REL_SUBTYPE_COND_COIL_DIRTY"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "test_file_mentions": [
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COND_FAN_FAILURE",
+      "label": "Condenser fan failure",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_COND_FAN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_COND_FAN_HEAT",
+        "REL_SUBTYPE_COND_FAN_FAILURE"
+      ],
+      "discriminator_ids": [
+        "DISC_HIGH_HEAD"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_acceptance_7_10_2_0_5.mjs",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COND_COIL_DIRTY",
+      "label": "Dirty/restricted condenser coil",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_COND_DIRTY"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105",
+        "SRC_DANFOSS_HEAD_HIGH",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_COND_DIRTY_HEAT",
+        "REL_SUBTYPE_COND_COIL_DIRTY"
+      ],
+      "discriminator_ids": [
+        "DISC_HIGH_HEAD"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_AIRFLOW_LOW",
+        "FACT_COND_COIL_DIRTY",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_acceptance_7_10_2_0_5.mjs",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_HOT_AIR_RECIRCULATION",
+      "label": "Condenser hot-air recirculation",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_HOT_RECIRC"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HOT_AIR_RECIRCULATION"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_HIGH_AMBIENT",
+      "label": "High condenser ambient",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_HIGH_AMBIENT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_HIGH_HEAD"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_HIGH_AMBIENT"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_EXCESSIVE_LOAD",
+      "label": "Excessive room/product/infiltration load",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "rule_ids": [
+        "RULE_EXCESSIVE_LOAD"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_HEAD_HIGH"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_LOAD_INFILTRATION"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_SLOW_PULLDOWN"
+      ],
+      "test_file_mentions": [
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_AIR_INFILTRATION",
+      "label": "Door/gasket/air infiltration",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_AIR_INFILTRATION"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_INFILTRATION_LOAD",
+        "REL_INFILTRATION_ICE"
+      ],
+      "discriminator_ids": [
+        "DISC_EVAP_ICE",
+        "DISC_WARM_ROOM_NONREFRIG",
+        "DISC_DEFROST_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_LOAD_INFILTRATION",
+        "CHECK_DOOR_LOAD"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_DOOR_INFILTRATION_CONFIRMED",
+        "FACT_DOOR_OPEN_OR_LEAKING",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DEFROST_INADEQUATE",
+      "label": "Defrost too short/infrequent/incorrect termination",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_DEFROST"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [
+        "REL_DEFROST_ICE",
+        "REL_SUBTYPE_DEFROST_HEATER_FAILURE",
+        "REL_SUBTYPE_DEFROST_TERMINATION_SENSOR_FAULT"
+      ],
+      "discriminator_ids": [
+        "DISC_EVAP_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_DEFROST"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DRAIN_ICE",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "label": "Drain/drain-heater problem",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_DRAIN"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_HEATCRAFT_PM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_DEFROST"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DRAIN_ICE"
+      ],
+      "test_file_mentions": [
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "label": "Moisture freezing/restricting TXV/feed path",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_WET_TXV",
+        "RULE_WET_TXV_HIGH_SH"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_HEATCRAFT_FAQ",
+        "SRC_SPORLAN_DRIER"
+      ],
+      "relationship_ids": [
+        "REL_WET_CONTAM"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_FEED_UNEVEN",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_MOISTURE_INDICATED",
+        "FACT_TXV_HUNTING"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "label": "Low-pressure control setting/fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_LP_CONTROL",
+        "RULE_LP_CONTROL_OPEN_WARM_BOX"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ],
+      "relationship_ids": [
+        "REL_LP_CONTROL_SEQUENCE"
+      ],
+      "discriminator_ids": [
+        "DISC_PUMPDOWN"
+      ],
+      "related_check_ids": [
+        "CHECK_PRESSURE_CONTROLS"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_LOW_PRESSURE_CONTROL_TRIP",
+        "FACT_LP_CONTROL_OPEN"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_HP_CONTROL_SETTING_OR_FAULT",
+      "label": "High-pressure control setting/fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [],
+      "declared_applications": [],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [],
+      "test_file_mentions": [],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "No literal fault ID found in scanned test source"
+    },
+    {
+      "id": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "label": "Liquid-line solenoid control/mechanical fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_LLSV"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_SOLENOID"
+      ],
+      "relationship_ids": [
+        "REL_LLSV_CONTROL"
+      ],
+      "discriminator_ids": [
+        "DISC_PUMPDOWN"
+      ],
+      "related_check_ids": [
+        "CHECK_SOLENOID"
+      ],
+      "evidence_fact_ids": [
+        "FACT_SOLENOID_NOT_CLOSING",
+        "FACT_SOLENOID_NOT_OPENING"
+      ],
+      "test_file_mentions": [
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "label": "Controller setting/sensor fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_CONTROLLER"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_WARM_ROOM_NONREFRIG"
+      ],
+      "related_check_ids": [
+        "CHECK_CONTROLLER_SENSOR"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_CONTROLLER_SETPOINT_WRONG",
+        "FACT_SENSOR_ERROR"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "label": "Compressor inefficiency/reduced pumping capacity",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_COMPRESSOR_INEFFICIENT",
+        "RULE_COMPRESSOR_WEAK_PUMPING_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_TROUBLESHOOT",
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_PUMPDOWN"
+      ],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_PERFORMANCE",
+        "CHECK_COMPRESSOR_DIFFERENTIAL",
+        "CHECK_COMPRESSOR_CONTEXT"
+      ],
+      "evidence_fact_ids": [
+        "FACT_CAPACITY_POOR",
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_COMPRESSOR_LOW_CAPACITY",
+        "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK",
+        "FACT_COMPRESSOR_RUNNING",
+        "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_SLOW_PULLDOWN"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/challenge_brain_runner.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_2/challenge_2_brain_runner.mjs",
+        "tests/challenge_validation_3/challenge_3_brain_runner.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/challenge_4_brain_runner.mjs",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/chapter7/chapter7_runner.mjs",
+        "tests/knowledge_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_SYSTEM_UNDERSIZED",
+      "label": "System capacity insufficient for actual load",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_UNDERSIZED",
+        "RULE_UNDERSIZED_DIRECT_LOAD",
+        "RULE_UNDERSIZED_VERIFIED_NORMAL"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_WARM_ROOM_NONREFRIG"
+      ],
+      "related_check_ids": [
+        "CHECK_LOAD_INFILTRATION",
+        "CHECK_CAPACITY_VS_LOAD"
+      ],
+      "evidence_fact_ids": [
+        "FACT_AIRFLOW_VERIFIED_NORMAL",
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_COMPRESSOR_LONG_RUNTIME",
+        "FACT_CONTROLS_VERIFIED_NORMAL",
+        "FACT_DESIGN_LOAD_EXCEEDS_CAPACITY",
+        "FACT_FEED_CHARGE_VERIFIED_NORMAL",
+        "FACT_HIGH_PRODUCT_LOAD",
+        "FACT_REFRIGERATION_PERFORMANCE_NORMAL",
+        "FACT_SLOW_PULLDOWN"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/knowledge_cases.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_INLET_RESTRICTION",
+      "label": "TXV inlet strainer/orifice restriction",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_INLET_RESTRICTION"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_EVAP_TXV_FROST",
+        "SRC_SPORLAN_SUPERHEAT_CONTROL"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_TXV_INLET_RESTRICTION",
+        "REL_TXV_INLET_STARVES"
+      ],
+      "discriminator_ids": [
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_TXV_LIQUID_CONDITION",
+        "CHECK_TXV_INLET"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_LIQUID_AT_TXV_FLASHING",
+        "FACT_SUBCOOLING_RETAINED",
+        "FACT_TXV_INLET_RESTRICTION"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "label": "TXV power element / bulb charge fault",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_TXV_POWER_ELEMENT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_EVAP_TXV_FROST",
+        "SRC_DANFOSS_SUCTION_TEMP_HIGH"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "REL_TXV_POWER_STARVES"
+      ],
+      "discriminator_ids": [
+        "DISC_STARVED_EVAPORATOR"
+      ],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL",
+        "CHECK_TXV_RESPONSE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_FEED_UNEVEN",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_NOT_RESPONDING"
+      ],
+      "test_file_mentions": [
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs",
+        "tests/wic_starvation_differential.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "label": "Incorrect refrigerant / TXV charge or application match",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_WRONG_REFRIGERANT_TXV"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_TXV_INSTALL"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_HUNTING",
+        "FACT_WRONG_REFRIGERANT_OR_VALVE_MATCH"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "label": "Head-pressure control fault or misapplication",
+      "taxonomy_proposal": "Condenser and head-pressure control",
+      "rule_ids": [
+        "RULE_HEAD_PRESSURE_CONTROL"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM",
+        "SRC_DANFOSS_PRESSURE_CONTROLS"
+      ],
+      "relationship_ids": [
+        "REL_HEADCTRL_HIGHSIDE"
+      ],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_PRESSURE_CONTROLS",
+        "CHECK_HEAD_PRESSURE_CONTROL",
+        "CHECK_HEAD_CONTROL_CONFIGURATION"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_COND_SAT_LOW",
+        "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
+        "FACT_HEAD_PRESSURE_CONTROL_ABNORMAL",
+        "FACT_HIGH_PRESSURE_CONTROL_TRIP",
+        "FACT_LOW_AMBIENT"
+      ],
+      "test_file_mentions": [
+        "tests/chapter7/chapter7_runner.mjs",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DEFROST_HEATER_FAILURE",
+      "label": "Electric defrost heater failure",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_DEFROST_HEATER_FAILURE",
+        "RULE_DEFROST_HEATER_ELECTRICAL_OPEN"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_DEFROST_HEATER_FAILURE"
+      ],
+      "discriminator_ids": [
+        "DISC_DEFROST_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_DEFROST",
+        "CHECK_DEFROST_HEAT"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DEFROST_COMMAND_PRESENT",
+        "FACT_DEFROST_HEATER_CURRENT_ABSENT",
+        "FACT_DEFROST_HEATER_NOT_HEATING",
+        "FACT_DEFROST_HEATER_VOLTAGE_PRESENT",
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json",
+        "tests/wic_gold_standard_validation_2_0_4.mjs",
+        "tests/wic_simple_scenario_audit_2_0_3.mjs"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "label": "Defrost termination sensor/control fault",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_DEFROST_TERMINATION"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [
+        "REL_SUBTYPE_DEFROST_TERMINATION_SENSOR_FAULT"
+      ],
+      "discriminator_ids": [
+        "DISC_DEFROST_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW",
+        "CHECK_DEFROST",
+        "CHECK_DEFROST_TERMINATION"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DEFROST_INCOMPLETE",
+        "FACT_DEFROST_TERMINATION_ERROR",
+        "FACT_EVAP_COIL_ICED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "label": "Evaporator fan-delay/control fault",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_EVAP_FAN_DELAY"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_AIRFLOW_LOW",
+        "FACT_EVAP_COIL_ICED",
+        "FACT_FAN_DELAY_ERROR"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "label": "Compressor not running when cooling is demanded",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_COMPRESSOR_NOT_RUNNING"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_DANFOSS_COLDROOM"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_PUMPING"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_COMPRESSOR_NOT_RUNNING"
+      ],
+      "test_file_mentions": [
+        "tests/wic_field_issue_audit.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_FAILURE",
+      "label": "Contactor/relay contact failure",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_CONTACTOR_FAILURE",
+        "RULE_CONTACTOR_LOAD_PATH_OPEN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+        "CHECK_CONTACTOR_PATH"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+        "FACT_CONTACTOR_COIL_ENERGIZED",
+        "FACT_CONTACTOR_NOT_PASSING_VOLTAGE"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+        "tests/electrical_service_calls/electrical_service_call_cases.json",
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "label": "Compressor start component fault",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_START_COMPONENT_FAULT"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_START_COMPONENT_FAULT"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "label": "Control-power or safety-chain interruption",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_CONTROL_POWER_CHAIN",
+        "RULE_CONTACTOR_COIL_DEAD_WITH_DEMAND"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_COPELAND_AE105_ELECTRICAL"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_PUMPING",
+        "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_ABSENT",
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED",
+        "FACT_COOLING_DEMAND_PRESENT"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DRAIN_REFREEZE",
+      "label": "Drain/drain-heater/refreeze fault",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_DRAIN_REFREEZE_LOCALIZED"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_DEFROST_ICE"
+      ],
+      "related_check_ids": [
+        "CHECK_DRAIN_REFREEZE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DRAIN_REFREEZE"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "label": "Liquid solenoid leaking or not closing",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_SOLENOID_LEAKING"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_PUMPDOWN"
+      ],
+      "related_check_ids": [
+        "CHECK_SOLENOID_SEQUENCE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_SOLENOID_COMMAND_CLOSED",
+        "FACT_SOLENOID_FLOW_CONTINUES_CLOSED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "label": "Sensor location/calibration/input fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_SENSOR_REFERENCE_CONFLICT"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_WARM_ROOM_NONREFRIG"
+      ],
+      "related_check_ids": [
+        "CHECK_SENSOR_REFERENCE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_SENSOR_DISAGREES_REFERENCE"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "label": "Transient warm-product load / pull-down",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "rule_ids": [
+        "RULE_PRODUCT_LOAD_PULLDOWN"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [
+        "DISC_WARM_ROOM_NONREFRIG"
+      ],
+      "related_check_ids": [
+        "CHECK_DOOR_LOAD"
+      ],
+      "evidence_fact_ids": [
+        "FACT_BOX_TEMP_HIGH",
+        "FACT_WARM_PRODUCT_LOAD_CONFIRMED"
+      ],
+      "test_file_mentions": [
+        "tests/brain_2_0_phase234_runtime.mjs",
+        "tests/brain_2_0_ui_to_brain_workflows.mjs",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONDENSER_RECIRCULATION",
+      "label": "Condenser discharge-air recirculation / installation airflow fault",
+      "taxonomy_proposal": "Condenser and head-pressure control",
+      "rule_ids": [
+        "RULE_COND_RECIRCULATION_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_COND_RECIRCULATION_CONFIRMED",
+        "FACT_COND_SAT_HIGH"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "label": "Liquid solenoid commanded open but not opening/flowing",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_SOLENOID_NOT_OPENING_DIRECT"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_SOLENOID_OPENING"
+      ],
+      "evidence_fact_ids": [
+        "FACT_SOLENOID_COIL_VOLTAGE_PRESENT",
+        "FACT_SOLENOID_COMMAND_OPEN",
+        "FACT_SOLENOID_NO_FLOW_WHEN_OPEN"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "label": "Intentional anti-short-cycle/controller delay",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_ANTI_SHORT_CYCLE_DELAY"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_ANTI_SHORT_CYCLE_DELAY_ACTIVE"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "label": "Insufficient refrigerant inventory for configured head-pressure-control flooding",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_HEADCTRL_FLOOD_CHARGE"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_HEAD_CONTROL_CONFIGURATION"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_SAT_LOW",
+        "FACT_HEAD_CONTROL_FLOOD_CHARGE_INSUFFICIENT",
+        "FACT_HEAD_CONTROL_INSTALLED",
+        "FACT_LOW_AMBIENT"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "label": "Open fuse requiring downstream fault/overload investigation",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_FUSE_OPEN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_PUMPING"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_NOT_RUNNING",
+        "FACT_FUSE_OPEN"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "label": "Confirmed refrigerant leak / low-charge condition",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_LOW_CHARGE_CONFIRMED_LEAK"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "RULE_SCOPE_DECLARED",
+        "APP_RIF": "RULE_SCOPE_DECLARED",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH",
+        "CHECK_MEASURE_SC",
+        "CHECK_DRIER_DROP"
+      ],
+      "evidence_fact_ids": [
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_LEAK_CONFIRMED",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUCTION_PRESSURE_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "label": "TXV power-element or valve fault",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_TXV_NO_RESPONSE_LOCALIZED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SH_HIGH",
+        "FACT_TXV_NO_RESPONSE",
+        "FACT_TXV_UPSTREAM_LIQUID_PROPER"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation/wic_challenge_cases_v1.json",
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_MOISTURE_CONTAMINATION",
+      "label": "Moisture contamination in refrigerant circuit",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "rule_ids": [
+        "RULE_MOISTURE_CONTAMINATION"
+      ],
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "NO_DIRECT_RULE_SCOPE",
+        "APP_AC_SPLIT": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "RULE_SCOPE_DECLARED",
+        "APP_WIF": "RULE_SCOPE_DECLARED"
+      },
+      "source_ids": [
+        "SRC_SPORLAN_DRIER"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_MOISTURE_INDICATED"
+      ],
+      "test_file_mentions": [
+        "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+        "tests/challenge_validation_4/wic_challenge_cases_v4.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_NO_LINE_POWER",
+      "label": "No incoming line power to outdoor/packaged unit",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_AC_NO_LINE_POWER"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_MAIN_POWER_NOT_AVAILABLE"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_TRANSFORMER_FAILURE",
+      "label": "Failed 24-V control transformer",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "rule_ids": [
+        "RULE_AC_TRANSFORMER_FAILURE"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_TRANSFORMER_PRIMARY_PRESENT",
+        "FACT_TRANSFORMER_SECONDARY_ABSENT"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "label": "Open low-voltage fuse / control-circuit short",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_AC_LV_FUSE_OPEN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_LOW_VOLTAGE_FUSE_OPEN"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "label": "Thermostat Y/control-circuit fault",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_AC_THERMOSTAT_Y_CONTROL"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_COOLING_DEMAND_PRESENT",
+        "FACT_THERMOSTAT_Y_ABSENT"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_RUN_CAPACITOR_FAILURE",
+      "label": "Failed or out-of-tolerance run capacitor",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_AC_RUN_CAP_FAILED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_RUN_CAPACITOR_FAILED"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "label": "Open compressor winding",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_AC_COMP_WINDING_OPEN"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_TERMINAL_VOLTAGE_PRESENT",
+        "FACT_COMPRESSOR_WINDING_OPEN"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_GROUNDED",
+      "label": "Grounded compressor winding",
+      "taxonomy_proposal": "Compressor and oil",
+      "rule_ids": [
+        "RULE_AC_COMP_GROUNDED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_COMPRESSOR_GROUNDED"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_COND_FAN_MOTOR_FAILURE",
+      "label": "Condenser fan motor electrical/mechanical failure",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "rule_ids": [
+        "RULE_AC_COND_FAN_MOTOR"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_COND_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_COND_FAN_NOT_RUNNING",
+        "FACT_COND_FAN_SHAFT_FREE",
+        "FACT_COND_FAN_VOLTAGE_PRESENT"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE",
+      "label": "Indoor blower motor electrical/mechanical failure",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "rule_ids": [
+        "RULE_AC_BLOWER_MOTOR"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_BLOWER_VOLTAGE_PRESENT",
+        "FACT_EVAP_FAN_NOT_RUNNING"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "label": "Dirty filter or duct/damper airflow restriction",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "rule_ids": [
+        "RULE_AC_FILTER_DUCT",
+        "RULE_AC_DUCT_ONLY"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_VERIFY_EVAP_AIRFLOW"
+      ],
+      "evidence_fact_ids": [
+        "FACT_AIR_FILTER_DIRTY",
+        "FACT_DUCT_RESTRICTED",
+        "FACT_EVAP_AIRFLOW_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "label": "Restricted fixed-orifice/piston metering device",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_AC_FIXED_ORIFICE_RESTRICTED"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [
+        "CHECK_MEASURE_SH"
+      ],
+      "evidence_fact_ids": [
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_FIXED_ORIFICE_RESTRICTED"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE",
+      "label": "Incorrect fixed-orifice/piston size",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "rule_ids": [
+        "RULE_AC_FIXED_ORIFICE_SIZE"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_FIXED_ORIFICE_WRONG_SIZE"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "label": "Line voltage outside equipment tolerance",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_AC_LINE_VOLTAGE_LOW",
+        "RULE_AC_LINE_VOLTAGE_HIGH"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_LINE_VOLTAGE_HIGH",
+        "FACT_LINE_VOLTAGE_LOW"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_WELDED_CLOSED",
+      "label": "Contactor welded closed / outdoor unit runs without demand",
+      "taxonomy_proposal": "Electrical and controls",
+      "rule_ids": [
+        "RULE_AC_WELDED_CONTACTOR"
+      ],
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "application_status": {
+        "APP_AC_PACKAGE": "RULE_SCOPE_DECLARED",
+        "APP_AC_SPLIT": "RULE_SCOPE_DECLARED",
+        "APP_RIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_RIF": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIC": "NO_DIRECT_RULE_SCOPE",
+        "APP_WIF": "NO_DIRECT_RULE_SCOPE"
+      },
+      "source_ids": [
+        "SRC_CARRIER_AC_TROUBLESHOOTING",
+        "SRC_HVAC_SCHOOL_RESIDENTIAL",
+        "SRC_TRANE_AC_TROUBLESHOOTING"
+      ],
+      "relationship_ids": [],
+      "discriminator_ids": [],
+      "related_check_ids": [],
+      "evidence_fact_ids": [
+        "FACT_CONTACTOR_WELDED_CLOSED",
+        "FACT_COOLING_DEMAND_ABSENT"
+      ],
+      "test_file_mentions": [
+        "tests/residential_ac_deep/residential_ac_deep_cases.json"
+      ],
+      "validation_status": "NOT_VERIFIED",
+      "coverage_note": "ID mentioned in test source; assertion coverage and correctness not verified"
+    }
+  ]
+}

@@ -16,7 +16,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-002",
@@ -30,7 +30,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-003",
@@ -45,7 +45,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-004",
@@ -60,7 +60,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-005",
@@ -74,7 +74,7 @@
         "CAUSE_TRANSFORMER_FAILURE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-006",
@@ -88,7 +88,7 @@
         "CAUSE_TRANSFORMER_FAILURE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-007",
@@ -102,7 +102,7 @@
         "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-008",
@@ -116,7 +116,7 @@
         "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-009",
@@ -131,7 +131,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-010",
@@ -146,7 +146,7 @@
         "CAUSE_NO_LINE_POWER"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-011",
@@ -160,7 +160,7 @@
         "CAUSE_RUN_CAPACITOR_FAILURE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-012",
@@ -174,7 +174,7 @@
         "CAUSE_RUN_CAPACITOR_FAILURE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-013",
@@ -218,7 +218,7 @@
         "CAUSE_COMPRESSOR_GROUNDED"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-016",
@@ -232,7 +232,7 @@
         "CAUSE_COMPRESSOR_GROUNDED"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-017",
@@ -310,7 +310,7 @@
         "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-022",
@@ -324,7 +324,7 @@
         "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-023",
@@ -338,7 +338,7 @@
         "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-024",
@@ -352,7 +352,7 @@
         "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-025",
@@ -366,7 +366,7 @@
         "CAUSE_CONTACTOR_WELDED_CLOSED"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-026",
@@ -380,7 +380,7 @@
         "CAUSE_CONTACTOR_WELDED_CLOSED"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-027",
@@ -998,7 +998,7 @@
         "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-060",
@@ -1012,7 +1012,7 @@
         "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
       ],
       "resolution": "SINGLE_SUPPORTED_CAUSE",
-      "nextCheck": "CHECK_DRAIN_REFREEZE"
+      "nextCheck": null
     },
     {
       "id": "RACD-061",
@@ -1340,7 +1340,7 @@
       "diagnoses": [],
       "hypotheses": [],
       "resolution": "SUPPORTED_SYSTEM_CONDITION",
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+      "nextCheck": null
     },
     {
       "id": "RACD-080",
@@ -1350,7 +1350,7 @@
       "diagnoses": [],
       "hypotheses": [],
       "resolution": "SUPPORTED_SYSTEM_CONDITION",
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE"
+      "nextCheck": null
     }
   ]
 }

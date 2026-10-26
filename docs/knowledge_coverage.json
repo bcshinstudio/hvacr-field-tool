@@ -1,0 +1,2305 @@
+{
+  "schema_version": "1.0.0",
+  "summary": {
+    "faults": 69,
+    "phase4_scenarios": 552,
+    "phase4_explicitly_linked": 209,
+    "suites_passed": 4,
+    "suites_total": 4,
+    "per_case_results": 80,
+    "per_case_pass": 80,
+    "per_case_fail": 0,
+    "faults_with_passing_positive_execution": 28,
+    "independently_verified_cases": 0
+  },
+  "suites": [
+    {
+      "id": "WIC_STARVATION",
+      "runner": "tests/wic_starvation_differential.mjs",
+      "status": "PASS",
+      "exit_code": 0,
+      "output_tail": "WIC STARVATION DIFFERENTIAL: 15 assertions PASS (production hypothesis engine, WIC scope)",
+      "error_tail": ""
+    },
+    {
+      "id": "REACH_IN_SAFETY",
+      "runner": "tests/reach_in_brain_safety.mjs",
+      "status": "PASS",
+      "exit_code": 0,
+      "output_tail": "REACH-IN BRAIN SAFETY: PASS (empty evidence, scope, shared faults, invalid readings, transient state)",
+      "error_tail": ""
+    },
+    {
+      "id": "BRAIN_CONDITION",
+      "runner": "tests/brain_2_0_condition_preservation.mjs",
+      "status": "PASS",
+      "exit_code": 0,
+      "output_tail": "BRAIN 2.0 CONDITION PRESERVATION: 9 assertions PASS",
+      "error_tail": ""
+    },
+    {
+      "id": "RESIDENTIAL_AC_DEEP",
+      "runner": "tests/residential_ac_deep/residential_ac_deep_runner.mjs",
+      "status": "PASS",
+      "exit_code": 0,
+      "output_tail": "PASS RACD-080 Startup readings should not diagnose charge [Package]\n\nRESIDENTIAL A/C DEEP VALIDATION: 80 PASS / 0 FAIL / 80 TOTAL",
+      "error_tail": ""
+    }
+  ],
+  "phase4_dataset_inventory": [
+    {
+      "file": "tests/knowledge_cases.json",
+      "cases": 20,
+      "explicitly_linked": 17,
+      "unlinked": 3
+    },
+    {
+      "file": "tests/diagnostic_cases.json",
+      "cases": 24,
+      "explicitly_linked": 0,
+      "unlinked": 24
+    },
+    {
+      "file": "tests/wic_fact_adapter_cases.json",
+      "cases": 20,
+      "explicitly_linked": 0,
+      "unlinked": 20
+    },
+    {
+      "file": "tests/wic_system_check_presentation_cases.json",
+      "cases": 2,
+      "explicitly_linked": 0,
+      "unlinked": 2
+    },
+    {
+      "file": "tests/master_validation/wic_master_diagnostic_cases.json",
+      "cases": 80,
+      "explicitly_linked": 0,
+      "unlinked": 80
+    },
+    {
+      "file": "tests/residential_ac/residential_ac_master_cases.json",
+      "cases": 40,
+      "explicitly_linked": 0,
+      "unlinked": 40
+    },
+    {
+      "file": "tests/residential_ac_deep/residential_ac_deep_cases.json",
+      "cases": 80,
+      "explicitly_linked": 80,
+      "unlinked": 0
+    },
+    {
+      "file": "tests/electrical_service_calls/electrical_service_call_cases.json",
+      "cases": 6,
+      "explicitly_linked": 1,
+      "unlinked": 5
+    },
+    {
+      "file": "tests/textbook_volume1/textbook_volume1_cases.json",
+      "cases": 20,
+      "explicitly_linked": 0,
+      "unlinked": 20
+    },
+    {
+      "file": "tests/challenge_validation/wic_challenge_cases_v1.json",
+      "cases": 50,
+      "explicitly_linked": 20,
+      "unlinked": 30
+    },
+    {
+      "file": "tests/challenge_validation_2/wic_challenge_cases_v2.json",
+      "cases": 60,
+      "explicitly_linked": 0,
+      "unlinked": 60
+    },
+    {
+      "file": "tests/challenge_validation_3/wic_challenge_cases_v3.json",
+      "cases": 70,
+      "explicitly_linked": 43,
+      "unlinked": 27
+    },
+    {
+      "file": "tests/challenge_validation_4/wic_challenge_cases_v4.json",
+      "cases": 80,
+      "explicitly_linked": 48,
+      "unlinked": 32
+    }
+  ],
+  "faults": [
+    {
+      "id": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "phase4_positive_scenarios": 7,
+      "executed_positive_scenarios": 6,
+      "passing_positive_scenarios": 6,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_REFRIGERANT_LEAK",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_OVERCHARGE",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_NONCONDENSABLES",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "phase4_positive_scenarios": 11,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_RESTRICTION",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_UNDERFEED",
+      "phase4_positive_scenarios": 1,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_OVERFEED",
+      "phase4_positive_scenarios": 1,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_BULB_INSTALLATION",
+      "phase4_positive_scenarios": 8,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_EQUALIZER_FAULT",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_INCORRECT_SIZE",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_FAILURE",
+      "phase4_positive_scenarios": 9,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_COIL_DIRTY",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_ICING",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "phase4_positive_scenarios": 6,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_FAN_FAILURE",
+      "phase4_positive_scenarios": 9,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_COIL_DIRTY",
+      "phase4_positive_scenarios": 12,
+      "executed_positive_scenarios": 4,
+      "passing_positive_scenarios": 4,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HOT_AIR_RECIRCULATION",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HIGH_AMBIENT",
+      "phase4_positive_scenarios": 1,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EXCESSIVE_LOAD",
+      "phase4_positive_scenarios": 1,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_AIR_INFILTRATION",
+      "phase4_positive_scenarios": 6,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_INADEQUATE",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HP_CONTROL_SETTING_OR_FAULT",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "phase4_positive_scenarios": 1,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "phase4_positive_scenarios": 10,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SYSTEM_UNDERSIZED",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_INLET_RESTRICTION",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_HEATER_FAILURE",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "phase4_positive_scenarios": 0,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_FAILURE",
+      "phase4_positive_scenarios": 5,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DRAIN_REFREEZE",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONDENSER_RECIRCULATION",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "phase4_positive_scenarios": 3,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_MOISTURE_CONTAMINATION",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 0,
+      "passing_positive_scenarios": 0,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_NO_LINE_POWER",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 4,
+      "passing_positive_scenarios": 4,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TRANSFORMER_FAILURE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_RUN_CAPACITOR_FAILURE",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 4,
+      "passing_positive_scenarios": 4,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_GROUNDED",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_FAN_MOTOR_FAILURE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "phase4_positive_scenarios": 8,
+      "executed_positive_scenarios": 8,
+      "passing_positive_scenarios": 8,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "phase4_positive_scenarios": 4,
+      "executed_positive_scenarios": 4,
+      "passing_positive_scenarios": 4,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_WELDED_CLOSED",
+      "phase4_positive_scenarios": 2,
+      "executed_positive_scenarios": 2,
+      "passing_positive_scenarios": 2,
+      "failing_positive_scenarios": 0,
+      "independent_source_validation": "NOT_ASSESSED"
+    }
+  ],
+  "per_case_results": [
+    {
+      "id": "RACD-001",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-002",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-003",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_CONTACTOR_FAILURE",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-004",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_CONTACTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_CONTACTOR_FAILURE",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-005",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-006",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TRANSFORMER_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-007",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-008",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-009",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-010",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-011",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-012",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-013",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE",
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-014",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_WINDING_FAILURE",
+        "CAUSE_COMPRESSOR_START_COMPONENT_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-015",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-016",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_GROUNDED"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-017",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-018",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_FAN_MOTOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-019",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-020",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-021",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-022",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-023",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-024",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-025",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-026",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_CONTACTOR_WELDED_CLOSED"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-027",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-028",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-029",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-030",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-031",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-032",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-033",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-034",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_FAN_FAILURE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-035",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-036",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-037",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-038",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_COND_FAN_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_FAN_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-039",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-040",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_HOT_AIR_RECIRCULATION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-041",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-042",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-043",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-044",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-045",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-046",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-047",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-048",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-049",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-050",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-051",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-052",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_BULB_INSTALLATION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-053",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-054",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_EQUALIZER_FAULT"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_EQUALIZER_FAULT",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_BULB_INSTALLATION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-055",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-056",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-057",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-058",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-059",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-060",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-061",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-062",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_FIXED_ORIFICE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-063",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-064",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-065",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-066",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-067",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-068",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-069",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-070",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-071",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-072",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-073",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-074",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_COND_COIL_DIRTY",
+        "CAUSE_RUN_CAPACITOR_FAILURE",
+        "CAUSE_COND_AIRFLOW_RESTRICTION"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-075",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-076",
+      "status": "PASS",
+      "expected_positive": [
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION"
+      ],
+      "expected_hypotheses": [],
+      "expected_forbidden": [],
+      "actual_diagnoses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER"
+      ],
+      "actual_hypotheses": [
+        "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_NO_LINE_POWER",
+        "CAUSE_EVAP_FAN_FAILURE",
+        "CAUSE_EVAP_COIL_DIRTY",
+        "CAUSE_EVAP_ICING"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-077",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-078",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_OVERCHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-079",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    },
+    {
+      "id": "RACD-080",
+      "status": "PASS",
+      "expected_positive": [],
+      "expected_hypotheses": [],
+      "expected_forbidden": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
+      "actual_diagnoses": [],
+      "actual_hypotheses": [],
+      "errors": [],
+      "source_verification": "NOT_ASSESSED"
+    }
+  ],
+  "methodology": "Phase 4 canonical fault expectation links plus actual execution of four suites; case-level mapping only for residential A/C deep suite.",
+  "caveats": [
+    "Suite-level PASS is not per-fault validation without individual assertion traceability.",
+    "Passing internal expectations is not independent textbook/manufacturer verification.",
+    "No diagnostic engine rules are modified.",
+    "Other datasets are not yet linked to individual execution outcomes.",
+    "Chapter 7 textbook answers take priority for equivalent textbook conditions after assumptions are checked."
+  ]
+}

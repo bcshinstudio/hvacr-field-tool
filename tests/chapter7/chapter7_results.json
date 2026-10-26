@@ -1,0 +1,1418 @@
+{
+  "status": "ENGINE_OUTPUT_NOT_TEXTBOOK_ANSWER_KEY",
+  "pt_basis": "Approximate exercise PT temperatures; independently verify before authoritative numerical acceptance",
+  "interpretation": "Hypotheses are not confirmed repairs; 7-4 and 7-11 remain ambiguous",
+  "cases": [
+    {
+      "problem": "7-1",
+      "application": "APP_WIC",
+      "evapSatF": 35,
+      "condSatF": 120,
+      "superheatF": 10,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_TXV_INLET_RESTRICTION",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_OVERCHARGE",
+          "score": 2,
+          "ruleId": "RULE_OVERCHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_NONCONDENSABLES",
+          "score": 2,
+          "ruleId": "RULE_NONCONDENSABLES",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_COND_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_COND_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HOT_AIR_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_HOT_RECIRC",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HIGH_AMBIENT",
+          "score": 2,
+          "ruleId": "RULE_HIGH_AMBIENT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_INLET_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_TXV_INLET_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONDENSER_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_COND_RECIRCULATION_DIRECT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-2",
+      "application": "APP_WIC",
+      "evapSatF": 40,
+      "condSatF": 140,
+      "superheatF": 10,
+      "apparentSubcoolingF": 30,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_OVERCHARGE",
+          "score": 4,
+          "ruleId": "RULE_OVERCHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_NONCONDENSABLES",
+          "score": 2,
+          "ruleId": "RULE_NONCONDENSABLES",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_COND_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_COND_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HOT_AIR_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_HOT_RECIRC",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HIGH_AMBIENT",
+          "score": 2,
+          "ruleId": "RULE_HIGH_AMBIENT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONDENSER_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_COND_RECIRCULATION_DIRECT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-3",
+      "application": "APP_WIF",
+      "evapSatF": -5,
+      "condSatF": 105,
+      "superheatF": 25,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+          "score": 7,
+          "ruleId": "RULE_LOW_CHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "STRONG_SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_UNDERFEED",
+          "score": 7,
+          "ruleId": "RULE_TXV_UNDERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "STRONG_SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 6,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+          "score": 2,
+          "ruleId": "RULE_WRONG_REFRIGERANT_TXV",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+          "score": 2,
+          "ruleId": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+          "score": 2,
+          "ruleId": "RULE_TXV_NO_RESPONSE_LOCALIZED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "problem": "7-4",
+      "application": "APP_WIF",
+      "evapSatF": 25,
+      "condSatF": 80,
+      "superheatF": 40,
+      "apparentSubcoolingF": 0,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_COMPRESSOR_INEFFICIENCY",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_TXV_UNDERFEED",
+          "score": 5,
+          "ruleId": "RULE_TXV_UNDERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "STRONG_SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+          "score": 4,
+          "ruleId": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_FILTER_DRIER_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_FILTER_DRIER_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_COMPRESSOR_INEFFICIENCY",
+          "score": 2,
+          "ruleId": "RULE_COMPRESSOR_INEFFICIENT",
+          "evidence": [
+            {
+              "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+          "score": 2,
+          "ruleId": "RULE_WRONG_REFRIGERANT_TXV",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+          "score": 2,
+          "ruleId": "RULE_TXV_NO_RESPONSE_LOCALIZED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "problem": "7-5",
+      "application": "APP_WIF",
+      "evapSatF": 0,
+      "condSatF": 100,
+      "superheatF": 10,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 4,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+          "score": 2,
+          "ruleId": "RULE_LOW_CHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_UNDERFEED",
+          "score": 2,
+          "ruleId": "RULE_TXV_UNDERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-6",
+      "application": "APP_WIC",
+      "evapSatF": 20,
+      "condSatF": 100,
+      "superheatF": 30,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_DRIER_TEMPERATURES_MEASURED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "hypotheses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_FILTER_DRIER_RESTRICTION",
+          "score": 9,
+          "ruleId": "RULE_FILTER_DRIER_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_DRIER_TEMP_DROP",
+              "role": "STRONG_SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_UNDERFEED",
+          "score": 7,
+          "ruleId": "RULE_TXV_UNDERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "STRONG_SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+          "score": 4,
+          "ruleId": "RULE_LOW_CHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "STRONG_SUPPORT"
+            },
+            {
+              "fact": "FACT_DRIER_TEMP_DROP",
+              "role": "CONTRADICT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+          "score": 2,
+          "ruleId": "RULE_WRONG_REFRIGERANT_TXV",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 2,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+          "score": 2,
+          "ruleId": "RULE_TXV_NO_RESPONSE_LOCALIZED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-7",
+      "application": "APP_RIC",
+      "evapSatF": 10,
+      "condSatF": 100,
+      "superheatF": 35,
+      "apparentSubcoolingF": 25,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_OVERCHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 4,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_OVERCHARGE",
+          "score": 2,
+          "ruleId": "RULE_OVERCHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+          "score": 2,
+          "ruleId": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-8",
+      "application": "APP_RIC",
+      "evapSatF": 20,
+      "condSatF": 110,
+      "superheatF": 0,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 4,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-9",
+      "application": "APP_RIC",
+      "evapSatF": 60,
+      "condSatF": 90,
+      "superheatF": 30,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_COMPRESSOR_INEFFICIENCY",
+          "score": 2,
+          "ruleId": "RULE_COMPRESSOR_INEFFICIENT",
+          "evidence": [
+            {
+              "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+          "score": 2,
+          "ruleId": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 1,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+              "role": "CONTRADICT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "problem": "7-10",
+      "application": "APP_RIF",
+      "evapSatF": -10,
+      "condSatF": 90,
+      "superheatF": 35,
+      "apparentSubcoolingF": 0,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_LOW",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 4,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+          "score": 4,
+          "ruleId": "RULE_LOW_CHARGE_CONFIRMED_LEAK",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-11",
+      "application": "APP_RIF",
+      "evapSatF": 25,
+      "condSatF": 120,
+      "superheatF": 0,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_OVERCHARGE",
+          "score": 2,
+          "ruleId": "RULE_OVERCHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_NONCONDENSABLES",
+          "score": 2,
+          "ruleId": "RULE_NONCONDENSABLES",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_COND_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_COND_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HOT_AIR_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_HOT_RECIRC",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HIGH_AMBIENT",
+          "score": 2,
+          "ruleId": "RULE_HIGH_AMBIENT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-12",
+      "application": "APP_RIF",
+      "evapSatF": 25,
+      "condSatF": 115,
+      "superheatF": 0,
+      "apparentSubcoolingF": 35,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_HIGH",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_OVERCHARGE",
+          "score": 4,
+          "ruleId": "RULE_OVERCHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_NONCONDENSABLES",
+          "score": 2,
+          "ruleId": "RULE_NONCONDENSABLES",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_COND_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_COND_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HOT_AIR_RECIRCULATION",
+          "score": 2,
+          "ruleId": "RULE_HOT_RECIRC",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HIGH_AMBIENT",
+          "score": 2,
+          "ruleId": "RULE_HIGH_AMBIENT",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_HIGH",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-13",
+      "application": "APP_WIC",
+      "evapSatF": 25,
+      "condSatF": 125,
+      "superheatF": 0,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "hypotheses": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_INLET_RESTRICTION"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_TXV_OVERFEED",
+          "score": 5,
+          "ruleId": "RULE_TXV_OVERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SH_LOW",
+              "role": "STRONG_SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_INLET_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_TXV_INLET_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "problem": "7-14",
+      "application": "APP_WIC",
+      "evapSatF": 20,
+      "condSatF": 50,
+      "superheatF": 10,
+      "apparentSubcoolingF": 10,
+      "caveat": null,
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_LOW_AMBIENT",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "hypothesisEvidence": [
+        {
+          "candidate": "CAUSE_LIQUID_LINE_RESTRICTION",
+          "score": 4,
+          "ruleId": "RULE_LIQUID_LINE_RESTRICTION",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_SUBCOOLING_RETAINED",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+          "score": 4,
+          "ruleId": "RULE_HEAD_PRESSURE_CONTROL",
+          "evidence": [
+            {
+              "fact": "FACT_COND_SAT_LOW",
+              "role": "SUPPORT"
+            },
+            {
+              "fact": "FACT_LOW_AMBIENT",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_LOW_REFRIGERANT_CHARGE",
+          "score": 2,
+          "ruleId": "RULE_LOW_CHARGE",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_TXV_UNDERFEED",
+          "score": 2,
+          "ruleId": "RULE_TXV_UNDERFEED",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+          "score": 2,
+          "ruleId": "RULE_EVAP_AIRFLOW",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        },
+        {
+          "candidate": "CAUSE_EVAP_ICING",
+          "score": 2,
+          "ruleId": "RULE_EVAP_ICING",
+          "evidence": [
+            {
+              "fact": "FACT_EVAP_SAT_LOW",
+              "role": "SUPPORT"
+            }
+          ]
+        }
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-15",
+      "application": "APP_WIC",
+      "evapSatF": 35,
+      "condSatF": 115,
+      "superheatF": 15,
+      "apparentSubcoolingF": 5,
+      "caveat": null,
+      "facts": [
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_OPERATING_PATTERN_WITHIN_REFERENCE",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
+      ],
+      "diagnoses": [],
+      "hypotheses": [],
+      "hypothesisEvidence": [],
+      "nextCheck": null
+    }
+  ]
+}

@@ -38,7 +38,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -79,7 +80,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -116,7 +120,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -157,7 +164,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -190,6 +200,10 @@
         {
           "fact": "FACT_SUBCOOLING_RETAINED",
           "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+          "role": "CONTRADICT"
         }
       ],
       "sources": [
@@ -200,7 +214,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -245,7 +262,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -275,7 +293,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -315,7 +334,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -353,7 +375,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -388,7 +413,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -429,7 +457,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -464,7 +495,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -499,7 +533,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -535,7 +572,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -567,7 +607,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -596,7 +639,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -632,7 +678,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -668,7 +715,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -703,7 +751,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "DEFROST",
@@ -732,7 +781,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "DEFROST",
@@ -765,7 +815,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -788,7 +839,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       }
     },
@@ -812,7 +864,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       }
     },
@@ -840,7 +893,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       }
     },
@@ -869,6 +923,10 @@
           "fact": "FACT_COMPRESSOR_VALVE_LEAKAGE_EVIDENCE",
           "role": "STRONG_SUPPORT",
           "direct": true
+        },
+        {
+          "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+          "role": "SUPPORT"
         }
       ],
       "sources": [
@@ -879,7 +937,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -911,7 +972,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -950,7 +1014,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -984,7 +1049,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1017,7 +1083,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1048,7 +1115,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "DEFROST",
@@ -1080,7 +1148,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "DEFROST",
@@ -1112,7 +1181,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "POST_DEFROST",
@@ -1141,6 +1211,14 @@
           "fact": "FACT_HEAD_CONTROL_SETTING_RESTRICTION",
           "role": "STRONG_SUPPORT",
           "direct": true
+        },
+        {
+          "fact": "FACT_COND_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_LOW_AMBIENT",
+          "role": "SUPPORT"
         }
       ],
       "sources": [
@@ -1149,7 +1227,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1178,7 +1257,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1208,7 +1290,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1238,7 +1321,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1258,7 +1342,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "DEFROST",
@@ -1285,7 +1370,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1313,7 +1401,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1340,7 +1431,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1365,7 +1459,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "PUMP_DOWN",
@@ -1393,7 +1488,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       }
     },
@@ -1413,7 +1509,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "PULLDOWN",
@@ -1439,7 +1536,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1465,7 +1565,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1489,7 +1592,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1521,7 +1625,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1549,7 +1654,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1573,7 +1679,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STARTUP",
@@ -1600,7 +1709,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ]
       }
     },
@@ -1634,7 +1746,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1664,7 +1779,8 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1689,7 +1805,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ]
       }
     },
@@ -1715,7 +1834,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1744,7 +1866,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       },
       "notes": "Command and voltage with no heater current localizes the fault to heater/load circuit or its connections."
@@ -1765,7 +1888,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       },
       "notes": "An open LP control during a warm-box cooling requirement requires cutout/cutin and actual pressure verification."
@@ -1800,7 +1924,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1824,7 +1951,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ]
       },
       "notes": "A wet indicator establishes moisture contamination risk, but does not alone prove an active TXV ice restriction."
@@ -1858,7 +1986,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1887,7 +2018,8 @@
       ],
       "scope": {
         "applications": [
-          "APP_WIC"
+          "APP_WIC",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1911,13 +2043,16 @@
         }
       ],
       "sources": [
-        "SRC_FIELD_DIAGNOSTIC_SEQUENCE"
+        "SRC_COPELAND_AE105_ELECTRICAL"
       ],
       "scope": {
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -1945,7 +2080,10 @@
         "applications": [
           "APP_WIC",
           "APP_AC_SPLIT",
-          "APP_AC_PACKAGE"
+          "APP_AC_PACKAGE",
+          "APP_RIC",
+          "APP_RIF",
+          "APP_WIF"
         ],
         "operating_states": [
           "STABLE_COOLING",

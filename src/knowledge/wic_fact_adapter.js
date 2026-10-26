@@ -62,11 +62,39 @@ export function buildWicKnowledgeFacts(snapshot={}) {
 
   // ---- Reference-based calculated conditions ----
   if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceSat)) {
-    if (c.evaporatorSat < c.evaporatorReferenceSat)
+    if (c.evaporatorSat < (finite(c.evaporatorReferenceLow)?c.evaporatorReferenceLow:c.evaporatorReferenceSat))
       addFact(result,"FACT_EVAP_SAT_LOW","calculated.evaporatorSat",c.evaporatorSat,"Below application reference SAT.");
-    else if (c.evaporatorSat > c.evaporatorReferenceSat)
+    else if (c.evaporatorSat > (finite(c.evaporatorReferenceHigh)?c.evaporatorReferenceHigh:c.evaporatorReferenceSat))
       addFact(result,"FACT_EVAP_SAT_HIGH","calculated.evaporatorSat",c.evaporatorSat,"Above application reference SAT.");
   }
+
+  // Optional two-sided equipment reference. A high suction saturation is not
+  // evidence of undercharge; it can be part of a weak-pumping pattern.
+  if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceHigh) &&
+      c.evaporatorSat > c.evaporatorReferenceHigh)
+    addFact(result,"FACT_EVAP_SAT_ABOVE_RANGE","calculated.evaporatorSat",c.evaporatorSat,"Above the explicitly supplied evaporator saturation range.");
+  if (finite(c.condenserSat) && finite(c.condenserReferenceLow) &&
+      c.condenserSat < c.condenserReferenceLow)
+    addFact(result,"FACT_COND_SAT_LOW","calculated.condenserSat",c.condenserSat,"Below the explicitly supplied condenser saturation range.");
+  if (finite(m.outdoorAmbientF) && finite(r.lowAmbientThresholdF) &&
+      m.outdoorAmbientF < r.lowAmbientThresholdF)
+    addFact(result,"FACT_LOW_AMBIENT","measurements.outdoorAmbientF",m.outdoorAmbientF,"Below explicitly supplied low-ambient reference; not a head-control failure diagnosis.");
+  if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceHigh) &&
+      finite(c.condenserSat) && finite(c.condenserReferenceLow) &&
+      c.evaporatorSat > c.evaporatorReferenceHigh && c.condenserSat < c.condenserReferenceLow)
+    addFact(result,"FACT_HIGH_SUCTION_LOW_HEAD_PATTERN","calculated.pressurePattern",true,"High evaporating and low condensing saturation together; investigate compressor performance and operating state.");
+  // Normal pattern requires COMPLETE two-sided references, not merely absence
+  // of fault evidence. This does not override direct observations of a defect.
+  if ([c.evaporatorSat,c.evaporatorReferenceLow,c.evaporatorReferenceHigh,
+       c.condenserSat,c.condenserReferenceLow,c.condenserReferenceHigh,
+       c.evaporatorSuperheat,c.condenserSubcooling,
+       r.evaporatorSuperheat?.low,r.evaporatorSuperheat?.high,
+       r.condenserSubcooling?.low,r.condenserSubcooling?.high].every(finite) &&
+      c.evaporatorSat>=c.evaporatorReferenceLow && c.evaporatorSat<=c.evaporatorReferenceHigh &&
+      c.condenserSat>=c.condenserReferenceLow && c.condenserSat<=c.condenserReferenceHigh &&
+      c.evaporatorSuperheat>=r.evaporatorSuperheat.low && c.evaporatorSuperheat<=r.evaporatorSuperheat.high &&
+      c.condenserSubcooling>=r.condenserSubcooling.low && c.condenserSubcooling<=r.condenserSubcooling.high)
+    addFact(result,"FACT_OPERATING_PATTERN_WITHIN_REFERENCE","calculated.referencePattern",true,"All six measured conditions lie within explicitly supplied exercise ranges; this alone does not prove equipment health.");
 
   if (finite(c.condenserSat) && finite(c.condenserReferenceHigh) &&
       c.condenserSat > c.condenserReferenceHigh)

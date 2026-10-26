@@ -1,3 +1,24 @@
+## Reach-in refrigeration foundation (development candidate, not yet tagged)
+
+Added Reach-In Refrigerator (R-134a / capillary tube) and Reach-In Freezer
+(R-404A / capillary tube) selectable equipment profiles. Both reuse the
+shared DX measurement, component, and diagnostic engine. Their default
+configuration contains a compressor, air-cooled condenser, filter-drier,
+capillary tube, and evaporator. These are **typical textbook configurations**;
+real equipment may differ and manufacturer service data takes precedence.
+
+The selected reach-in profile chooses its textbook refrigerant by default,
+without preventing a technician from selecting a different refrigerant.
+
+**Important limitation:** This milestone adds the system models and shared
+measurement/diagnostic path; it does NOT yet establish Chapter 7 fault-answer
+accuracy or provide validated reach-in-specific diagnostic evidence rules.
+No universal charging targets or TEV superheat fallback are applied to the
+capillary-tube profiles. Chapter 7 comparison and root-cause corrections are
+subsequent milestones, not claimed as completed here.
+
+Run: `node tests/reach_in_profiles.mjs`
+
 # HVAC/R Field Tool
 
 ## v2.1.1 — Residential A/C deep validation
@@ -92,3 +113,35 @@ Validation commands:
     node tests\challenge_validation_4\challenge_4_brain_runner.mjs
 
 The 20-case textbook oracle remains a source bank. Cases requiring heat-pump, furnace, electric-heat, ice-machine, or still-unmodeled UI evidence remain explicitly future_system/future_ui rather than being counted as diagnostic passes.
+
+
+### Chapter 7 validation (integration checkpoint)
+
+The 15 Dick Wirz Chapter 7 exercises are an external challenge set, not an official answer key.
+Walk-in freezer `APP_WIF` reuses existing refrigeration rules; no case-specific
+fault rules were added. The final comparison runner verifies 15/15 processing,
+9 safety/coverage assertions, including 7-9 compressor-efficiency ranking,
+7-4/7-11 uncertainty preservation, and 7-15 no unsupported faults.
+Run `node tests/chapter7/chapter7_runner.mjs` and
+`node tools/knowledge_coverage.mjs` before release. Independent root-cause
+verification and manufacturer-specific PT acceptance remain outstanding.
+
+## Chapter 7 service-problem integration (experimental validation)
+
+Run `node tests/chapter7/chapter7_runner.mjs` to evaluate the 15 textbook service
+problems against the production fact adapter and hypothesis engine. Inputs are
+transcribed in `tests/chapter7/inputs.json`; results are written to
+`tests/chapter7/chapter7_results.json`. The PT conversions are approximate
+classroom estimates, **not** an official answer key or verified refrigerant
+property table. The runner explicitly supplies exercise operating assumptions
+and reference ranges; field use requires verified operating state, pressure
+locations, PT data and manufacturer-specific references. The 7-6 drier
+measurements require confirmation of probe locations. The 50°F low-ambient
+cutoff is an illustrative runner input, not a universal HVAC threshold.
+
+Safety assertions include no confirmed diagnoses in ambiguous 7-4 and 7-11,
+compressor inefficiency ranking first in 7-9 without being confirmed,
+low-ambient/head-control coverage (7-14), and no unsupported hypotheses in 7-15.
+Passing the suite verifies engine behavior under these assumptions; it does
+not establish that all 15 root causes are known or proven. Do not use these
+outputs as field repair authorization.

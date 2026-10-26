@@ -101,7 +101,8 @@ function checkComplete(c,validFacts,completedChecks,context={}){
   return (c.produces||[]).length>0 && (c.produces||[]).every(x=>validFacts.has(x));
 }
 function checkAllowed(c,context){
-  if(c.operating_states?.length && context.operatingState && !c.operating_states.includes(context.operatingState)) return false;
+  if(c.operating_states?.length && (!context.operatingState || !c.operating_states.includes(context.operatingState))) return false;
+  if(c.applications?.length && (!context.application || !c.applications.includes(context.application))) return false;
   if(c.requires_configuration?.length){
     const cfg=new Set(context.configuration||[]);
     if(!c.requires_configuration.every(x=>cfg.has(x))) return false;
@@ -120,9 +121,18 @@ function unresolvedCheckValue(check,hypotheses,validFacts,completedChecks,contex
     if(touches)candidates++;
   }
   // Reward checks that touch several live hypotheses and can localize/contradict them.
+  // A check with no relationship to any live hypothesis is not diagnostic evidence.
+  // Do not let a HIGH practicality tie-breaker turn it into an arbitrary action.
+  if(candidates===0) return -1;
   return candidates*12+direct*5+conflict*4+coverage;
 }
 function preferredCheck(checks,discriminators,validFacts,hypotheses,conditions,completedChecks,context){
+  // Establishing operating state is a prerequisite, not a fault-specific test.
+  // Preserve this mandatory safety/context check even with no live hypotheses.
+  if(context.operatingState === "UNKNOWN") {
+    const stateCheck=(checks||[]).find(c=>c.id==="CHECK_ESTABLISH_OPERATING_STATE");
+    if(stateCheck && checkAllowed(stateCheck,context) && !checkComplete(stateCheck,validFacts,completedChecks,context)) return stateCheck.id;
+  }
   const active=new Set(hypotheses.map(x=>x.candidate)),cond=new Set(conditions.map(x=>x.id));
   const preferred=[];
   for(const d of discriminators||[]){
@@ -133,7 +143,7 @@ function preferredCheck(checks,discriminators,validFacts,hypotheses,conditions,c
       for(const id of d.preferred_checks||[])if(!preferred.includes(id))preferred.push(id);
       if(d.priority==="MANDATORY"){
         const c=(checks||[]).find(x=>x.id===(d.preferred_checks||[])[0]);
-        if(c && checkAllowed(c,context) && !checkComplete(c,validFacts,completedChecks,context)) return c.id;
+        if(c && unresolvedCheckValue(c,hypotheses,validFacts,completedChecks,context)>0) return c.id;
       }
     }
   }
@@ -179,7 +189,22 @@ export function evaluateHypotheses({
   if(factState.valid.has("FACT_EVAP_SH_HIGH") && factState.valid.has("FACT_SUBCOOLING_LOW") && factState.valid.has("FACT_COND_SAT_HIGH") && !factState.valid.has("FACT_LEAK_CONFIRMED")){
     supported=supported.filter(x=>x.candidate!=="CAUSE_LOW_REFRIGERANT_CHARGE");
   }
+  // High suction together with low head contradicts a confident low-charge
+  // conclusion from subcooling alone. Keep competing explanations visible.
+  if(factState.valid.has("FACT_HIGH_SUCTION_LOW_HEAD_PATTERN") && !factState.valid.has("FACT_LEAK_CONFIRMED"))
+    supported=supported.filter(x=>x.candidate!=="CAUSE_LOW_REFRIGERANT_CHARGE");
   const plausible=dedupeBest(generalizePlausible(all.filter(x=>x.state==="PLAUSIBLE"),relationships));
+  // A complete normal-pattern reference must not create speculative faults
+  // merely from generic measured/retained subcooling facts. Retain hypotheses
+  // if any independent abnormal or direct evidence is present.
+  const abnormal=[...factState.valid].some(f=>
+    (f.startsWith("FACT_") && /(?:_HIGH|_LOW|_ABNORMAL|_RESTRICTION|_LEAK|_FAULT|_ICED|_BLOCKED|_DROP|_NOT_RUNNING|_NOT_RESPONDING|_OVERFEED|_UNDERFEED|_FLASHING)$/.test(f)) &&
+    f!=="FACT_OPERATING_PATTERN_WITHIN_REFERENCE");
+  const directEvidence=all.some(x=>x.state==="SUPPORTED" && x.direct);
+  if(factState.valid.has("FACT_OPERATING_PATTERN_WITHIN_REFERENCE") && !abnormal && !directEvidence){
+    supported=[];
+    plausible.length=0;
+  }
   const disfavored=all.filter(x=>x.state==="DISFAVORED");
   const outOfScope=all.filter(x=>x.state==="OUT_OF_SCOPE");
   const conditions=inferConditions(factState.valid,relationships);

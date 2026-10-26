@@ -1,0 +1,1404 @@
+{
+  "schema_version": "3.0.0",
+  "method": "Conservative literal fault-ID matching inside assertion source lines of four executed test suites",
+  "limitations": [
+    "A passing suite establishes test execution, not independent diagnostic correctness",
+    "A literal assertion link is not proof of complete fault coverage",
+    "Negative/exclusion assertions are not positive fault diagnosis validation",
+    "Assertions with computed IDs, multi-line syntax or fixtures may be missed",
+    "Equipment scope is declared in rules; not proven by test execution",
+    "Other suites and scenario datasets remain unreviewed",
+    "No manufacturer or textbook reference validation performed"
+  ],
+  "summary": {
+    "faults": 69,
+    "with_explicit_assertion_links": 8,
+    "without_explicit_assertion_links": 61,
+    "suites_pass": 4,
+    "suites_fail": 0
+  },
+  "suites": [
+    {
+      "id": "WIC_STARVATION",
+      "file": "tests/wic_starvation_differential.mjs",
+      "scope": [
+        "APP_WIC"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "output": "WIC STARVATION DIFFERENTIAL: 15 assertions PASS (production hypothesis engine, WIC scope)",
+      "assertions": [
+        {
+          "line": 24,
+          "cause_ids": [
+            "CAUSE_LOW_REFRIGERANT_CHARGE"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.hyp.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'high SH + low SC should retain low-charge hypothesis');"
+        },
+        {
+          "line": 25,
+          "cause_ids": [
+            "CAUSE_FILTER_DRIER_RESTRICTION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_FILTER_DRIER_RESTRICTION'),'low SC must not invent drier restriction');"
+        },
+        {
+          "line": 31,
+          "cause_ids": [
+            "CAUSE_FILTER_DRIER_RESTRICTION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_FILTER_DRIER_RESTRICTION'),'drier delta-T must localize drier restriction');"
+        },
+        {
+          "line": 32,
+          "cause_ids": [
+            "CAUSE_LOW_REFRIGERANT_CHARGE"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'localized drier evidence must discriminate against low charge');"
+        },
+        {
+          "line": 34,
+          "cause_ids": [
+            "CAUSE_TXV_BULB_INSTALLATION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_BULB_INSTALLATION'),'bad bulb contact + high SH must localize TXV bulb installation');"
+        },
+        {
+          "line": 35,
+          "cause_ids": [
+            "CAUSE_LOW_REFRIGERANT_CHARGE"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'retained SC + localized TXV evidence should not diagnose low charge');"
+        },
+        {
+          "line": 37,
+          "cause_ids": [
+            "CAUSE_TXV_EQUALIZER_FAULT"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_EQUALIZER_FAULT'),'equalizer evidence must localize TXV equalizer fault');"
+        },
+        {
+          "line": 39,
+          "cause_ids": [
+            "CAUSE_TXV_INLET_RESTRICTION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_INLET_RESTRICTION'),'TXV inlet evidence must localize inlet restriction');"
+        },
+        {
+          "line": 41,
+          "cause_ids": [
+            "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT'),'no TXV response must localize power element/valve fault');"
+        }
+      ]
+    },
+    {
+      "id": "REACH_IN_SAFETY",
+      "file": "tests/reach_in_brain_safety.mjs",
+      "scope": [
+        "APP_RIC",
+        "APP_RIF"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "output": "REACH-IN BRAIN SAFETY: PASS (empty evidence, scope, shared faults, invalid readings, transient state)",
+      "assertions": [
+        {
+          "line": 19,
+          "cause_ids": [
+            "CAUSE_FILTER_DRIER_RESTRICTION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "assert(localized.hypotheses.some(x=>x.candidate==='CAUSE_FILTER_DRIER_RESTRICTION'),`${app} lacks common refrigeration rule`);"
+        },
+        {
+          "line": 20,
+          "cause_ids": [
+            "CAUSE_TXV_UNDERFEED"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "assert(!localized.diagnoses.some(x=>x.candidate==='CAUSE_TXV_UNDERFEED'));"
+        }
+      ]
+    },
+    {
+      "id": "BRAIN_CONDITION",
+      "file": "tests/brain_2_0_condition_preservation.mjs",
+      "scope": [],
+      "status": "PASS",
+      "exit_code": 0,
+      "output": "BRAIN 2.0 CONDITION PRESERVATION: 9 assertions PASS",
+      "assertions": [
+        {
+          "line": 19,
+          "cause_ids": [
+            "CAUSE_LOW_REFRIGERANT_CHARGE",
+            "CAUSE_LIQUID_LINE_RESTRICTION",
+            "CAUSE_TXV_UNDERFEED"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(!r.diagnoses.some(x=>[\"CAUSE_LOW_REFRIGERANT_CHARGE\",\"CAUSE_LIQUID_LINE_RESTRICTION\",\"CAUSE_TXV_UNDERFEED\"].includes(x.candidate)),"
+        },
+        {
+          "line": 27,
+          "cause_ids": [
+            "CAUSE_LOW_REFRIGERANT_CHARGE"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_LOW_REFRIGERANT_CHARGE\"),\"low charge remains a possible branch\");"
+        },
+        {
+          "line": 28,
+          "cause_ids": [
+            "CAUSE_LIQUID_LINE_RESTRICTION"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_LIQUID_LINE_RESTRICTION\"),\"liquid-line restriction remains a possible branch\");"
+        },
+        {
+          "line": 29,
+          "cause_ids": [
+            "CAUSE_TXV_UNDERFEED"
+          ],
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_TXV_UNDERFEED\"),\"TXV underfeed remains a possible branch\");"
+        }
+      ]
+    },
+    {
+      "id": "RESIDENTIAL_AC_DEEP",
+      "file": "tests/residential_ac_deep/residential_ac_deep_runner.mjs",
+      "scope": [
+        "APP_AC_SPLIT",
+        "APP_AC_PACKAGE"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "output": "d [Split]\nPASS RACD-034 Evaporator fan stopped [Package]\nPASS RACD-035 Dirty condenser coil with high head [Split]\nPASS RACD-036 Dirty condenser coil with high head [Package]\nPASS RACD-037 Condenser fan stopped with high head [Split]\nPASS RACD-038 Condenser fan stopped with high head [Package]\nPASS RACD-039 Condenser recirculation with high head [Split]\nPASS RACD-040 Condenser recirculation with high head [Package]\nPASS RACD-041 TXV system low charge pattern with applicable target [Split]\nPASS RACD-042 TXV system low charge pattern with applicable target [Package]\nPASS RACD-043 TXV confirmed leak and low charge pattern [Split]\nPASS RACD-044 TXV confirmed leak and low charge pattern [Package]\nPASS RACD-045 TXV high head and high subcooling overcharge evidence [Split]\nPASS RACD-046 TXV high head and high subcooling overcharge evidence [Package]\nPASS RACD-047 Noncondensable evidence with high head [Split]\nPASS RACD-048 Noncondensable evidence with high head [Package]\nPASS RACD-049 Filter drier restriction with high SH [Split]\nPASS RACD-050 Filter drier restriction with high SH [Package]\nPASS RACD-051 TXV bulb installation fault with high SH [Split]\nPASS RACD-052 TXV bulb installation fault with high SH [Package]\nPASS RACD-053 TXV equalizer fault with high SH [Split]\nPASS RACD-054 TXV equalizer fault with high SH [Package]\nPASS RACD-055 TXV inlet restriction [Split]\nPASS RACD-056 TXV inlet restriction [Package]\nPASS RACD-057 Fixed orifice restriction [Split]\nPASS RACD-058 Fixed orifice restriction [Package]\nPASS RACD-059 Wrong fixed orifice size [Split]\nPASS RACD-060 Wrong fixed orifice size [Package]\nPASS RACD-061 Fixed orifice low charge with target SH [Split]\nPASS RACD-062 Fixed orifice low charge with target SH [Package]\nPASS RACD-063 Weak compressor differential [Split]\nPASS RACD-064 Weak compressor differential [Package]\nPASS RACD-065 High SH alone is insufficient on AC [Split]\nPASS RACD-066 High SH alone is insufficient on AC [Package]\nPASS RACD-067 Low SC without target is insufficient on TXV [Split]\nPASS RACD-068 Low SC without target is insufficient on TXV [Package]\nPASS RACD-069 High head alone does not prove overcharge [Split]\nPASS RACD-070 High head alone does not prove overcharge [Package]\nPASS RACD-071 Iced coil plus dirty filter prioritizes airflow [Split]\nPASS RACD-072 Iced coil plus dirty filter prioritizes airflow [Package]\nPASS RACD-073 Multiple faults dirty condenser and failed capacitor [Split]\nPASS RACD-074 Multiple faults dirty condenser and failed capacitor [Package]\nPASS RACD-075 Multiple faults no line power and dirty filter [Split]\nPASS RACD-076 Multiple faults no line power and dirty filter [Package]\nPASS RACD-077 Conflicting high head and low-charge clues [Split]\nPASS RACD-078 Conflicting high head and low-charge clues [Package]\nPASS RACD-079 Startup readings should not diagnose charge [Split]\nPASS RACD-080 Startup readings should not diagnose charge [Package]\n\nRESIDENTIAL A/C DEEP VALIDATION: 80 PASS / 0 FAIL / 80 TOTAL",
+      "assertions": []
+    }
+  ],
+  "faults": [
+    {
+      "id": "CAUSE_LOW_REFRIGERANT_CHARGE",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_LOW_CHARGE",
+        "RULE_AC_LOW_CHARGE_TARGETED",
+        "RULE_AC_LOW_CHARGE_FIXED_TARGET"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 24,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.hyp.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'high SH + low SC should retain low-charge hypothesis');",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 32,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'localized drier evidence must discriminate against low charge');",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 35,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'retained SC + localized TXV evidence should not diagnose low charge');",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 19,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!r.diagnoses.some(x=>[\"CAUSE_LOW_REFRIGERANT_CHARGE\",\"CAUSE_LIQUID_LINE_RESTRICTION\",\"CAUSE_TXV_UNDERFEED\"].includes(x.candidate)),",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 27,
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_LOW_REFRIGERANT_CHARGE\"),\"low charge remains a possible branch\");",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_REFRIGERANT_LEAK",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [],
+      "rule_ids": [],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_OVERCHARGE",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_OVERCHARGE",
+        "RULE_OVERCHARGE_DIRECT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_NONCONDENSABLES",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_NONCONDENSABLES",
+        "RULE_NONCONDENSABLE_DIRECT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LIQUID_LINE_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_LIQUID_LINE_RESTRICTION"
+      ],
+      "assertion_links": [
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 19,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!r.diagnoses.some(x=>[\"CAUSE_LOW_REFRIGERANT_CHARGE\",\"CAUSE_LIQUID_LINE_RESTRICTION\",\"CAUSE_TXV_UNDERFEED\"].includes(x.candidate)),",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 28,
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_LIQUID_LINE_RESTRICTION\"),\"liquid-line restriction remains a possible branch\");",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FILTER_DRIER_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_FILTER_DRIER_RESTRICTION",
+        "RULE_FILTER_DRIER_RESTRICTION_DIRECT"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 25,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!x.dx.includes('CAUSE_FILTER_DRIER_RESTRICTION'),'low SC must not invent drier restriction');",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 31,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_FILTER_DRIER_RESTRICTION'),'drier delta-T must localize drier restriction');",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "REACH_IN_SAFETY",
+          "file": "tests/reach_in_brain_safety.mjs",
+          "line": 19,
+          "polarity": "positive_or_other",
+          "assertion": "assert(localized.hypotheses.some(x=>x.candidate==='CAUSE_FILTER_DRIER_RESTRICTION'),`${app} lacks common refrigeration rule`);",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [],
+      "rule_ids": [],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_UNDERFEED",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_UNDERFEED"
+      ],
+      "assertion_links": [
+        {
+          "suite": "REACH_IN_SAFETY",
+          "file": "tests/reach_in_brain_safety.mjs",
+          "line": 20,
+          "polarity": "positive_or_other",
+          "assertion": "assert(!localized.diagnoses.some(x=>x.candidate==='CAUSE_TXV_UNDERFEED'));",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 19,
+          "polarity": "positive_or_other",
+          "assertion": "ok(!r.diagnoses.some(x=>[\"CAUSE_LOW_REFRIGERANT_CHARGE\",\"CAUSE_LIQUID_LINE_RESTRICTION\",\"CAUSE_TXV_UNDERFEED\"].includes(x.candidate)),",
+          "suite_status": "PASS"
+        },
+        {
+          "suite": "BRAIN_CONDITION",
+          "file": "tests/brain_2_0_condition_preservation.mjs",
+          "line": 29,
+          "polarity": "positive_or_other",
+          "assertion": "ok(broad.includes(\"CAUSE_TXV_UNDERFEED\"),\"TXV underfeed remains a possible branch\");",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_OVERFEED",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_OVERFEED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_BULB_INSTALLATION",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_BULB_INSTALLATION"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 34,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_BULB_INSTALLATION'),'bad bulb contact + high SH must localize TXV bulb installation');",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_EQUALIZER_FAULT",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_EQUALIZER_FAULT"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 37,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_EQUALIZER_FAULT'),'equalizer evidence must localize TXV equalizer fault');",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_INCORRECT_SIZE",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [],
+      "rule_ids": [],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EVAP_AIRFLOW"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_FAILURE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EVAP_FAN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_COIL_DIRTY",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EVAP_DIRTY"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_ICING",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EVAP_ICING"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_AIRFLOW_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COND_AIRFLOW"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_FAN_FAILURE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COND_FAN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_COIL_DIRTY",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COND_DIRTY"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HOT_AIR_RECIRCULATION",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_HOT_RECIRC"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HIGH_AMBIENT",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_HIGH_AMBIENT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EXCESSIVE_LOAD",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EXCESSIVE_LOAD"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_AIR_INFILTRATION",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_AIR_INFILTRATION"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_INADEQUATE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_DEFROST"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DRAIN_HEATER_OR_DRAIN_FAULT",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_DRAIN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_WET_SYSTEM_TXV_ICE",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_WET_TXV",
+        "RULE_WET_TXV_HIGH_SH"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LP_CONTROL_SETTING_OR_FAULT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_LP_CONTROL",
+        "RULE_LP_CONTROL_OPEN_WARM_BOX"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HP_CONTROL_SETTING_OR_FAULT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [],
+      "rule_ids": [],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LLSV_CONTROL_OR_MECHANICAL_FAULT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_LLSV"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTROLLER_SETTING_OR_SENSOR_FAULT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_CONTROLLER"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_INEFFICIENCY",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COMPRESSOR_INEFFICIENT",
+        "RULE_COMPRESSOR_WEAK_PUMPING_DIRECT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SYSTEM_UNDERSIZED",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_UNDERSIZED",
+        "RULE_UNDERSIZED_DIRECT_LOAD",
+        "RULE_UNDERSIZED_VERIFIED_NORMAL"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_INLET_RESTRICTION",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_INLET_RESTRICTION"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 39,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_INLET_RESTRICTION'),'TXV inlet evidence must localize inlet restriction');",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_POWER_ELEMENT"
+      ],
+      "assertion_links": [
+        {
+          "suite": "WIC_STARVATION",
+          "file": "tests/wic_starvation_differential.mjs",
+          "line": 41,
+          "polarity": "positive_or_other",
+          "assertion": "ok(x.dx.includes('CAUSE_TXV_POWER_ELEMENT_OR_BULB_CHARGE_FAULT'),'no TXV response must localize power element/valve fault');",
+          "suite_status": "PASS"
+        }
+      ],
+      "traceability_status": "PASSING_SUITE_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_WRONG_REFRIGERANT_TXV"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+      "taxonomy_proposal": "Condenser and head-pressure control",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_HEAD_PRESSURE_CONTROL"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_HEATER_FAILURE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_DEFROST_HEATER_FAILURE",
+        "RULE_DEFROST_HEATER_ELECTRICAL_OPEN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DEFROST_TERMINATION_SENSOR_FAULT",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_DEFROST_TERMINATION"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_EVAP_FAN_DELAY_CONTROL_FAULT",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_EVAP_FAN_DELAY"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_NOT_RUNNING",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COMPRESSOR_NOT_RUNNING"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_FAILURE",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_CONTACTOR_FAILURE",
+        "RULE_CONTACTOR_LOAD_PATH_OPEN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_START_COMPONENT_FAULT",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_START_COMPONENT_FAULT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTROL_POWER_OR_SAFETY_OPEN",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_CONTROL_POWER_CHAIN",
+        "RULE_CONTACTOR_COIL_DEAD_WITH_DEMAND"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DRAIN_REFREEZE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_DRAIN_REFREEZE_LOCALIZED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_SOLENOID_LEAKING"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SENSOR_LOCATION_OR_CALIBRATION",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_SENSOR_REFERENCE_CONFLICT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_PRODUCT_LOAD_PULLDOWN",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_PRODUCT_LOAD_PULLDOWN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONDENSER_RECIRCULATION",
+      "taxonomy_proposal": "Condenser and head-pressure control",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_COND_RECIRCULATION_DIRECT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_SOLENOID_NOT_OPENING_DIRECT"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_ANTI_SHORT_CYCLE_DELAY",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_ANTI_SHORT_CYCLE_DELAY"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_HEAD_CONTROL_FLOOD_CHARGE",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_HEADCTRL_FLOOD_CHARGE"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FUSE_OPEN_REQUIRES_CAUSE",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_FUSE_OPEN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_RIC",
+        "APP_RIF",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_LOW_CHARGE_CONFIRMED_LEAK"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT",
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_TXV_NO_RESPONSE_LOCALIZED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_MOISTURE_CONTAMINATION",
+      "taxonomy_proposal": "Refrigerant charge and quality",
+      "declared_applications": [
+        "APP_WIC",
+        "APP_WIF"
+      ],
+      "rule_ids": [
+        "RULE_MOISTURE_CONTAMINATION"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_NO_LINE_POWER",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_NO_LINE_POWER"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_TRANSFORMER_FAILURE",
+      "taxonomy_proposal": "Unclassified — manual review",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_TRANSFORMER_FAILURE"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LOW_VOLTAGE_FUSE_OR_SHORT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_LV_FUSE_OPEN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_THERMOSTAT_Y_OR_CONTROL_FAULT",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_THERMOSTAT_Y_CONTROL"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_RUN_CAPACITOR_FAILURE",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_RUN_CAP_FAILED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_WINDING_FAILURE",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_COMP_WINDING_OPEN"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COMPRESSOR_GROUNDED",
+      "taxonomy_proposal": "Compressor and oil",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_COMP_GROUNDED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_COND_FAN_MOTOR_FAILURE",
+      "taxonomy_proposal": "Evaporator, airflow and defrost",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_COND_FAN_MOTOR"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_INDOOR_BLOWER_MOTOR_FAILURE",
+      "taxonomy_proposal": "Load, envelope and capacity",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_BLOWER_MOTOR"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_DIRTY_FILTER_OR_DUCT_RESTRICTION",
+      "taxonomy_proposal": "Refrigerant circuit restrictions and valves",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_FILTER_DUCT",
+        "RULE_AC_DUCT_ONLY"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_RESTRICTION",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_FIXED_ORIFICE_RESTRICTED"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_FIXED_ORIFICE_INCORRECT_SIZE",
+      "taxonomy_proposal": "Metering and refrigerant feed",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_FIXED_ORIFICE_SIZE"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_LINE_VOLTAGE_OUT_OF_RANGE",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_LINE_VOLTAGE_LOW",
+        "RULE_AC_LINE_VOLTAGE_HIGH"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    },
+    {
+      "id": "CAUSE_CONTACTOR_WELDED_CLOSED",
+      "taxonomy_proposal": "Electrical and controls",
+      "declared_applications": [
+        "APP_AC_PACKAGE",
+        "APP_AC_SPLIT"
+      ],
+      "rule_ids": [
+        "RULE_AC_WELDED_CONTACTOR"
+      ],
+      "assertion_links": [],
+      "traceability_status": "NO_EXPLICIT_ASSERTION_LINK",
+      "independent_reference_validation": "NOT_ASSESSED"
+    }
+  ]
+}

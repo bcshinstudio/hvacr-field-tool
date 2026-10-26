@@ -1,3 +1,4 @@
+import { resolveHighSidePressure, resolveEvaporatingPressure } from "./pressure_locations.js";
 /*
  * HVAC/R Field Tool - Offline Diagnostic Engine
  * v17 foundation
@@ -15,12 +16,13 @@ export function calculateDiagnosticState({
     const r = references || {};
     const sat = saturationTemperatureFromPressure;
 
-    const evapSat = m.evaporatorOutletPressure != null
-        ? sat(m.evaporatorOutletPressure, "dew")
+    const evapPressure = resolveEvaporatingPressure(m);
+    const evapSat = evapPressure.pressure != null
+        ? sat(evapPressure.pressure, "dew")
         : null;
 
     const evapSH =
-        evapSat != null && m.evaporatorOutletTemperature != null
+        !evapPressure.approximate && evapSat != null && m.evaporatorOutletTemperature != null
             ? m.evaporatorOutletTemperature - evapSat
             : null;
 
@@ -47,10 +49,8 @@ export function calculateDiagnosticState({
               (m.compressorSuctionPressure + 14.7)
             : null;
 
-    const condenserPressure =
-        m.condenserOutletPressure != null
-            ? m.condenserOutletPressure
-            : m.kingValvePressure;
+    const highSidePressure = resolveHighSidePressure(m);
+    const condenserPressure = highSidePressure.pressure;
 
     const condenserSat =
         condenserPressure != null
@@ -100,6 +100,11 @@ export function calculateDiagnosticState({
 
     return {
         evaporatorSat: evapSat,
+        evaporatorPressureLocation: evapPressure.location,
+        evaporatorSatApproximate: evapPressure.approximate,
+        condenserPressureLocation: highSidePressure.location,
+        condenserSatApproximate: highSidePressure.approximate,
+        highSidePressureSpreadPsig: highSidePressure.spreadPsig,
         evaporatorReferenceSat: evapReferenceSat,
         evaporatorSuperheat: evapSH,
         suctionSat,
@@ -289,7 +294,7 @@ export function diagnoseSystem(input) {
         };
     }
 
-    if (!known(m.evaporatorOutletPressure)) {
+    if (!known(state.evaporatorSat)) {
         return {
             type: "more_information",
             id: "NEED_EVAPORATOROUTLETPRESSURE",
@@ -310,13 +315,13 @@ export function diagnoseSystem(input) {
         };
     }
 
-    if (!known(m.condenserOutletPressure)) {
+    if (!known(state.condenserSat)) {
         return {
             type: "more_information",
             id: "NEED_CONDENSEROUTLETPRESSURE",
             title: "Measure Condenser Outlet Pressure",
             summary:
-                "This is needed to determine condensing saturation temperature and condenser subcooling.",
+                "A high-side pressure is needed to estimate condensing saturation temperature. Condenser-outlet pressure is needed for location-matched subcooling.",
             state
         };
     }

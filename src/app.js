@@ -1,6 +1,7 @@
 
 
 import { diagnoseSystem } from "./diagnostics/diagnostic_engine.js";
+import { resolveHighSidePressure, resolveEvaporatingPressure } from "./diagnostics/pressure_locations.js";
 import { buildWicKnowledgeFacts } from "./knowledge/wic_fact_adapter.js";
 import { evaluateKnowledge } from "./knowledge/knowledge_engine.js";
 import { evaluateHypotheses } from "./knowledge/hypothesis_engine.js";
@@ -14,6 +15,7 @@ import {
     acSplit
 } from "./systems/ac_split.js";
 import { acPackage } from "./systems/ac_package.js";
+import { reachInRefrigerator, reachInFreezer } from "./systems/reach_in.js";
 
 import {
     renderSystemDiagram
@@ -23,7 +25,9 @@ import {
 const systems = {
     walk_in_cooler: walkInCooler,
     ac_split: acSplit,
-    ac_package: acPackage
+    ac_package: acPackage,
+    reach_in_refrigerator: reachInRefrigerator,
+    reach_in_freezer: reachInFreezer
 };
 
 
@@ -145,7 +149,7 @@ let referenceValues = [];
 let knowledgeHub = null;
 let knowledgeHubLoadError = null;
 
-loadKnowledge("./data/knowledge")
+loadKnowledge("./data/knowledge", "APP_WIC")
     .then(knowledge => {
         knowledgeHub = knowledge;
         if (activeTool === "system_check") {
@@ -1272,7 +1276,7 @@ function bindComponentConfiguration(
 /* Electrical/control entities are UI-only evidence collectors.
  * They are intentionally not refrigeration-diagram components. */
 function getElectricalControlEntities() {
-    if (!["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id)) return [];
+    if (!["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) return [];
     const entities = [
         { id: "power_supply", role: "power_supply", label: "Power Supply", electricalOnly: true },
         { id: "contactor", role: "contactor", label: "Contactor", electricalOnly: true },
@@ -3961,7 +3965,9 @@ function currentApplicationId() {
     const applicationBySystem = {
         walk_in_cooler: "APP_WIC",
         ac_split: "APP_AC_SPLIT",
-        ac_package: "APP_AC_PACKAGE"
+        ac_package: "APP_AC_PACKAGE",
+        reach_in_refrigerator: "APP_RIC",
+        reach_in_freezer: "APP_RIF"
     };
     return applicationBySystem[systemSelect?.value] || null;
 }
@@ -4130,11 +4136,16 @@ function buildCalculationsTool() {
        and superheat together. For glide refrigerants, SH uses dew. */
     const evaporatorOutletPressure = getNumericMeasurementValue("evaporator_outlet", "pressure");
     const evaporatorOutletTemperature = getNumericMeasurementValue("evaporator_outlet", "temperature");
+    const compressorSuctionFallbackPressure = getNumericMeasurementValue("compressor_suction", "pressure");
+    const evapPressureSelection = resolveEvaporatingPressure({
+        evaporatorOutletPressure, compressorSuctionPressure: compressorSuctionFallbackPressure
+    });
     const evaporatorSaturationTemperature =
-        evaporatorOutletPressure !== null
-            ? saturationTemperatureFromPressure(evaporatorOutletPressure, "dew")
+        evapPressureSelection.pressure !== null
+            ? saturationTemperatureFromPressure(evapPressureSelection.pressure, "dew")
             : null;
     const evaporatorSuperheat =
+        !evapPressureSelection.approximate &&
         evaporatorOutletTemperature !== null && evaporatorSaturationTemperature !== null
             ? evaporatorOutletTemperature - evaporatorSaturationTemperature
             : null;
@@ -4199,19 +4210,15 @@ function buildCalculationsTool() {
             ? saturationTemperatureFromPressure(kingValvePressure, "bubble")
             : null;
 
-    const condenserDisplayPressure =
-        condenserOutletPressure !== null ? condenserOutletPressure : kingValvePressure;
-    const condenserDisplayPressureLocation =
-        condenserOutletPressure !== null
-            ? "Condenser Outlet"
-            : kingValvePressure !== null
-                ? "Receiver Outlet / King Valve"
-                : "Condenser Outlet";
+    const highSideSelection = resolveHighSidePressure({
+        condenserOutletPressure, kingValvePressure, compressorDischargePressure
+    });
+    const condenserDisplayPressure = highSideSelection.pressure;
+    const condenserDisplayPressureLocation = highSideSelection.location || "Not measured";
     const condenserSaturationTemperature =
-        condenserOutletSaturationTemperature !== null
-            ? condenserOutletSaturationTemperature
-            : kingValveSaturationTemperature;
-
+        condenserDisplayPressure !== null
+            ? saturationTemperatureFromPressure(condenserDisplayPressure, "bubble")
+            : null;
     const condenserOutletSubcooling =
         condenserOutletTemperature !== null && condenserOutletSaturationTemperature !== null
             ? condenserOutletSaturationTemperature - condenserOutletTemperature
@@ -4247,7 +4254,7 @@ function buildCalculationsTool() {
 
                 ${groupHeader("EVAPORATOR")}
                 <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; padding:9px 0 4px;">
-                    ${valueRow("Outlet Pressure", evaporatorOutletPressure !== null ? `${evaporatorOutletPressure} psig` : "—")}
+                    ${valueRow("Outlet / Suction Pressure", evapPressureSelection.pressure !== null ? `${evapPressureSelection.pressure} psig` : "—")}
                     ${valueRow("Saturation Temperature", formatCalculatedTemperature(evaporatorSaturationTemperature))}
                     ${valueRow("Reference SAT", formatCalculatedTemperature(expectedEvaporatorSaturationTemperature))}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(evaporatorOutletTemperature))}
@@ -4256,7 +4263,9 @@ function buildCalculationsTool() {
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
                     <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px 10px; padding:8px 0 3px;">
-                        ${valueRow("Pressure Location", "Evaporator Outlet")}
+                        ${valueRow("Pressure Location", evapPressureSelection.location || "Not measured")}
+                        ${evapPressureSelection.approximate ? valueRow("SAT Estimate", "Compressor suction fallback; suction-line pressure drop unknown") : ""}
+                        ${evapPressureSelection.approximate ? valueRow("Evaporator SH", "Requires evaporator outlet pressure for location-matched calculation") : ""}
                         ${valueRow("P-T Reference", evaporatorReferenceLabel)}
                         ${valueRow("Refrigerant", selectedRefrigerant?.label || "—")}
                         ${evaporatorTdReference !== null ? valueRow("Reference TD", `${evaporatorTdReference.value}°F`) : ""}
@@ -4308,11 +4317,13 @@ function buildCalculationsTool() {
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
                     <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px 10px; padding:8px 0 3px;">
                         ${valueRow("Pressure Location", condenserDisplayPressureLocation)}
+                        ${highSideSelection.approximate ? valueRow("SAT Estimate", "Remote high-side pressure; pressure drop unknown") : ""}
+                        ${highSideSelection.spreadPsig !== null && highSideSelection.spreadPsig > 0 ? valueRow("High-side Pressure Spread", `${highSideSelection.spreadPsig.toFixed(1)} psig; verify pressure drops and measurement locations`) : ""}
                         ${valueRow("P-T Reference", condenserReferenceLabel)}
                         ${valueRow("Refrigerant", selectedRefrigerant?.label || "—")}
                         ${condenserTdReference !== null ? valueRow("Reference CTOA", `${condenserTdReference.low}–${condenserTdReference.high}°F`) : ""}
-                        ${condenserOutletPressure === null && kingValvePressure !== null
-                            ? valueRow("Subcooling Pressure", "Condenser outlet pressure required")
+                        ${condenserOutletPressure === null && condenserDisplayPressure !== null
+                            ? valueRow("Subcooling Pressure", "Condenser outlet pressure required for location-matched SC")
                             : ""}
                     </div>
                     ${expectedCondenserSaturationLow === null || expectedCondenserSaturationHigh === null
@@ -4653,7 +4664,7 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
 
 function buildKnowledgeHubComparison(state, observationValue) {
 
-    if (!["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id)) {
+    if (!["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) {
         return "";
     }
 
@@ -4739,6 +4750,13 @@ function buildKnowledgeHubComparison(state, observationValue) {
         if (!confirmed.includes(text)) confirmed.push(text);
     };
 
+    if (result.state?.condenserSatApproximate)
+        pushConfirmed(`Condensing SAT is estimated from ${result.state.condenserPressureLocation}; high-side pressure drop is not known.`);
+    if (result.state?.evaporatorSatApproximate)
+        pushConfirmed(`Evaporating SAT is estimated from ${result.state.evaporatorPressureLocation}; suction-line pressure drop is not known.`);
+    if (Number.isFinite(result.state?.highSidePressureSpreadPsig) && result.state.highSidePressureSpreadPsig > 0)
+        pushConfirmed(`High-side pressure readings differ by ${result.state.highSidePressureSpreadPsig.toFixed(1)} psig; verify locations and pressure drops.`);
+
     if (facts.has("FACT_COND_FAN_NOT_RUNNING"))
         pushConfirmed("Condenser fan is not operating.");
     if (facts.has("FACT_COND_COIL_DIRTY"))
@@ -4779,7 +4797,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
             else if (sc.classification === "WITHIN_REFERENCE")
                 pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F and is within the applicable reference.`);
             else if (facts.has("FACT_RECEIVER_PRESENT"))
-                pushConfirmed(`Condenser subcooling is only ${Number(sc.value).toFixed(1)}°F (very little/minimal subcooling). No applicable manufacturer/equipment target is available, so it is not assigned a formal LOW/NORMAL/HIGH classification. With a liquid receiver, this condenser-outlet value is important liquid-supply evidence but does not by itself prove low refrigerant charge.`);
+                pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment target is available, so it is not assigned a formal LOW/NORMAL/HIGH classification. With a liquid receiver, this condenser-outlet value is important liquid-supply evidence but does not by itself prove low refrigerant charge.`);
             else
                 pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment/application target is available, so it is not classified as low, normal, or high.`);
         }
@@ -5015,7 +5033,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
         const sc=measurementStates.condenserSubcooling.value;
         meaning =
             `${Number.isFinite(sh)?`High evaporator superheat (${Number(sh).toFixed(1)}°F) confirms the starvation/underfeeding condition. `:"High evaporator superheat confirms the starvation/underfeeding condition. "}` +
-            `${Number.isFinite(sc)?`Condenser subcooling is only ${Number(sc).toFixed(1)}°F (very little/minimal subcooling). `:"Very little condenser subcooling is measured. "}` +
+            `${Number.isFinite(sc)?`Condenser subcooling is ${Number(sc).toFixed(1)}°F. `:"Condenser subcooling has been measured. "}` +
             "Together with high superheat, this increases concern about inadequate liquid refrigerant supply, and low refrigerant inventory is an important possibility. " +
             "However, no applicable manufacturer/equipment subcooling target is available and a liquid receiver is present, so this value alone does not prove low charge. " +
             "An upstream liquid-line restriction and TXV underfeeding remain competing causes; use localized liquid-line/TXV evidence plus leak or receiver-inventory evidence to separate them.";
@@ -5178,6 +5196,15 @@ function buildKnowledgeHubComparison(state, observationValue) {
     }
     else if (result.nextCheck) {
         nextAction=checkLabels.get(result.nextCheck)||result.nextCheck;
+    }
+
+    // No fault evidence: request foundational measurements rather than an
+    // arbitrary check or a repair. Equipment-specific targets still govern
+    // whether measured values can be classified as abnormal.
+    if (snapshot.context.operatingState === "STABLE_COOLING" &&
+        result.diagnoses.length === 0 && result.hypotheses.length === 0 &&
+        result.conditions.length === 0 && confirmed.length === 0 && !result.nextCheck) {
+        nextAction = "Record stabilized suction and discharge pressures, suction-line and liquid-line temperatures, cabinet/box temperature, and condenser entering-air temperature. Verify the refrigerant and installed metering device; use applicable manufacturer references before classifying superheat or subcooling.";
     }
 
     const otherActiveGuides = activeFieldGuides
@@ -5533,9 +5560,9 @@ function buildSystemCheckTool() {
                 </div>
             </div>
 
-            ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) ? buildWicDiagnosticContextControls() : ""}
+            ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildWicDiagnosticContextControls() : ""}
 
-            ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) && knowledgeHub
+            ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) && knowledgeHub
                 ? buildKnowledgeHubComparison(state, observationValue)
                 : `
                     <div style="
@@ -5551,7 +5578,7 @@ function buildSystemCheckTool() {
                         ${nextCheck}
                         ${why}
                     </div>
-                    ${["walk_in_cooler","ac_split","ac_package"].includes(currentSystem?.id) ? buildKnowledgeHubComparison(state, observationValue) : ""}
+                    ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildKnowledgeHubComparison(state, observationValue) : ""}
                 `}
 
         </div>
@@ -6397,6 +6424,23 @@ function loadSystem(
         structuredClone(
             systemDefinition
         );
+
+    // Match the chapter equipment refrigerant on system selection.
+    // Users may subsequently choose another refrigerant for their actual unit.
+    if (currentSystem.defaultRefrigerant && refrigerantSelect) {
+        const match = refrigerants.find(r => r.available &&
+            normalizeRefrigerantName(r.id) ===
+            normalizeRefrigerantName(currentSystem.defaultRefrigerant));
+        if (match && refrigerantSelect.value !== match.id) {
+            refrigerantSelect.value = match.id;
+            void selectRefrigerantData().then(() => {
+                if (currentSystem?.id === systemId) {
+                    renderCurrentSystem();
+                    renderSidePanel();
+                }
+            });
+        }
+    }
 
 
     initializeComponentInstallationState(

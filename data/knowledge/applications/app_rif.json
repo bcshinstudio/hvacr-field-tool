@@ -1,0 +1,39 @@
+{
+  "id": "APP_RIF",
+  "label": "Reach-In Freezer",
+  "knowledge_version": "2.2.0-candidate",
+  "equipment_class": "low",
+  "metering_device": "CAPILLARY_TUBE",
+  "reference_policy": {
+    "priority": [
+      "model_specific",
+      "equipment_manufacturer",
+      "component_manufacturer",
+      "application_fallback"
+    ],
+    "rule": "Use the most specific applicable reference. Never replace a known manufacturer/model target with a generic fallback.",
+    "missing": "If no defensible reference applies, leave the parameter unclassified rather than inventing a threshold."
+  },
+  "reference_profiles": {
+    "evaporatorSuperheat": {
+      "fallback": null,
+      "basis": "No universal capillary-tube superheat target. Use model-specific targets; textbook exercise ranges belong only to the exercise."
+    },
+    "condenserSubcooling": {
+      "fallback": null,
+      "basis": "No universal capillary-tube subcooling target. Use manufacturer/model reference."
+    }
+  },
+  "diagnostic_architecture": {
+    "measurement_layer": "preserve value; classify only against applicable reference",
+    "reasoning_layer": "causal evidence hypotheses",
+    "diagnosis_policy": "specific diagnosis requires localized/direct evidence",
+    "next_check_policy": "select unresolved check by discrimination value, using manufacturer-curated check order as tie-break/context",
+    "reference_priority": [
+      "model_specific",
+      "equipment_manufacturer",
+      "component_manufacturer",
+      "application_fallback"
+    ]
+  }
+}
