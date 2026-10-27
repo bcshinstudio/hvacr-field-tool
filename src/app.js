@@ -1,6 +1,7 @@
 
 
 import { diagnoseSystem } from "./diagnostics/diagnostic_engine.js";
+import { planNextChecks, ALL_EVIDENCE_CHECKS } from "./diagnostics/next_check_planner.js";
 import { resolveHighSidePressure, resolveEvaporatingPressure } from "./diagnostics/pressure_locations.js";
 import { buildWicKnowledgeFacts } from "./knowledge/wic_fact_adapter.js";
 import { evaluateKnowledge } from "./knowledge/knowledge_engine.js";
@@ -10,6 +11,7 @@ import { loadKnowledge } from "./knowledge/knowledge_loader.js";
 import {
     walkInCooler
 } from "./systems/walk_in_cooler.js";
+import { walkInFreezer } from "./systems/walk_in_freezer.js";
 
 import {
     acSplit
@@ -24,6 +26,7 @@ import {
 
 const systems = {
     walk_in_cooler: walkInCooler,
+    walk_in_freezer: walkInFreezer,
     ac_split: acSplit,
     ac_package: acPackage,
     reach_in_refrigerator: reachInRefrigerator,
@@ -126,10 +129,18 @@ const componentElectricalValues =
  * It captures case-wide operating state and evidence-quality context that
  * determines whether steady-state measurements are diagnostically valid.
  */
+
 const wicDiagnosticContext = {
     operatingState: "unknown",
+    reportedProblem: "unknown",
     evaporatorPressureQuality: "valid",
-    condenserPressureQuality: "valid"
+    condenserPressureQuality: "valid",
+    evaporatorTd: "",
+    evaporatorSatTolerance: "",
+    evaporatorSatLow: "",
+    evaporatorSatHigh: "",
+    superheatLow: "",
+    superheatHigh: ""
 };
 
 /* Refrigerant / P-T state */
@@ -214,8 +225,15 @@ function resetDiagnosticSession() {
     componentObservationValues.clear();
     componentElectricalValues.clear();
     wicDiagnosticContext.operatingState = "unknown";
+    wicDiagnosticContext.reportedProblem = "unknown";
     wicDiagnosticContext.evaporatorPressureQuality = "valid";
     wicDiagnosticContext.condenserPressureQuality = "valid";
+    wicDiagnosticContext.evaporatorTd = "";
+    wicDiagnosticContext.evaporatorSatTolerance = "";
+    wicDiagnosticContext.evaporatorSatLow = "";
+    wicDiagnosticContext.evaporatorSatHigh = "";
+    wicDiagnosticContext.superheatLow = "";
+    wicDiagnosticContext.superheatHigh = "";
 
     addMeasurementMode = false;
     selectedMeasurementPoint = null;
@@ -1276,7 +1294,7 @@ function bindComponentConfiguration(
 /* Electrical/control entities are UI-only evidence collectors.
  * They are intentionally not refrigeration-diagram components. */
 function getElectricalControlEntities() {
-    if (!["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) return [];
+    if (!["walk_in_cooler","walk_in_freezer","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) return [];
     const entities = [
         { id: "power_supply", role: "power_supply", label: "Power Supply", electricalOnly: true },
         { id: "contactor", role: "contactor", label: "Contactor", electricalOnly: true },
@@ -3964,6 +3982,7 @@ async function initializeReferenceData() {
 function currentApplicationId() {
     const applicationBySystem = {
         walk_in_cooler: "APP_WIC",
+        walk_in_freezer: "APP_WIF",
         ac_split: "APP_AC_SPLIT",
         ac_package: "APP_AC_PACKAGE",
         reach_in_refrigerator: "APP_RIC",
@@ -4000,21 +4019,46 @@ function numericReferenceValue(row) {
 }
 
 function evaporatorReferenceTd() {
-    const row = referenceRows("PAR_EVAP_TD")
-        .find(referenceMatchesSelectedRefrigerant);
+    // Prefer a matching model/refrigerant reference, otherwise an explicit
+    // application screening reference. Never use a mismatched model rating.
+    const rows = referenceRows("PAR_EVAP_TD").filter(referenceMatchesSelectedRefrigerant);
+    const row = rows.find(r => r.value_role === "SCREENING_REFERENCE") || rows.find(r => r.value_role === "RATING_POINT");
     const value = numericReferenceValue(row);
     return value === null ? null : { value, row };
 }
 
+function applicableEvaporatorReference() {
+    const reference = evaporatorReferenceTd();
+    // Use measured evaporator entering air when available, otherwise box temp.
+    const box = getNumericMeasurementValue("box_temperature", "temperature");
+    const air = getNumericMeasurementValue("evaporator_entering_air", "temperature");
+    const temperature = air !== null ? air : box;
+    if (!reference || !Number.isFinite(temperature)) return null;
+    const center = temperature - reference.value;
+    // Screening tolerances are explicitly tagged as such in the reference file.
+    const tolerance = reference.row.value_role === "SCREENING_REFERENCE" ? 10 : null;
+    return { center, low: tolerance === null ? null : center - tolerance,
+             high: tolerance === null ? null : center + tolerance,
+             source: reference.row.value_role === "SCREENING_REFERENCE" ? "Application screening reference" : "Equipment rating reference" };
+}
+
 function condenserReferenceTdRange() {
+    // Prefer the selected application's standard split screening reference,
+    // otherwise fall back to sourced global condenser design limits.
+    // The application rows are not manufacturer-specific operating targets.
+    const specific = referenceRows("PAR_COND_TD");
+    const center = numericReferenceValue(specific.find(row => row.value_role === "SCREENING_REFERENCE"));
+    const tolerance = numericReferenceValue(specific.find(row => row.value_role === "SCREENING_TOLERANCE"));
+    if (Number.isFinite(center) && Number.isFinite(tolerance) && tolerance >= 0) {
+        return { low:center - tolerance, high:center + tolerance, basis:"APPLICATION_SCREENING" };
+    }
     const rows = referenceRows("PAR_COND_TD", true);
     const lowRow = rows.find(row => row.value_role === "DESIGN_RANGE_MIN");
     const highRow = rows.find(row => row.value_role === "DESIGN_RANGE_MAX");
     const low = numericReferenceValue(lowRow);
     const high = numericReferenceValue(highRow);
-
     if (low === null || high === null) return null;
-    return { low, high, lowRow, highRow };
+    return { low, high, lowRow, highRow, basis:"GENERAL_DESIGN_RANGE" };
 }
 
 function formatTemperatureRange(low, high) {
@@ -4117,10 +4161,8 @@ function buildCalculationsTool() {
     const boxTemperature = getNumericMeasurementValue("box_temperature", "temperature");
     const evaporatorReferenceAir = boxTemperature !== null ? boxTemperature : enteringAir;
     const evaporatorTdReference = evaporatorReferenceTd();
-    const expectedEvaporatorSaturationTemperature =
-        evaporatorReferenceAir !== null && evaporatorTdReference !== null
-            ? evaporatorReferenceAir - evaporatorTdReference.value
-            : null;
+    const applicableEvapReference = applicableEvaporatorReference();
+    const expectedEvaporatorSaturationTemperature = applicableEvapReference?.center ?? null;
 
     const condenserTdReference = condenserReferenceTdRange();
     const expectedCondenserSaturationLow =
@@ -4220,10 +4262,37 @@ function buildCalculationsTool() {
             ? saturationTemperatureFromPressure(condenserDisplayPressure, "bubble")
             : null;
     const condenserOutletSubcooling =
-        condenserOutletTemperature !== null && condenserOutletSaturationTemperature !== null
-            ? condenserOutletSaturationTemperature - condenserOutletTemperature
+        condenserOutletTemperature !== null && condenserSaturationTemperature !== null
+            ? condenserSaturationTemperature - condenserOutletTemperature
             : null;
+    const condenserSubcoolingEstimated = condenserOutletSubcooling !== null && highSideSelection.approximate;
     const condenserReferenceLabel = selectedRefrigerant?.glide ? "Bubble" : "Saturation";
+
+    // Presentation uses the same sourced reference data as diagnosis. An
+    // unclassified value remains neutral; measurement location and operating
+    // state can limit interpretation of a valid numeric reading.
+    const classifyReading = (value, low, high) => {
+        if (!Number.isFinite(value)) return null;
+        if (Number.isFinite(low) && value < low) return "LOW";
+        if (Number.isFinite(high) && value > high) return "HIGH";
+        if (Number.isFinite(low) && Number.isFinite(high)) return "NORMAL";
+        return null;
+    };
+    const readingRow = (label, value, classification, estimated = false) => {
+        const abnormal = classification === "LOW" || classification === "HIGH";
+        const accent = abnormal ? "#a94f18" : "#277fb5";
+        const status = abnormal ? `<span style="font-size:0.75em;font-weight:700;margin-left:6px;color:${accent};">${classification}</span>` : "";
+        return `<div style="color:#5f7180;">${label}</div><div style="white-space:nowrap;text-align:right;font-weight:600;color:${accent};">${value}${status}${estimated && abnormal ? '<span title="Estimated measurement; verify locations"> *</span>' : ''}</div>`;
+    };
+    const activeReferenceProfile = (knowledgeHub?.applications?.[currentApplicationId()] || (knowledgeHub?.application?.id === currentApplicationId() ? knowledgeHub.application : null))?.reference_profiles;
+    const activeOperatingState = normalizeWicOperatingState(wicDiagnosticContext.operatingState);
+    const isReachIn = ["reach_in_refrigerator", "reach_in_freezer"].includes(currentSystem?.id);
+    const applicableShRange = (isReachIn || (["walk_in_cooler","walk_in_freezer"].includes(currentSystem?.id) &&
+        ["STABLE_COOLING", "PULLDOWN"].includes(activeOperatingState) &&
+        currentSystem?.components?.some(c => c.id === "txv" && isComponentInstalled(c) && c.subtype === "txv")))
+        ? activeReferenceProfile?.evaporatorSuperheat?.fallback : null;
+    const hasReceiver = currentSystem?.components?.some(c => c.id === "receiver" && isComponentInstalled(c));
+    const applicableScRange = !hasReceiver && isReachIn ? activeReferenceProfile?.condenserSubcooling?.fallback : null;
 
     const valueRow = (label, value, emphasize = false) => `
         <div style="color: #5f7180;">${label}</div>
@@ -4255,10 +4324,11 @@ function buildCalculationsTool() {
                 ${groupHeader("EVAPORATOR")}
                 <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; padding:9px 0 4px;">
                     ${valueRow("Outlet / Suction Pressure", evapPressureSelection.pressure !== null ? `${evapPressureSelection.pressure} psig` : "—")}
-                    ${valueRow("Saturation Temperature", formatCalculatedTemperature(evaporatorSaturationTemperature))}
+                    ${readingRow("Saturation Temperature", formatCalculatedTemperature(evaporatorSaturationTemperature), applicableEvapReference && Number.isFinite(applicableEvapReference.low) && Number.isFinite(applicableEvapReference.high) ? classifyReading(evaporatorSaturationTemperature, applicableEvapReference.low, applicableEvapReference.high) : null)}
                     ${valueRow("Reference SAT", formatCalculatedTemperature(expectedEvaporatorSaturationTemperature))}
+                    ${applicableEvapReference?.low !== null && applicableEvapReference?.low !== undefined && Number.isFinite(applicableEvapReference?.high) ? valueRow("Reference SAT Range", formatTemperatureRange(applicableEvapReference.low, applicableEvapReference.high)) : ""}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(evaporatorOutletTemperature))}
-                    ${valueRow("Superheat", formatCalculatedTemperature(evaporatorSuperheat), true)}
+                    ${readingRow("Superheat", formatCalculatedTemperature(evaporatorSuperheat), classifyReading(evaporatorSuperheat, applicableShRange?.low, applicableShRange?.high))}
                 </div>
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
@@ -4272,7 +4342,7 @@ function buildCalculationsTool() {
                         ${evaporatorTdReference !== null ? valueRow("Reference Basis", evaporatorTdReference.row.value_role === "RATING_POINT" ? "Manufacturer rating" : evaporatorTdReference.row.value_role || "Reference") : ""}
                     </div>
                     ${expectedEvaporatorSaturationTemperature === null
-                        ? `<div style="margin-top:6px; line-height:1.35; color:#7b8b97;">Reference SAT needs Box Temperature or Evaporator Entering Air.</div>`
+                        ? `<div style="margin-top:6px; line-height:1.35; color:#7b8b97;">Reference SAT unavailable: record box or evaporator entering-air temperature, or select equipment with an applicable reference.</div>`
                         : ""}
                 </details>
 
@@ -4308,10 +4378,10 @@ function buildCalculationsTool() {
                 ${groupHeader("CONDENSER")}
                 <div style="display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; padding:9px 0 4px;">
                     ${valueRow("Outlet / High-Side Pressure", condenserDisplayPressure !== null ? `${condenserDisplayPressure} psig` : "—")}
-                    ${valueRow("Saturation Temperature", formatCalculatedTemperature(condenserSaturationTemperature))}
+                    ${readingRow("Saturation Temperature", formatCalculatedTemperature(condenserSaturationTemperature), classifyReading(condenserSaturationTemperature, expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Reference SAT Range", formatTemperatureRange(expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(condenserOutletTemperature))}
-                    ${valueRow("Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), true)}
+                    ${readingRow(condenserSubcoolingEstimated ? "Subcooling (Estimated)" : "Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), classifyReading(condenserOutletSubcooling, applicableScRange?.low, applicableScRange?.high), condenserSubcoolingEstimated)}
                 </div>
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
@@ -4323,7 +4393,7 @@ function buildCalculationsTool() {
                         ${valueRow("Refrigerant", selectedRefrigerant?.label || "—")}
                         ${condenserTdReference !== null ? valueRow("Reference CTOA", `${condenserTdReference.low}–${condenserTdReference.high}°F`) : ""}
                         ${condenserOutletPressure === null && condenserDisplayPressure !== null
-                            ? valueRow("Subcooling Pressure", "Condenser outlet pressure required for location-matched SC")
+                            ? valueRow("Subcooling Estimate", "Uses remote high-side pressure; pressure drop unknown. Verify at liquid-line location.")
                             : ""}
                     </div>
                     ${expectedCondenserSaturationLow === null || expectedCondenserSaturationHigh === null
@@ -4627,14 +4697,29 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
     const fcr=normOhm(e("condenser","winding_c_r")), fcs=normOhm(e("condenser","winding_c_s")), frs=normOhm(e("condenser","winding_r_s"));
     if (fcr !== null && fcs !== null && frs !== null && fcr !== "OL" && fcs !== "OL" && frs !== "OL" && Math.abs((fcr+fcs)-frs) <= Math.max(1, frs*0.10)) put("condenser","fan_winding_relationship_normal",true);
 
+    // User-provided reference ranges are optional; incomplete/reversed ranges
+    // must not create HIGH/LOW/NORMAL diagnostic facts.
+    const enteredRange = (lo,hi) => {
+        const parse = key => String(wicDiagnosticContext[key] ?? "").trim() !== "" ? Number(wicDiagnosticContext[key]) : NaN;
+        const a=parse(lo), b=parse(hi);
+        return Number.isFinite(a) && Number.isFinite(b) && a <= b ? {low:a,high:b} : null;
+    };
+    const evapReference = applicableEvaporatorReference();
+    const superheatRange = enteredRange("superheatLow","superheatHigh");
     return {
         measurements: {
+            outdoorAmbientF: getNumericMeasurementValue("condenser_entering_air", "temperature"),
             filterDrierInletTemperature: getNumericMeasurementValue("filter_drier_inlet","temperature"),
             filterDrierOutletTemperature: getNumericMeasurementValue("filter_drier_outlet","temperature")
         },
         calculated: {
             evaporatorSat: state.evaporatorSat,
-            evaporatorReferenceSat: state.evaporatorReferenceSat,
+            evaporatorReferenceSat: evapReference?.center ?? state.evaporatorReferenceSat,
+            evaporatorReferenceLow: evapReference?.low ?? null,
+            evaporatorReferenceHigh: evapReference?.high ?? null,
+            // Pass the computed reference *bounds* to the shared knowledge adapter.
+            // Do not invent a universal ±10°F textbook tolerance for live equipment.
+            condenserReferenceLow: state.condenserReferenceLow,
             evaporatorSuperheat: state.evaporatorSuperheat,
             condenserSat: state.condenserSat,
             condenserReferenceHigh: state.condenserReferenceHigh,
@@ -4642,8 +4727,17 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
         },
 
         references: {
-            evaporatorSuperheat: currentSystem?.id === "walk_in_cooler" ? (knowledgeHub?.application?.reference_profiles?.evaporatorSuperheat?.fallback || null) : null,
-            condenserSubcooling: currentSystem?.id === "walk_in_cooler" ? (knowledgeHub?.application?.reference_profiles?.condenserSubcooling?.fallback || null) : null
+            lowAmbientThresholdF: numericReferenceValue(referenceRows("PAR_LOW_AMBIENT_THRESHOLD").find(row => row.value_role === "SCREENING_REFERENCE")),
+            evaporatorSuperheat: superheatRange || (["reach_in_refrigerator", "reach_in_freezer"].includes(currentSystem?.id)
+                ? ((knowledgeHub?.applications?.[currentApplicationId()] || knowledgeHub?.application)?.reference_profiles?.evaporatorSuperheat?.fallback || null)
+                : (["walk_in_cooler","walk_in_freezer"].includes(currentSystem?.id) &&
+                ["UNKNOWN", "STABLE_COOLING", "PULLDOWN"].includes(normalizeWicOperatingState(wicDiagnosticContext.operatingState)) &&
+                currentSystem?.components?.some(c => c.id === "txv" && isComponentInstalled(c) && c.subtype === "txv")
+                ? ((knowledgeHub?.applications?.[currentApplicationId()] || knowledgeHub?.application)?.reference_profiles?.evaporatorSuperheat?.fallback || null) : null)),
+            condenserSubcooling: ["reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) &&
+                !currentSystem?.components?.some(c => c.id === "receiver" && isComponentInstalled(c))
+                ? ((knowledgeHub?.applications?.[currentApplicationId()] || knowledgeHub?.application)?.reference_profiles?.condenserSubcooling?.fallback || null)
+                : (["walk_in_cooler","walk_in_freezer"].includes(currentSystem?.id) ? ((knowledgeHub?.applications?.[currentApplicationId()] || knowledgeHub?.application)?.reference_profiles?.condenserSubcooling?.fallback || null) : null)
         },
 
         observations,
@@ -4664,7 +4758,7 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
 
 function buildKnowledgeHubComparison(state, observationValue) {
 
-    if (!["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) {
+    if (!["walk_in_cooler","walk_in_freezer","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id)) {
         return "";
     }
 
@@ -4752,6 +4846,8 @@ function buildKnowledgeHubComparison(state, observationValue) {
 
     if (result.state?.condenserSatApproximate)
         pushConfirmed(`Condensing SAT is estimated from ${result.state.condenserPressureLocation}; high-side pressure drop is not known.`);
+    if (result.state?.subcoolingApproximate)
+        pushConfirmed(`Subcooling is estimated using ${result.state.subcoolingPressureLocation} pressure and condenser outlet temperature; pressure drop may change the result.`);
     if (result.state?.evaporatorSatApproximate)
         pushConfirmed(`Evaporating SAT is estimated from ${result.state.evaporatorPressureLocation}; suction-line pressure drop is not known.`);
     if (Number.isFinite(result.state?.highSidePressureSpreadPsig) && result.state.highSidePressureSpreadPsig > 0)
@@ -4787,6 +4883,13 @@ function buildKnowledgeHubComparison(state, observationValue) {
         const sh=adapted.trace.find(item=>item.fact==="FACT_EVAP_SH_LOW")?.value;
         pushConfirmed(Number.isFinite(sh)?`Evaporator superheat is low at ${Number(sh).toFixed(1)}°F.`:"Evaporator superheat is below the applicable target/reference.");
     }
+    // A screening observation is not a charge target. It helps a technician
+    // recognize an unusual pattern without inventing a receiver-system spec.
+    const scScreen = Number.isFinite(snapshot.calculated.condenserSubcooling)
+        ? snapshot.calculated.condenserSubcooling : null;
+    const highSideHigh = facts.has("FACT_COND_SAT_HIGH");
+    const elevatedScScreen = scScreen !== null && scScreen > 20;
+    const highHeadHighScPattern = highSideHigh && elevatedScScreen;
     if (measurementStates.condenserSubcooling.classification !== "MISSING") {
         const sc = measurementStates.condenserSubcooling;
         if (Number.isFinite(sc.value)) {
@@ -4796,12 +4899,15 @@ function buildKnowledgeHubComparison(state, observationValue) {
                 pushConfirmed(`Condenser subcooling is high at ${Number(sc.value).toFixed(1)}°F against the applicable reference.`);
             else if (sc.classification === "WITHIN_REFERENCE")
                 pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F and is within the applicable reference.`);
+            else if (elevatedScScreen)
+                pushConfirmed(`Calculated subcooling is ${Number(sc.value).toFixed(1)}°F (elevated screening value above 20°F, not a manufacturer charging limit). ${facts.has("FACT_RECEIVER_PRESENT") ? "A liquid receiver is installed; verify pressure/temperature locations and receiver operation before interpreting charge." : "Verify the correct equipment-specific target and measurement locations before interpreting charge."}`);
             else if (facts.has("FACT_RECEIVER_PRESENT"))
-                pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment target is available, so it is not assigned a formal LOW/NORMAL/HIGH classification. With a liquid receiver, this condenser-outlet value is important liquid-supply evidence but does not by itself prove low refrigerant charge.`);
+                pushConfirmed(`Calculated subcooling is ${Number(sc.value).toFixed(1)}°F. A liquid receiver is installed; use equipment-specific design data and verify pressure/temperature locations before interpreting refrigerant charge.`);
             else
-                pushConfirmed(`Condenser subcooling is ${Number(sc.value).toFixed(1)}°F. No applicable manufacturer/equipment/application target is available, so it is not classified as low, normal, or high.`);
+                pushConfirmed(`Calculated subcooling is ${Number(sc.value).toFixed(1)}°F. Compare with equipment-specific design/charging data before assigning a charge condition.`);
         }
     }
+
     if (facts.has("FACT_DRIER_TEMP_DROP")) {
         const dt=adapted.trace.find(item=>item.fact==="FACT_DRIER_TEMP_DROP")?.value;
         pushConfirmed(Number.isFinite(dt)?`Temperature decreases ${Number(dt).toFixed(1)}°F across the liquid-line filter drier.`:"A temperature drop is present across the liquid-line filter drier.");
@@ -4933,7 +5039,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
         meaning = actionableFieldGuide.short_meaning || actionableFieldGuide.relationship ||
             "A directly actionable field finding is present. Address it before relying on dependent operating measurements.";
     }
-    else if (snapshot.context.operatingState === "UNKNOWN" && result.conditions?.length) {
+    else if (["UNKNOWN", "STABLE_COOLING", "PULLDOWN"].includes(snapshot.context.operatingState) && result.conditions?.length && result.diagnoses.length === 0) {
         const primaryCondition = result.conditions[0];
         const conditionLabel = labelFor(primaryCondition.id);
         heading = `Possible ${conditionLabel.charAt(0).toLowerCase()}${conditionLabel.slice(1)}`;
@@ -5119,6 +5225,13 @@ function buildKnowledgeHubComparison(state, observationValue) {
         }
     }
 
+    // Diagnostic causes must match the actual installed metering technology.
+    const isFixedMetering = snapshot.configuration?.includes("FIXED_ORIFICE") ||
+        currentSystem?.components?.some(component => component.id === "txv" &&
+            isComponentInstalled(component) && ["capillary_tube", "fixed_orifice"].includes(component.subtype));
+    const meteringCompatible = candidate => !isFixedMetering ||
+        !/(?:TXV|TEV)/.test(candidate);
+
     const candidatePool =
         result.diagnoses.length === 1
             ? []
@@ -5128,25 +5241,66 @@ function buildKnowledgeHubComparison(state, observationValue) {
         all.findIndex(x => x.candidate === item.candidate) === index
     ).filter(item =>
         !directRestatements.has(item.candidate) &&
+        meteringCompatible(item.candidate) &&
+        !(item.candidate === "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE" && !facts.has("FACT_LEAK_CONFIRMED")) &&
         !(evapFanObservedNormal && item.candidate === "CAUSE_EVAP_FAN_FAILURE") &&
         !(condFanObservedNormal && item.candidate === "CAUSE_COND_FAN_FAILURE") &&
         !(facts.has("FACT_CONTACTOR_NOT_PASSING_VOLTAGE") && item.candidate === "CAUSE_COND_FAN_FAILURE") &&
-        item.candidate !== "CAUSE_EVAP_AIRFLOW_RESTRICTION" &&
+        (item.candidate !== "CAUSE_EVAP_AIRFLOW_RESTRICTION" || facts.has("FACT_LOW_EVAP_SAT_WITH_NORMAL_SH") || facts.has("FACT_EVAP_AIRFLOW_LOW") || facts.has("FACT_EVAP_AIRFLOW_BLOCKED")) &&
         item.candidate !== "CAUSE_COND_AIRFLOW_RESTRICTION"
     ).slice(0, 5);
 
-    const rootCauses = rootCauseItems.length
+    // A cross-symptom hypothesis is prioritized only while the cause is
+    // unresolved. It is never promoted to a confirmed diagnosis from a
+    // screening subcooling value (especially with a receiver).
+    const overchargeAlreadyListed = rootCauseItems.some(item => item.candidate === "CAUSE_REFRIGERANT_OVERCHARGE");
+    const patternCauseItem = highHeadHighScPattern && !overchargeAlreadyListed
+        ? `<div>• Possible excess refrigerant charge / liquid backing up in condenser (screening hypothesis; receiver and pressure-location cautions apply)</div>`
+        : "";
+    const rootCauses = (rootCauseItems.length || patternCauseItem)
         ? `
             <div style="margin-top:14px;">
-                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
-                    POSSIBLE UNDERLYING CAUSES
-                </div>
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">POSSIBLE UNDERLYING CAUSES</div>
                 <div style="margin-top:6px;color:#263746;line-height:1.45;">
+                    ${patternCauseItem}
                     ${rootCauseItems.map(item => `<div>• ${labelFor(item.candidate)}</div>`).join("")}
                 </div>
-            </div>
-        `
+            </div>`
         : "";
+
+    // Show the graph's condition-linked alternatives without silently raising
+    // them to ranked hypotheses. A fault needs its own evidence before it can
+    // become a leading or confirmed diagnosis.
+    const conditionLinked = (result.conditionCauses || [])
+        .filter(item => !directRestatements.has(item.candidate))
+        .filter(item => meteringCompatible(item.candidate))
+        .filter(item => !(item.candidate === "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE" && !facts.has("FACT_LEAK_CONFIRMED")))
+        .filter(item => !(evapFanObservedNormal && item.candidate === "CAUSE_EVAP_FAN_FAILURE"))
+        .filter(item => !(condFanObservedNormal && item.candidate === "CAUSE_COND_FAN_FAILURE"))
+        .filter(item => !rootCauseItems.some(x => x.candidate === item.candidate));
+    const conditionLinkedHtml = conditionLinked.length ? `
+        <div style="margin-top:12px;">
+            <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">ALSO CONSISTENT WITH THE OBSERVED CONDITION (UNCONFIRMED)</div>
+            <div style="margin-top:5px;line-height:1.4;">${conditionLinked.map(x => `<div>• ${labelFor(x.candidate)}</div>`).join("")}</div>
+        </div>` : "";
+
+    const highHeadScPatternNote = highHeadHighScPattern ? `
+        <div style="margin-top:12px;">
+            <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">HIGH HEAD + ELEVATED SUBCOOLING PATTERN</div>
+            <div style="margin-top:6px;color:#263746;line-height:1.45;">
+                <strong>Leading hypothesis:</strong> Possible excess refrigerant charge / liquid backing up in the condenser.
+                Liquid occupying condenser volume can reduce effective condensing area and increase head pressure.
+                High condensing SAT together with elevated calculated subcooling supports this possibility more than
+                high head pressure alone, but does not prove it. This is a screening pattern, not proof of overcharge.
+                ${facts.has("FACT_RECEIVER_PRESENT") ? "A liquid receiver is installed, so receiver operation and subcooling location must be considered." : "Use the applicable equipment charging target."}
+                ${result.state?.subcoolingApproximate ? "Subcooling is estimated from non-coincident pressure/temperature locations." : "Verify pressure and temperature are measured at appropriate locations."}
+                <div style="margin-top:7px;"><strong>Alternative causes:</strong> Restricted condenser airflow or fan operation, noncondensables, head-pressure controls, and receiver/liquid-line conditions.</div>
+                <div style="margin-top:7px;"><strong>Confirmation tests:</strong> Establish stable cooling; inspect condenser coil, airflow and fan; verify pressure/temperature locations; check receiver and head-pressure control operation; compare refrigerant charge with the equipment manufacturer's procedure.</div>
+                <div style="margin-top:7px;"><strong>Corrective action:</strong> Correct any confirmed airflow/control faults first and remeasure. Only if overcharge is confirmed, recover excess refrigerant using approved equipment and verify stabilized operation again. Do not vent refrigerant or adjust charge from this pattern alone.</div>
+            </div>
+        </div>` : "";
+
+    const patternGuidance = highHeadScPatternNote;
 
     let nextAction = null;
 
@@ -5207,6 +5361,19 @@ function buildKnowledgeHubComparison(state, observationValue) {
         nextAction = "Record stabilized suction and discharge pressures, suction-line and liquid-line temperatures, cabinet/box temperature, and condenser entering-air temperature. Verify the refrigerant and installed metering device; use applicable manufacturer references before classifying superheat or subcooling.";
     }
 
+    // Missing reference input is itself actionable evidence. Avoid classifying
+    // an evaporating SAT from pressure alone without a box/entering-air
+    // temperature and an applicable TD/equipment target.
+    const missingEvapReference = Number.isFinite(snapshot.calculated.evaporatorSat) &&
+        !Number.isFinite(snapshot.calculated.evaporatorReferenceLow) &&
+        !Number.isFinite(snapshot.calculated.evaporatorReferenceHigh);
+    const missingEvapReferenceHtml = missingEvapReference ? `
+        <div style="margin-top:8px;padding:8px 10px;background:#fff8e9;border-left:3px solid #b77a24;color:#684d21;line-height:1.35;">
+            <strong>Evaporator SAT not yet classified:</strong> Record box/cabinet temperature
+            (or evaporator entering-air temperature) and use the applicable equipment TD/reference.
+            Pressure alone gives SAT, not whether that SAT is high or low for this system.
+        </div>` : "";
+
     const otherActiveGuides = activeFieldGuides
         .filter(guide => (guide.priority || 0) >= 70 && guide.id !== activeFieldGuide?.id)
         .filter((guide, index, all) =>
@@ -5243,62 +5410,307 @@ function buildKnowledgeHubComparison(state, observationValue) {
         : "";
 
     const factTrace = adapted.trace.length
-        ? adapted.trace.map(item => `<div style="margin-top:5px;">• ${labelFor(item.fact)}</div>`).join("")
+        ? adapted.trace.map(item => {
+            const label = labelFor(item.fact);
+            // An unavailable equipment-specific target does not invalidate
+            // the separately labeled, non-manufacturer screening pattern.
+            const displayLabel = /subcooling reference is not applicable to this configuration\/location/i.test(label)
+                ? "No manufacturer-specific subcooling target is available. A general screening threshold was used where applicable; receiver and measurement-location limitations apply."
+                : label;
+            return `<div style="margin-top:5px;">• ${displayLabel}</div>`;
+        }).join("")
         : `<div>No Knowledge Hub facts established yet.</div>`;
 
+    // Field-first presentation: keep diagnostic evidence intact, but show
+    // the technician only the leading finding, likely causes and one next check.
+    // Field presentation uses diagnostic evidence, not a separate wizard state.
+    // Display confirmed physical findings ahead of charge hypotheses; merge
+    // synonyms by candidate identity rather than comparing display strings.
+    const observedCoil = observationValue("condenser", "coil_condition");
+    const observedFan = observationValue("condenser", "fan_operation");
+    const coilFault = observedCoil === "dirty";
+    const fanFault = observedFan === "not_running";
+    const coilNormal = observedCoil === "clean";
+    const fanNormal = observedFan === "normal";
+    const airflowFault = coilFault || fanFault;
+    const airflowNormal = coilNormal && fanNormal;
+    const highHeadPatternActive = highHeadHighScPattern;
+    const steadyStateEstablished = snapshot.context.operatingState === "STABLE_COOLING";
+    // Unknown operating condition reduces confidence; it must not hide a
+    // measurement-supported leading hypothesis. A verified airflow fault
+    // takes precedence, and charge is never called confirmed here.
+    const fieldHeading = airflowFault
+        ? "Condenser airflow problem observed"
+        : (highHeadPatternActive
+            ? "High head pressure + elevated estimated subcooling"
+            : (!steadyStateEstablished
+                ? (heading && heading !== "More information needed" && heading !== "Verify operating condition" ? `${heading} (provisional — verify operating state)` : "Preliminary diagnostic assessment — verify operating state")
+                : heading));
+    // Rank graph-linked causes from the currently supported physical condition
+    // without claiming a fault is established. A differential with two or more
+    // independent candidate families is more informative than a single
+    // indirect cause; direct evidence and specific diagnoses still take priority.
+    const rankedScores = new Map(result.hypotheses.map(item => [item.candidate,item.score]));
+    const linkedFamilies = (result.conditionCauses || [])
+        .filter(item => !directRestatements.has(item.candidate))
+        .filter(item => meteringCompatible(item.candidate))
+        .filter(item => !(evapFanObservedNormal && item.candidate === "CAUSE_EVAP_FAN_FAILURE"))
+        .filter(item => !(condFanObservedNormal && item.candidate === "CAUSE_COND_FAN_FAILURE"))
+        .filter(item => !(item.candidate === "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE" && !facts.has("FACT_LEAK_CONFIRMED")))
+        .sort((a,b)=>(rankedScores.get(b.candidate)||0)-(rankedScores.get(a.candidate)||0));
+    // An evidence-scored provisional diagnosis must take priority over unscored
+    // condition-linked alternatives. The latter remain available as a differential.
+    // This matters for weak-pumping evidence (high suction + low head): the
+    // causal graph may still list refrigerant-feed faults, but that must not
+    // overrule a stronger measured compressor-performance pattern.
+    const hasStrongEvidenceRank = result.hypotheses.some(item => item.score >= 5 &&
+        !(result.disfavored || []).some(disfavored => disfavored.candidate === item.candidate));
+    const emphasizeLinkedFamilies = result.diagnoses.length === 0 && linkedFamilies.length >= 2 && !hasStrongEvidenceRank;
+    // Elevated subcooling together with high SH is discriminating evidence
+    // for upstream liquid-feed restriction in a fixed-metering system.
+    // This is a screening differential, NOT confirmation of any component fault.
+    const highShHighScFixedMetering = isFixedMetering && !facts.has("FACT_RECEIVER_PRESENT") &&
+        facts.has("FACT_EVAP_SH_HIGH") && facts.has("FACT_SUBCOOLING_HIGH");
+    const differentialCandidates = highShHighScFixedMetering
+        ? [{id:"CAUSE_LIQUID_LINE_RESTRICTION",label:"Liquid-line / capillary-tube restriction (leading possibility; unconfirmed)"}]
+        : [];
+    const fieldCauseCandidates = [
+        ...differentialCandidates,
+        ...(coilFault ? [{id:"OBS_COIL_DIRTY",label:"Dirty / obstructed condenser coil (observed)"}] : []),
+        ...(fanFault ? [{id:"OBS_FAN_STOPPED",label:"Condenser fan not running (observed)"}] : []),
+        ...((highHeadPatternActive && !airflowFault) ? [{id:"CAUSE_REFRIGERANT_OVERCHARGE",label:"Possible excess refrigerant charge / liquid backup in condenser (leading hypothesis; unconfirmed)"}] : []),
+        ...(emphasizeLinkedFamilies ? linkedFamilies.map(item => ({id:item.candidate,label:`${labelFor(item.candidate)} (unconfirmed)`})) : []),
+        ...rootCauseItems.map(item => ({id:item.candidate,label:labelFor(item.candidate)})),
+        ...(!emphasizeLinkedFamilies ? linkedFamilies.map(item => ({id:item.candidate,label:`${labelFor(item.candidate)} (unconfirmed)`})) : [])
+    ];
+    const fieldCauseItems = [];
+    const seenCauses = new Set();
+    // Knowledge Hub's CAUSE_OVERCHARGE and the screening pattern's
+    // CAUSE_REFRIGERANT_OVERCHARGE describe the same charge fault.
+    // Normalize only for display: keep original candidate IDs and
+    // diagnostic scores untouched in the underlying Brain.
+    const fieldCauseKey = id => id === "CAUSE_OVERCHARGE"
+        ? "CAUSE_REFRIGERANT_OVERCHARGE" : id;
+    for (const item of fieldCauseCandidates) {
+        const causeKey = fieldCauseKey(item.id);
+        if (seenCauses.has(causeKey)) continue;
+        if (highShHighScFixedMetering && /LOW_CHARGE|REFRIGERANT_LOSS/.test(item.id) && fieldCauseItems.length === 0) continue;
+        if (airflowFault && item.id === "CAUSE_REFRIGERANT_OVERCHARGE") continue;
+        // Low condensing SAT conflicts with simple overcharge as the leading
+        // explanation; retain evidence in the Brain but don't recommend it
+        // ahead of refrigerant-feed checks without direct overcharge evidence.
+        if (facts.has("FACT_COND_SAT_LOW") && /OVERCHARGE/.test(item.id) && !facts.has("FACT_CHARGE_OVERFILLED_CONFIRMED")) continue;
+        if (fanNormal && item.id === "CAUSE_COND_FAN_FAILURE") continue;
+        if (coilNormal && item.id === "CAUSE_COND_COIL_DIRTY") continue;
+        seenCauses.add(causeKey);
+        fieldCauseItems.push(item.label);
+        if (fieldCauseItems.length >= 3) break;
+    }
+    // Keep the summary title consistent with a strongly supported leading
+    // candidate. High suction/low head can favor weak compressor pumping even
+    // when a generic evaporator-starvation condition also exists.
+    const compressorLeading = fieldCauseItems.length > 0 &&
+        /compressor inefficiency|reduced pumping capacity/i.test(fieldCauseItems[0]) &&
+        facts.has("FACT_EVAP_SAT_HIGH") && facts.has("FACT_COND_SAT_LOW");
+    const displayHeading = compressorLeading && /evaporator.*starvation|evaporator.*underfed|refrigerant starvation/i.test(fieldHeading)
+        ? `Possible compressor inefficiency / reduced pumping capacity${steadyStateEstablished ? "" : " (provisional — verify operating state)"}`
+        : fieldHeading;
+    const fieldCausesHtml = fieldCauseItems.length
+        ? fieldCauseItems.map((cause,index)=>`<div style="margin-top:6px;">${index+1}. ${cause}</div>`).join("")
+        : `<div style="margin-top:6px;">Cause not yet established — follow the next check.</div>`;
+
+    // General next-check planner. All supported systems use the same evidence
+    // store and existing Brain result; no scenario-specific diagnostic wizards.
+    const operatingState = wicDiagnosticContext.operatingState;
+    const recordedObservation = {};
+    for (const def of Object.values(ALL_EVIDENCE_CHECKS)) {
+        recordedObservation[`${def.component}:${def.field}`] =
+            componentObservationValues.get(observationKey(def.component,def.field)) ?? "";
+    }
+    const recordedMeasurements = {};
+    for (const [point,unit] of [
+        ["box_temperature","temperature"],["condenser_entering_air","temperature"],
+        ["compressor_suction","pressure"],["compressor_discharge","pressure"],
+        ["compressor_suction","temperature"],["condenser_outlet","temperature"],
+        ["filter_drier_inlet","temperature"],["filter_drier_outlet","temperature"],
+        ["evaporator_entering_air","temperature"],["evaporator_leaving_air","temperature"]
+    ]) {
+        recordedMeasurements[`${point}:${unit}`] = getNumericMeasurementValue(point,unit);
+    }
+    const availableFields = [
+        ...(currentSystem?.components || []).filter(isComponentInstalled).flatMap(component =>
+            getApplicableObservationFields(component).map(field => `${component.id}:${field.id}`)),
+        ...Object.values(ALL_EVIDENCE_CHECKS).filter(def=>["controls","room"].includes(def.component) &&
+            def.field !== "defrost_status").map(def=>`${def.component}:${def.field}`)
+    ];
+    const plannedChecks = planNextChecks({
+        availableFields,
+        operatingState: snapshot.context.operatingState,
+        reportedProblem: wicDiagnosticContext.reportedProblem,
+        facts: [...facts],
+        candidates: [...result.diagnoses,...result.hypotheses,...result.possible,...provisionalConditionCauses].map(item=>item.candidate),
+        nextCheckId: result.nextCheck,
+        nextCheck: result.nextCheck ? (checkLabels.get(result.nextCheck)||result.nextCheck) : (activeFieldGuide?.steps?.[0]?.action || nextAction || ""),
+        observations: recordedObservation,
+        measurements: recordedMeasurements,
+        maxChecks: 3
+    });
+    const safeText = text => String(text ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    // Cause-level investigation guidance is available even before a stable
+    // operating state is confirmed. These are checks, never fault confirmations.
+    const causeInvestigation = {
+        CAUSE_LOW_REFRIGERANT_CHARGE: "Verify refrigerant feed and charge indicators appropriate to the installed receiver and metering device; inspect for leaks. Do not add refrigerant based on superheat or estimated subcooling alone.",
+        CAUSE_REFRIGERANT_UNDERCHARGE: "Check refrigerant-feed evidence and inspect for leaks; verify charge by equipment procedure before any adjustment.",
+        CAUSE_LIQUID_LINE_RESTRICTION: "Check for a temperature or pressure drop across the filter-drier and other accessible liquid-line components. Confirm the restriction location before replacing parts.",
+        CAUSE_TXV_UNDERFEED: "Confirm liquid supply to the valve, then check sensing-bulb contact, equalizer connections and valve inlet screen where serviceable.",
+        CAUSE_FIXED_ORIFICE_RESTRICTION: "Check the filter-drier and liquid supply, then assess the capillary tube or fixed orifice for blockage. Follow manufacturer service procedures; do not assume a TXV is installed.",
+        CAUSE_TXV_INLET_RESTRICTION: "Check upstream liquid supply and inspect the TXV inlet screen when serviceable. Confirm the point of restriction before repair.",
+        CAUSE_EVAP_AIRFLOW_RESTRICTION: "Inspect for blocked airflow, dirty or iced coil, and incorrect evaporator-fan operation; record the finding.",
+        CAUSE_EVAP_ICING: "Inspect coil frost distribution, defrost function and fan airflow; determine why icing developed before defrosting or replacing parts.",
+        CAUSE_EVAP_FAN_FAILURE: "Confirm fan demand and safe visible operation, then check supply and motor circuit using the appropriate electrical safety procedure."
+    };
+    const causeGuidanceHtml = fieldCauseItems.length ? `<details style="margin-top:10px;">
+        <summary style="cursor:pointer;color:#277fb5;">How to investigate possible causes</summary>
+        <div style="margin-top:8px;line-height:1.45;">${fieldCauseCandidates
+            .filter((item,index,all)=>all.findIndex(other=>fieldCauseKey(other.id)===fieldCauseKey(item.id))===index)
+            .filter(item=>seenCauses.has(fieldCauseKey(item.id)))
+            .slice(0,3).map(item=>`<div style="margin:8px 0;"><strong>${safeText(labelFor(item.id) || item.label)}</strong>: ${safeText(causeInvestigation[item.id] || "Review supporting evidence and perform the relevant confirmation checks before corrective action.")}</div>`).join("")}</div></details>` : "";
+    const stateOptions = [
+        ["unknown","Not established"],["stable_cooling","Running, readings stabilized"],
+        ["off","Compressor off / no cooling"],["startup","Just started"],
+        ["pulldown","Pull-down"],["satisfied","Satisfied / normal stop"],
+        ["pump_down","Pump-down"],["defrost","Defrost"],
+        ["post_defrost","Post-defrost"]
+    ];
+    const problemOptions = [
+        ["unknown","Not specified"],["not_cooling","Not cooling"],
+        ["insufficient_cooling","Not cooling enough / temperature high"],
+        ["running_continuously","Running continuously"],["short_cycling","Short cycling"],
+        ["high_pressure_trip","High-pressure trip"],["other","Other symptom"]
+    ];
+    const selectOptions = (options,current) => options.map(([v,label])=>
+        `<option value="${safeText(v)}" ${current===v?"selected":""}>${safeText(label)}</option>`).join("");
+    const renderedChecks = plannedChecks.map((check,index)=>{
+        let input = "";
+        if(check.type==="observation") {
+            input = `<label for="guided-answer-${index}" style="display:block;margin-top:8px;font-size:0.87em;">Record finding</label>
+                <select id="guided-answer-${index}" data-next-check-component="${safeText(check.component)}" data-next-check-field="${safeText(check.field)}" class="component-config-select" style="width:100%;margin-top:4px;">
+                <option value="">Choose result...</option>
+                ${check.options.map(([v,label])=>`<option value="${safeText(v)}">${safeText(label)}</option>`).join("")}
+                </select>`;
+        } else if(check.type==="state") {
+            input = `<select aria-label="Operating condition" data-next-check-state class="component-config-select" style="width:100%;margin-top:7px;">
+                ${selectOptions(stateOptions,wicDiagnosticContext.operatingState)}</select>`;
+        } else if(check.type==="tool") {
+            input = `<button type="button" data-next-check-tool="${safeText(check.tool)}" style="margin-top:9px;padding:8px 12px;cursor:pointer;">Open ${check.tool==="measurements"?"Measurements":"Component / Electrical"}</button>`;
+        }
+        return `<div style="margin-top:${index?12:8}px;padding:${index? "10px 0 0":"0"};${index?"border-top:1px solid #e1e8ed;":""}">
+            <div style="font-weight:650;color:#263746;">${index+1}. ${safeText(check.label||"Next check")}</div>
+            <div style="margin-top:4px;line-height:1.45;color:#263746;">${safeText(check.instruction)}</div>
+            <div style="font-size:0.81em;color:#637787;margin-top:4px;">${safeText(check.why||"")}</div>
+            ${input}</div>`;
+    }).join("");
+    const savedChecks = Object.values(ALL_EVIDENCE_CHECKS)
+        .filter(def=>recordedObservation[`${def.component}:${def.field}`])
+        .map(def=>`<div style="margin:6px 0;">
+            <label style="font-size:0.88em;">${safeText(def.label)}</label>
+            <select data-next-check-component="${safeText(def.component)}" data-next-check-field="${safeText(def.field)}" class="component-config-select" style="width:100%;margin-top:3px;">
+                <option value="">Clear / not checked</option>
+                ${def.options.map(([v,label])=>`<option value="${safeText(v)}" ${recordedObservation[`${def.component}:${def.field}`]===v?"selected":""}>${safeText(label)}</option>`).join("")}
+            </select></div>`).join("");
+    const recordedEvidence = `<div style="margin-top:9px;color:#526575;font-size:0.85em;">
+        ${Object.values(ALL_EVIDENCE_CHECKS).filter(def=>recordedObservation[`${def.component}:${def.field}`]).length} recorded inspection(s) · answers update System Check automatically
+    </div>`;
+    const editOperatingState = `<details style="margin-top:10px;">
+        <summary style="cursor:pointer;color:#277fb5;">Review / change earlier answers</summary>
+        <div style="margin-top:8px;">
+            <label>Operating condition</label>
+            <select data-next-check-state class="component-config-select" style="display:block;width:100%;margin:4px 0 10px;">
+                ${selectOptions(stateOptions,wicDiagnosticContext.operatingState)}
+            </select>
+            ${savedChecks || '<div style="color:#526575;font-size:0.88em;">No inspections recorded yet.</div>'}
+        </div>
+    </details>`;
+    const fieldSummary = airflowFault
+        ? "An airflow-related fault was observed. Correct it and remeasure before investigating refrigerant charge."
+        : highHeadHighScPattern
+        ? `High condensing temperature with elevated estimated subcooling. Excess refrigerant / liquid backup is a leading hypothesis, not confirmed. ${steadyStateEstablished ? "" : "Operating condition is not yet verified; confirm stable cooling before relying on these readings."} Receiver operation and measurement locations can affect charge interpretation.`
+        : !steadyStateEstablished
+        ? "Operating state is unconfirmed. The possible causes below are preliminary; verify a normal cooling call and stabilized readings before making repair or charge decisions."
+        : (confirmed.length ? confirmed[0] : "Review the next check to narrow the cause.");
+
     return `
-        <div style="margin-top:16px;padding:16px;border:1px solid #b9d7e8;border-radius:8px;background:#f7fbfd;">
-            <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">
-                SYSTEM CHECK RESULT
-            </div>
-
-            <div style="margin-top:8px;font-size:1.08em;font-weight:700;color:#263746;">
-                ${heading}
-            </div>
-
-            ${confirmedHtml}
+        <div style="margin-top:16px;padding:14px;border:1px solid #b9d7e8;border-radius:8px;background:#f7fbfd;">
+            <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">SYSTEM CHECK</div>
+            <div style="margin-top:7px;font-size:1.08em;font-weight:700;color:#263746;">${displayHeading}</div>
+            <div style="margin-top:6px;color:#526575;line-height:1.4;">${fieldSummary}</div>
 
             <div style="margin-top:14px;">
-                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
-                    WHAT THIS MEANS
-                </div>
-                <div style="margin-top:6px;color:#5f7180;line-height:1.45;">
-                    ${meaning}
-                </div>
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">POSSIBLE CAUSES</div>
+                <div style="margin-top:5px;color:#263746;line-height:1.4;">${fieldCausesHtml}</div>
+                ${causeGuidanceHtml}
             </div>
 
-            ${rootCauses}
-
-            ${otherActiveHtml}
-
-            ${nextAction ? `
-                <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(100,120,140,0.18);">
-                    <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">
-                        ${result.diagnoses.length === 1 ? "RECOMMENDED ACTION" : "NEXT ACTION / CHECK"}
-                    </div>
-                    <div style="margin-top:6px;line-height:1.45;color:#263746;font-weight:600;">
-                        ${nextAction}
-                    </div>
+            <div style="margin-top:14px;padding:11px 12px;border:1px solid #b9d7e8;border-radius:6px;background:white;">
+                <div style="font-size:0.72em;letter-spacing:0.10em;color:#277fb5;font-weight:700;">ADDITIONAL INFORMATION NEEDED</div>
+                <div style="margin-top:8px;">
+                    <label style="display:block;font-size:0.85em;font-weight:600;">Reported problem (optional)</label>
+                    <select data-next-check-problem class="component-config-select" style="width:100%;margin-top:4px;">
+                        ${selectOptions(problemOptions,wicDiagnosticContext.reportedProblem)}
+                    </select>
                 </div>
-            ` : ""}
+                ${missingEvapReferenceHtml}
+                ${renderedChecks}
+                ${recordedEvidence}
+                ${editOperatingState}
+            </div>
 
-            ${activeFieldGuide ? `
-                <details open style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(100,120,140,0.18);">
-                    <summary style="cursor:pointer;color:#277fb5;font-weight:700;">Field troubleshooting path</summary>
-                    <div style="margin-top:8px;color:#5f7180;line-height:1.45;">${activeFieldGuide.relationship}</div>
-                    <div style="margin-top:9px;color:#263746;line-height:1.5;">
-                        ${activeFieldGuide.steps.map((step,index)=>`<div style="margin-top:7px;"><strong>${index+1}. ${step.action}</strong>${step.record?`<div style="color:#5f7180;">Record/check here: ${step.record}</div>`:""}</div>`).join("")}
-                    </div>
-                </details>
-            ` : ""}
-
-            <details style="margin-top:12px;">
-                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">
-                    Evidence used
-                </summary>
-                <div style="padding-top:7px;color:#5f7180;line-height:1.45;">
-                    ${factTrace}
+            <details style="margin-top:14px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Why this diagnosis?</summary>
+                <div style="margin-top:9px;color:#526575;line-height:1.45;">
+                    ${confirmedHtml}
+                    <div style="margin-top:8px;">${highHeadHighScPattern
+                        ? "High condensing SAT and elevated calculated subcooling together support possible liquid backup in the condenser. Excess liquid can reduce effective condensing area and raise head pressure. This pattern does not prove overcharge."
+                        : meaning}</div>
+                    ${highHeadHighScPattern
+                        ? `<div style="margin-top:8px;">${result.state?.subcoolingApproximate ? "Subcooling is estimated using pressure and temperature from different locations. " : ""}${facts.has("FACT_RECEIVER_PRESENT") ? "A receiver is present; its design affects charging interpretation." : "Confirm the applicable charging specification."}</div>`
+                        : ""}
                 </div>
+            </details>
+            <details style="margin-top:10px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Other possible causes</summary>
+                <div style="margin-top:9px;color:#526575;line-height:1.45;">
+                    ${highHeadHighScPattern
+                        ? `<div>Condenser fan/airflow faults, dirty coil, noncondensables, head-pressure controls, or receiver/liquid-line conditions.</div>${otherActiveHtml}`
+                        : `${rootCauses}${conditionLinkedHtml}${otherActiveHtml}`}
+                </div>
+            </details>
+            <details style="margin-top:10px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Confirmation tests</summary>
+                <div style="margin-top:9px;color:#526575;line-height:1.45;">
+                    ${highHeadHighScPattern
+                        ? `<div>1. Confirm stable cooling, not defrost or pump-down.</div>
+                           <div style="margin-top:6px;">2. Inspect condenser coil and verify fan operation/airflow.</div>
+                           <div style="margin-top:6px;">3. Verify pressure and liquid-line temperature locations and remeasure.</div>
+                           <div style="margin-top:6px;">4. Evaluate head-pressure controls and compare charge using the manufacturer's specified procedure.</div>`
+                        : (activeFieldGuide?.steps?.length
+                            ? activeFieldGuide.steps.map((step,index)=>`<div style="margin-top:6px;">${index+1}. ${step.action}${step.record ? ` <span style="color:#5f7180;">Record: ${step.record}</span>` : ""}</div>`).join("")
+                            : `<div>${nextAction || "Verify operating state and collect reliable measurements."}</div>`)}
+                </div>
+            </details>
+            <details style="margin-top:10px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Repair guidance</summary>
+                <div style="margin-top:9px;color:#526575;line-height:1.45;">
+                    ${highHeadHighScPattern
+                        ? `Correct confirmed condenser airflow or control faults, stabilize, and remeasure. Only if overcharge is confirmed using the manufacturer's procedure, recover excess refrigerant with approved equipment and recheck operation. Never adjust charge from estimated subcooling alone.`
+                        : (result.diagnoses.length === 1
+                            ? (knowledgeHub.concepts.items.find(item=>item.id===result.diagnoses[0].candidate)?.corrective_action || "Confirm the fault before replacing parts or adjusting refrigerant.")
+                            : "Confirm the fault before repair. Recheck system operation after corrective work.")}
+                </div>
+            </details>
+            <details style="margin-top:10px;">
+                <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Evidence used</summary>
+                <div style="padding-top:7px;color:#5f7180;line-height:1.45;">${factTrace}</div>
             </details>
         </div>
     `;
@@ -5560,9 +5972,9 @@ function buildSystemCheckTool() {
                 </div>
             </div>
 
-            ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildWicDiagnosticContextControls() : ""}
+            ${["walk_in_cooler","walk_in_freezer","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildWicDiagnosticContextControls() : ""}
 
-            ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) && knowledgeHub
+            ${["walk_in_cooler","walk_in_freezer","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) && knowledgeHub
                 ? buildKnowledgeHubComparison(state, observationValue)
                 : `
                     <div style="
@@ -5578,7 +5990,7 @@ function buildSystemCheckTool() {
                         ${nextCheck}
                         ${why}
                     </div>
-                    ${["walk_in_cooler","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildKnowledgeHubComparison(state, observationValue) : ""}
+                    ${["walk_in_cooler","walk_in_freezer","ac_split","ac_package","reach_in_refrigerator","reach_in_freezer"].includes(currentSystem?.id) ? buildKnowledgeHubComparison(state, observationValue) : ""}
                 `}
 
         </div>
@@ -6382,6 +6794,36 @@ function bindSidePanelControls() {
             });
         });
 
+    // Every guided answer uses the same context/observation map as the
+    // Component UI and is immediately reevaluated by the diagnostic engine.
+    measurementContent.querySelectorAll("[data-next-check-problem]").forEach(input => {
+        input.addEventListener("change", event => {
+            wicDiagnosticContext.reportedProblem = event.target.value;
+            renderSidePanel();
+        });
+    });
+    measurementContent.querySelectorAll("[data-next-check-state]").forEach(input => {
+        input.addEventListener("change", event => {
+            wicDiagnosticContext.operatingState = event.target.value;
+            renderSidePanel();
+        });
+    });
+    measurementContent.querySelectorAll("[data-next-check-component][data-next-check-field]").forEach(input => {
+        input.addEventListener("change", event => {
+            const {nextCheckComponent:component,nextCheckField:field} = event.target.dataset;
+            const key = observationKey(component,field);
+            if (!event.target.value) componentObservationValues.delete(key);
+            else componentObservationValues.set(key,event.target.value);
+            renderSidePanel();
+        });
+    });
+    measurementContent.querySelectorAll("[data-next-check-tool]").forEach(button => {
+        button.addEventListener("click", () => {
+            const tool = button.dataset.nextCheckTool;
+            if (tool === "measurements" || tool === "component") switchTool(tool);
+        });
+    });
+
     /*
      * Component subtype
      */
@@ -6480,8 +6922,15 @@ function loadSystem(
 
     componentElectricalValues.clear();
     wicDiagnosticContext.operatingState = "unknown";
+    wicDiagnosticContext.reportedProblem = "unknown";
     wicDiagnosticContext.evaporatorPressureQuality = "valid";
     wicDiagnosticContext.condenserPressureQuality = "valid";
+    wicDiagnosticContext.evaporatorTd = "";
+    wicDiagnosticContext.evaporatorSatTolerance = "";
+    wicDiagnosticContext.evaporatorSatLow = "";
+    wicDiagnosticContext.evaporatorSatHigh = "";
+    wicDiagnosticContext.superheatLow = "";
+    wicDiagnosticContext.superheatHigh = "";
 
 
     systemTitle.textContent =

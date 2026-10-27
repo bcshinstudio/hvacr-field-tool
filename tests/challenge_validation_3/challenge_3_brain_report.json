@@ -2,8 +2,8 @@
   "suite": "WIC_CHALLENGE_3_V1",
   "brain": "2.0.13",
   "total": 70,
-  "passed": 70,
-  "failed": 0,
+  "passed": 69,
+  "failed": 1,
   "results": [
     {
       "id": "CH3-R001",
@@ -67,7 +67,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_MODEL_TARGET_PRECEDENCE"
       ],
@@ -312,7 +312,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SIGHT_GLASS_FLASHING"
       ],
@@ -547,7 +547,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HIGH_CURRENT_NORMAL_HEAD"
       ],
@@ -650,7 +650,7 @@
         "COND_EVAP_OVERFED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_LONG_OFF_STARTUP_LOW_SH",
         "GUIDE_PATTERN_LOW_SH"
@@ -676,7 +676,7 @@
         "COND_EVAP_OVERFED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_LIQUID_RETURN",
         "GUIDE_PATTERN_LOW_SH"
@@ -703,7 +703,7 @@
         "COND_EVAP_STARVED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_STATE_MEASUREMENTS",
         "GUIDE_HIGH_SH"
@@ -726,7 +726,7 @@
       "state": "SATISFIED_OFF",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SATISFIED_OFF_LOW_SUCTION",
         "GUIDE_SATISFIED_OFF_PRESSURE"
@@ -751,7 +751,7 @@
       "diagnoses": [
         "CAUSE_LP_CONTROL_SETTING_OR_FAULT"
       ],
-      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_LP_PUMPDOWN"
       ],
@@ -833,7 +833,7 @@
       "diagnoses": [
         "CAUSE_CONTACTOR_FAILURE"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_CONTACTOR_NO_OUTPUT"
       ],
@@ -907,7 +907,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_OVERLOAD_OPEN"
       ],
@@ -932,7 +932,7 @@
       "diagnoses": [
         "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SENSOR_NORMAL_REFRIG",
         "GUIDE_SENSOR_ERROR"
@@ -1091,8 +1091,10 @@
     {
       "id": "CH3-R040",
       "title": "High suction low head weak differential",
-      "pass": true,
-      "errors": [],
+      "pass": false,
+      "errors": [
+        "next-action intent 0.13"
+      ],
       "facts": [
         "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
         "FACT_COND_SAT_LOW",
@@ -1103,10 +1105,10 @@
       "diagnoses": [
         "CAUSE_COMPRESSOR_INEFFICIENCY"
       ],
-      "nextCheck": "CHECK_COMPRESSOR_DIFFERENTIAL",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [],
       "headlineScore": 1,
-      "nextScore": 0.375,
+      "nextScore": 0.125,
       "findingScores": [
         1,
         0.5,
@@ -1127,7 +1129,7 @@
       "diagnoses": [
         "CAUSE_MOISTURE_CONTAMINATION"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_MOISTURE_NORMAL_OPERATION",
         "GUIDE_MOISTURE_WET"
@@ -1319,7 +1321,7 @@
       "activeGuides": [
         "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL"
       ],
-      "headlineScore": 0.5,
+      "headlineScore": 0.75,
       "nextScore": 0.5,
       "findingScores": [
         1,
@@ -1459,7 +1461,7 @@
       "diagnoses": [
         "CAUSE_DEFROST_HEATER_FAILURE"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_HEATER_ELECTRICAL",
         "GUIDE_DEFROST_INCOMPLETE"
@@ -1534,7 +1536,7 @@
       "state": "POST_DEFROST",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_FAN_DELAY_NORMAL"
       ],
@@ -1750,7 +1752,7 @@
       "diagnoses": [
         "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SOLENOID_NOT_CLOSING",
         "GUIDE_SOLENOID_FLOW_CLOSED"
@@ -1874,7 +1876,7 @@
       "diagnoses": [
         "CAUSE_COND_FAN_FAILURE"
       ],
-      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_COND_FAN_NOT_RUNNING"
       ],
@@ -1897,7 +1899,7 @@
       "diagnoses": [
         "CAUSE_EVAP_FAN_FAILURE"
       ],
-      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_EVAP_FAN_NOT_RUNNING"
       ],

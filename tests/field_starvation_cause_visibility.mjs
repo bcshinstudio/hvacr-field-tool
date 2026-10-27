@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {conditionCauseCandidates} from '../src/knowledge/hypothesis_engine.js';
+const app=readFileSync(new URL('../src/app.js', import.meta.url),'utf8');
+const relationships=JSON.parse(readFileSync(new URL('../data/knowledge/core/relationships.json', import.meta.url),'utf8')).items;
+const causes=conditionCauseCandidates([{id:'COND_EVAP_STARVED'}],relationships).map(x=>x.candidate);
+assert(causes.includes('CAUSE_LOW_REFRIGERANT_CHARGE'),'low charge remains a causal alternative');
+assert(causes.includes('CAUSE_LIQUID_LINE_RESTRICTION'),'restriction remains a causal alternative');
+assert(causes.includes('CAUSE_TXV_UNDERFEED'),'TXV remains a causal alternative');
+assert.match(app,/const linkedFamilies = \(result\.conditionCauses \|\| \[\]\)/);
+assert.match(app,/const emphasizeLinkedFamilies = result\.diagnoses\.length === 0/);
+assert.match(app,/!facts\.has\("FACT_LEAK_CONFIRMED"\)/);
+assert.doesNotMatch(app,/existingIndex >= 3/,'no hard-coded third-slot promotion');
+console.log('PASS: generic graph-linked differential, low-charge preserved without case-specific slot patch');

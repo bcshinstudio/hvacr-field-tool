@@ -1,0 +1,13 @@
+import { readFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+const src = readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
+assert.match(src, /const highHeadHighScPattern = highSideHigh && elevatedScScreen/);
+assert.match(src, /const elevatedScScreen = scScreen !== null && scScreen > 20/);
+assert.match(src, /HIGH HEAD \+ ELEVATED SUBCOOLING PATTERN/);
+assert.match(src, /Possible excess refrigerant charge \/ liquid backing up in the condenser/);
+assert.match(src, /screening pattern, not proof of overcharge/);
+assert.match(src, /const fieldCauseCandidates =/);
+assert.match(src, /highHeadPatternActive/);
+assert.match(src, /\$\{fieldCausesHtml\}/);
+assert.doesNotMatch(src, /Condenser subcooling is only \$\{Number\(sc.value\)/);
+console.log('HIGH HEAD + SUBCOOL UI: 7 assertions PASS');

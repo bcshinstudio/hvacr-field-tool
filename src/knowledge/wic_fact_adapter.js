@@ -79,10 +79,27 @@ export function buildWicKnowledgeFacts(snapshot={}) {
   if (finite(m.outdoorAmbientF) && finite(r.lowAmbientThresholdF) &&
       m.outdoorAmbientF < r.lowAmbientThresholdF)
     addFact(result,"FACT_LOW_AMBIENT","measurements.outdoorAmbientF",m.outdoorAmbientF,"Below explicitly supplied low-ambient reference; not a head-control failure diagnosis.");
+  if (result.facts.includes("FACT_LOW_AMBIENT") && result.facts.includes("FACT_COND_SAT_LOW"))
+    addFact(result,"FACT_LOW_AMBIENT_LOW_HEAD_PATTERN","calculated.condenserPattern",true,
+      "Low head in cold ambient; check installed head-pressure control operation and design before concluding a fault.");
   if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceHigh) &&
       finite(c.condenserSat) && finite(c.condenserReferenceLow) &&
       c.evaporatorSat > c.evaporatorReferenceHigh && c.condenserSat < c.condenserReferenceLow)
     addFact(result,"FACT_HIGH_SUCTION_LOW_HEAD_PATTERN","calculated.pressurePattern",true,"High evaporating and low condensing saturation together; investigate compressor performance and operating state.");
+  // A low evaporating SAT with *reference-normal* evaporator superheat is
+  // consistent with reduced evaporator heat transfer/load.  This is a
+  // provisional physical condition, NOT proof of icing or an airflow fault.
+  // Require an actual reference and a measured SH; missing data must never
+  // create a "normal" finding by absence of a HIGH fact.
+  if (finite(c.evaporatorSat) && finite(c.evaporatorReferenceLow) &&
+      c.evaporatorSat < c.evaporatorReferenceLow &&
+      finite(c.evaporatorSuperheat) && finite(r.evaporatorSuperheat?.low) &&
+      finite(r.evaporatorSuperheat?.high) &&
+      c.evaporatorSuperheat >= r.evaporatorSuperheat.low &&
+      c.evaporatorSuperheat <= r.evaporatorSuperheat.high)
+    addFact(result,"FACT_LOW_EVAP_SAT_WITH_NORMAL_SH","calculated.evaporatorPattern",true,
+      "Low evaporator SAT with SH within an applicable reference; evaluate evaporator heat transfer/load and competing causes.");
+
   // Normal pattern requires COMPLETE two-sided references, not merely absence
   // of fault evidence. This does not override direct observations of a defect.
   if ([c.evaporatorSat,c.evaporatorReferenceLow,c.evaporatorReferenceHigh,

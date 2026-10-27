@@ -1,0 +1,534 @@
+{
+  "status": "ACTUAL_PT_AND_PRODUCTION_HYPOTHESIS_ENGINE_TEST_NOT_TEXTBOOK_ANSWER_KEY",
+  "cases": [
+    {
+      "problem": "7-1",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 34.9,
+        "condenserSatF": 119.97,
+        "superheatF": 10.1,
+        "estimatedSubcoolF": 9.97,
+        "referenceEvapSatF": 35
+      },
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "causalAlternatives": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-2",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 39.74,
+        "condenserSatF": 140.04,
+        "superheatF": 10.26,
+        "estimatedSubcoolF": 30.04,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "causalAlternatives": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONDENSER_RECIRCULATION"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-3",
+      "application": "APP_WIF",
+      "pressureBased": {
+        "evaporatorSatF": -4.91,
+        "condenserSatF": 104.95,
+        "superheatF": 24.91,
+        "estimatedSubcoolF": 9.95,
+        "referenceEvapSatF": 10
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-4",
+      "application": "APP_WIF",
+      "pressureBased": {
+        "evaporatorSatF": 24.89,
+        "condenserSatF": 79.81,
+        "superheatF": 40.11,
+        "estimatedSubcoolF": -0.19,
+        "referenceEvapSatF": 10
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_RECEIVER_PRESENT"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_COMPRESSOR_INEFFICIENCY",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_CONTEXT"
+    },
+    {
+      "problem": "7-5",
+      "application": "APP_WIF",
+      "pressureBased": {
+        "evaporatorSatF": 0.36,
+        "condenserSatF": 100.04,
+        "superheatF": 9.64,
+        "estimatedSubcoolF": 10.04,
+        "referenceEvapSatF": 15
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_REDUCED_HEAT_TRANSFER"
+      ],
+      "causalAlternatives": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-6",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 19.8,
+        "condenserSatF": 100.04,
+        "superheatF": 30.2,
+        "estimatedSubcoolF": 10.04,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_DRIER_TEMPERATURES_MEASURED",
+        "FACT_DRIER_TEMP_DROP",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED",
+        "COND_LIQUID_FEED_RESTRICTED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [
+        "CAUSE_FILTER_DRIER_RESTRICTION"
+      ],
+      "possible": [
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-7",
+      "application": "APP_RIC",
+      "pressureBased": {
+        "evaporatorSatF": 10.19,
+        "condenserSatF": 99.86,
+        "superheatF": 34.81,
+        "estimatedSubcoolF": 24.86,
+        "referenceEvapSatF": 30
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "problem": "7-8",
+      "application": "APP_RIC",
+      "pressureBased": {
+        "evaporatorSatF": 19.42,
+        "condenserSatF": 109.8,
+        "superheatF": 0.58,
+        "estimatedSubcoolF": 9.8,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+    },
+    {
+      "problem": "7-9",
+      "application": "APP_RIC",
+      "pressureBased": {
+        "evaporatorSatF": 60.44,
+        "condenserSatF": 90.37,
+        "superheatF": 29.56,
+        "estimatedSubcoolF": 10.37,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "nextCheck": "CHECK_COMPRESSOR_CONTEXT"
+    },
+    {
+      "problem": "7-10",
+      "application": "APP_RIF",
+      "pressureBased": {
+        "evaporatorSatF": -9.55,
+        "condenserSatF": 90.21,
+        "superheatF": 34.55,
+        "estimatedSubcoolF": 0.21,
+        "referenceEvapSatF": 10
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_HIGH",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_STARVED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+      ],
+      "nextCheck": "CHECK_DRIER_DROP"
+    },
+    {
+      "problem": "7-11",
+      "application": "APP_RIF",
+      "pressureBased": {
+        "evaporatorSatF": 24.89,
+        "condenserSatF": 119.48,
+        "superheatF": 0.11,
+        "estimatedSubcoolF": 9.48,
+        "referenceEvapSatF": 10
+      },
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED",
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "causalAlternatives": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-12",
+      "application": "APP_RIF",
+      "pressureBased": {
+        "evaporatorSatF": 24.89,
+        "condenserSatF": 114.97,
+        "superheatF": 0.11,
+        "estimatedSubcoolF": 34.97,
+        "referenceEvapSatF": 10
+      },
+      "facts": [
+        "FACT_COND_SAT_HIGH",
+        "FACT_EVAP_SAT_ABOVE_RANGE",
+        "FACT_EVAP_SAT_HIGH",
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED",
+        "COND_HIGH_SIDE_PRESSURE_PROBLEM"
+      ],
+      "causalAlternatives": [
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_OVERCHARGE",
+        "CAUSE_NONCONDENSABLES",
+        "CAUSE_COND_AIRFLOW_RESTRICTION",
+        "CAUSE_HOT_AIR_RECIRCULATION",
+        "CAUSE_HIGH_AMBIENT"
+      ],
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW"
+    },
+    {
+      "problem": "7-13",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 24.89,
+        "condenserSatF": 124.95,
+        "superheatF": 0.11,
+        "estimatedSubcoolF": 9.95,
+        "referenceEvapSatF": 25
+      },
+      "facts": [
+        "FACT_EVAP_SH_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_OVERFED"
+      ],
+      "causalAlternatives": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "diagnoses": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "possible": [
+        "CAUSE_TXV_OVERFEED"
+      ],
+      "nextCheck": "CHECK_TXV_INSTALL"
+    },
+    {
+      "problem": "7-14",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 19.8,
+        "condenserSatF": 49.85,
+        "superheatF": 10.2,
+        "estimatedSubcoolF": 9.85,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_COND_SAT_LOW",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_LOW_AMBIENT",
+        "FACT_LOW_AMBIENT_LOW_HEAD_PATTERN",
+        "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [
+        "COND_EVAP_REDUCED_HEAT_TRANSFER"
+      ],
+      "causalAlternatives": [
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_EVAP_ICING"
+      ],
+      "diagnoses": [],
+      "possible": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_TXV_UNDERFEED",
+        "CAUSE_EVAP_ICING"
+      ],
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL"
+    },
+    {
+      "problem": "7-15",
+      "application": "APP_WIC",
+      "pressureBased": {
+        "evaporatorSatF": 35.52,
+        "condenserSatF": 114.97,
+        "superheatF": 14.48,
+        "estimatedSubcoolF": 4.97,
+        "referenceEvapSatF": 40
+      },
+      "facts": [
+        "FACT_EVAP_SH_MEASURED",
+        "FACT_RECEIVER_PRESENT",
+        "FACT_SC_REFERENCE_NOT_APPLICABLE",
+        "FACT_SUBCOOLING_MEASURED"
+      ],
+      "conditions": [],
+      "causalAlternatives": [],
+      "diagnoses": [],
+      "possible": [],
+      "nextCheck": null
+    }
+  ]
+}

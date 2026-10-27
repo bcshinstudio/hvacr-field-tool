@@ -1,20 +1,4 @@
 {
-  "source": "Dick Wirz, Commercial Refrigeration for Air Conditioning Technicians, Chapter 7, service problems 7-1 through 7-15, textbook pp. 170-178",
-  "data_status": "VISUALLY_TRANSCRIBED_FROM_USER_PHOTOGRAPHS",
-  "diagnosis_policy": "No printed solutions in supplied service-problem pages. Do not label inferred answers as textbook answer key.",
-  "chapter_thresholds": {
-    "condensing_expected": "ambient + 30 F; +/-10 F",
-    "evaporating_expected_walk_in": "box - 10 F; +/-10 F",
-    "evaporating_expected_reach_in": "box - 20 F; +/-10 F",
-    "subcooling_normal_f": [
-      5,
-      20
-    ],
-    "superheat_normal_f": [
-      5,
-      20
-    ]
-  },
   "cases": [
     {
       "id": "CH7_7_1",
@@ -158,7 +142,9 @@
       "expected_condensing_f": 120,
       "reference_diagnosis": null,
       "reference_diagnosis_status": "NOT_PRINTED_IN_EXERCISE",
-      "independent_solution_status": "NOT_YET_VERIFIED"
+      "independent_solution_status": "NOT_YET_VERIFIED",
+      "filter_drier_inlet_f": 90,
+      "filter_drier_outlet_f": 80
     },
     {
       "id": "CH7_7_7",

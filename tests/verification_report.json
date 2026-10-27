@@ -1,0 +1,417 @@
+{
+  "passed": 59,
+  "failed": 0,
+  "total": 59,
+  "generated_at": "2026-10-27T23:23:22.728Z",
+  "results": [
+    {
+      "test": "tests/chapter7/real_pt_chain_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "LOW\n7-12 {\"evaporatorSatF\":24.89,\"condenserSatF\":114.97,\"superheatF\":0.11,\"estimatedSubcoolF\":34.97,\"referenceEvapSatF\":10} conditions COND_EVAP_OVERFED;COND_HIGH_SIDE_PRESSURE_PROBLEM next CHECK_VERIFY_COND_AIRFLOW\n7-13 {\"evaporatorSatF\":24.89,\"condenserSatF\":124.95,\"superheatF\":0.11,\"estimatedSubcoolF\":9.95,\"referenceEvapSatF\":25} conditions COND_EVAP_OVERFED next CHECK_TXV_INSTALL\n7-14 {\"evaporatorSatF\":19.8,\"condenserSatF\":49.85,\"superheatF\":10.2,\"estimatedSubcoolF\":9.85,\"referenceEvapSatF\":40} conditions COND_EVAP_REDUCED_HEAT_TRANSFER next CHECK_HEAD_PRESSURE_CONTROL\n7-15 {\"evaporatorSatF\":35.52,\"condenserSatF\":114.97,\"superheatF\":14.48,\"estimatedSubcoolF\":4.97,\"referenceEvapSatF\":40} conditions - next -\nPASS: 15 real R-404A PT inputs through production adapter and hypothesis engine\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/application_reference_resolver_integration.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS 27 application reference integration assertions across 5 contexts\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/automatic_evaporator_reference_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: automatic WIC SAT 25-10=15; range 5-25; entering air priority; no reference when absent; manual UI removed\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_0_3_smoke.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: high-SH starvation and measured-but-unclassified SC workflow.\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_1_0_hypothesis.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 1.0 HYPOTHESIS: 9 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_condition_preservation.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 2.0 CONDITION PRESERVATION: 9 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_integration.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 2.0 INTEGRATION: 15 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_phase234_runtime.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 2.0 PHASE 2-4 RUNTIME: 13 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_release_audit.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: current release knowledge manifest and live diagnostic input paths\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_ui_boundary.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 2.0 UI BOUNDARY: 15 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/brain_2_0_ui_to_brain_workflows.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BRAIN 2.0 UI->BRAIN WORKFLOWS: 11 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/browser_module_import_smoke.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "BROWSER MODULE IMPORT SMOKE: 6 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/chapter7_freezer_scope.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: walk-in freezer scoped hypotheses, no-evidence safety\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/chapter7_reference_preset_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: automatic application references without rejected preset controls\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/compact_technical_details.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: concise primary findings plus expandable technical evidence\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/condenser_reference_differential_ui.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "CONDENSER REFERENCE + DIFFERENTIAL UI: 8 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/condition_causal_differential_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS 61 causal differential assertions across 6 applications and 2 operating states\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/diagnostic_presentation_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "DIAGNOSTIC PRESENTATION REGRESSION: 13 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/diagnostic_reasoning_evidence_ui.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "DIAGNOSTIC REASONING / EVIDENCE UI: 12 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/diagnostic_screening_and_ranking.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: capillary screening evidence, restriction ranking, receiver guard, and calculation presentation links\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/direct_fault_precedence_semantic.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "DIRECT-FAULT PRECEDENCE SEMANTIC: 30 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/electrical_workspace_ui_acceptance.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS workspace presets\nPASS workspace CSS\nPASS electrical controls UI\nPASS contactor evidence\nPASS power evidence\nPASS compressor evidence\nPASS controls evidence\nPASS brain bridge\nELECTRICAL + WORKSPACE UI ACCEPTANCE: 8/8 PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/evidence_next_check_v2211.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: current evidence-driven next check controls and live update bindings\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/evidence_workflow_v2212.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: current evidence workflow, cause dedup, and inspection updates\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/explicit_reference_integration.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "EXPLICIT REFERENCE INTEGRATION PASS: 7-5 low SAT + normal SH activates reduced heat transfer; missing reference and high SH do not\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/field_cause_dedup_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "FIELD CAUSE DEDUP REGRESSION PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/field_first_ui.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: field-first summary and evidence detail order\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/field_guidance_v2210.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: current field guidance rendering and evidence feedback controls\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/field_starvation_cause_visibility.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: generic graph-linked differential, low-charge preserved without case-specific slot patch\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/general_next_check_v2213.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "GENERAL NEXT CHECK: 44 assertions PASS; 15 Chapter 7 representative patterns, multiple equipment/fault families.\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/general_reduced_heat_evidence.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: 4 application contexts, 5 evidence/reference gating conditions and provisional-cause guard\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/high_head_subcool_pattern_ui.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "HIGH HEAD + SUBCOOL UI: 7 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/high_sh_diagnostic_progression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: high-SH suspect → useful discrimination → charge-loss investigation\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/high_suction_low_head_rendered_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "UNKNOWN POSSIBLE CAUSES 1. Compressor inefficiency/reduced pumping capacity 2. Liquid-line restriction 3. Low refrigerant charge / refrigerant loss \nSTABLE_COOLING POSSIBLE CAUSES 1. Compressor inefficiency/reduced pumping capacity 2. Liquid-line restriction 3. Low refrigerant charge / refrigerant loss (unconfirmed) \nPASS 7-9 actual System Check HTML for both operating states\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/knowledge_prerequisite_priority.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "Knowledge prerequisite priority: 11 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/knowledge_regression_node.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "KNOWLEDGE REGRESSION: 20 passed / 0 failed / 20 total\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/next_check_v2214_integration.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "v2.2.14 GENERAL NEXT CHECK: 67 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/pressure_location_fallback.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PRESSURE LOCATION FALLBACK: 18 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/reach_in_brain_safety.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "REACH-IN BRAIN SAFETY: PASS (empty evidence, scope, shared faults, invalid readings, transient state)\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/reach_in_calculations_output_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS rendered calculations HIGH superheat and HIGH estimated subcooling for APP_RIC\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/reach_in_profiles.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "REACH-IN PROFILE VALIDATION: PASS (2 profiles, shared system regression checks)\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/reach_in_real_output_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "ge / refrigerant loss 3. Evaporator icing How to investigate possible causes Liquid-line restriction : Check for a temperature or pressure drop across the filter-drier and other accessible liquid-line components. Confirm the restriction location before replacing parts. Low refrigerant charge / refrigerant \nSTABLE_COOLING  1. Liquid-line / capillary-tube restriction (leading possibility; unconfirmed) 2. Low refrigerant charge / refrigerant loss 3. Evaporator icing How to investigate possible causes Liquid-line restriction : Check for a temperature or pressure drop across the filter-drier and other accessible liquid-line components. Confirm the restriction location before replacing parts. Low refrigerant charge / refrigerant \nPASS 7-7 capillary tube/SC/SH system check output for both states\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/reference_ui_flow_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS 27 application reference integration assertions across 5 contexts\nPASS: automatic box/TD reference -> facts -> condition\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/startup_scope_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "STARTUP SCOPE REGRESSION: 4 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/system_check_html_runtime.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "UNKNOWN HTML chars \u001b[33m10470\u001b[39m airflow \u001b[33mtrue\u001b[39m\nSTABLE_COOLING HTML chars \u001b[33m9002\u001b[39m airflow \u001b[33mtrue\u001b[39m\n7-2 UNKNOWN HTML chars \u001b[33m10432\u001b[39m\n7-2 STABLE_COOLING HTML chars \u001b[33m8903\u001b[39m\n7-3 UNKNOWN HTML chars \u001b[33m11013\u001b[39m\n7-3 STABLE_COOLING HTML chars \u001b[33m9403\u001b[39m\n7-4 UNKNOWN HTML chars \u001b[33m10582\u001b[39m\n7-4 STABLE_COOLING HTML chars \u001b[33m9202\u001b[39m\nPASS: all 15 cases rendered for both states (30 production System Check HTML outputs)\nPASS System Check HTML rendering with actual production comparison function\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/td_reference_pipeline_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS 27 application reference integration assertions across 5 contexts\nPASS: automatic TD pipeline, missing-data behavior, and actual Brain inference\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_acceptance_7_10_2_0_5.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: direct condenser faults, defrost gate, and receiver charge uncertainty\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_diagnostic_paths_2_0_7.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC DIAGNOSTIC PATHS 2.0.7: 19 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_end_to_end_policy.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "END-TO-END POLICY: PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_evidence_priority_multifault_2_0_8.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC EVIDENCE PRIORITY + MULTI-FAULT 2.0.8: 15 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_field_guidance_2_0_6.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC FIELD GUIDANCE 2.0.6: 14 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_field_issue_audit.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC FIELD AUDIT: 43 passed / 0 failed / 43 total\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_gold_standard_validation_2_0_4.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC GOLD-STANDARD VALIDATION 2.0.5: 13 source-derived scenarios / 25 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_independent_runtime_tranche1.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "INDEPENDENT RUNTIME ALL MAPPED: 88 passed / 0 failed / 88 mapped\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_presentation_policy.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS: common diagnostic presentation across supported applications\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_simple_scenario_audit_2_0_3.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC SIMPLE SCENARIO AUDIT 2.0.3: 20 scenarios / 45 assertions PASS\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/wic_starvation_differential.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "WIC STARVATION DIFFERENTIAL: 15 assertions PASS (production hypothesis engine, WIC scope)\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "knowledge audit",
+      "pass": true,
+      "stdout_tail": "Knowledge audit: 243 concepts; 53 relations; 80 rules; 36 checks; 0 invalid references.\n"
+    },
+    {
+      "test": "app.js syntax",
+      "pass": true,
+      "stderr_tail": ""
+    }
+  ]
+}

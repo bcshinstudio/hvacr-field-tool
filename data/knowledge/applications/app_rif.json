@@ -16,12 +16,22 @@
   },
   "reference_profiles": {
     "evaporatorSuperheat": {
-      "fallback": null,
-      "basis": "No universal capillary-tube superheat target. Use model-specific targets; textbook exercise ranges belong only to the exercise."
+      "fallback": {
+        "low": 5.0,
+        "high": 20.0,
+        "unit": "delta_degF",
+        "role": "SCREENING_REFERENCE"
+      },
+      "basis": "General educational screening interval, not a manufacturer charging or performance specification. Replace with equipment-specific reference when available."
     },
     "condenserSubcooling": {
-      "fallback": null,
-      "basis": "No universal capillary-tube subcooling target. Use manufacturer/model reference."
+      "fallback": {
+        "low": 5.0,
+        "high": 20.0,
+        "unit": "delta_degF",
+        "role": "SCREENING_REFERENCE"
+      },
+      "basis": "General educational screening interval, not a manufacturer charging or performance specification. Replace with equipment-specific reference when available."
     }
   },
   "diagnostic_architecture": {

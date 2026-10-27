@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {buildWicKnowledgeFacts} from '../src/knowledge/wic_fact_adapter.js';
+import {evaluateHypotheses} from '../src/knowledge/hypothesis_engine.js';
+import {interpretMeasurement} from '../src/knowledge/measurement_state.js';
+import {planNextChecks,ALL_EVIDENCE_CHECKS} from '../src/diagnostics/next_check_planner.js';
+const json=file=>JSON.parse(fs.readFileSync(new URL('../data/knowledge/'+file,import.meta.url),'utf8'));
+const app=json('applications/app_ric.json');
+const hub={concepts:json('core/concepts.json'),rules:json('core/evidence_rules.json'),relationships:json('core/relationships.json'),discriminators:json('core/discriminators.json'),checks:json('core/checks.json'),fieldGuidance:json('core/field_guidance.json'),application:app,applications:{APP_RIC:app}};
+const source=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+const start=source.indexOf('function buildKnowledgeHubComparison(state, observationValue) {');
+const end=source.indexOf('\nfunction buildSystemCheckTool()',start);
+assert(start>0 && end>start);
+let operatingState='UNKNOWN';
+const snapshot={calculated:{evaporatorSat:10.2,evaporatorReferenceSat:30,evaporatorReferenceLow:20,evaporatorReferenceHigh:40,condenserSat:99.9,condenserReferenceLow:105,condenserReferenceHigh:125,evaporatorSuperheat:34.8,condenserSubcooling:24.9},references:{evaporatorSuperheat:app.reference_profiles.evaporatorSuperheat.fallback,condenserSubcooling:app.reference_profiles.condenserSubcooling.fallback},measurements:{outdoorAmbientF:85},configuration:['FIXED_ORIFICE'],context:{operatingState:'UNKNOWN',evaporatorPressureQuality:'valid',condenserPressureQuality:'valid'},observations:{},derived:{}};
+const ctx={Number,Math,Set,Map,Object,Array,String,Boolean,console,currentSystem:{id:'reach_in_refrigerator',components:[{id:'txv',subtype:'capillary_tube'}]},knowledgeHub:hub,knowledgeHubLoadError:null,buildCurrentWicKnowledgeSnapshot:()=>({...snapshot,context:{...snapshot.context,operatingState}}),buildWicKnowledgeFacts,evaluateHypotheses,interpretMeasurement,planNextChecks,ALL_EVIDENCE_CHECKS,currentApplicationId:()=> 'APP_RIC',wicDiagnosticContext:{get operatingState(){return operatingState.toLowerCase()},reportedProblem:'unknown'},componentObservationValues:new Map(),observationKey:(a,b)=>`${a}:${b}`,observationValue:()=>null,getNumericMeasurementValue:()=>null,getApplicableObservationFields:()=>[],isComponentInstalled:()=>true};
+vm.createContext(ctx);
+vm.runInContext(source.slice(start,end)+'\nthis.renderComparison=buildKnowledgeHubComparison;',ctx);
+for(const state of ['UNKNOWN','STABLE_COOLING']){
+ operatingState=state;
+ const html=ctx.renderComparison({},()=>null);
+ const causes=html.match(/POSSIBLE CAUSES<\/div>([\s\S]{0,1300})/)?.[1]||html;
+ console.log(state,causes.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').slice(0,410));
+ assert.match(html,/Possible evaporator refrigerant starvation/i);
+ assert.match(causes,/Liquid-line \/ capillary-tube restriction/);
+ assert.doesNotMatch(causes,/TXV underfeeding/i);
+ const list=causes.match(/1\.\s*Liquid-line \/ capillary-tube restriction/i);
+ assert(list,`7-7 ${state}: restriction must be leading candidate`);
+}
+console.log('PASS 7-7 capillary tube/SC/SH system check output for both states');

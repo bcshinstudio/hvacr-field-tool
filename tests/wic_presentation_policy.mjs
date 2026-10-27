@@ -1,8 +1,11 @@
-import fs from"fs";const s=fs.readFileSync(new URL("../src/app.js",import.meta.url),"utf8");
-const need=[
-'result.diagnoses.length === 1\\n            ? []',
-'result.diagnoses.length === 1 ? "RECOMMENDED ACTION" : "NEXT ACTION / CHECK"',
-'currentSystem?.id === "walk_in_cooler" && knowledgeHub\\n                ? buildKnowledgeHubComparison'
-];
-for(const x of need)if(!s.includes(x.replaceAll("\\n","\n")))throw Error("Missing presentation policy: "+x);
-console.log("WIC PRESENTATION POLICY: PASS");
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const src=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+assert(src.includes('result.diagnoses.length === 1'));
+assert(src.includes('POSSIBLE CAUSES'));
+assert(src.includes('ADDITIONAL INFORMATION NEEDED'));
+assert(src.includes('const fieldHeading ='));
+assert(src.includes('const fieldCausesHtml ='));
+assert(src.includes('buildKnowledgeHubComparison(state, observationValue)'));
+for(const sys of ['walk_in_cooler','walk_in_freezer','ac_split','ac_package','reach_in_refrigerator','reach_in_freezer'])assert(src.includes('"'+sys+'"'),`${sys} system enabled`);
+console.log('PASS: common diagnostic presentation across supported applications');

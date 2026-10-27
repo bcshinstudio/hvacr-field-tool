@@ -2,8 +2,8 @@
   "suite": "WIC_CHALLENGE_V1",
   "brain": "2.0.12",
   "total": 50,
-  "passed": 50,
-  "failed": 0,
+  "passed": 49,
+  "failed": 1,
   "results": [
     {
       "id": "CH-F001",
@@ -17,7 +17,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_STARTUP_HOT_COMPRESSOR",
         "GUIDE_MIGRATION_STARTUP_RISK"
@@ -42,7 +42,7 @@
         "COND_EVAP_OVERFED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_LIQUID_RETURN",
         "GUIDE_PATTERN_LOW_SH"
@@ -138,8 +138,10 @@
     {
       "id": "CH-F006",
       "title": "Hot compressor with high compression ratio direction",
-      "pass": true,
-      "errors": [],
+      "pass": false,
+      "errors": [
+        "next-action intent 0.09"
+      ],
       "facts": [
         "FACT_COMPRESSOR_HOT",
         "FACT_EVAP_SAT_LOW",
@@ -150,10 +152,10 @@
         "COND_HIGH_SIDE_PRESSURE_PROBLEM"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
       "activeGuides": [],
       "headlineScore": 0.4,
-      "nextScore": 0.2727272727272727,
+      "nextScore": 0.09090909090909091,
       "findingScores": [
         0.5,
         0.3333333333333333,
@@ -177,7 +179,7 @@
       "diagnoses": [
         "CAUSE_TXV_OVERFEED"
       ],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": "CHECK_TXV_INSTALL",
       "activeGuides": [
         "GUIDE_OVERLOAD_WITH_FLOODBACK",
         "GUIDE_OVERLOAD_OPEN",
@@ -497,7 +499,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [
         "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL",
         "GUIDE_SIGHT_GLASS_FLASHING",
@@ -842,7 +844,7 @@
       "diagnoses": [
         "CAUSE_DEFROST_HEATER_FAILURE"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_HEATER_ELECTRICAL"
       ],
@@ -920,7 +922,7 @@
       "diagnoses": [
         "CAUSE_DRAIN_REFREEZE"
       ],
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_INCOMPLETE"
       ],
@@ -943,7 +945,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_FAN_DELAY_NORMAL"
       ],
@@ -994,7 +996,7 @@
         "COND_EVAP_OVERFED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_LIQUID_RETURN",
         "GUIDE_PATTERN_LOW_SH"
@@ -1158,7 +1160,7 @@
       "diagnoses": [
         "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SOLENOID_NOT_OPENING",
         "GUIDE_SOLENOID_NO_FLOW"
@@ -1185,7 +1187,7 @@
       "diagnoses": [
         "CAUSE_ANTI_SHORT_CYCLE_DELAY"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_ANTI_SHORT_CYCLE"
       ],
@@ -1288,7 +1290,7 @@
       "diagnoses": [
         "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SENSOR_NORMAL_REFRIG",
         "GUIDE_SENSOR_ERROR"

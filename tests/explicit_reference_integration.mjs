@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {buildWicKnowledgeFacts} from '../src/knowledge/wic_fact_adapter.js';
+import {evaluateHypotheses} from '../src/knowledge/hypothesis_engine.js';
+const read=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url),'utf8')).items;
+const registry={rules:read('../data/knowledge/core/evidence_rules.json'),relationships:read('../data/knowledge/core/relationships.json'),checks:read('../data/knowledge/core/checks.json'),discriminators:read('../data/knowledge/core/discriminators.json')};
+const diagnose=(calculated,references)=>{
+ const adapted=buildWicKnowledgeFacts({calculated,references,configuration:['RECEIVER','TXV']});
+ const result=evaluateHypotheses({facts:adapted.facts,...registry,application:"APP_WIC",operatingState:"STABLE_COOLING",configuration:["RECEIVER","TXV"]});
+ return {facts:adapted.facts,conditions:result.conditions.map(x=>x.id),nextCheck:result.nextCheck};
+};
+const measurements={evaporatorSat:0.4,evaporatorSuperheat:9.6,condenserSat:100,condenserSubcooling:10,evaporatorReferenceSat:15,condenserReferenceLow:110,condenserReferenceHigh:130};
+const withRange=diagnose({...measurements,evaporatorReferenceLow:5,evaporatorReferenceHigh:25},{evaporatorSuperheat:{low:5,high:20}});
+assert.ok(withRange.facts.includes('FACT_EVAP_SAT_LOW'));
+assert.ok(withRange.facts.includes('FACT_LOW_EVAP_SAT_WITH_NORMAL_SH'));
+assert.ok(withRange.conditions.includes('COND_EVAP_REDUCED_HEAT_TRANSFER'));
+assert.ok(!withRange.facts.includes('FACT_EVAP_SH_HIGH'));
+const withoutRange=diagnose({...measurements,evaporatorReferenceLow:null,evaporatorReferenceHigh:null,evaporatorReferenceSat:null},{evaporatorSuperheat:null});
+assert.ok(!withoutRange.conditions.includes('COND_EVAP_REDUCED_HEAT_TRANSFER'));
+const hot=diagnose({evaporatorSat:0.4,evaporatorSuperheat:25,evaporatorReferenceSat:15,evaporatorReferenceLow:5,evaporatorReferenceHigh:25},{evaporatorSuperheat:{low:5,high:20}});
+assert.ok(!hot.conditions.includes('COND_EVAP_REDUCED_HEAT_TRANSFER'));
+const src=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+for(const x of ['data-wic-context="operatingState"','evaporatorReferenceLow: evapReference?.low','evaporatorReferenceHigh: evapReference?.high','evaporatorSuperheat: superheatRange ||','buildWicKnowledgeFacts(snapshot)'])assert.ok(src.includes(x),x);
+console.log('EXPLICIT REFERENCE INTEGRATION PASS: 7-5 low SAT + normal SH activates reduced heat transfer; missing reference and high SH do not');

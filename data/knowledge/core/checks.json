@@ -257,7 +257,7 @@
     },
     {
       "id": "CHECK_ESTABLISH_OPERATING_STATE",
-      "label": "Verify the system is actively cooling: confirm there is a cooling call and the compressor is running normally\u2014not in defrost, pump-down, startup, or already satisfied. If it is actively cooling and readings have stabilized, select Stable cooling in Operating State above. System Check will update automatically and show the next refrigeration check.",
+      "label": "Verify the system is actively cooling: confirm there is a cooling call and the compressor is running normally—not in defrost, pump-down, startup, or already satisfied. If it is actively cooling and readings have stabilized, select Stable cooling in Operating State above. System Check will update automatically and show the next refrigeration check.",
       "produces": [
         "FACT_OPERATING_STATE_CONFIRMED"
       ],
@@ -351,7 +351,12 @@
       "produces": [
         "FACT_OPERATING_STATE_CONFIRMED"
       ],
-      "practicality": "HIGH"
+      "practicality": "HIGH",
+      "priority_when_facts_present": [
+        "FACT_WIRING_SCHEME_UNKNOWN",
+        "FACT_CONTACTOR_COIL_NOT_ENERGIZED"
+      ],
+      "priority_reason": "Resolve explicit missing or unreliable diagnostic context before ranking fault-specific checks."
     },
     {
       "id": "CHECK_FUSE_DOWNSTREAM_CAUSE",
@@ -391,7 +396,11 @@
       "id": "CHECK_VERIFY_EVAP_PRESSURE_MEASUREMENT",
       "label": "Verify evaporator outlet pressure measurement, connection and stability before using calculated superheat",
       "produces": [],
-      "practicality": "HIGH"
+      "practicality": "HIGH",
+      "priority_when_facts_present": [
+        "FACT_EVAP_OUTLET_PRESSURE_SUSPECT"
+      ],
+      "priority_reason": "Resolve explicit missing or unreliable diagnostic context before ranking fault-specific checks."
     },
     {
       "id": "CHECK_COMPRESSOR_CONTEXT",
@@ -405,7 +414,11 @@
       "id": "CHECK_OVERHEAT_CAUSE",
       "label": "Determine whether high head, low suction/high superheat, load or electrical conditions caused compressor overheating before replacing protection/compressor",
       "produces": [],
-      "practicality": "HIGH"
+      "practicality": "HIGH",
+      "priority_when_facts_present": [
+        "FACT_OVERHEAT_CAUSE_UNRESOLVED"
+      ],
+      "priority_reason": "Resolve explicit missing or unreliable diagnostic context before ranking fault-specific checks."
     }
   ]
 }

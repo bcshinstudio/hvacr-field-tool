@@ -946,12 +946,10 @@
       "pass": true,
       "errors": [],
       "diagnoses": [
-        "CAUSE_FIXED_ORIFICE_RESTRICTION",
-        "CAUSE_LOW_REFRIGERANT_CHARGE"
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
       ],
       "hypotheses": [
         "CAUSE_FIXED_ORIFICE_RESTRICTION",
-        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_TXV_UNDERFEED",
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
@@ -960,7 +958,7 @@
         "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
         "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
       ],
-      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
       "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
     },
     {
@@ -969,12 +967,10 @@
       "pass": true,
       "errors": [],
       "diagnoses": [
-        "CAUSE_FIXED_ORIFICE_RESTRICTION",
-        "CAUSE_LOW_REFRIGERANT_CHARGE"
+        "CAUSE_FIXED_ORIFICE_RESTRICTION"
       ],
       "hypotheses": [
         "CAUSE_FIXED_ORIFICE_RESTRICTION",
-        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_TXV_UNDERFEED",
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
@@ -983,7 +979,7 @@
         "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
         "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
       ],
-      "resolution": "MULTIPLE_SUPPORTED_CAUSES",
+      "resolution": "SINGLE_SUPPORTED_CAUSE",
       "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
     },
     {

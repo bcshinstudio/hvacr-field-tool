@@ -1,0 +1,23 @@
+{
+  "release": "v2.3.0-class-demo",
+  "verification_status": "AUTOMATED_RELEASE_GATE_PASSED_BROWSER_VISUAL_CONFIRMATION_PENDING",
+  "automated_checks": 55,
+  "passed_checks": 55,
+  "failed_checks": 0,
+  "chapter7_real_pt_cases": 15,
+  "rendered_system_check_case_state_combinations": 30,
+  "baseline_test_files_preserved": "35/35",
+  "known_limitations": [
+    "Interactive Chromium/browser navigation blocked by execution environment; final manual UI confirmation remains necessary",
+    "No tool can identify a unique physical root cause where measurements and observations are insufficient; next checks required",
+    "Existing scenario answer keys not independently established for all 15; results evaluated on diagnostic reasoning and safety, not arbitrary single expected answers"
+  ],
+  "verification_sources": [
+    "tests/verification_report.json",
+    "tests/chapter7/real_pt_chain_results.json",
+    "tests/chapter7/real_pt_chain_regression.mjs",
+    "tests/system_check_html_runtime.mjs",
+    "tests/condition_causal_differential_regression.mjs",
+    "tests/application_reference_resolver_integration.mjs"
+  ]
+}

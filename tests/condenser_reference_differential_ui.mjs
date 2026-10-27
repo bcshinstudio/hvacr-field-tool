@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const source = fs.readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
+assert.match(source, /Reference SAT Range/);
+assert.doesNotMatch(source, /Textbook SAT \(30°F split ±10°F\)/);
+assert.match(source, /condenserEnteringAir \+ condenserTdReference.low/);
+assert.doesNotMatch(source, /Textbook SAT Basis/);
+assert.match(source, /patternCauseItem/);
+assert.match(source, /Possible excess refrigerant charge \/ liquid backing up in condenser/);
+assert.match(source, /rootCauseItems\.map/);
+assert.match(source, /receiver and pressure-location cautions apply/);
+console.log('CONDENSER REFERENCE + DIFFERENTIAL UI: 8 assertions PASS');

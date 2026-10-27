@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {buildWicKnowledgeFacts} from '../src/knowledge/wic_fact_adapter.js';
+import {evaluateHypotheses} from '../src/knowledge/hypothesis_engine.js';
+import './application_reference_resolver_integration.mjs';
+const s=fs.readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+for(const x of ['getNumericMeasurementValue("box_temperature", "temperature")','function applicableEvaporatorReference()','evaporatorReferenceLow: evapReference?.low','buildWicKnowledgeFacts(snapshot)','Reference SAT Range'])assert(s.includes(x),x);
+assert(!s.includes('data-evap-reference-box='),'obsolete reference input removed');
+const snap={calculated:{evaporatorSat:.4,evaporatorSuperheat:9.6,evaporatorReferenceSat:15,evaporatorReferenceLow:5,evaporatorReferenceHigh:25},references:{evaporatorSuperheat:{low:5,high:20}}};
+const a=buildWicKnowledgeFacts(snap);
+assert(a.facts.includes('FACT_EVAP_SAT_LOW')&&a.facts.includes('FACT_LOW_EVAP_SAT_WITH_NORMAL_SH'));
+const kb=f=>JSON.parse(fs.readFileSync(new URL(`../data/knowledge/core/${f}.json`,import.meta.url),'utf8')).items;
+const result=evaluateHypotheses({facts:a.facts,rules:kb('evidence_rules'),relationships:kb('relationships'),checks:kb('checks'),discriminators:kb('discriminators'),application:'APP_WIF',operatingState:'STABLE_COOLING'});
+assert(result.conditions.some(c=>c.id==='COND_EVAP_REDUCED_HEAT_TRANSFER'));
+console.log('PASS: automatic box/TD reference -> facts -> condition');

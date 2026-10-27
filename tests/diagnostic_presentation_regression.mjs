@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const s=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+const section=s.slice(s.indexOf('const observedCoil = observationValue("condenser"'),s.indexOf('return `\n        <div style="margin-top:16px;',s.indexOf('const observedCoil = observationValue("condenser"')));
+assert.match(section,/highHeadPatternActive\s*\? "High head pressure \+ elevated estimated subcooling"/);
+assert.match(section,/highHeadPatternActive && !airflowFault/);
+assert.doesNotMatch(section,/steadyStateEstablished && highHeadPatternActive && !airflowFault/);
+assert.match(section,/leading hypothesis; unconfirmed/);
+assert.match(section,/Operating condition is not yet verified/);
+assert.match(section,/Receiver operation and measurement locations/);
+assert.match(section,/Condenser airflow problem observed/);
+assert.match(section,/if \(airflowFault && item\.id === "CAUSE_REFRIGERANT_OVERCHARGE"\) continue/);
+assert.match(s,/planNextChecks\(\{/);
+assert.match(s,/data-next-check-problem/);
+assert.match(s,/data-next-check-component/);
+assert.match(s,/data-next-check-state/);
+assert.match(s,/data-next-check-tool/);
+console.log('DIAGNOSTIC PRESENTATION REGRESSION: 13 assertions PASS');

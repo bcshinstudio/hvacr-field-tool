@@ -332,7 +332,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [
         "GUIDE_HIGH_CURRENT_LOW_HEAD"
       ],
@@ -355,7 +355,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_STARTUP_HOT_COMPRESSOR",
         "GUIDE_MIGRATION_STARTUP_RISK"
@@ -381,7 +381,7 @@
         "COND_EVAP_OVERFED"
       ],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_POST_DEFROST_LIQUID_RETURN",
         "GUIDE_PATTERN_LOW_SH"
@@ -406,7 +406,7 @@
       "state": "PUMPDOWN",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_PUMPDOWN_LOW_SUCTION_EXPECTED"
       ],
@@ -515,7 +515,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
       "activeGuides": [
         "GUIDE_OVERLOAD_OPEN"
       ],
@@ -566,7 +566,7 @@
       "diagnoses": [
         "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SENSOR_NORMAL_REFRIG",
         "GUIDE_SENSOR_ERROR"
@@ -671,7 +671,7 @@
       "diagnoses": [
         "CAUSE_SYSTEM_UNDERSIZED"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_CAPACITY_VERIFIED"
       ],
@@ -1225,7 +1225,7 @@
       "diagnoses": [
         "CAUSE_EVAP_FAN_FAILURE"
       ],
-      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_EVAP_FAN_NOT_RUNNING",
         "GUIDE_HIGH_SH"
@@ -1253,7 +1253,7 @@
       "diagnoses": [
         "CAUSE_COND_FAN_FAILURE"
       ],
-      "nextCheck": "CHECK_VERIFY_COND_AIRFLOW",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_MULTI_COND_FAN_HIGH_HEAD",
         "GUIDE_COND_FAN_NOT_RUNNING"
@@ -1277,7 +1277,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [
         "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL"
       ],
@@ -1305,7 +1305,7 @@
       "activeGuides": [
         "GUIDE_LOW_AMBIENT_LOW_HEAD_NO_CONTROL"
       ],
-      "headlineScore": 0.6666666666666666,
+      "headlineScore": 0.75,
       "nextScore": 0.5555555555555556,
       "findingScores": [
         1,
@@ -1380,7 +1380,7 @@
       "state": "STABLE_COOLING",
       "conditions": [],
       "diagnoses": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HP_TRIP_NOW_NORMAL",
         "GUIDE_HP_SAFETY"
@@ -1407,7 +1407,7 @@
       "diagnoses": [
         "CAUSE_SOLENOID_NOT_OPENING_MECHANICAL"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SOLENOID_NOT_OPENING",
         "GUIDE_SOLENOID_NO_FLOW"
@@ -1434,7 +1434,7 @@
       "diagnoses": [
         "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SOLENOID_NOT_CLOSING",
         "GUIDE_SOLENOID_FLOW_CLOSED"
@@ -1604,7 +1604,7 @@
       "diagnoses": [
         "CAUSE_DEFROST_HEATER_FAILURE"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_HEATER_ELECTRICAL"
       ],
@@ -1706,7 +1706,7 @@
       "diagnoses": [
         "CAUSE_DRAIN_REFREEZE"
       ],
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_DEFROST_INCOMPLETE"
       ],
@@ -1872,7 +1872,7 @@
       "diagnoses": [
         "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
       ],
-      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_PUMPDOWN_SOLENOID_LEAK",
         "GUIDE_SOLENOID_NOT_CLOSING",
@@ -2143,7 +2143,7 @@
       "diagnoses": [
         "CAUSE_AIR_INFILTRATION"
       ],
-      "nextCheck": "CHECK_CONTROLLER_SENSOR",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_UNKNOWN_INFILTRATION_DIRECT"
       ],

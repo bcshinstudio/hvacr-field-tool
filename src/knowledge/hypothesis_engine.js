@@ -39,7 +39,14 @@ function scopeApplies(rule,context={}){
 
 function evidenceFor(rule,factState,context,weights=DEFAULT_WEIGHTS){
   const scoped=scopeApplies(rule,context);
-  if(!scoped.ok) return {candidate:rule.candidate,ruleId:rule.id,score:0,state:"OUT_OF_SCOPE",direct:false,evidence:[],scopeReason:scoped.reason};
+  // Unknown operating state does not invalidate a physical measurement pattern.
+  // Evaluate rules whose *only* missing scope is a steady-running state as
+  // provisional possibilities, never as a confirmed/supported diagnosis.
+  // Known off-cycle and transient states remain strictly gated.
+  const provisionalStateScope = !scoped.ok && scoped.reason === "OPERATING_STATE_SCOPE" &&
+    context.operatingState === "UNKNOWN" &&
+    (rule.scope?.operating_states || []).some(s => STEADY_STATES.has(s));
+  if(!scoped.ok && !provisionalStateScope) return {candidate:rule.candidate,ruleId:rule.id,score:0,state:"OUT_OF_SCOPE",direct:false,evidence:[],scopeReason:scoped.reason};
   let score=0,support=0,direct=false,excluded=false,requiredMissing=false,contradictions=0;
   const trace=[];
   for(const e of rule.evidence||[]){
@@ -62,7 +69,8 @@ function evidenceFor(rule,factState,context,weights=DEFAULT_WEIGHTS){
   if(excluded) state="EXCLUDED";
   else if(score<0) state="DISFAVORED";
   else if(!requiredMissing&&support>0) state=direct?"SUPPORTED":"PLAUSIBLE";
-  return {candidate:rule.candidate,ruleId:rule.id,score,state,direct,contradictions,evidence:trace};
+  if(provisionalStateScope && state === "SUPPORTED") state = "PLAUSIBLE";
+  return {candidate:rule.candidate,ruleId:rule.id,score,state,direct:provisionalStateScope?false:direct,contradictions,evidence:trace,provisionalOperatingState:provisionalStateScope};
 }
 
 function parentMap(relationships){
@@ -84,6 +92,30 @@ function generalizePlausible(items,relationships){
   }
   return items.filter(x=>!hide.has(x.candidate));
 }
+// Condition-linked differential: these are POSSIBILITIES, not scored or
+// confirmed diagnoses. They are built from the same causal relationships that
+// power the knowledge graph and remain available when operating state is
+// unknown. Keep this distinct from the evidence-ranked hypotheses.
+export function conditionCauseCandidates(conditions=[],relationships=[]){
+  const conditionIds=new Set((conditions||[]).map(c=>typeof c==="string"?c:c.id));
+  const linked=(relationships||[]).filter(r=>r.relation==="MAY_CAUSE" && conditionIds.has(r.to));
+  const ids=new Set(linked.map(r=>r.from));
+  // Prefer a broad parent when the same graph contains its subtypes; a
+  // subtype should emerge only when additional localized evidence supports it.
+  const subtypeIds=new Set((relationships||[])
+    .filter(r=>r.relation==="SUBTYPE_OF" && ids.has(r.from) && ids.has(r.to))
+    .map(r=>r.from));
+  const out=new Map();
+  for(const r of linked){
+    if(subtypeIds.has(r.from))continue;
+    if(!out.has(r.from))out.set(r.from,{candidate:r.from,state:"POSSIBLE_FROM_CONDITION",conditions:[],sources:[]});
+    const item=out.get(r.from);
+    if(!item.conditions.includes(r.to))item.conditions.push(r.to);
+    for(const src of r.sources||[])if(!item.sources.includes(src))item.sources.push(src);
+  }
+  return [...out.values()];
+}
+
 function inferConditions(validFacts,relationships){
   const out=new Map();
   for(const r of relationships||[]){
@@ -127,6 +159,14 @@ function unresolvedCheckValue(check,hypotheses,validFacts,completedChecks,contex
   return candidates*12+direct*5+conflict*4+coverage;
 }
 function preferredCheck(checks,discriminators,validFacts,hypotheses,conditions,completedChecks,context){
+  // Data-driven prerequisites: when evidence explicitly flags an unresolved control,
+  // safety, or measurement-validity question, verify that evidence before using it
+  // to rank causes. This is generic registry metadata, not a scenario-specific branch.
+  // Completed checks and equipment scope still take precedence over the hint.
+  for(const c of checks||[]){
+    if(!(c.priority_when_facts_present||[]).some(f=>validFacts.has(f)))continue;
+    if(checkAllowed(c,context) && !checkComplete(c,validFacts,completedChecks,context))return c.id;
+  }
   // Establishing operating state is a prerequisite, not a fault-specific test.
   // Preserve this mandatory safety/context check even with no live hypotheses.
   if(context.operatingState === "UNKNOWN") {
@@ -208,6 +248,7 @@ export function evaluateHypotheses({
   const disfavored=all.filter(x=>x.state==="DISFAVORED");
   const outOfScope=all.filter(x=>x.state==="OUT_OF_SCOPE");
   const conditions=inferConditions(factState.valid,relationships);
+  const conditionCauses=conditionCauseCandidates(conditions,relationships);
   const diagnoses=supported;
   const hypotheses=[...supported,...plausible].filter((x,i,a)=>a.findIndex(y=>y.candidate===x.candidate)===i);
   const conflicts=all.filter(x=>x.contradictions>0)
@@ -222,7 +263,7 @@ export function evaluateHypotheses({
   const mandatoryNext=preferredCheck(checks,(discriminators||[]).filter(d=>d.priority==="MANDATORY"),factState.valid,hypotheses,conditions,completed,context);
   const nextCheck=mandatoryNext || (diagnoses.length===1?null:preferredCheck(checks,discriminators,factState.valid,hypotheses,conditions,completed,context));
   return{
-    engineVersion:HYPOTHESIS_ENGINE_VERSION,resolution,stateGate:gate,conditions,diagnoses,hypotheses,
+    engineVersion:HYPOTHESIS_ENGINE_VERSION,resolution,stateGate:gate,conditions,conditionCauses,diagnoses,hypotheses,
     disfavored,outOfScope,conflicts,suspectFacts,invalidFacts,nextCheck,candidates:all
   };
 }

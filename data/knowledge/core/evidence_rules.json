@@ -30,6 +30,14 @@
         {
           "fact": "FACT_SC_REFERENCE_NOT_APPLICABLE",
           "role": "EXCLUDE"
+        },
+        {
+          "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+          "role": "STRONG_CONTRADICT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_HIGH",
+          "role": "CONTRADICT"
         }
       ],
       "sources": [
@@ -39,7 +47,9 @@
       "scope": {
         "applications": [
           "APP_WIC",
-          "APP_WIF"
+          "APP_WIF",
+          "APP_RIC",
+          "APP_RIF"
         ],
         "operating_states": [
           "STABLE_COOLING",
@@ -204,6 +214,10 @@
         {
           "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
           "role": "CONTRADICT"
+        },
+        {
+          "fact": "FACT_SUBCOOLING_HIGH",
+          "role": "STRONG_SUPPORT"
         }
       ],
       "sources": [
@@ -322,6 +336,10 @@
         },
         {
           "fact": "FACT_EVAP_SAT_LOW",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
           "role": "SUPPORT"
         }
       ],
@@ -926,7 +944,7 @@
         },
         {
           "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
-          "role": "SUPPORT"
+          "role": "STRONG_SUPPORT"
         }
       ],
       "sources": [
@@ -1218,6 +1236,10 @@
         },
         {
           "fact": "FACT_LOW_AMBIENT",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_LOW_AMBIENT_LOW_HEAD_PATTERN",
           "role": "SUPPORT"
         }
       ],
@@ -2548,7 +2570,7 @@
         },
         {
           "fact": "FACT_TARGET_SUPERHEAT_AVAILABLE",
-          "role": "STRONG_SUPPORT",
+          "role": "REQUIRED",
           "direct": false
         },
         {

@@ -1207,6 +1207,33 @@
       "id": "CAUSE_CONTACTOR_WELDED_CLOSED",
       "type": "cause",
       "label": "Contactor welded closed / outdoor unit runs without demand"
+    },
+    {
+      "id": "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
+      "type": "fact",
+      "label": "Low evaporating saturation temperature with normal evaporator superheat",
+      "explanation": "Both findings are classified against applicable references; suggests checking evaporator heat transfer/load, not a confirmed airflow fault."
+    },
+    {
+      "id": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
+      "type": "fact",
+      "label": "High suction pressure with low head pressure"
+    },
+    {
+      "id": "FACT_MAIN_POWER_NOT_AVAILABLE",
+      "type": "fact",
+      "label": "Main electrical power unavailable"
+    },
+    {
+      "id": "FACT_COND_FAN_SHAFT_FREE",
+      "type": "fact",
+      "label": "Condenser fan shaft rotates freely"
+    },
+    {
+      "id": "FACT_LOW_AMBIENT_LOW_HEAD_PATTERN",
+      "type": "fact",
+      "label": "Low outdoor ambient together with low condensing saturation temperature",
+      "explanation": "Low condensing pressure in cold weather may require head-pressure-control evaluation; not proof the control is faulty."
     }
   ]
 }

@@ -152,7 +152,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SIGHT_GLASS_FLASHING"
       ]
@@ -175,7 +175,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_MOISTURE_WET"
       ]
@@ -298,7 +298,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HP_SAFETY"
       ]
@@ -724,7 +724,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_PATTERN_LOW_COMPRESSION"
       ]
@@ -865,7 +865,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SIGHT_GLASS_FLASHING",
         "GUIDE_PATTERN_LOW_HEAD_BUBBLES"
@@ -921,7 +921,7 @@
         "CAUSE_ANTI_SHORT_CYCLE_DELAY"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_ANTI_SHORT_CYCLE"
       ]
@@ -974,7 +974,7 @@
         "CAUSE_CONTACTOR_FAILURE"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_CONTACTOR_NO_OUTPUT"
       ]
@@ -1024,7 +1024,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_OVERLOAD_OPEN"
       ]

@@ -479,6 +479,15 @@
       "sources": [
         "SRC_COPELAND_AE105_ELECTRICAL"
       ]
+    },
+    {
+      "id": "REL_LOW_SAT_NORMAL_SH_REDUCED_TRANSFER",
+      "from": "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
+      "relation": "INDICATES",
+      "to": "COND_EVAP_REDUCED_HEAT_TRANSFER",
+      "sources": [
+        "SRC_DANFOSS_COLDROOM"
+      ]
     }
   ]
 }

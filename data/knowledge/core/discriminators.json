@@ -223,6 +223,38 @@
         "CHECK_WIRING_DIAGRAM_CONTROL_STATE"
       ],
       "priority": "MANDATORY"
+    },
+    {
+      "id": "DISC_HIGH_SUCTION_LOW_HEAD",
+      "trigger_conditions": [],
+      "candidates": [
+        "CAUSE_COMPRESSOR_INEFFICIENCY"
+      ],
+      "trigger_facts": [
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN"
+      ],
+      "preferred_checks": [
+        "CHECK_COMPRESSOR_CONTEXT",
+        "CHECK_COMPRESSOR_DIFFERENTIAL"
+      ],
+      "priority": "MANDATORY",
+      "notes": "High suction coupled with low condensing pressure raises weak-pumping/compressor-capacity concerns. Check operation and differential before concluding compressor failure."
+    },
+    {
+      "id": "DISC_LOW_AMBIENT_LOW_HEAD",
+      "trigger_conditions": [],
+      "trigger_facts": [
+        "FACT_LOW_AMBIENT_LOW_HEAD_PATTERN"
+      ],
+      "candidates": [
+        "CAUSE_HEAD_PRESSURE_CONTROL_FAULT"
+      ],
+      "preferred_checks": [
+        "CHECK_HEAD_PRESSURE_CONTROL",
+        "CHECK_HEAD_CONTROL_CONFIGURATION"
+      ],
+      "priority": "MANDATORY",
+      "notes": "Low head in low ambient needs head-pressure-control and receiver configuration verification before refrigerant charge adjustment."
     }
   ]
 }

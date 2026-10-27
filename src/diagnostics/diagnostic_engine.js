@@ -62,11 +62,13 @@ export function calculateDiagnosticState({
             ? sat(m.condenserOutletPressure, "bubble")
             : null;
 
+    // Use the best available high-side pressure for a usable subcooling estimate.
+    // A remote pressure must remain explicitly marked as an approximation.
     const subcooling =
-        condenserOutletSat != null &&
-        m.condenserOutletTemperature != null
-            ? condenserOutletSat - m.condenserOutletTemperature
+        condenserSat != null && m.condenserOutletTemperature != null
+            ? condenserSat - m.condenserOutletTemperature
             : null;
+    const subcoolingApproximate = subcooling != null && highSidePressure.approximate;
 
     const evaporatorAirDeltaT =
         m.evaporatorEnteringAir != null && m.evaporatorLeavingAir != null
@@ -116,6 +118,8 @@ export function calculateDiagnosticState({
         condenserReferenceLow,
         condenserReferenceHigh,
         subcooling,
+        subcoolingApproximate,
+        subcoolingPressureLocation: subcooling != null ? highSidePressure.location : null,
         evaporatorAirDeltaT,
         condenserAirDeltaT
     };

@@ -152,7 +152,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SIGHT_GLASS_FLASHING"
       ]
@@ -177,7 +177,7 @@
         "CAUSE_MOISTURE_CONTAMINATION"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_MOISTURE_WET"
       ]
@@ -350,7 +350,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HP_SAFETY"
       ]
@@ -452,7 +452,7 @@
         "CAUSE_SENSOR_LOCATION_OR_CALIBRATION"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SENSOR_ERROR"
       ]
@@ -851,7 +851,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [
         "GUIDE_PATTERN_LOW_COMPRESSION"
       ]
@@ -992,7 +992,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": "CHECK_HEAD_PRESSURE_CONTROL",
       "activeGuides": [
         "GUIDE_SIGHT_GLASS_FLASHING",
         "GUIDE_PATTERN_LOW_HEAD_BUBBLES"
@@ -1048,7 +1048,7 @@
         "CAUSE_ANTI_SHORT_CYCLE_DELAY"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_ANTI_SHORT_CYCLE"
       ]
@@ -1101,7 +1101,7 @@
         "CAUSE_CONTACTOR_FAILURE"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_CONTACTOR_NO_OUTPUT"
       ]
@@ -1151,7 +1151,7 @@
       "resolution": "INSUFFICIENT_EVIDENCE",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_OVERHEAT_CAUSE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_OVERLOAD_OPEN"
       ]
@@ -1291,7 +1291,7 @@
         "CAUSE_SOLENOID_LEAKING_OR_NOT_CLOSING"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_SOLENOID_NOT_CLOSING",
         "GUIDE_SOLENOID_FLOW_CLOSED"
@@ -1624,7 +1624,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HIGH_SH"
       ]
@@ -1650,7 +1650,7 @@
       "conditions": [
         "COND_HIGH_SIDE_PRESSURE_PROBLEM"
       ],
-      "nextCheck": "CHECK_COMPRESSOR_TERMINAL_VOLTAGE",
+      "nextCheck": null,
       "activeGuides": []
     },
     {
@@ -1672,7 +1672,7 @@
       "resolution": "STATE_CONTEXT_REQUIRED",
       "diagnoses": [],
       "conditions": [],
-      "nextCheck": "CHECK_SENSOR_REFERENCE",
+      "nextCheck": null,
       "activeGuides": []
     },
     {
@@ -1696,7 +1696,7 @@
       "conditions": [
         "COND_EVAP_STARVED"
       ],
-      "nextCheck": "CHECK_DRAIN_REFREEZE",
+      "nextCheck": null,
       "activeGuides": [
         "GUIDE_HIGH_SH"
       ]
@@ -2250,7 +2250,7 @@
         "CAUSE_EVAP_FAN_FAILURE"
       ],
       "conditions": [],
-      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW",
+      "nextCheck": "CHECK_ESTABLISH_OPERATING_STATE",
       "activeGuides": [
         "GUIDE_EVAP_FAN_NOT_RUNNING"
       ]

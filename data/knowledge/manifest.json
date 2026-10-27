@@ -1,13 +1,13 @@
 {
-  "knowledge_version": "2.1.1",
+  "knowledge_version": "2.3.0",
   "schema_version": "1.0.0",
-  "status": "residential_ac_deep_validation_release",
+  "status": "shared_reference_and_causal_differential_release_candidate",
   "counts": {
-    "concepts": 238,
+    "concepts": 243,
     "rules": 80,
-    "relationships": 52,
+    "relationships": 53,
     "checks": 36,
-    "discriminators": 13,
+    "discriminators": 15,
     "sources": 45,
     "field_guidance": 132
   },
@@ -32,5 +32,5 @@
     "Gold-standard validation expectations are derived from manufacturer/component literature before comparison with Brain output; regression pass counts are not treated as proof of diagnostic correctness.",
     "Field guidance is structured separately from diagnosis: direct observations map to why-it-matters, next physical check, exact UI recording path where available, follow-up branch, and repair verification."
   ],
-  "version": "2.1.1"
+  "version": "2.3.0"
 }
