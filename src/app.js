@@ -4281,8 +4281,12 @@ function buildCalculationsTool() {
     const readingRow = (label, value, classification, estimated = false) => {
         const abnormal = classification === "LOW" || classification === "HIGH";
         const accent = abnormal ? "#a94f18" : "#277fb5";
-        const status = abnormal ? `<span style="font-size:0.75em;font-weight:700;margin-left:6px;color:${accent};">${classification}</span>` : "";
-        return `<div style="color:#5f7180;">${label}</div><div style="white-space:nowrap;text-align:right;font-weight:600;color:${accent};">${value}${status}${estimated && abnormal ? '<span title="Estimated measurement; verify locations"> *</span>' : ''}</div>`;
+        const status = classification === "NORMAL" || abnormal
+            ? `<span style="font-size:0.75em;font-weight:700;margin-left:6px;color:${abnormal ? accent : "#26754e"};">${classification}</span>`
+            : classification === "REFERENCE_NA" && value !== "—"
+                ? `<span style="font-size:0.75em;font-weight:600;margin-left:6px;color:#677987;" title="No applicable reference range; numeric reading is not classified">REF N/A</span>`
+                : "";
+        return `<div style="color:#5f7180;">${label}</div><div style="white-space:nowrap;text-align:right;font-weight:600;color:${accent};">${value}${status}${estimated ? '<span title="Estimated measurement; verify pressure and temperature locations"> *</span>' : ''}</div>`;
     };
     const activeReferenceProfile = (knowledgeHub?.applications?.[currentApplicationId()] || (knowledgeHub?.application?.id === currentApplicationId() ? knowledgeHub.application : null))?.reference_profiles;
     const activeOperatingState = normalizeWicOperatingState(wicDiagnosticContext.operatingState);
@@ -4328,7 +4332,7 @@ function buildCalculationsTool() {
                     ${valueRow("Reference SAT", formatCalculatedTemperature(expectedEvaporatorSaturationTemperature))}
                     ${applicableEvapReference?.low !== null && applicableEvapReference?.low !== undefined && Number.isFinite(applicableEvapReference?.high) ? valueRow("Reference SAT Range", formatTemperatureRange(applicableEvapReference.low, applicableEvapReference.high)) : ""}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(evaporatorOutletTemperature))}
-                    ${readingRow("Superheat", formatCalculatedTemperature(evaporatorSuperheat), classifyReading(evaporatorSuperheat, applicableShRange?.low, applicableShRange?.high))}
+                    ${readingRow("Superheat", formatCalculatedTemperature(evaporatorSuperheat), (classifyReading(evaporatorSuperheat, applicableShRange?.low, applicableShRange?.high) || "REFERENCE_NA"))}
                 </div>
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
@@ -4381,7 +4385,7 @@ function buildCalculationsTool() {
                     ${readingRow("Saturation Temperature", formatCalculatedTemperature(condenserSaturationTemperature), classifyReading(condenserSaturationTemperature, expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Reference SAT Range", formatTemperatureRange(expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(condenserOutletTemperature))}
-                    ${readingRow(condenserSubcoolingEstimated ? "Subcooling (Estimated)" : "Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), classifyReading(condenserOutletSubcooling, applicableScRange?.low, applicableScRange?.high), condenserSubcoolingEstimated)}
+                    ${readingRow(condenserSubcoolingEstimated ? "Subcooling (Estimated)" : "Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), (classifyReading(condenserOutletSubcooling, applicableScRange?.low, applicableScRange?.high) || "REFERENCE_NA"), condenserSubcoolingEstimated)}
                 </div>
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
