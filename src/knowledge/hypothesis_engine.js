@@ -96,10 +96,13 @@ function generalizePlausible(items,relationships){
 // confirmed diagnoses. They are built from the same causal relationships that
 // power the knowledge graph and remain available when operating state is
 // unknown. Keep this distinct from the evidence-ranked hypotheses.
-export function conditionCauseCandidates(conditions=[],relationships=[]){
+export function conditionCauseCandidates(conditions=[],relationships=[],configuration=null){
   const conditionIds=new Set((conditions||[]).map(c=>typeof c==="string"?c:c.id));
   const linked=(relationships||[]).filter(r=>r.relation==="MAY_CAUSE" && conditionIds.has(r.to));
-  const ids=new Set(linked.map(r=>r.from));
+  // Filter equipment-inapplicable causal alternatives in the engine output.
+  // A capillary-tube or fixed-orifice system must not propose TXV-only faults.
+  const installed=configuration===null?null:new Set(configuration);
+  const ids=new Set(linked.filter(r=>!installed || installed.has("TXV") || !/^CAUSE_TXV_/.test(r.from)).map(r=>r.from));
   // Prefer a broad parent when the same graph contains its subtypes; a
   // subtype should emerge only when additional localized evidence supports it.
   const subtypeIds=new Set((relationships||[])
@@ -107,7 +110,7 @@ export function conditionCauseCandidates(conditions=[],relationships=[]){
     .map(r=>r.from));
   const out=new Map();
   for(const r of linked){
-    if(subtypeIds.has(r.from))continue;
+    if(!ids.has(r.from) || subtypeIds.has(r.from))continue;
     if(!out.has(r.from))out.set(r.from,{candidate:r.from,state:"POSSIBLE_FROM_CONDITION",conditions:[],sources:[]});
     const item=out.get(r.from);
     if(!item.conditions.includes(r.to))item.conditions.push(r.to);
@@ -258,7 +261,7 @@ export function evaluateHypotheses({
   const disfavored=all.filter(x=>x.state==="DISFAVORED");
   const outOfScope=all.filter(x=>x.state==="OUT_OF_SCOPE");
   const conditions=inferConditions(factState.valid,relationships);
-  const conditionCauses=conditionCauseCandidates(conditions,relationships);
+  const conditionCauses=conditionCauseCandidates(conditions,relationships,context.application ? context.configuration : null);
   const diagnoses=supported;
   const hypotheses=[...supported,...plausible].filter((x,i,a)=>a.findIndex(y=>y.candidate===x.candidate)===i);
   const conflicts=all.filter(x=>x.contradictions>0)

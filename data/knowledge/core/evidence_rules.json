@@ -269,10 +269,6 @@
           "fact": "FACT_TXV_HUNTING",
           "role": "SUPPORT",
           "direct": true
-        },
-        {
-          "fact": "FACT_EVAP_SH_LOW",
-          "role": "STRONG_CONTRADICT"
         }
       ],
       "sources": [

@@ -129,6 +129,9 @@
       ],
       "sources": [
         "SRC_DANFOSS_COLDROOM"
+      ],
+      "priority_when_facts_present": [
+        "FACT_BOX_TEMP_HIGH"
       ]
     },
     {
