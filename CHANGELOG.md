@@ -1,5 +1,16 @@
 # Change log
 
+## 2.3.4 development candidate — warm-box outcome and localized restriction guidance (2026-10-28)
+
+- A recorded warm walk-in-cooler box temperature is now visible in the main System Check summary, Evidence Used, and diagnostic explanation, independently of operating-state confirmation.
+- Normal core refrigeration readings without independent fault evidence no longer create speculative refrigerant-feed causes; the output directs investigation toward load, airflow and temperature controls.
+- Localized filter-drier inlet/outlet temperature evidence prioritizes a restriction for verification while retaining other causes when justified; a small temperature difference does not force this finding.
+- Generalized conflicting-evidence scoring: low evaporator superheat now weighs against simple low-charge, liquid-line restriction and TXV-underfeeding hypotheses; reduced-airflow alternatives can gain measured support. This is a confidence adjustment, never an exclusion.
+- Corrected the 15-case engine regression harness to use applicable reach-in subcooling references, preserving the distinction between receiver systems and fixed metering. Added independent assertions for 7-7, 7-8 and 7-10 ranking.
+- Added tests for warm-box, normal-box, cross-system applicability and localized drier checks. No manufacturer-specific temperature guarantee is implied.
+- Browser validation through GitHub Actions and reconciliation with the latest online commit remain release gates.
+
+
 ## 2.3.3 — Consolidated evidence and diagnosis consistency (2026-10-28)
 
 - Fixed a shared reasoning defect: an unavailable receiver-specific subcooling reference no longer **excludes** low system charge. Low charge stays an unconfirmed competitor alongside restrictions and TXV underfeeding when supported by other measurements.

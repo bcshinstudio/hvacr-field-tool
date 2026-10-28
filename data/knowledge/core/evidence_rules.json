@@ -34,6 +34,10 @@
         {
           "fact": "FACT_SUBCOOLING_HIGH",
           "role": "CONTRADICT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_LOW",
+          "role": "STRONG_CONTRADICT"
         }
       ],
       "sources": [
@@ -214,6 +218,10 @@
         {
           "fact": "FACT_SUBCOOLING_HIGH",
           "role": "STRONG_SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_LOW",
+          "role": "STRONG_CONTRADICT"
         }
       ],
       "sources": [
@@ -261,6 +269,10 @@
           "fact": "FACT_TXV_HUNTING",
           "role": "SUPPORT",
           "direct": true
+        },
+        {
+          "fact": "FACT_EVAP_SH_LOW",
+          "role": "STRONG_CONTRADICT"
         }
       ],
       "sources": [
@@ -336,6 +348,10 @@
         },
         {
           "fact": "FACT_LOW_EVAP_SAT_WITH_NORMAL_SH",
+          "role": "SUPPORT"
+        },
+        {
+          "fact": "FACT_EVAP_SH_LOW",
           "role": "SUPPORT"
         }
       ],

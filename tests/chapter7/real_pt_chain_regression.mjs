@@ -36,11 +36,13 @@ for(const c of cases){
  const tdRows=reference.split(/\r?\n/).filter(row=>row.includes(`,${application},PAR_EVAP_TD,`)&&row.includes(',SCREENING_REFERENCE,'));
  let ref=null;
  if(tdRows.length===1){const td=Number(tdRows[0].split(',')[3]);ref={center:c.box_f-td,low:c.box_f-td-10,high:c.box_f-td+10}}
+ const appProfile=readJson(`../../data/knowledge/applications/${application.toLowerCase()==='app_ric'?'app_ric':application.toLowerCase()==='app_rif'?'app_rif':application.toLowerCase()==='app_wif'?'app_wif':'walk_in_cooler'}.json`);
+ const subcoolRange=c.metering==='TEV'?null:(appProfile.reference_profiles?.condenserSubcooling?.fallback||null);
  const snapshot={
   calculated:{evaporatorSat:evap,evaporatorReferenceSat:ref?.center,evaporatorReferenceLow:ref?.low,evaporatorReferenceHigh:ref?.high,
   condenserSat:cond,condenserReferenceLow:c.ambient_f+20,condenserReferenceHigh:c.ambient_f+40,
   evaporatorSuperheat:sh,...(sc>=0?{condenserSubcooling:sc}:{})},
-  references:{evaporatorSuperheat:{low:5,high:20},lowAmbientThresholdF:['APP_WIC','APP_WIF'].includes(application)?50:null},
+  references:{evaporatorSuperheat:appProfile.reference_profiles?.evaporatorSuperheat?.fallback||{low:5,high:20},condenserSubcooling:subcoolRange,lowAmbientThresholdF:['APP_WIC','APP_WIF'].includes(application)?50:null},
   measurements:{outdoorAmbientF:c.ambient_f,...(Number.isFinite(c.filter_drier_inlet_f)&&Number.isFinite(c.filter_drier_outlet_f)?{filterDrierInletTemperature:c.filter_drier_inlet_f,filterDrierOutletTemperature:c.filter_drier_outlet_f}:{})},
   context:{operatingState:'STABLE_COOLING',evaporatorPressureQuality:'valid',condenserPressureQuality:'valid'},
   configuration:c.metering==='TEV'?['TXV','RECEIVER']:[]
@@ -66,6 +68,9 @@ assert(!hasFact('7-4','FACT_SUBCOOLING_LOW'),'7-4 negative estimated subcooling 
 assert(hasFact('7-6','FACT_DRIER_TEMP_DROP')&&caseAt('7-6').diagnoses.includes('CAUSE_FILTER_DRIER_RESTRICTION'),'7-6 direct drier differential localizes restriction');
 assert(hasCondition('7-7','COND_EVAP_STARVED'),'7-7 high-SH capillary system underfeeding consideration');
 assert(hasCondition('7-8','COND_EVAP_OVERFED'),'7-8 low SH overfeed condition');
+assert.equal(caseAt('7-8').possible[0],'CAUSE_EVAP_AIRFLOW_RESTRICTION','low evaporator SAT plus low superheat should favor airflow/heat-transfer investigation over feed restriction when no localized feed fault exists');
+assert.equal(caseAt('7-7').possible[0],'CAUSE_LIQUID_LINE_RESTRICTION','high SH plus elevated subcooling in fixed metering should prioritize restriction');
+assert.equal(caseAt('7-10').possible[0],'CAUSE_LOW_REFRIGERANT_CHARGE','receiver system with high SH/low suction must retain low charge as leading competing cause');
 assert(hasFact('7-9','FACT_HIGH_SUCTION_LOW_HEAD_PATTERN')&&hasCause('7-9','CAUSE_COMPRESSOR_INEFFICIENCY'),'7-9 weak compressor pumping remains a suspect');
 assert.equal(caseAt('7-9').nextCheck,'CHECK_COMPRESSOR_CONTEXT','7-9 prioritizes compressor differential context');
 assert(hasCondition('7-10','COND_EVAP_STARVED')&&hasCause('7-10','CAUSE_LOW_REFRIGERANT_CHARGE'),'7-10 low-charge possibility retained for reach-in freezer');

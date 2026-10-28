@@ -1,15 +1,15 @@
 {
-  "passed": 63,
+  "passed": 65,
   "failed": 0,
-  "total": 63,
-  "generated_at": "2026-10-28T19:21:28.225Z",
+  "total": 65,
+  "generated_at": "2026-10-28T20:51:07.102Z",
   "results": [
     {
       "test": "tests/chapter7/real_pt_chain_regression.mjs",
       "pass": true,
       "exit_code": 0,
-      "stdout_tail": "LOW\n7-12 {\"evaporatorSatF\":24.89,\"condenserSatF\":114.97,\"superheatF\":0.11,\"estimatedSubcoolF\":34.97,\"referenceEvapSatF\":10} conditions COND_EVAP_OVERFED;COND_HIGH_SIDE_PRESSURE_PROBLEM next CHECK_VERIFY_COND_AIRFLOW\n7-13 {\"evaporatorSatF\":24.89,\"condenserSatF\":124.95,\"superheatF\":0.11,\"estimatedSubcoolF\":9.95,\"referenceEvapSatF\":25} conditions COND_EVAP_OVERFED next CHECK_TXV_INSTALL\n7-14 {\"evaporatorSatF\":19.8,\"condenserSatF\":49.85,\"superheatF\":10.2,\"estimatedSubcoolF\":9.85,\"referenceEvapSatF\":40} conditions COND_EVAP_REDUCED_HEAT_TRANSFER next CHECK_HEAD_PRESSURE_CONTROL\n7-15 {\"evaporatorSatF\":35.52,\"condenserSatF\":114.97,\"superheatF\":14.48,\"estimatedSubcoolF\":4.97,\"referenceEvapSatF\":40} conditions - next -\nPASS: 15 real R-404A PT inputs through production adapter and hypothesis engine\n",
-      "stderr_tail": ""
+      "stdout_tail": " {\"evaporatorSatF\":24.89,\"condenserSatF\":114.97,\"superheatF\":0.11,\"estimatedSubcoolF\":34.97,\"referenceEvapSatF\":10} conditions COND_EVAP_OVERFED;COND_HIGH_SIDE_PRESSURE_PROBLEM next CHECK_VERIFY_COND_AIRFLOW\n7-13 {\"evaporatorSatF\":24.89,\"condenserSatF\":124.95,\"superheatF\":0.11,\"estimatedSubcoolF\":9.95,\"referenceEvapSatF\":25} conditions COND_EVAP_OVERFED next CHECK_VERIFY_EVAP_AIRFLOW\n7-14 {\"evaporatorSatF\":19.8,\"condenserSatF\":49.85,\"superheatF\":10.2,\"estimatedSubcoolF\":9.85,\"referenceEvapSatF\":40} conditions COND_EVAP_REDUCED_HEAT_TRANSFER next CHECK_HEAD_PRESSURE_CONTROL\n7-15 {\"evaporatorSatF\":35.52,\"condenserSatF\":114.97,\"superheatF\":14.48,\"estimatedSubcoolF\":4.97,\"referenceEvapSatF\":40} conditions - next -\nPASS: 15 real R-404A PT inputs through production adapter and hypothesis engine\n",
+      "stderr_tail": "(node:19596) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/application_reference_resolver_integration.mjs",
@@ -30,35 +30,35 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: high-SH starvation and measured-but-unclassified SC workflow.\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19629) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/brain_1_0_hypothesis.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BRAIN 1.0 HYPOTHESIS: 9 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19640) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/brain_2_0_condition_preservation.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BRAIN 2.0 CONDITION PRESERVATION: 9 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19651) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/brain_2_0_integration.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BRAIN 2.0 INTEGRATION: 15 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19662) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/brain_2_0_phase234_runtime.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BRAIN 2.0 PHASE 2-4 RUNTIME: 13 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19673) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/brain_2_0_release_audit.mjs",
@@ -79,21 +79,21 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BRAIN 2.0 UI->BRAIN WORKFLOWS: 11 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19706) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/browser_module_import_smoke.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "BROWSER MODULE IMPORT SMOKE: 6 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19717) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/systems/walk_in_cooler.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/chapter7_freezer_scope.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: walk-in freezer scoped hypotheses, no-evidence safety\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19728) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/chapter7_reference_preset_regression.mjs",
@@ -121,7 +121,7 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS 61 causal differential assertions across 6 applications and 2 operating states\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19772) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/diagnostic_presentation_regression.mjs",
@@ -142,14 +142,14 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: capillary screening evidence, restriction ranking, receiver guard, and calculation presentation links\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19805) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/direct_fault_precedence_semantic.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "DIRECT-FAULT PRECEDENCE SEMANTIC: 30 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19816) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/diagnostics/next_check_planner.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/electrical_workspace_ui_acceptance.mjs",
@@ -177,7 +177,7 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "EXPLICIT REFERENCE INTEGRATION PASS: 7-5 low SAT + normal SH activates reduced heat transfer; missing reference and high SH do not\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19860) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/field_cause_dedup_regression.mjs",
@@ -205,21 +205,21 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: generic graph-linked differential, low-charge preserved without case-specific slot patch\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19904) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/general_next_check_v2213.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "GENERAL NEXT CHECK: 44 assertions PASS; 15 Chapter 7 representative patterns, multiple equipment/fault families.\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19915) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/diagnostics/next_check_planner.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/general_reduced_heat_evidence.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: 4 application contexts, 5 evidence/reference gating conditions and provisional-cause guard\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19926) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/high_head_subcool_pattern_ui.mjs",
@@ -233,49 +233,56 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: high-SH suspect → useful discrimination → charge-loss investigation\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19948) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/knowledge_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/high_suction_low_head_rendered_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "UNKNOWN POSSIBLE CAUSES 1. Compressor inefficiency/reduced pumping capacity 2. Liquid-line restriction 3. Low refrigerant charge / refrigerant loss \nSTABLE_COOLING POSSIBLE CAUSES 1. Compressor inefficiency/reduced pumping capacity 2. Liquid-line restriction 3. Low refrigerant charge / refrigerant loss (unconfirmed) \nPASS 7-9 actual System Check HTML for both operating states\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19959) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/knowledge_prerequisite_priority.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "Knowledge prerequisite priority: 11 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19970) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/knowledge_regression_node.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "KNOWLEDGE REGRESSION: 20 passed / 0 failed / 20 total\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:19981) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/knowledge_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "test": "tests/localized_drier_output_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS localized filter-drier output, provisional/stable, negative control\n",
+      "stderr_tail": "(node:19992) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/next_check_v2214_integration.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "v2.2.14 GENERAL NEXT CHECK: 67 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20003) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/diagnostics/next_check_planner.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/pressure_location_fallback.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PRESSURE LOCATION FALLBACK: 18 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20014) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/diagnostics/pressure_locations.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/reach_in_brain_safety.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "REACH-IN BRAIN SAFETY: PASS (empty evidence, scope, shared faults, invalid readings, transient state)\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20025) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/reach_in_calculations_output_regression.mjs",
@@ -289,42 +296,42 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "REACH-IN PROFILE VALIDATION: PASS (2 profiles, shared system regression checks)\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20047) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/systems/ac_split.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/reach_in_real_output_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "ge / refrigerant loss 3. Evaporator icing How to investigate possible causes Liquid-line restriction : Check for a temperature or pressure drop across the filter-drier and other accessible liquid-line components. Confirm the restriction location before replacing parts. Low refrigerant charge / refrigerant \nSTABLE_COOLING  1. Liquid-line / capillary-tube restriction (leading possibility; unconfirmed) 2. Low refrigerant charge / refrigerant loss 3. Evaporator icing How to investigate possible causes Liquid-line restriction : Check for a temperature or pressure drop across the filter-drier and other accessible liquid-line components. Confirm the restriction location before replacing parts. Low refrigerant charge / refrigerant \nPASS 7-7 capillary tube/SC/SH system check output for both states\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20058) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/receiver_low_charge_not_excluded_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "UNKNOWN POSSIBLE CAUSES 1. Low refrigerant charge / refrigerant loss 2. TXV underfeeding 3. Liquid-line restriction \nSTABLE_COOLING POSSIBLE CAUSES 1. Low refrigerant charge / refrigerant loss 2. TXV underfeeding 3. Liquid-line restriction \nPASS low-charge differential retained with unavailable receiver subcooling target under both operating states\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20069) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/receiver_normal_core_evidence_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS receiver core-reference evidence differential: normal, high SH, low SAT, missing reference, no receiver\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20080) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/receiver_normal_rendered_output_regression.mjs",
       "pass": true,
       "exit_code": 0,
-      "stdout_tail": "uately. Verify operat\nSTABLE_COOLING POSSIBLE CAUSES Cause not yet established — follow the next check. ADDITIONAL INFORMATION NEEDED Reported problem (optional) Not specified Not cooling Not cooling enough / temperature high Running continuously Short cycling High-pressure trip Other symptom 1. Warm product load Check for recently loaded warm product or unusually high refrigeration load. Helps distinguish the remaining possible causes Record finding Choose result... Normal load Lar SYSTEM CHECK Core refrigeration readings within reference — verify load and controls Evaporator SAT, condenser SAT and superheat are within applicable references; this does not establish that the box is cooling adequately. Verify operating state, set\nPASS 7-15 actual System Check HTML for both operating states\n",
-      "stderr_tail": ""
+      "stdout_tail": "uately. Verify operat\nSTABLE_COOLING POSSIBLE CAUSES No specific refrigerant-circuit fault is supported by the current core readings. Investigate load, airflow and temperature controls. ADDITIONAL INFORMATION NEEDED Reported problem (optional) Not specified Not cooling Not cooling enough / temperature high Running continuously Short cycling High-pressure trip Other symptom 1. Warm product load Check for recently loaded warm product or unusually high refrigeration load. Helps disting SYSTEM CHECK Core refrigeration readings within reference — verify load and controls Evaporator SAT, condenser SAT and superheat are within applicable references; this does not establish that the box is cooling adequately. Verify operating state, set\nPASS 7-15 actual System Check HTML for both operating states\n",
+      "stderr_tail": "(node:20091) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/reference_ui_flow_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS 27 application reference integration assertions across 5 contexts\nPASS: automatic box/TD reference -> facts -> condition\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20102) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/startup_scope_regression.mjs",
@@ -337,22 +344,29 @@
       "test": "tests/system_check_html_runtime.mjs",
       "pass": true,
       "exit_code": 0,
-      "stdout_tail": "UNKNOWN HTML chars 10532 airflow true\nSTABLE_COOLING HTML chars 9064 airflow true\n7-2 UNKNOWN HTML chars 10432\n7-2 STABLE_COOLING HTML chars 8903\n7-3 UNKNOWN HTML chars 10790\n7-3 STABLE_COOLING HTML chars 9085\n7-4 UNKNOWN HTML chars 10582\n7-4 STABLE_COOLING HTML chars 9202\nPASS: all 15 cases rendered for both states (30 production System Check HTML outputs)\nPASS System Check HTML rendering with actual production comparison function\n",
-      "stderr_tail": ""
+      "stdout_tail": "UNKNOWN HTML chars 10574 airflow true\nSTABLE_COOLING HTML chars 9106 airflow true\n7-2 UNKNOWN HTML chars 10474\n7-2 STABLE_COOLING HTML chars 8945\n7-3 UNKNOWN HTML chars 10832\n7-3 STABLE_COOLING HTML chars 9127\n7-4 UNKNOWN HTML chars 10624\n7-4 STABLE_COOLING HTML chars 9244\nPASS: all 15 cases rendered for both states (30 production System Check HTML outputs)\nPASS System Check HTML rendering with actual production comparison function\n",
+      "stderr_tail": "(node:20124) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/td_reference_pipeline_regression.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS 27 application reference integration assertions across 5 contexts\nPASS: automatic TD pipeline, missing-data behavior, and actual Brain inference\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20135) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "test": "tests/warm_box_guidance_rendered_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "G POSSIBLE CAUSES No specific refrigerant-circuit fault is supported by the current core readings. Investigate load, airflow and temperature controls. ADDITIONAL INFORMATION NEEDED Reported problem (optional) Not specified Not cooling Not cooling enough / temperature high Running continuously Short cycling High-pressure trip Other symptom 1. Warm product load Check for recently loaded warm product or unusually high refrigeration load. Helps disting SYSTEM CHECK Core refrigeration readings within reference — verify load and controls Box / cabinet 50.0°F is above a typical 35–38°F walk-in-cooler operating target. Confirm the actual controller setpoint and whether the system is in pull-down before\nPASS warm box summary/evidence under both states, normal-box and cross-system negative controls\n",
+      "stderr_tail": "(node:20146) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_acceptance_7_10_2_0_5.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "PASS: direct condenser faults, defrost gate, and receiver charge uncertainty\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20157) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_diagnostic_paths_2_0_7.mjs",
@@ -366,7 +380,7 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "END-TO-END POLICY: PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20179) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_evidence_priority_multifault_2_0_8.mjs",
@@ -380,28 +394,28 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "WIC FIELD GUIDANCE 2.0.6: 14 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20201) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_field_issue_audit.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "WIC FIELD AUDIT: 43 passed / 0 failed / 43 total\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20212) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/knowledge_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_gold_standard_validation_2_0_4.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "WIC GOLD-STANDARD VALIDATION 2.0.5: 13 source-derived scenarios / 25 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20223) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_independent_runtime_tranche1.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "INDEPENDENT RUNTIME ALL MAPPED: 88 passed / 0 failed / 88 mapped\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20234) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/hypothesis_engine.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_low_sh_rendered_output_regression.mjs",
@@ -422,14 +436,14 @@
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "WIC SIMPLE SCENARIO AUDIT 2.0.3: 20 scenarios / 45 assertions PASS\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20267) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "tests/wic_starvation_differential.mjs",
       "pass": true,
       "exit_code": 0,
       "stdout_tail": "WIC STARVATION DIFFERENTIAL: 15 assertions PASS (production hypothesis engine, WIC scope)\n",
-      "stderr_tail": ""
+      "stderr_tail": "(node:20278) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///mnt/data/workbrain/hvacr-field-tool/src/knowledge/wic_fact_adapter.js is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /mnt/data/workbrain/hvacr-field-tool/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
     },
     {
       "test": "knowledge audit",

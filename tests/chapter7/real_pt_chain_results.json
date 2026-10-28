@@ -248,6 +248,7 @@
         "FACT_EVAP_SAT_LOW",
         "FACT_EVAP_SH_HIGH",
         "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_HIGH",
         "FACT_SUBCOOLING_MEASURED"
       ],
       "conditions": [
@@ -260,8 +261,9 @@
       ],
       "diagnoses": [],
       "possible": [
-        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
+        "CAUSE_OVERCHARGE",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
         "CAUSE_EVAP_ICING",
         "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
@@ -283,7 +285,8 @@
         "FACT_EVAP_SAT_LOW",
         "FACT_EVAP_SH_LOW",
         "FACT_EVAP_SH_MEASURED",
-        "FACT_SUBCOOLING_MEASURED"
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
       ],
       "conditions": [
         "COND_EVAP_OVERFED"
@@ -293,9 +296,8 @@
       ],
       "diagnoses": [],
       "possible": [
-        "CAUSE_LOW_REFRIGERANT_CHARGE",
-        "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
         "CAUSE_EVAP_ICING"
       ],
       "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
@@ -317,7 +319,8 @@
         "FACT_EVAP_SH_HIGH",
         "FACT_EVAP_SH_MEASURED",
         "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
-        "FACT_SUBCOOLING_MEASURED"
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
       ],
       "conditions": [
         "COND_EVAP_STARVED"
@@ -330,8 +333,8 @@
       "diagnoses": [],
       "possible": [
         "CAUSE_COMPRESSOR_INEFFICIENCY",
-        "CAUSE_FILTER_DRIER_RESTRICTION",
-        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
+        "CAUSE_LIQUID_LINE_RESTRICTION"
       ],
       "nextCheck": "CHECK_COMPRESSOR_CONTEXT"
     },
@@ -350,6 +353,7 @@
         "FACT_EVAP_SAT_LOW",
         "FACT_EVAP_SH_HIGH",
         "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_LOW",
         "FACT_SUBCOOLING_MEASURED"
       ],
       "conditions": [
@@ -360,13 +364,15 @@
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_TXV_UNDERFEED"
       ],
-      "diagnoses": [],
+      "diagnoses": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE"
+      ],
       "possible": [
         "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_LIQUID_LINE_RESTRICTION",
+        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
-        "CAUSE_EVAP_ICING",
-        "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE"
+        "CAUSE_EVAP_ICING"
       ],
       "nextCheck": "CHECK_DRIER_DROP"
     },
@@ -386,7 +392,8 @@
         "FACT_EVAP_SAT_HIGH",
         "FACT_EVAP_SH_LOW",
         "FACT_EVAP_SH_MEASURED",
-        "FACT_SUBCOOLING_MEASURED"
+        "FACT_SUBCOOLING_MEASURED",
+        "FACT_SUBCOOLING_RETAINED"
       ],
       "conditions": [
         "COND_EVAP_OVERFED",
@@ -400,6 +407,8 @@
       "possible": [
         "CAUSE_OVERCHARGE",
         "CAUSE_NONCONDENSABLES",
+        "CAUSE_FILTER_DRIER_RESTRICTION",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
         "CAUSE_COND_AIRFLOW_RESTRICTION",
         "CAUSE_HOT_AIR_RECIRCULATION",
         "CAUSE_HIGH_AMBIENT"
@@ -422,6 +431,7 @@
         "FACT_EVAP_SAT_HIGH",
         "FACT_EVAP_SH_LOW",
         "FACT_EVAP_SH_MEASURED",
+        "FACT_SUBCOOLING_HIGH",
         "FACT_SUBCOOLING_MEASURED"
       ],
       "conditions": [
@@ -436,6 +446,7 @@
       "possible": [
         "CAUSE_OVERCHARGE",
         "CAUSE_NONCONDENSABLES",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION",
         "CAUSE_COND_AIRFLOW_RESTRICTION",
         "CAUSE_HOT_AIR_RECIRCULATION",
         "CAUSE_HIGH_AMBIENT"
@@ -469,9 +480,10 @@
         "CAUSE_TXV_OVERFEED"
       ],
       "possible": [
-        "CAUSE_TXV_OVERFEED"
+        "CAUSE_TXV_OVERFEED",
+        "CAUSE_EVAP_AIRFLOW_RESTRICTION"
       ],
-      "nextCheck": "CHECK_TXV_INSTALL"
+      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
     },
     {
       "problem": "7-14",
