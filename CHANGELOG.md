@@ -1,5 +1,15 @@
 # Change log
 
+## Public release baseline — verified commit `42639b9` (2026-10-28)
+
+- Recorded the first public-release **tested baseline** after GitHub **Browser UI Tests #9** and **Pages deployment #23** both passed for commit `42639b9`.
+- Added the 15-case Chapter 7 **semantic** acceptance gate to CI; it checks selected diagnostic invariants and does not guarantee every possible fault diagnosis or repair instruction.
+- Corrected high-condensing-temperature screening ties: prefer a noninvasive condenser heat-rejection investigation when evidence is otherwise tied, while retaining overcharge and noncondensables as alternatives and allowing stronger direct evidence to override the screening order.
+- Preserved filter-drier temperature-drop evidence, low-superheat competing-cause rules, equipment-specific component applicability, warm-box guidance, and Unknown-state provisional reasoning.
+- Local historical regression audit reported 96/96 file-level checks passed; Master 80/80, Challenge 1 50/50, Challenge 3 70/70, and Chapter 7 semantic 15/15 were reported passing during release preparation. The GitHub workflow independently ran the Chapter 7 gate and browser suite; it does not run all local historical suites.
+- **Limits:** This release is a stable baseline for the tested behavior, not a universal HVAC/R diagnostic authority. Case 7-15's PT-only acceptance only checks against unsupported confirmed refrigerant faults; complete customer-complaint guidance is not certified by that assertion. Use actual operating state, measured evidence, and manufacturer specifications before repair.
+
+
 ## 2.3.4 development candidate — warm-box outcome and localized restriction guidance (2026-10-28)
 
 - A recorded warm walk-in-cooler box temperature is now visible in the main System Check summary, Evidence Used, and diagnostic explanation, independently of operating-state confirmation.
