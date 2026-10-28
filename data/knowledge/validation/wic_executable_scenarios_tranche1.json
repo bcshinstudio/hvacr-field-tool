@@ -919,7 +919,7 @@
       "must_not_diagnose": [
         "CAUSE_COMPRESSOR_INEFFICIENCY"
       ],
-      "require_next_check": "CHECK_COMPRESSOR_CONTEXT"
+      "require_next_check": "CHECK_COMPRESSOR_DIFFERENTIAL"
     },
     {
       "id": "V4-13",

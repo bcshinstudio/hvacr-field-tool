@@ -4751,9 +4751,8 @@ function buildCurrentWicKnowledgeSnapshot(state, observationValue) {
             ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component) && component.subtype === "txv") ? ["TXV"] : []),
             ...(currentSystem?.components?.some(component => component.id === "txv" && isComponentInstalled(component) && ["fixed_orifice","capillary_tube"].includes(component.subtype)) ? ["FIXED_ORIFICE"] : [])
         ],
-        // Only promote a warm-box symptom to a Brain fact when the operator
-        // explicitly reports inadequate cooling and records the box temperature.
-        // A temperature alone is not a fault without setpoint/load context.
+        // Promote an explicitly reported inadequate-cooling symptom to the
+        // evidence engine only with a recorded box temperature.
         derived: {
             boxTempHigh: wicDiagnosticContext.reportedProblem === "insufficient_cooling" &&
                 Number.isFinite(getNumericMeasurementValue("box_temperature", "temperature"))
@@ -5415,7 +5414,21 @@ function buildKnowledgeHubComparison(state, observationValue) {
         `
         : "";
 
-    const factTrace = adapted.trace.length
+    // State the observed cabinet outcome separately from refrigerant circuit
+    // evidence. A warm box is not itself proof of a particular system fault.
+    const observedBoxTemp = getNumericMeasurementValue("box_temperature", "temperature");
+    // A box temperature is an outcome measurement, distinct from refrigeration
+    // circuit evidence. Use an application screening target only for a walk-in
+    // cooler; a warm box alone never proves a circuit or component fault.
+    const warmBoxScreen = currentSystem?.id === "walk_in_cooler" &&
+        Number.isFinite(observedBoxTemp) && observedBoxTemp > 42;
+    const warmBoxFinding = warmBoxScreen
+        ? `Box / cabinet ${Number(observedBoxTemp).toFixed(1)}°F is above a typical 35–38°F walk-in-cooler operating target. Confirm the actual controller setpoint and whether the system is in pull-down before diagnosing insufficient cooling.`
+        : "";
+    const boxEvidenceHtml = Number.isFinite(observedBoxTemp)
+        ? `<div style="margin-top:5px;">• Recorded box / cabinet temperature: ${Number(observedBoxTemp).toFixed(1)}°F. ${warmBoxFinding || "Compare with the controller setpoint and operating history before deciding whether cooling is inadequate."}</div>`
+        : "";
+    const factTrace = (adapted.trace.length
         ? adapted.trace.map(item => {
             const label = labelFor(item.fact);
             // An unavailable equipment-specific target does not invalidate
@@ -5425,7 +5438,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
                 : label;
             return `<div style="margin-top:5px;">• ${displayLabel}</div>`;
         }).join("")
-        : `<div>No Knowledge Hub facts established yet.</div>`;
+        : `<div>No Knowledge Hub facts established yet.</div>`) + boxEvidenceHtml;
 
     // Field-first presentation: keep diagnostic evidence intact, but show
     // the technician only the leading finding, likely causes and one next check.
@@ -5480,7 +5493,16 @@ function buildKnowledgeHubComparison(state, observationValue) {
     const differentialCandidates = highShHighScFixedMetering
         ? [{id:"CAUSE_LIQUID_LINE_RESTRICTION",label:"Liquid-line / capillary-tube restriction (leading possibility; unconfirmed)"}]
         : [];
+    // Direct localized component evidence is more discriminating than a broad
+    // refrigerant-feed symptom. Preserve competing causes but rank the
+    // observed restriction first, regardless of operating-state certainty.
+    const directDrierEvidence = facts.has("FACT_DRIER_TEMP_DROP") &&
+        Number(adapted.trace.find(item=>item.fact==="FACT_DRIER_TEMP_DROP")?.value) >= 3;
+    const localizedDrierCandidate = directDrierEvidence
+        ? [{id:"CAUSE_FILTER_DRIER_RESTRICTION",label:"Filter-drier restriction (strong direct evidence; verify measurement)"}]
+        : [];
     const fieldCauseCandidates = [
+        ...localizedDrierCandidate,
         ...differentialCandidates,
         ...(coilFault ? [{id:"OBS_COIL_DIRTY",label:"Dirty / obstructed condenser coil (observed)"}] : []),
         ...(fanFault ? [{id:"OBS_FAN_STOPPED",label:"Condenser fan not running (observed)"}] : []),
@@ -5534,10 +5556,12 @@ function buildKnowledgeHubComparison(state, observationValue) {
         : displayHeading;
     const normalReferenceSummary = "Evaporator SAT, condenser SAT and superheat are within applicable references; this does not establish that the box is cooling adequately. Verify operating state, setpoint, run time, product load, door infiltration and airflow.";
     const finalFieldSummary = coreReferencesNormalWithoutFault
-        ? normalReferenceSummary : null;
+        ? `${warmBoxFinding ? `${warmBoxFinding} ` : ""}${normalReferenceSummary}` : null;
     const fieldCausesHtml = fieldCauseItems.length
         ? fieldCauseItems.map((cause,index)=>`<div style="margin-top:6px;">${index+1}. ${cause}</div>`).join("")
-        : `<div style="margin-top:6px;">Cause not yet established — follow the next check.</div>`;
+        : `<div style="margin-top:6px;">${coreReferencesNormalWithoutFault
+            ? "No specific refrigerant-circuit fault is supported by the current core readings. Investigate load, airflow and temperature controls."
+            : "Cause not yet established — follow the next check."}</div>`;
 
     // General next-check planner. All supported systems use the same evidence
     // store and existing Brain result; no scenario-specific diagnostic wizards.
@@ -5610,6 +5634,15 @@ function buildKnowledgeHubComparison(state, observationValue) {
     ];
     const selectOptions = (options,current) => options.map(([v,label])=>
         `<option value="${safeText(v)}" ${current===v?"selected":""}>${safeText(label)}</option>`).join("");
+    // Localized restriction evidence should prompt a discriminating physical
+    // confirmation before broad TXV/charge checks. Keep the planner unchanged
+    // for all other scenarios.
+    if (directDrierEvidence && !plannedChecks.some(check=>/filter.drier|drier/i.test(check.label||""))) {
+        plannedChecks.unshift({type:"tool",tool:"measurements",label:"Verify filter-drier temperature difference",
+            instruction:"Repeat inlet and outlet temperatures with comparable probes and locations; check accessible pressure drop, then confirm the restriction before servicing.",
+            why:"A localized temperature decrease is stronger evidence than a general starvation pattern."});
+        plannedChecks.length = Math.min(plannedChecks.length,3);
+    }
     const renderedChecks = plannedChecks.map((check,index)=>{
         let input = "";
         if(check.type==="observation") {
@@ -5689,6 +5722,7 @@ function buildKnowledgeHubComparison(state, observationValue) {
                 <summary style="cursor:pointer;color:#277fb5;font-weight:600;">Why this diagnosis?</summary>
                 <div style="margin-top:9px;color:#526575;line-height:1.45;">
                     ${confirmedHtml}
+                    ${warmBoxFinding ? `<div style="margin-top:8px;">${warmBoxFinding}</div>` : ""}
                     <div style="margin-top:8px;">${highHeadHighScPattern
                         ? "High condensing SAT and elevated calculated subcooling together support possible liquid backup in the condenser. Excess liquid can reduce effective condensing area and raise head pressure. This pattern does not prove overcharge."
                         : meaning}</div>
@@ -5703,6 +5737,8 @@ function buildKnowledgeHubComparison(state, observationValue) {
                     ${highHeadHighScPattern
                         ? `<div>Condenser fan/airflow faults, dirty coil, noncondensables, head-pressure controls, or receiver/liquid-line conditions.</div>${otherActiveHtml}`
                         : `${rootCauses}${conditionLinkedHtml}${otherActiveHtml}`}
+                    ${!(highHeadHighScPattern || rootCauses || conditionLinkedHtml || otherActiveHtml)
+                        ? `<div>No additional evidence-supported causes are established yet. Record observations and re-evaluate.</div>` : ""}
                 </div>
             </details>
             <details style="margin-top:10px;">

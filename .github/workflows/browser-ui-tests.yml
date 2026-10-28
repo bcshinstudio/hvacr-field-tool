@@ -20,6 +20,8 @@ jobs:
           python-version: '3.12'
       - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
+      - name: Chapter 7 production diagnostic acceptance (15 cases)
+        run: node tests/chapter7/chapter7_diagnostic_acceptance_gate.mjs
       - run: npm run test:ui
       - name: Upload browser test results on failure
         if: failure()
