@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 const supportedSystems = [
   ['walk_in_cooler', /Walk-In Cooler/i],
   ['walk_in_freezer', /Walk-In Freezer/i],
-  ['ac_split', /Residential Split AC/i],
+  ['ac_split', /Residential Split A\/C/i],
   ['ac_package', /Residential Package/i],
   ['reach_in_refrigerator', /Reach-In Refrigerator/i],
   ['reach_in_freezer', /Reach-In Freezer/i],
