@@ -1,8 +1,8 @@
 {
-  "release": "v2.3.0-class-demo",
+  "release": "v2.3.3-consolidated-evidence",
   "verification_status": "AUTOMATED_RELEASE_GATE_PASSED_BROWSER_VISUAL_CONFIRMATION_PENDING",
-  "automated_checks": 55,
-  "passed_checks": 55,
+  "automated_checks": 63,
+  "passed_checks": 63,
   "failed_checks": 0,
   "chapter7_real_pt_cases": 15,
   "rendered_system_check_case_state_combinations": 30,
@@ -13,11 +13,15 @@
     "Existing scenario answer keys not independently established for all 15; results evaluated on diagnostic reasoning and safety, not arbitrary single expected answers"
   ],
   "verification_sources": [
-    "tests/verification_report.json",
-    "tests/chapter7/real_pt_chain_results.json",
+    "tests/application_reference_resolver_integration.mjs",
     "tests/chapter7/real_pt_chain_regression.mjs",
-    "tests/system_check_html_runtime.mjs",
+    "tests/chapter7/real_pt_chain_results.json",
     "tests/condition_causal_differential_regression.mjs",
-    "tests/application_reference_resolver_integration.mjs"
+    "tests/receiver_low_charge_not_excluded_regression.mjs",
+    "tests/receiver_normal_core_evidence_regression.mjs",
+    "tests/receiver_normal_rendered_output_regression.mjs",
+    "tests/system_check_html_runtime.mjs",
+    "tests/verification_report.json",
+    "tests/wic_low_sh_rendered_output_regression.mjs"
   ]
 }

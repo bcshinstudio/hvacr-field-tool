@@ -100,6 +100,22 @@ export function buildWicKnowledgeFacts(snapshot={}) {
     addFact(result,"FACT_LOW_EVAP_SAT_WITH_NORMAL_SH","calculated.evaporatorPattern",true,
       "Low evaporator SAT with SH within an applicable reference; evaluate evaporator heat transfer/load and competing causes.");
 
+  // A receiver may have no applicable condenser-subcooling target. In that
+  // configuration, three independently reference-normal core indicators still
+  // provide useful *negative* evidence against speculative refrigerant-feed
+  // faults. This does NOT establish normal equipment operation or suppress
+  // actual field observations. Missing one of these three references cannot
+  // produce the pattern.
+  if (configuration.has("RECEIVER") && !r.condenserSubcooling &&
+      [c.evaporatorSat,c.evaporatorReferenceLow,c.evaporatorReferenceHigh,
+       c.condenserSat,c.condenserReferenceLow,c.condenserReferenceHigh,
+       c.evaporatorSuperheat,r.evaporatorSuperheat?.low,r.evaporatorSuperheat?.high].every(finite) &&
+      c.evaporatorSat>=c.evaporatorReferenceLow && c.evaporatorSat<=c.evaporatorReferenceHigh &&
+      c.condenserSat>=c.condenserReferenceLow && c.condenserSat<=c.condenserReferenceHigh &&
+      c.evaporatorSuperheat>=r.evaporatorSuperheat.low && c.evaporatorSuperheat<=r.evaporatorSuperheat.high)
+    addFact(result,"FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE","calculated.coreReferencePattern",true,
+      "Evaporator SAT, condenser SAT and superheat are within applicable references; receiver subcooling is unclassified. Check load, controls and runtime before suspecting refrigerant feed.");
+
   // Normal pattern requires COMPLETE two-sided references, not merely absence
   // of fault evidence. This does not override direct observations of a defect.
   if ([c.evaporatorSat,c.evaporatorReferenceLow,c.evaporatorReferenceHigh,

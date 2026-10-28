@@ -239,9 +239,9 @@ export function evaluateHypotheses({
   // if any independent abnormal or direct evidence is present.
   const abnormal=[...factState.valid].some(f=>
     (f.startsWith("FACT_") && /(?:_HIGH|_LOW|_ABNORMAL|_RESTRICTION|_LEAK|_FAULT|_ICED|_BLOCKED|_DROP|_NOT_RUNNING|_NOT_RESPONDING|_OVERFEED|_UNDERFEED|_FLASHING)$/.test(f)) &&
-    f!=="FACT_OPERATING_PATTERN_WITHIN_REFERENCE");
+    f!=="FACT_OPERATING_PATTERN_WITHIN_REFERENCE" && f!=="FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE");
   const directEvidence=all.some(x=>x.state==="SUPPORTED" && x.direct);
-  if(factState.valid.has("FACT_OPERATING_PATTERN_WITHIN_REFERENCE") && !abnormal && !directEvidence){
+  if((factState.valid.has("FACT_OPERATING_PATTERN_WITHIN_REFERENCE") || factState.valid.has("FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE")) && !abnormal && !directEvidence){
     supported=[];
     plausible.length=0;
   }

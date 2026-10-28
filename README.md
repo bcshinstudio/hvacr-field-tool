@@ -14,7 +14,7 @@ Walk-In Cooler, Walk-In Freezer, Residential Split A/C, Residential Packaged A/C
 4. Open **System Check** for observed conditions, possible causes, evidence explanations and useful next checks. Select the actual operating state when known.
 5. Record inspection results and re-evaluate. A hypothesis is not a confirmed fault and should not by itself justify a refrigerant charge adjustment or component replacement.
 
-Application TD and condenser-split defaults are in `data/reference_values.csv`. These are diagnostic starting points, not promises of a specific model's design. Manufacturer/model targets take priority when known. Receiver-equipped systems require special caution when interpreting subcooling. The app does not ask for manual screening-reference inputs.
+Application TD and condenser-split defaults are in `data/reference_values.csv`. These are diagnostic starting points, not promises of a specific model's design. Manufacturer/model targets take priority when known. Receiver-equipped systems require special caution when interpreting subcooling. The app does not ask for manual screening-reference inputs. Near-normal core refrigeration readings may prompt checks of room load and controls; that does not establish that cooling capacity or charge is correct.
 
 ## Local launch
 

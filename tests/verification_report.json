@@ -1,8 +1,8 @@
 {
-  "passed": 59,
+  "passed": 63,
   "failed": 0,
-  "total": 59,
-  "generated_at": "2026-10-27T23:23:22.728Z",
+  "total": 63,
+  "generated_at": "2026-10-28T19:21:28.225Z",
   "results": [
     {
       "test": "tests/chapter7/real_pt_chain_regression.mjs",
@@ -299,6 +299,27 @@
       "stderr_tail": ""
     },
     {
+      "test": "tests/receiver_low_charge_not_excluded_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "UNKNOWN POSSIBLE CAUSES 1. Low refrigerant charge / refrigerant loss 2. TXV underfeeding 3. Liquid-line restriction \nSTABLE_COOLING POSSIBLE CAUSES 1. Low refrigerant charge / refrigerant loss 2. TXV underfeeding 3. Liquid-line restriction \nPASS low-charge differential retained with unavailable receiver subcooling target under both operating states\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/receiver_normal_core_evidence_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS receiver core-reference evidence differential: normal, high SH, low SAT, missing reference, no receiver\n",
+      "stderr_tail": ""
+    },
+    {
+      "test": "tests/receiver_normal_rendered_output_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "uately. Verify operat\nSTABLE_COOLING POSSIBLE CAUSES Cause not yet established — follow the next check. ADDITIONAL INFORMATION NEEDED Reported problem (optional) Not specified Not cooling Not cooling enough / temperature high Running continuously Short cycling High-pressure trip Other symptom 1. Warm product load Check for recently loaded warm product or unusually high refrigeration load. Helps distinguish the remaining possible causes Record finding Choose result... Normal load Lar SYSTEM CHECK Core refrigeration readings within reference — verify load and controls Evaporator SAT, condenser SAT and superheat are within applicable references; this does not establish that the box is cooling adequately. Verify operating state, set\nPASS 7-15 actual System Check HTML for both operating states\n",
+      "stderr_tail": ""
+    },
+    {
       "test": "tests/reference_ui_flow_regression.mjs",
       "pass": true,
       "exit_code": 0,
@@ -316,7 +337,7 @@
       "test": "tests/system_check_html_runtime.mjs",
       "pass": true,
       "exit_code": 0,
-      "stdout_tail": "UNKNOWN HTML chars \u001b[33m10470\u001b[39m airflow \u001b[33mtrue\u001b[39m\nSTABLE_COOLING HTML chars \u001b[33m9002\u001b[39m airflow \u001b[33mtrue\u001b[39m\n7-2 UNKNOWN HTML chars \u001b[33m10432\u001b[39m\n7-2 STABLE_COOLING HTML chars \u001b[33m8903\u001b[39m\n7-3 UNKNOWN HTML chars \u001b[33m11013\u001b[39m\n7-3 STABLE_COOLING HTML chars \u001b[33m9403\u001b[39m\n7-4 UNKNOWN HTML chars \u001b[33m10582\u001b[39m\n7-4 STABLE_COOLING HTML chars \u001b[33m9202\u001b[39m\nPASS: all 15 cases rendered for both states (30 production System Check HTML outputs)\nPASS System Check HTML rendering with actual production comparison function\n",
+      "stdout_tail": "UNKNOWN HTML chars 10532 airflow true\nSTABLE_COOLING HTML chars 9064 airflow true\n7-2 UNKNOWN HTML chars 10432\n7-2 STABLE_COOLING HTML chars 8903\n7-3 UNKNOWN HTML chars 10790\n7-3 STABLE_COOLING HTML chars 9085\n7-4 UNKNOWN HTML chars 10582\n7-4 STABLE_COOLING HTML chars 9202\nPASS: all 15 cases rendered for both states (30 production System Check HTML outputs)\nPASS System Check HTML rendering with actual production comparison function\n",
       "stderr_tail": ""
     },
     {
@@ -383,6 +404,13 @@
       "stderr_tail": ""
     },
     {
+      "test": "tests/wic_low_sh_rendered_output_regression.mjs",
+      "pass": true,
+      "exit_code": 0,
+      "stdout_tail": "PASS WIC unknown-state calculated low superheat / receiver subcooling unclassified\n",
+      "stderr_tail": ""
+    },
+    {
       "test": "tests/wic_presentation_policy.mjs",
       "pass": true,
       "exit_code": 0,
@@ -406,7 +434,7 @@
     {
       "test": "knowledge audit",
       "pass": true,
-      "stdout_tail": "Knowledge audit: 243 concepts; 53 relations; 80 rules; 36 checks; 0 invalid references.\n"
+      "stdout_tail": "Knowledge audit: 244 concepts; 53 relations; 80 rules; 36 checks; 0 invalid references.\n"
     },
     {
       "test": "app.js syntax",

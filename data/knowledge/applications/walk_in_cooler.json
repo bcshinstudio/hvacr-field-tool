@@ -45,15 +45,16 @@
         ],
         "operating_states": [
           "STABLE_COOLING",
-          "PULLDOWN"
+          "PULLDOWN",
+          "UNKNOWN"
         ]
       },
       "fallback": {
-        "low": 8.0,
-        "high": 12.0,
+        "low": 5.0,
+        "high": 20.0,
         "unit": "delta_degF"
       },
-      "basis": "Commercial-refrigeration TEV service fallback spanning Sporlan fresh-meat (8\u201310\u00b0F) and dairy/deli/produce (10\u201312\u00b0F) guidance. Not a universal equipment target.",
+      "basis": "Broad evaporator-superheat screening envelope for general diagnostics. Manufacturer or installed TEV application target takes precedence; range does not establish proper charge or valve adjustment.",
       "sources": [
         "SRC_SPORLAN_TEV_SUPERHEAT",
         "SRC_SPORLAN_TEV_SERVICE"

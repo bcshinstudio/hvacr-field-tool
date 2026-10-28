@@ -100,6 +100,7 @@
       ],
       "diagnoses": [],
       "possible": [
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_TXV_UNDERFEED",
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
@@ -109,7 +110,7 @@
         "CAUSE_CONFIRMED_REFRIGERANT_LEAK_LOW_CHARGE",
         "CAUSE_TXV_POWER_ELEMENT_OR_VALVE_FAULT"
       ],
-      "nextCheck": "CHECK_VERIFY_EVAP_AIRFLOW"
+      "nextCheck": "CHECK_DRIER_DROP"
     },
     {
       "problem": "7-4",
@@ -179,6 +180,7 @@
       "diagnoses": [],
       "possible": [
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_TXV_UNDERFEED",
         "CAUSE_EVAP_ICING",
@@ -222,6 +224,7 @@
       "possible": [
         "CAUSE_FILTER_DRIER_RESTRICTION",
         "CAUSE_TXV_UNDERFEED",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
         "CAUSE_EVAP_ICING",
         "CAUSE_WRONG_REFRIGERANT_OR_TXV_MATCH",
@@ -502,6 +505,7 @@
       "possible": [
         "CAUSE_HEAD_PRESSURE_CONTROL_FAULT",
         "CAUSE_EVAP_AIRFLOW_RESTRICTION",
+        "CAUSE_LOW_REFRIGERANT_CHARGE",
         "CAUSE_LIQUID_LINE_RESTRICTION",
         "CAUSE_TXV_UNDERFEED",
         "CAUSE_EVAP_ICING"
@@ -519,6 +523,7 @@
         "referenceEvapSatF": 40
       },
       "facts": [
+        "FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE",
         "FACT_EVAP_SH_MEASURED",
         "FACT_RECEIVER_PRESENT",
         "FACT_SC_REFERENCE_NOT_APPLICABLE",

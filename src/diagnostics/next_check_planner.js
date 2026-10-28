@@ -223,6 +223,12 @@ function derivedPriority(id,fs,cs,brainCheck) {
   if (groups.evaporator.includes(id) && (has(fs,"FACT_EVAP_SAT_LOW","FACT_EVAP_SAT_HIGH","FACT_EVAP_SH_HIGH","FACT_EVAP_SH_LOW") || [...cs].some(c=>/EVAP|UNDERFEED|TXV|LOW_REFRIGERANT/.test(c)))) score=82;
   if (groups.controls.includes(id) && has(fs,"FACT_COOLING_DEMAND_PRESENT","FACT_COMPRESSOR_NOT_RUNNING","FACT_HP_SAFETY_OPEN","FACT_LP_CONTROL_OPEN")) score=90;
   if (groups.room.includes(id) && has(fs,"FACT_WARM_PRODUCT_LOAD_CONFIRMED","FACT_DOOR_OPEN_OR_LEAKING","FACT_SENSOR_DISAGREES_REFERENCE")) score=80;
+  // If core refrigeration indicators are reference-normal, prioritize actual
+  // demand, room load and infiltration rather than inventing a feed fault.
+  if (has(fs,"FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE","FACT_OPERATING_PATTERN_WITHIN_REFERENCE")) {
+    if (groups.room.includes(id)) score=Math.max(score,94);
+    if (id==="cooling_demand" || id==="compressor_running") score=Math.max(score,88);
+  }
   if (brainCheck && (BRAIN_CHECK_REQUIREMENTS[brainCheck]||[]).includes(id)) score=Math.max(110,score+38);
   if (brainCheck && groups[checkGroup[brainCheck]]?.includes(id)) score+=22;
   return score;
@@ -257,6 +263,12 @@ export function planNextChecks({
  if(state==="OFF" || reportedProblem==="not_cooling" || has(fs,"FACT_COMPRESSOR_NOT_RUNNING","FACT_COOLING_DEMAND_PRESENT"))
    groups.controls.forEach(id=>ids.add(id));
  if([...cs].some(c=>/LOAD|DOOR|SENSOR/.test(c))) groups.room.forEach(id=>ids.add(id));
+ // A high box temperature with otherwise reference-normal refrigeration values
+ // calls for load/controls checks, regardless of the diagnosed fault list.
+ if(has(fs,"FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE","FACT_OPERATING_PATTERN_WITHIN_REFERENCE")) {
+   groups.room.forEach(id=>ids.add(id));
+   ["cooling_demand","compressor_running"].forEach(id=>ids.add(id));
+ }
  if(!ids.size && isStable(state)) {
    ["measure_pressures","measure_sh","measure_sc","condenser_coil","evaporator_fan"].forEach(id=>ids.add(id));
  }

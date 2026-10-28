@@ -1234,6 +1234,11 @@
       "type": "fact",
       "label": "Low outdoor ambient together with low condensing saturation temperature",
       "explanation": "Low condensing pressure in cold weather may require head-pressure-control evaluation; not proof the control is faulty."
+    },
+    {
+      "id": "FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE",
+      "type": "fact",
+      "label": "Core refrigeration readings within applicable references (receiver SC unclassified)"
     }
   ]
 }

@@ -28,10 +28,6 @@
           "role": "CONTRADICT"
         },
         {
-          "fact": "FACT_SC_REFERENCE_NOT_APPLICABLE",
-          "role": "EXCLUDE"
-        },
-        {
           "fact": "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN",
           "role": "STRONG_CONTRADICT"
         },

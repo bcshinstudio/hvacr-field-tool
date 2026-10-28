@@ -4288,7 +4288,7 @@ function buildCalculationsTool() {
     const activeOperatingState = normalizeWicOperatingState(wicDiagnosticContext.operatingState);
     const isReachIn = ["reach_in_refrigerator", "reach_in_freezer"].includes(currentSystem?.id);
     const applicableShRange = (isReachIn || (["walk_in_cooler","walk_in_freezer"].includes(currentSystem?.id) &&
-        ["STABLE_COOLING", "PULLDOWN"].includes(activeOperatingState) &&
+        ["UNKNOWN", "STABLE_COOLING", "PULLDOWN"].includes(activeOperatingState) &&
         currentSystem?.components?.some(c => c.id === "txv" && isComponentInstalled(c) && c.subtype === "txv")))
         ? activeReferenceProfile?.evaporatorSuperheat?.fallback : null;
     const hasReceiver = currentSystem?.components?.some(c => c.id === "receiver" && isComponentInstalled(c));
@@ -5515,6 +5515,20 @@ function buildKnowledgeHubComparison(state, observationValue) {
     const displayHeading = compressorLeading && /evaporator.*starvation|evaporator.*underfed|refrigerant starvation/i.test(fieldHeading)
         ? `Possible compressor inefficiency / reduced pumping capacity${steadyStateEstablished ? "" : " (provisional — verify operating state)"}`
         : fieldHeading;
+    // Do not use the absence of abnormal measurements alone as proof that
+    // equipment is healthy. This message requires positively classified core
+    // references and no competing evidence-supported fault.
+    const coreReferencesNormalWithoutFault =
+        (facts.has("FACT_CORE_REFRIGERATION_VALUES_WITHIN_REFERENCE") ||
+         facts.has("FACT_OPERATING_PATTERN_WITHIN_REFERENCE")) &&
+        !result.diagnoses.length && !result.conditions?.length &&
+        !result.hypotheses.length && !hasCondAirProblem && !hasEvapAirProblem;
+    const finalDisplayHeading = coreReferencesNormalWithoutFault
+        ? `Core refrigeration readings within reference — verify load and controls${steadyStateEstablished ? "" : " (provisional)"}`
+        : displayHeading;
+    const normalReferenceSummary = "Evaporator SAT, condenser SAT and superheat are within applicable references; this does not establish that the box is cooling adequately. Verify operating state, setpoint, run time, product load, door infiltration and airflow.";
+    const finalFieldSummary = coreReferencesNormalWithoutFault
+        ? normalReferenceSummary : null;
     const fieldCausesHtml = fieldCauseItems.length
         ? fieldCauseItems.map((cause,index)=>`<div style="margin-top:6px;">${index+1}. ${cause}</div>`).join("")
         : `<div style="margin-top:6px;">Cause not yet established — follow the next check.</div>`;
@@ -5642,8 +5656,8 @@ function buildKnowledgeHubComparison(state, observationValue) {
     return `
         <div style="margin-top:16px;padding:14px;border:1px solid #b9d7e8;border-radius:8px;background:#f7fbfd;">
             <div style="font-size:0.72em;letter-spacing:0.12em;color:#277fb5;font-weight:700;">SYSTEM CHECK</div>
-            <div style="margin-top:7px;font-size:1.08em;font-weight:700;color:#263746;">${displayHeading}</div>
-            <div style="margin-top:6px;color:#526575;line-height:1.4;">${fieldSummary}</div>
+            <div style="margin-top:7px;font-size:1.08em;font-weight:700;color:#263746;">${finalDisplayHeading}</div>
+            <div style="margin-top:6px;color:#526575;line-height:1.4;">${finalFieldSummary || fieldSummary}</div>
 
             <div style="margin-top:14px;">
                 <div style="font-size:0.72em;letter-spacing:0.10em;color:#5f7180;font-weight:700;">POSSIBLE CAUSES</div>

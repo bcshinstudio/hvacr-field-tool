@@ -1,10 +1,20 @@
+# Change log
+
+## 2.3.3 — Consolidated evidence and diagnosis consistency (2026-10-28)
+
+- Fixed a shared reasoning defect: an unavailable receiver-specific subcooling reference no longer **excludes** low system charge. Low charge stays an unconfirmed competitor alongside restrictions and TXV underfeeding when supported by other measurements.
+- Aligned Walk-In Cooler superheat fallback classification between Calculations and System Check, including provisional Unknown-state readings. Broad 5–20°F screening interval is overridden by an applicable equipment/valve-specific reference; it does not prove correct charge.
+- With reference-normal evaporator SAT, condensing SAT and superheat on a receiver-equipped system, the Brain avoids speculative refrigerant-feed faults when no independent abnormal or direct evidence exists. The absence of a receiver subcooling target is not interpreted as normal charge.
+- With such core-normal readings, System Check prioritizes cabinet load/infiltration, controls, and runtime checks rather than valve replacement or charge changes. Missing references and contradictory readings do not trigger this rule.
+- Added input-to-rendered-output differential tests covering normal-core, low-charge alternative preservation, low superheat display and nearby counterexamples. Preserved prior passing tests.
+- Known limits: interactive browser navigation was unavailable in the test environment, and not every physical diagnosis can be uniquely established from the input measurements. The 15-case runner validates runtime reasoning paths, not independently supplied answer keys.
+
 ## 2026-10-27 — Shared reach-in screening and restriction evidence
 
 - Connected reach-in screening superheat/subcooling ranges to both display and knowledge fact generation.
 - Added high-subcooling evidence to the general liquid-line restriction vs. low-charge differential.
 - Added cross-system/receiver regression tests; no prior passing tests regressed.
 
-# Change log
 
 ## 2.3.0 — Shared evidence and application-reference integration
 
