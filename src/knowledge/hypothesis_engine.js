@@ -164,7 +164,9 @@ function preferredCheck(checks,discriminators,validFacts,hypotheses,conditions,c
   // to rank causes. This is generic registry metadata, not a scenario-specific branch.
   // Completed checks and equipment scope still take precedence over the hint.
   for(const c of checks||[]){
-    if(!(c.priority_when_facts_present||[]).some(f=>validFacts.has(f)))continue;
+    const any=c.priority_when_facts_present||[];
+    const all=c.priority_when_all_facts_present||[];
+    if(!(any.some(f=>validFacts.has(f)) || (all.length>0 && all.every(f=>validFacts.has(f)))))continue;
     if(checkAllowed(c,context) && !checkComplete(c,validFacts,completedChecks,context))return c.id;
   }
   // Establishing operating state is a prerequisite, not a fault-specific test.
@@ -227,6 +229,14 @@ export function evaluateHypotheses({
   // low charge as a hypothesis rather than a supported diagnosis until heat rejection,
   // restriction/noncondensables, measurement validity and charge evidence are separated.
   if(factState.valid.has("FACT_EVAP_SH_HIGH") && factState.valid.has("FACT_SUBCOOLING_LOW") && factState.valid.has("FACT_COND_SAT_HIGH") && !factState.valid.has("FACT_LEAK_CONFIRMED")){
+    supported=supported.filter(x=>x.candidate!=="CAUSE_LOW_REFRIGERANT_CHARGE");
+  }
+  // A generic subcooling threshold cannot establish system charge when its
+  // reference is explicitly inapplicable to the receiver/location. Only an
+  // independent charge indicator can support a direct low-charge diagnosis.
+  if(factState.valid.has("FACT_SC_REFERENCE_NOT_APPLICABLE") &&
+     !factState.valid.has("FACT_LEAK_CONFIRMED") &&
+     !factState.valid.has("FACT_OIL_STAIN_OR_LEAK_EVIDENCE")){
     supported=supported.filter(x=>x.candidate!=="CAUSE_LOW_REFRIGERANT_CHARGE");
   }
   // High suction together with low head contradicts a confident low-charge

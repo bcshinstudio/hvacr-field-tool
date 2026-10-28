@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {evaluateHypotheses} from '../src/knowledge/hypothesis_engine.js';
+const load=p=>JSON.parse(fs.readFileSync(new URL(p,import.meta.url),'utf8')).items;
+const shared={rules:load('../data/knowledge/core/evidence_rules.json'),relationships:load('../data/knowledge/core/relationships.json'),discriminators:load('../data/knowledge/core/discriminators.json'),checks:load('../data/knowledge/core/checks.json'),application:'APP_WIC',operatingState:'STABLE_COOLING',configuration:['TXV']};
+const evaluate=facts=>evaluateHypotheses({...shared,facts});
+const cause='CAUSE_LOW_REFRIGERANT_CHARGE';
+const unsupported=evaluate(['FACT_SUBCOOLING_LOW','FACT_SUBCOOLING_MEASURED','FACT_RECEIVER_PRESENT','FACT_SC_REFERENCE_NOT_APPLICABLE']);
+assert(!unsupported.diagnoses.some(x=>x.candidate===cause),'non-applicable subcooling alone must not support low charge');
+const normal=evaluate(['FACT_EVAP_SH_HIGH','FACT_EVAP_SAT_LOW','FACT_SUBCOOLING_LOW']);
+assert(normal.diagnoses.some(x=>x.candidate===cause),'applicable independent diagnostic pattern must preserve previous supported behavior');
+const leak=evaluate(['FACT_SUBCOOLING_LOW','FACT_SC_REFERENCE_NOT_APPLICABLE','FACT_OIL_STAIN_OR_LEAK_EVIDENCE']);
+assert(leak.diagnoses.some(x=>x.candidate===cause),'independent leak evidence must remain significant');
+console.log('PASS receiver reference safety: invalid screening, standard pattern, independent leak evidence');

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {evaluateHypotheses} from '../src/knowledge/hypothesis_engine.js';
+const read=(name)=>JSON.parse(fs.readFileSync(new URL(`../data/knowledge/core/${name}.json`,import.meta.url),'utf8')).items;
+const data={rules:read('evidence_rules'),relationships:read('relationships'),discriminators:read('discriminators'),checks:read('checks')};
+const run=(facts)=>evaluateHypotheses({...data,facts,application:'APP_WIC',configuration:['TXV'],operatingState:'STABLE_COOLING'}).nextCheck;
+assert.equal(run(['FACT_COMPRESSOR_HOT','FACT_EVAP_SAT_LOW','FACT_COND_SAT_HIGH']),'CHECK_OVERHEAT_CAUSE','multiple compressor-stress factors should prompt root-cause inspection before restart');
+assert.equal(run(['FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD','FACT_COND_SAT_LOW','FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK']),'CHECK_COMPRESSOR_CONTEXT','weak compressor pressure differential needs contextual verification');
+assert.notEqual(run(['FACT_COMPRESSOR_HOT']),'CHECK_OVERHEAT_CAUSE','isolated compressor temperature is not the combined evidence pattern');
+assert.notEqual(run(['FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD']),'CHECK_COMPRESSOR_CONTEXT','high suction alone should not trigger context-priority override');
+console.log('PASS combined next-check priorities (4 assertions)');

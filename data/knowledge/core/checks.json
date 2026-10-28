@@ -257,7 +257,7 @@
     },
     {
       "id": "CHECK_ESTABLISH_OPERATING_STATE",
-      "label": "Verify the system is actively cooling: confirm there is a cooling call and the compressor is running normally—not in defrost, pump-down, startup, or already satisfied. If it is actively cooling and readings have stabilized, select Stable cooling in Operating State above. System Check will update automatically and show the next refrigeration check.",
+      "label": "Verify the system is actively cooling: confirm there is a cooling call and the compressor is running normally\u2014not in defrost, pump-down, startup, or already satisfied. If it is actively cooling and readings have stabilized, select Stable cooling in Operating State above. System Check will update automatically and show the next refrigeration check.",
       "produces": [
         "FACT_OPERATING_STATE_CONFIRMED"
       ],
@@ -404,21 +404,33 @@
     },
     {
       "id": "CHECK_COMPRESSOR_CONTEXT",
-      "label": "Measure suction/discharge pressures and electrical values, then compare with model-specific operating data",
+      "label": "Verify gauges, load and bypass/unloader state, then evaluate compressor pumping efficiency against model-specific pressures and electrical readings",
       "produces": [
+        "FACT_COMPRESSOR_PUMPING_CONTEXT_VERIFIED"
+      ],
+      "practicality": "HIGH",
+      "priority_when_all_facts_present": [
+        "FACT_SUCTION_PRESSURE_HIGH_FOR_LOAD",
         "FACT_COMPRESSOR_PRESSURE_DIFFERENTIAL_WEAK"
       ],
-      "practicality": "HIGH"
+      "priority_when_facts_present": [
+        "FACT_HIGH_SUCTION_LOW_HEAD_PATTERN"
+      ]
     },
     {
       "id": "CHECK_OVERHEAT_CAUSE",
-      "label": "Determine whether high head, low suction/high superheat, load or electrical conditions caused compressor overheating before replacing protection/compressor",
+      "label": "Check and correct suction-side starvation or load and high-side heat-rejection causes of compressor overheating before repeated operation",
       "produces": [],
       "practicality": "HIGH",
       "priority_when_facts_present": [
         "FACT_OVERHEAT_CAUSE_UNRESOLVED"
       ],
-      "priority_reason": "Resolve explicit missing or unreliable diagnostic context before ranking fault-specific checks."
+      "priority_reason": "Resolve explicit missing or unreliable diagnostic context before ranking fault-specific checks.",
+      "priority_when_all_facts_present": [
+        "FACT_COMPRESSOR_HOT",
+        "FACT_EVAP_SAT_LOW",
+        "FACT_COND_SAT_HIGH"
+      ]
     }
   ]
 }
