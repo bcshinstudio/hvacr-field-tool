@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 
 // This gate uses the production PT-to-fact-to-cause path, not the approximate
 // hand-entered temperature test. No textbook-case-specific rules are added.
-execFileSync(process.execPath,[new URL('real_pt_chain_regression.mjs',import.meta.url).pathname],{stdio:'pipe'});
+execFileSync(process.execPath,[fileURLToPath(new URL('real_pt_chain_regression.mjs', import.meta.url))],{stdio:'pipe'});
 const rows=JSON.parse(fs.readFileSync(new URL('real_pt_chain_results.json',import.meta.url),'utf8')).cases;
 assert.equal(rows.length,15,'all Chapter 7 cases must be exercised');
 const byId=new Map(rows.map(r=>[r.problem,r]));

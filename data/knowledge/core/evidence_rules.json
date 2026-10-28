@@ -99,7 +99,8 @@
           "STABLE_COOLING",
           "PULLDOWN"
         ]
-      }
+      },
+      "screening_priority": 0
     },
     {
       "id": "RULE_NONCONDENSABLES",
@@ -140,7 +141,8 @@
           "PULLDOWN"
         ]
       },
-      "notes": "Requires service-history/pressure-temperature context; do not infer from high head alone."
+      "notes": "Requires service-history/pressure-temperature context; do not infer from high head alone.",
+      "screening_priority": 0
     },
     {
       "id": "RULE_FILTER_DRIER_RESTRICTION",
@@ -530,7 +532,8 @@
           "STABLE_COOLING",
           "PULLDOWN"
         ]
-      }
+      },
+      "screening_priority": 20
     },
     {
       "id": "RULE_COND_FAN",
@@ -642,7 +645,8 @@
           "STABLE_COOLING",
           "PULLDOWN"
         ]
-      }
+      },
+      "screening_priority": 15
     },
     {
       "id": "RULE_HIGH_AMBIENT",

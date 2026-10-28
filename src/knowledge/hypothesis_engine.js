@@ -220,7 +220,14 @@ export function evaluateHypotheses({
   const gate=stateGate(context);
   const factState=normalizeFacts(facts,factRecords);
   const completed=new Set(completedChecks||[]);
-  let all=rules.map(r=>evidenceFor(r,factState,context)).sort((a,b)=>b.score-a.score);
+  // Evidence score governs ranking. For equal scores only, prefer the
+  // rule's documented noninvasive screening order instead of JSON file order.
+  // Stronger measured/direct evidence always wins over this tie-breaker.
+  const screeningPriority=new Map(rules.map(r=>[r.id,Number(r.screening_priority)||0]));
+  let all=rules.map(r=>evidenceFor(r,factState,context)).sort((a,b)=>
+    (b.score-a.score) ||
+    ((screeningPriority.get(b.ruleId)||0)-(screeningPriority.get(a.ruleId)||0))
+  );
   const dedupeBest=items=>{
     const m=new Map();
     for(const x of items){const prev=m.get(x.candidate);if(!prev||x.score>prev.score)m.set(x.candidate,x);}
@@ -264,6 +271,18 @@ export function evaluateHypotheses({
   const conditionCauses=conditionCauseCandidates(conditions,relationships,context.application ? context.configuration : null);
   const diagnoses=supported;
   const hypotheses=[...supported,...plausible].filter((x,i,a)=>a.findIndex(y=>y.candidate===x.candidate)===i);
+  // A lone high condensing SAT cannot distinguish overcharge, noncondensables,
+  // airflow obstruction or recirculation. Their equal evidence scores must not
+  // become an arbitrary charge-first recommendation based on JSON rule order.
+  // For this unresolved high-head pattern, order tied *provisional* candidates
+  // by noninvasive, directly inspectable heat-rejection checks first. Keep the
+  // alternatives visible, and never override stronger independent evidence.
+  const highHeadOnly=[...factState.valid].filter(f=>
+    f.startsWith("FACT_") && /(?:_HIGH|_LOW|_DROP|_RESTRICTION|_LEAK|_FAULT|_NOT_RUNNING)$/.test(f));
+  if(highHeadOnly.length===1 && highHeadOnly[0]==="FACT_COND_SAT_HIGH" && !factState.valid.has("FACT_SUBCOOLING_HIGH")){
+    const inspectFirst=new Set(["CAUSE_COND_AIRFLOW_RESTRICTION","CAUSE_COND_FAN_FAILURE","CAUSE_HOT_AIR_RECIRCULATION","CAUSE_CONDENSER_RECIRCULATION"]);
+    hypotheses.sort((a,b)=>b.score-a.score || Number(inspectFirst.has(b.candidate))-Number(inspectFirst.has(a.candidate)));
+  }
   const conflicts=all.filter(x=>x.contradictions>0)
     .map(x=>({candidate:x.candidate,ruleId:x.ruleId,score:x.score,state:x.state,contradictions:x.evidence.filter(e=>(e.role==="CONTRADICT"||e.role==="STRONG_CONTRADICT")&&(e.state==="PRESENT"||e.state==="SUSPECT")).map(e=>e.fact)}));
   const suspectFacts=[...factState.suspect],invalidFacts=[...factState.invalid];

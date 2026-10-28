@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {evaluateHypotheses} from '../../src/knowledge/hypothesis_engine.js';
+const J=n=>JSON.parse(fs.readFileSync(new URL(`../../data/knowledge/core/${n}.json`,import.meta.url),'utf8')).items;
+const args={rules:J('evidence_rules'),relationships:J('relationships'),checks:J('checks'),discriminators:J('discriminators'),application:'APP_WIC',operatingState:'STABLE_COOLING',configuration:['TXV','RECEIVER']};
+const test=facts=>evaluateHypotheses({...args,facts});
+const isolated=test(['FACT_COND_SAT_HIGH']);
+assert.equal(isolated.hypotheses[0]?.candidate,'CAUSE_COND_AIRFLOW_RESTRICTION');
+assert(isolated.hypotheses.some(x=>x.candidate==='CAUSE_OVERCHARGE'));
+assert.equal(isolated.nextCheck,'CHECK_VERIFY_COND_AIRFLOW');
+const directCharge=test(['FACT_COND_SAT_HIGH','FACT_OVERCHARGE_EVIDENCE']);
+assert.equal(directCharge.hypotheses[0]?.candidate,'CAUSE_OVERCHARGE','direct evidence must trump screening tie break');
+const normal=test(['FACT_EVAP_SH_MEASURED']);
+assert(!normal.hypotheses.some(x=>x.candidate==='CAUSE_COND_AIRFLOW_RESTRICTION'&&x.score>0),'do not manufacture high-head condition');
+console.log('PASS: screening tie resolution, stronger direct evidence and normal control');
