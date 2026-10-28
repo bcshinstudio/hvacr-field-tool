@@ -4278,11 +4278,11 @@ function buildCalculationsTool() {
         if (Number.isFinite(low) && Number.isFinite(high)) return "NORMAL";
         return null;
     };
-    const readingRow = (label, value, classification, estimated = false) => {
+    const readingRow = (label, value, classification, estimated = false, screening = false) => {
         const abnormal = classification === "LOW" || classification === "HIGH";
         const accent = abnormal ? "#a94f18" : "#277fb5";
         const status = classification === "NORMAL" || abnormal
-            ? `<span style="font-size:0.75em;font-weight:700;margin-left:6px;color:${abnormal ? accent : "#26754e"};">${classification}</span>`
+            ? `<span style="font-size:0.75em;font-weight:700;margin-left:6px;color:${abnormal ? accent : "#26754e"};">${classification}${screening ? " · SCREEN" : ""}</span>`
             : classification === "REFERENCE_NA" && value !== "—"
                 ? `<span style="font-size:0.75em;font-weight:600;margin-left:6px;color:#677987;" title="No applicable reference range; numeric reading is not classified">REF N/A</span>`
                 : "";
@@ -4296,7 +4296,13 @@ function buildCalculationsTool() {
         currentSystem?.components?.some(c => c.id === "txv" && isComponentInstalled(c) && c.subtype === "txv")))
         ? activeReferenceProfile?.evaporatorSuperheat?.fallback : null;
     const hasReceiver = currentSystem?.components?.some(c => c.id === "receiver" && isComponentInstalled(c));
-    const applicableScRange = !hasReceiver && isReachIn ? activeReferenceProfile?.condenserSubcooling?.fallback : null;
+    // Chapter 7 walk-in systems: educational 5–20°F subcooling screening
+    // only. This is display-only and MUST NOT feed charge diagnosis or its
+    // evidence facts. Manufacturer/design targets supersede screening ranges.
+    const walkInScScreening = ["walk_in_cooler", "walk_in_freezer"].includes(currentSystem?.id) && hasReceiver;
+    const chapter7ScScreenRange = { low: 5, high: 20 };
+    const applicableScRange = walkInScScreening ? chapter7ScScreenRange :
+        (!hasReceiver && isReachIn ? activeReferenceProfile?.condenserSubcooling?.fallback : null);
 
     const valueRow = (label, value, emphasize = false) => `
         <div style="color: #5f7180;">${label}</div>
@@ -4385,7 +4391,8 @@ function buildCalculationsTool() {
                     ${readingRow("Saturation Temperature", formatCalculatedTemperature(condenserSaturationTemperature), classifyReading(condenserSaturationTemperature, expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Reference SAT Range", formatTemperatureRange(expectedCondenserSaturationLow, expectedCondenserSaturationHigh))}
                     ${valueRow("Outlet Temperature", formatCalculatedTemperature(condenserOutletTemperature))}
-                    ${readingRow(condenserSubcoolingEstimated ? "Subcooling (Estimated)" : "Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), (classifyReading(condenserOutletSubcooling, applicableScRange?.low, applicableScRange?.high) || "REFERENCE_NA"), condenserSubcoolingEstimated)}
+                    ${walkInScScreening ? valueRow("SC Screening Range (Chapter 7)", "5–20°F; not a charge target") : ""}
+                    ${readingRow(condenserSubcoolingEstimated ? "Subcooling (Estimated)" : "Subcooling", formatCalculatedTemperature(condenserOutletSubcooling), (classifyReading(condenserOutletSubcooling, applicableScRange?.low, applicableScRange?.high) || "REFERENCE_NA"), condenserSubcoolingEstimated, walkInScScreening)}
                 </div>
                 <details style="margin-top:6px; font-size:0.92em; color:#5f7180;">
                     <summary style="cursor:pointer; color:#277fb5;">Details</summary>
